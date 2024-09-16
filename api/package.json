@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "main": "src/app.js",
   "scripts": {
-    "api": "node src/app.js",
-    "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
-    "prettier:check": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\""
+    "api": "node src/app.js"
   },
   "author": "",
   "license": "",
@@ -13,8 +11,5 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.0"
-  },
-  "devDependencies": {
-    "prettier": "3.3.3"
   }
 }
