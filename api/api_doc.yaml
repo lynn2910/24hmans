@@ -1,0 +1,20 @@
+swagger: '2.0'
+info:
+  title: API 24h du mans
+  description: la documentation de l'API du site des 24h du mans
+  version: 0.0.1
+host: "localhost:4629"
+basePath: '/'
+schemes:
+  - 'http'
+paths:
+  '/':
+    get:
+      summary: "Une route de test pour vérifier l'API fonctionne"
+      produces:
+        - 'text'
+      responses:
+        200:
+          description: "Renvoie 'Hello world'"
+
+  
