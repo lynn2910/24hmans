@@ -13,5 +13,6 @@ todo
 Structure du fichier `api/.env`:
 ```dotenv
 API_PORT=4629
+PROD=false
 ```
-_Le port `4629` pour le développement est recommandé car c'est celui-ci qui est utilisé dans Swagger_
+_Le port `4629` est recommandé pour le développement, car c'est celui-ci qui est utilisé dans Swagger_

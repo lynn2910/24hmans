@@ -1,6 +1,8 @@
 api/.env
+frontend/.env
 */node_modules
 .idea
 .vscode
 
 api/package-lock.json
+api/node_modules

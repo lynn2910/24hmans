@@ -1,8 +1,18 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
+require("dotenv").config();
 
 app.use(express.json());
-require("dotenv").config();
+
+// Système de logger
+if (process.env.PROD)
+  // En production
+  app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length]b'));
+else
+  // En développement
+  app.use(morgan(':method :url :status :response-time ms - :res[content-length]b'));
+
 
 app.get("/", function (req, res) {
   res.send("Hello World");
