@@ -1,9 +1,9 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "src/app.js",
+  "main": "src/api.js",
   "scripts": {
-    "api": "node src/app.js"
+    "run": "nodemon src/api.js"
   },
   "author": "",
   "license": "",
