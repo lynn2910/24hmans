@@ -3,7 +3,7 @@ import PrestataireDashboardTemplate from "@/components/dashboard/PrestataireDash
 </script>
 
 <template>
-	<PrestataireDashboardTemplate>
+	<PrestataireDashboardTemplate current-page="home">
 		<p>Je suis un dashboard</p>
 	</PrestataireDashboardTemplate>
 </template>

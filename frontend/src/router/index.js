@@ -21,7 +21,12 @@ const routes = [
     {
         path: "/prestataire/panel/:prestataire_id",
         name: "prestataire_dashboard",
-        component: () => import( '../views/PrestataireDashboardView.vue')
+        component: () => import( '../views/prestataire_panel/PrestataireDashboardView.vue')
+    },
+    {
+        path: "/prestataire/panel/:prestataire_id/statistiques",
+        name: "prestataire_dashboard_stats",
+        component: () => import( '../views/prestataire_panel/PrestataireDashboardStatsView.vue')
     }
 ]
 

@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-row w-screen h-screen">
-		<div class="bg-dark w-1/6 h-screen text-white min-w-40 flex flex-col">
+		<div class="bg-dark h-screen text-white w-56 flex flex-col">
 			<div class="w-full py-3">
 				<IconEvent class="m-auto"></IconEvent>
 			</div>
@@ -18,6 +18,8 @@
 								fill="white"/>
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Dashboard</h2>
+
+					<div v-if="currentPage === 'home'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
 										 :to="`/prestataire/panel/${$route.params.prestataire_id}/statistiques`">
@@ -27,6 +29,8 @@
 								fill="white"/>
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Statistiques</h2>
+
+					<div v-if="currentPage === 'stats'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
 
 				<!-- Titre "SERVICES" -->
@@ -304,7 +308,7 @@
 			</div>
 		</div>
 		<!-- Le contenu iras ici -->
-		<div class="w-5/6 h-screen">
+		<div class="w-full h-screen">
 			<slot></slot>
 		</div>
 	</div>
@@ -321,7 +325,20 @@ store.dispatch('getLoggedInUser', '45309281-fc24-4e02-ad47-a275c64f5327');
 export default {
 	name: "PrestataireDashboardTemplate",
 	components: {IconEvent},
-	props: {},
+	props: {
+		/**
+		 * La page actuelle où nous sommes.
+		 *
+		 * Peut-être :
+		 * - "home"
+		 * - "stats"
+		 * - "boutique"
+		 * - "ecuries"
+		 * - "karting"
+		 * - "montgol"
+		 */
+		currentPage: String
+	},
 	data() {
 		return {
 			publicPath: process.env.BASE_URL
