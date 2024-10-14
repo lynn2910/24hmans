@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/api.js",
   "scripts": {
-    "run": "nodemon src/api.js"
+    "api": "nodemon src/api.js"
   },
   "author": "",
   "license": "",
