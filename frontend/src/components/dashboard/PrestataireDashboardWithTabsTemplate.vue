@@ -12,6 +12,7 @@
 			</div>
 		</div>
 
+		
 		<!-- Pages -->
 		<div class="flex flex-row h-full">
 			<div class="w-3 bg-dark h-full"></div>
