@@ -14,8 +14,16 @@ module.exports = {
             emerald: colors.emerald,
             indigo: colors.indigo,
             yellow: colors.yellow,
-            dark: "#1A1818"
-        }
+            dark: "#1A1818",
+            red: colors.red
+        },
+        extend: {
+            boxShadow: {
+                'red-700': '0px 0px 15px #D4002A',
+                'blue-700': '0px 0px 15px #07327F',
+                'green-700': '0px 0px 15px #2E7359',
+            },
+        },
     },
     variants: {},
     plugins: [],
