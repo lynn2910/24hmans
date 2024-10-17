@@ -320,7 +320,7 @@ import store from "@/store/index"
 import {mapActions, mapState} from 'vuex'
 
 // IMPORTANT fetch the logged user (for the tests at least)
-store.dispatch('getLoggedInUser', '45309281-fc24-4e02-ad47-a275c64f5327');
+store.dispatch('prestataire/login/getLoggedInUser', '45309281-fc24-4e02-ad47-a275c64f5327');
 
 export default {
 	name: "PrestataireDashboardTemplate",
@@ -345,10 +345,10 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['loggedInUser'])
+		...mapState('prestataire/login', ['loggedInUser'])
 	},
 	methods: {
-		...mapActions(['logOut']),
+		...mapActions('prestataire/login', ['getLoggedInUser', 'logOut']),
 	}
 }
 </script>
