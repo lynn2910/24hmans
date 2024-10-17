@@ -12,8 +12,9 @@ const tabs = [
 const activeTab = ref(tabs[0].id);
 
 function changeTab(newTab) {
-	console.log("New tab")
+	console.log(`New tab. activeTab = ${newTab}`)
 	activeTab.value = newTab;
+	console.log(activeTab.value);
 }
 
 console.log(activeTab)
