@@ -21,7 +21,7 @@ export default {
     actions: {
         async getLoggedInUser({commit}, data) {
             console.log("Get logged in user");
-            let res = await PrestataireService.getPrestataire(data);
+            let res = await PrestataireService.getPrestataireFromName(data);
 
             if (!res.error) {
                 console.log(res.data)

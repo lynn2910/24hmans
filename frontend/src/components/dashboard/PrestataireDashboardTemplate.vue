@@ -8,7 +8,7 @@
 			<div class="w-max ml-2 mt-5">
 				<!-- Dashboard (home) + statistiques-->
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-										 :to="`/prestataire/panel/${$route.params.prestataire_id}/`">
+										 :to="`/prestataire/${$route.params.prestataire_name}/panel/`">
 					<svg height="31" width="31" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path
 								d="M19 0C8.5234 0 0 8.5234 0 19C0 29.4766 8.5234 38 19 38C29.4766 38 38 29.4766 38 19C38 8.5234 29.4766 0 19 0ZM19 34.2C10.6191 34.2 3.8 27.3809 3.8 19C3.8 10.6191 10.6191 3.8 19 3.8C27.3809 3.8 34.2 10.6191 34.2 19C34.2 27.3809 27.3809 34.2 19 34.2Z"
@@ -22,7 +22,7 @@
 					<div v-if="currentPage === 'home'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-										 :to="`/prestataire/panel/${$route.params.prestataire_id}/statistiques`">
+										 :to="`/prestataire/${$route.params.prestataire_name}/panel/statistiques`">
 					<svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path
 								d="M6.49984 30.2498H1.74984C1.32991 30.2498 0.927184 30.083 0.630251 29.7861C0.333319 29.4892 0.166504 29.0864 0.166504 28.6665V15.9998C0.166504 15.5799 0.333319 15.1772 0.630251 14.8803C0.927184 14.5833 1.32991 14.4165 1.74984 14.4165H6.49984C6.91976 14.4165 7.32249 14.5833 7.61942 14.8803C7.91636 15.1772 8.08317 15.5799 8.08317 15.9998V28.6665C8.08317 29.0864 7.91636 29.4892 7.61942 29.7861C7.32249 30.083 6.91976 30.2498 6.49984 30.2498ZM17.5832 30.2498H12.8332C12.4132 30.2498 12.0105 30.083 11.7136 29.7861C11.4167 29.4892 11.2498 29.0864 11.2498 28.6665V1.74984C11.2498 1.32991 11.4167 0.927184 11.7136 0.630251C12.0105 0.333319 12.4132 0.166504 12.8332 0.166504H17.5832C18.0031 0.166504 18.4058 0.333319 18.7028 0.630251C18.9997 0.927184 19.1665 1.32991 19.1665 1.74984V28.6665C19.1665 29.0864 18.9997 29.4892 18.7028 29.7861C18.4058 30.083 18.0031 30.2498 17.5832 30.2498ZM28.6665 30.2498H23.9165C23.4966 30.2498 23.0938 30.083 22.7969 29.7861C22.5 29.4892 22.3332 29.0864 22.3332 28.6665V11.2498C22.3332 10.8299 22.5 10.4272 22.7969 10.1303C23.0938 9.83332 23.4966 9.6665 23.9165 9.6665H28.6665C29.0864 9.6665 29.4892 9.83332 29.7861 10.1303C30.083 10.4272 30.2498 10.8299 30.2498 11.2498V28.6665C30.2498 29.0864 30.083 29.4892 29.7861 29.7861C29.4892 30.083 29.0864 30.2498 28.6665 30.2498Z"
@@ -39,7 +39,7 @@
 
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/prestataire/panel/${$route.params.prestataire_id}/service/boutique`">
+						:to="`/prestataire/${$route.params.prestataire_name}/panel/service/boutique`">
 					<svg class="my-auto" width="37" height="38" viewBox="0 0 37 38" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -86,7 +86,7 @@
 				</router-link>
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/prestataire/panel/${$route.params.prestataire_id}/service/karting`">
+						:to="`/prestataire/${$route.params.prestataire_name}/panel/service/karting`">
 					<svg class="my-auto" width="36" height="17" viewBox="0 0 36 17" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -135,7 +135,7 @@
 				</router-link>
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/prestataire/panel/${$route.params.prestataire_id}/service/billeterie`">
+						:to="`/prestataire/${$route.params.prestataire_name}/panel/service/billeterie`">
 					<svg class="my-auto" width="27" height="38" viewBox="0 0 27 38" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -169,7 +169,7 @@
 				</router-link>
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/prestataire/panel/${$route.params.prestataire_id}/service/ecuries`">
+						:to="`/prestataire/${$route.params.prestataire_name}/panel/service/ecuries`">
 					<svg class="my-auto" width="38" height="14" viewBox="0 0 38 14" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -236,7 +236,7 @@
 				</router-link>
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/prestataire/panel/${$route.params.prestataire_id}/service/montgolfieres`">
+						:to="`/prestataire/${$route.params.prestataire_name}/panel/service/montgolfieres`">
 					<svg class="my-auto" width="37" height="39" viewBox="0 0 37 39" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<path
@@ -286,7 +286,7 @@
 			<!-- Compte du prestataire -->
 			<div
 					class="border-white border-t-2 w-5/6 p-1 mx-auto mt-auto h-20 flex flex-row content-center align-middle py-2">
-				<router-link :to="`/prestataire/${$route.params.prestataire_id}`"
+				<router-link :to="`/prestataire/${$route.params.prestataire_name}`"
 										 class="flex flex-row content-center align-middle hover:bg-gray-50 hover:bg-opacity-5 hover:rounded-2xl">
 					<img class="w-16 h-auto" :src="`${publicPath}${loggedInUser.icon}`" alt="icon">
 
@@ -319,12 +319,12 @@ import IconEvent from "@/components/icons/IconEvent.vue";
 import store from "@/store/index"
 import {mapActions, mapState} from 'vuex'
 
-// IMPORTANT fetch the logged user (for the tests at least)
-store.dispatch('prestataire/login/getLoggedInUser', '45309281-fc24-4e02-ad47-a275c64f5327');
-
 export default {
 	name: "PrestataireDashboardTemplate",
 	components: {IconEvent},
+	async beforeMount() {
+		await store.dispatch('prestataire/login/getLoggedInUser', this.$route.params.prestataire_name);
+	},
 	props: {
 		/**
 		 * La page actuelle où nous sommes.
@@ -332,7 +332,7 @@ export default {
 		 * Peut-être :
 		 * - "home"
 		 * - "stats"
-		 * - "boutique"
+		 * - "shop"
 		 * - "ecuries"
 		 * - "karting"
 		 * - "montgol"

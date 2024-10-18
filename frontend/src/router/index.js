@@ -19,17 +19,17 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
     {
-        path: "/prestataire/panel/:prestataire_id",
+        path: "/prestataire/:prestataire_name/panel",
         name: "prestataire_dashboard",
         component: () => import( '../views/prestataire_panel/PrestataireDashboardView.vue')
     },
     {
-        path: "/prestataire/panel/:prestataire_id/statistiques",
+        path: "/prestataire/:prestataire_name/panel/statistiques",
         name: "prestataire_dashboard_stats",
         component: () => import( '../views/prestataire_panel/PrestataireDashboardStatsView.vue')
     },
     {
-        path: "/prestataire/:prestataire_id",
+        path: "/prestataire/:prestataire_name",
         name: "prestataire_profile",
         component: () => import("../views/PrestataireProfil.vue")
     },
@@ -37,6 +37,11 @@ const routes = [
         path: "/ecuries",
         name: "visite ecuries",
         component: () => import('../views/services/VisiteEcurie.vue')
+    },
+    {
+        path: "/boutique/:prestataire_name",
+        name: "shop_view",
+        component: () => import( '../views/services/shop/ShopView.vue')
     }
 ]
 

@@ -35,7 +35,7 @@ export default {
 		 * Peut-être :
 		 * - "home"
 		 * - "stats"
-		 * - "boutique"
+		 * - "shop"
 		 * - "ecuries"
 		 * - "karting"
 		 * - "montgol"

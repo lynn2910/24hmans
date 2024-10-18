@@ -11,4 +11,11 @@ function getPrestataire(id) {
     return {error: 0, status: 200, data: presta};
 }
 
-export default {getPrestataire};
+function getPrestataireFromName(name) {
+    let presta = prestataires.find(p => p.name.toLowerCase() === name.toLowerCase());
+
+    if (!presta) return {error: 1, status: 404, data: "prestataire inexistant"};
+    return {error: 0, status: 200, data: presta};
+}
+
+export default {getPrestataire, getPrestataireFromName};

@@ -39,9 +39,9 @@
 <script>
 export default {
 	name: "IconEvent",
-  props: {
-    width: {type: Number, default: 113},
-    height: {type: Number, default: 74}
-  }
+	props: {
+		width: {type: String, default: "113"},
+		height: {type: String, default: "74"}
+	}
 }
 </script>

@@ -3,7 +3,7 @@ import PrestataireDashboardWithTabsTemplate from "@/components/dashboard/Prestat
 import {ref} from "vue";
 
 const tabs = [
-	{id: "boutique", name: "Boutique"},
+	{id: "shop", name: "Boutique"},
 	{id: "karting", name: "Karting"},
 	{id: "billeterie", name: "Billeterie"},
 	{id: "ecuries", name: "Visites de garage"},
@@ -23,7 +23,7 @@ console.log(activeTab)
 <template>
 	<PrestataireDashboardWithTabsTemplate :current-tab="activeTab" current-page="stats" :tabs="tabs"
 																				v-on:changeTab="changeTab">
-		<div v-if="activeTab === 'boutique'">boutique</div>
+		<div v-if="activeTab === 'shop'">boutique</div>
 		<div v-if="activeTab === 'karting'">karting</div>
 		<div v-if="activeTab === 'billeterie'">billeterie</div>
 		<div v-if="activeTab === 'ecuries'">ecuries</div>
