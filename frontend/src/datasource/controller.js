@@ -1,4 +1,4 @@
-import {prestataires} from "@/datasource/prestataires";
+import {boutiques, prestataires} from "@/datasource/prestataires";
 
 /**
  * Obtiens les informations sur le prestataire, s'il existe
@@ -11,6 +11,11 @@ function getPrestataire(id) {
     return {error: 0, status: 200, data: presta};
 }
 
+/**
+ * Obtiens les informations sur le prestataire, s'il existe
+ * @param {string} name Le nom du prestataire
+ * @returns {{data: string, error: number, status: number}|{data: Prestataire, error: number, status: number}}
+ */
 function getPrestataireFromName(name) {
     let presta = prestataires.find(p => p.name.toLowerCase() === name.toLowerCase());
 
@@ -18,4 +23,11 @@ function getPrestataireFromName(name) {
     return {error: 0, status: 200, data: presta};
 }
 
-export default {getPrestataire, getPrestataireFromName};
+function getBoutiqueInfos(prestataire_id) {
+    let boutique = boutiques.find(b => b.prestataire_id === prestataire_id);
+
+    if (!boutique) return {error: 1, status: 404, data: "boutique inexistante"};
+    return {error: 0, status: 200, data: boutique};
+}
+
+export default {getPrestataire, getPrestataireFromName, getBoutiqueInfos};

@@ -87,5 +87,5 @@ VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 1, 'Porte-clé frein', 'be2cff03
         16.99),
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', 2, 'Porte-clé porsche', 'be2cff03-7d12-4369-acff-037d12a36993', 146,
         24.99),
-       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 3, 'Porte-clé frein', '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
-        16.99);
+       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 3, 'Écusson Porsche', '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
+        34.99);

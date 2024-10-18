@@ -38,11 +38,50 @@ let prestataires = [
 ]
 
 let boutiques = [
+    // Porsche
     {
         prestataire_id: "45309281-fc24-4e02-ad47-a275c64f5327",
+        shop_id: '5bc1bcf2-0d5e-4adf-9402-5dafa3777413',
+        categories: [
+            {category_label: "Écusson", category_id: "9af710a9-9c13-43d7-b710-a99c1323d77d"},
+            {category_label: "Porte-clé", category_id: "be2cff03-7d12-4369-acff-037d12a36993"}
+        ],
+        items: [
+            {
+                item_id: 1,
+                name: "Porte-clé frein",
+                image: null,
+                category: "be2cff03-7d12-4369-acff-037d12a36993",
+                stock: 79,
+                price: 16.99,
+                description: null
+            },
+            {
+                item_id: 2,
+                name: "Porte-clé porsche",
+                image: null,
+                category: "be2cff03-7d12-4369-acff-037d12a36993",
+                stock: 146,
+                price: 24.99,
+                description: null
+            },
+            {
+                item_id: 3,
+                name: "Écusson Porsche",
+                image: null,
+                category: "9af710a9-9c13-43d7-b710-a99c1323d77d",
+                stock: 14,
+                price: 34.99,
+                description: null
+            },
+        ]
     },
+    // 24h du mans
     {
-        prestataire_id: "524aaa51-09c1-48f1-85d3-ac878394e1ff"
+        prestataire_id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
+        shop_id: "473679fe-65b1-446e-8618-7e36c4a26a8b",
+        categories: [],
+        items: []
     }
 ]
 

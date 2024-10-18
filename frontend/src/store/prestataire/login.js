@@ -13,6 +13,7 @@ export default {
         updateLoggedInUser(state, loggedInUser) {
             state.loggedInUser = loggedInUser;
         },
+        // TODO ajouter la logique de déconnexion
         logOut(state) {
             state.loggedInUser = null;
             router.go(-1)
