@@ -308,7 +308,7 @@
 			</div>
 		</div>
 		<!-- Le contenu iras ici -->
-		<div class="w-full h-screen">
+		<div class="w-full h-screen bg-white text-black">
 			<slot></slot>
 		</div>
 	</div>

@@ -76,7 +76,7 @@ let boutiques = [
             },
         ]
     },
-    // 24h du mans
+    // 24h du Mans
     {
         prestataire_id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
         shop_id: "473679fe-65b1-446e-8618-7e36c4a26a8b",

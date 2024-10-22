@@ -42,10 +42,20 @@ export default {
 		}
 	},
 	methods: {
+		removeItem(item) {
+			console.log(item)
+			let index = this.selected.indexOf(item);
+			console.log(index)
+			if (index > -1) {
+				this.selected.splice(index, 1);
+
+				this.$emit("selectionChange", this.selected)
+			}
+		},
 		itemClicked(item) {
 			if (this.selected.includes(item)) {
 				// remove
-				this.selected.splice(this.selected.indexOf(item), 1)
+				this.removeItem(item);
 			} else {
 				this.selected.push(item)
 			}
