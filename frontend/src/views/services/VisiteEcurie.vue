@@ -70,7 +70,6 @@ export default {
  methods: {
   inscrire() {
    // Simule l'envoi des données et la confirmation par mail
-   // Dans une vraie application, ici, on enverrait les données à une API backend
    this.messageConfirmation = `Merci, ${this.form.prenom} ${this.form.nom}, pour votre inscription !
        Un e-mail de confirmation a été envoyé à ${this.form.email}.`;
 
@@ -86,22 +85,22 @@ export default {
 
 <style scoped>
 .tirage-au-sort {
- margin-top: 200px; /* Augmente la marge pour abaisser le contenu */
+ margin-top: 200px;
  display: flex;
  flex-direction: column;
- align-items: center; /* Centre horizontalement le contenu */
+ align-items: center;
 }
 
 form {
  margin-top: 20px;
  text-align: left;
- width: 300px; /* Maintient le formulaire plus petit pour qu'il soit centré */
+ width: 300px;
 }
 
 h1, h2 {
  font-size: 32px;
  color: #333;
- text-align: center; /* Centre les titres */
+ text-align: center;
 }
 .regles ul {
  list-style-type: disc;
@@ -125,7 +124,7 @@ input {
 
 button {
  display: block;
- margin: 20px auto; /* Centre le bouton d'inscription */
+ margin: 20px auto;
  background-color: #0D64FF;
  color: white;
  border: none;
