@@ -21,10 +21,12 @@ function getAllPrestataires() {
  * @returns {{data: string, error: number, status: number}|{data: Prestataire, error: number, status: number}}
  */
 function getPrestataireFromName(name) {
-    let presta = prestataires.find(p => p.name.toLowerCase() === name.toLowerCase());
+    let presta = prestataires
+        .find(p =>
+            p.name.toLowerCase().replace(/\W/g, '') === name.toLowerCase().replace(/\W/g, ''));
 
     if (!presta) return {error: 1, status: 404, data: "prestataire inexistant"};
-    return {error: 0, status: 200, data: presta};
+    return {error: 0, status: 200, data: prestataires};
 }
 
 function getBoutiqueInfos(prestataire_id) {
