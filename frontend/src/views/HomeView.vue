@@ -15,22 +15,31 @@
 			<h1 class="font-bold italic text-4xl text-center m-14">24 Heures du Mans</h1>
 
 			<div class="flex flex-row">
-          <img class="max-w-md" src="@/assets/images/presentation1.jpeg">
-          <div class="flex flex-col">
-              <h2 class="font-extrabold italic text-2xl text-start ml-6 mr-6 p-5 pb-0">HISTORIQUE</h2>
-              <p class="font-normal text-base text-start m-auto ml-6 mr-6 p-5 pt-0">Bienvenue aux 24 Heures du Mans, la plus célèbre course d'endurance automobile au monde ! Depuis 1923, cette compétition emblématique, qui se déroule chaque année au mois de juin, attire les meilleurs pilotes, équipes et constructeurs pour 24 heures de défis techniques et physiques sur le mythique circuit des 24 Heures. Situé près de la ville du Mans, ce circuit unique combine des portions du circuit Bugatti et des routes publiques, offrant un cadre exceptionnel pour une épreuve d'endurance à couper le souffle.</p>
-          </div>
-      </div>
+				<img class="max-w-md" src="@/assets/images/presentation1.jpeg">
+				<div class="flex flex-col">
+					<h2 class="font-extrabold italic text-2xl text-start ml-6 mr-6 p-5 pb-0">HISTORIQUE</h2>
+					<p class="font-normal text-base text-start m-auto ml-6 mr-6 p-5 pt-0">Bienvenue aux 24 Heures du Mans, la plus
+						célèbre course d'endurance automobile au monde ! Depuis 1923, cette compétition emblématique, qui se déroule
+						chaque année au mois de juin, attire les meilleurs pilotes, équipes et constructeurs pour 24 heures de défis
+						techniques et physiques sur le mythique circuit des 24 Heures. Situé près de la ville du Mans, ce circuit
+						unique combine des portions du circuit Bugatti et des routes publiques, offrant un cadre exceptionnel pour
+						une épreuve d'endurance à couper le souffle.</p>
+				</div>
+			</div>
 
-      <br>
+			<br>
 
-      <div class="flex flex-row m-auto">
-          <div class="flex flex-col">
-              <h2 class="font-extrabold italic text-2xl text-end ml-6 mr-6 p-5 pb-0">CIRCUIT UNIQUE</h2>
-              <p class="font-normal text-base text-end m-auto ml-6 mr-6 p-5 pt-0">Que vous soyez passionné de sport automobile ou curieux de vivre une expérience inoubliable, les 24 Heures du Mans sont l'occasion rêvée de découvrir l'une des trois courses les plus prestigieuses au monde, aux côtés du Grand Prix de Monaco et des 500 miles d'Indianapolis. Préparez-vous à vibrer au rythme des bolides, à partager la passion des fans et à assister à un véritable spectacle de vitesse, de stratégie et de performance.</p>
-          </div>
-          <img class="max-w-md"  src="@/assets/images/presentation2.jpeg">
-      </div>
+			<div class="flex flex-row m-auto">
+				<div class="flex flex-col">
+					<h2 class="font-extrabold italic text-2xl text-end ml-6 mr-6 p-5 pb-0">CIRCUIT UNIQUE</h2>
+					<p class="font-normal text-base text-end m-auto ml-6 mr-6 p-5 pt-0">Que vous soyez passionné de sport
+						automobile ou curieux de vivre une expérience inoubliable, les 24 Heures du Mans sont l'occasion rêvée de
+						découvrir l'une des trois courses les plus prestigieuses au monde, aux côtés du Grand Prix de Monaco et des
+						500 miles d'Indianapolis. Préparez-vous à vibrer au rythme des bolides, à partager la passion des fans et à
+						assister à un véritable spectacle de vitesse, de stratégie et de performance.</p>
+				</div>
+				<img class="max-w-md" src="@/assets/images/presentation2.jpeg">
+			</div>
 
 			<h1 class="font-bold italic text-4xl text-center mt-28 m-14">Prestataires</h1>
 
@@ -67,10 +76,12 @@
 
 			<!-- Liste des prestataires -->
 			<div v-if="filteredPrestataires.length" class="mt-5 grid grid-cols-1 md:grid-cols-4 gap-6">
-				  <router-link v-for="presta in filteredPrestataires" :key="presta.id" :to="`/prestataire/${presta.name.toLowerCase().replace(/\W/g, '')}`" class="prestataire-item flex flex-col items-center justify-center text-center p-4 border border-gray-600 rounded shadow-lg">
-              <img :src="presta.icon" alt="icon" class="prestataire-icon w-24 h-24 object-cover my-2 rounded-full" />
-              <h2 class="prestataire-name text-xl font-bold mt-3">{{ presta.name }}</h2>
-          </router-link>
+				<router-link v-for="presta in filteredPrestataires" :key="presta.id"
+										 :to="`/prestataire/${presta.name.toLowerCase().replace(/\W/g, '')}`"
+										 class="prestataire-item flex flex-col items-center justify-center text-center p-4 border border-gray-600 rounded shadow-lg">
+					<img :src="presta.icon" alt="icon" class="prestataire-icon w-24 h-24 object-cover my-2 rounded-full"/>
+					<h2 class="prestataire-name text-xl font-bold mt-3">{{ presta.name }}</h2>
+				</router-link>
 			</div>
 
 			<p v-else>Aucun prestataire trouvé</p>
@@ -87,9 +98,12 @@
 
 <script>
 // Importer directement les données
-import {prestataires, garages, montgolfieres, karting, billeterie, boutiques} from "@/datasource/prestataires";
+// TODO A changer quand on aura les X.service.js associés
+import {billeterie, boutiques, garages, karting, montgolfieres} from "@/datasource/prestataires";
 import MultipleSelect from "@/components/selects/MultipleSelect.vue";
 import CarteInteractive from "@/components/carteInteractive/CarteInteractive.vue";
+import {mapActions, mapGetters} from "vuex";
+import store from "@/store";
 
 export default {
 	name: 'HomeView',
@@ -98,10 +112,10 @@ export default {
 		return {
 			nameFilter: '',
 			selectedCategories: [], // Utilisé pour stocker les catégories sélectionnées
-			prestataires: [], // Stockage des prestataires
 		};
 	},
 	computed: {
+		...mapGetters("prestataire", ["prestataires"]),
 		filteredPrestataires() {
 			// Filtres appliqués sur les prestataires
 			let filtered = this.prestataires;
@@ -157,13 +171,10 @@ export default {
 		isInBoutiques(prestataireId) {
 			return boutiques.some(boutique => boutique.prestataire_id === prestataireId);
 		},
-		getAllPrestataires() {
-			// Charger les prestataires directement depuis les données importées
-			this.prestataires = prestataires;
-		}
 	},
-	mounted() {
-		this.getAllPrestataires(); // Charger les prestataires au montage du composant
+	actions: {...mapActions("prestataire", ["getAllPrestataires"]),},
+	async beforeMount() {
+		await store.dispatch("prestataire/getAllPrestataires");
 	}
 }
 </script>
