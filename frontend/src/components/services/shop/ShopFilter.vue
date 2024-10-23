@@ -16,33 +16,13 @@
 						@change="updateActiveFilters"
 						placeholder="Mots-clés">
 			</div>
-			<!-- Price -->
-			<!-- TODO ne marche pas du tout, il faut rajouter un champ tel que "minPriceFilter" dans le ShopContainer et utiliser ce binding, car minPrice et maxPrice sont calculés à chaque fois des items -->
-			<div class="flex flex-row align-middle px-5">
-				<p class="uppercase font-semibold text-sm my-auto">Prix</p>
-				<div class="pl-3 justify-start align-middle content-center text-xs">
-					<input
-							class="bg-dark w-16 rounded py-1 px-2 border-2 border-blue-400 border-opacity-50 outline-none focus:border-opacity-100 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-							v-bind:value="minPrice"
-							@change="$emit('newMinPrice', $event.target.value)"
-							type="number"
-							inputmode="numeric"
-							pattern="^(\d+\.\d*)|(\d+)$"
-							min="0" placeholder="min"> €
-					<input
-							class="bg-dark w-16 rounded py-1 px-2 border-2 border-blue-400 border-opacity-50 outline-none focus:border-opacity-100 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-							v-bind:value="maxPrice"
-							@change="$emit('newMaxPrice', $event.target.value)" type="number" min="1"
-							placeholder="max"> €
-				</div>
-			</div>
 			<!-- Categories -->
 			<div class="flex flex-row align-middle content-center px-5 min-w-96">
 				<p class="uppercase font-semibold text-sm my-auto mr-5">Catégories</p>
 				<!-- Sélection multiples -->
 				<MultipleSelect
 						ref="categoriesSelection"
-						:items="possibleCategories"
+						:items="categories"
 						v-on:selectionChange="(selected) => {selectedCategories = selected; updateActiveFilters()}"></MultipleSelect>
 			</div>
 		</div>
@@ -78,8 +58,7 @@ export default {
 		return {
 			searchKeywords: "",
 			selectedCategories: [],
-			activeFilters: [],
-			possibleCategories: ['Boutique', 'Billeterie', 'Visite des écuries', 'Karting', 'Montgolfières'],
+			activeFilters: []
 		}
 	},
 	methods: {
@@ -118,8 +97,6 @@ export default {
 		}
 	},
 	props: {
-		minPrice: {type: Number, default: 0},
-		maxPrice: {type: Number, default: 200},
 		categories: {type: Array, default: () => []},
 	}
 }

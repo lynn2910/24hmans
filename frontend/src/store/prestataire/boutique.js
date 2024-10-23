@@ -5,14 +5,10 @@ export default {
     state: {
         categories: [],
         items: [],
-        minPrice: 0,
-        maxPrice: 0,
     },
     getters: {
         categories: state => state.categories,
         items: state => state.items,
-        minPrice: state => state.minPrice,
-        maxPrice: state => state.maxPrice,
     },
     mutations: {
         updateCategories(state, categories) {
@@ -21,12 +17,6 @@ export default {
         updateItems(state, items) {
             state.items = items;
         },
-        updateMinPrice(state, minPrice) {
-            state.minPrice = minPrice;
-        },
-        updateMaxPrice(state, maxPrice) {
-            state.maxPrice = maxPrice;
-        }
     },
     actions: {
         /**
@@ -43,11 +33,6 @@ export default {
                 console.log(res.data);
                 commit("updateCategories", res.data.categories);
                 commit("updateItems", res.data.items);
-
-                if (res.data.items.length > 0) {
-                    commit("updateMinPrice", res.data.items.sort((a, b) => a.price > b.price)[0].price);
-                    commit("updateMaxPrice", res.data.items.sort((a, b) => a.price < b.price)[0].price);
-                }
             } else {
                 console.error(res.data);
             }
