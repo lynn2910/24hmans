@@ -4,10 +4,10 @@
 		<h1 class="font-bold text-4xl text-center">Boutique de {{ prestataire.name }}</h1>
 
 		<div class="w-3/4 min-w-80 mx-auto my-10">
-			<ShopFilter :categories="categories.map(c => c.category_label)"></ShopFilter>
+			<ShopFilter :categories="categories.map(c => c.category_label)" v-on:newFilters="(f) => filters = f"></ShopFilter>
 
 			<div class="mt-10 flex flex-row flex-wrap">
-				<ShopItem v-for="item in items"
+				<ShopItem v-for="item in filteredItems"
 									:key="item.item_id"
 									:item="item"
 									:category="categories.find(c => c.category_id === item.category).category_label"></ShopItem>
@@ -26,11 +26,39 @@ import ShopItem from "@/components/services/shop/ShopItem.vue";
 export default {
 	name: "ShopContainer",
 	components: {ShopItem, ShopFilter},
-	computed: {...mapGetters("prestataire/boutique", ["items", "categories"]),},
+	computed: {
+		...mapGetters("prestataire/boutique", ["items", "categories"]),
+		filteredItems() {
+			let result = this.items;
+
+			let categoriesToFilter = [];
+
+			this.filters.forEach((filter) => {
+
+				console.log(filter)
+				if (filter.id === "keywords") {
+					result = result.filter((item) => item.name.toLowerCase().includes(filter.value.toLowerCase()));
+				} else if (filter.id.startsWith("category_")) {
+					let ctg = filter.id.replace(/^category_/, '');
+					categoriesToFilter.push(ctg)
+				}
+			})
+
+			if (categoriesToFilter.length > 0) {
+				result = result.filter((item) => {
+					let category_label = this.categories.find((c) => c.category_id === item.category).category_label;
+					return categoriesToFilter.includes(category_label.toLowerCase().replace(/\s+/g, ''))
+				});
+			}
+
+			return result;
+		}
+	},
 	actions: {...mapActions("prestataire/boutique", ["getShop"]),},
 	data() {
 		return {
 			prestataire: {},
+			filters: []
 		}
 	},
 	async beforeMount() {

@@ -11,6 +11,10 @@ function getPrestataire(id) {
     return {error: 0, status: 200, data: presta};
 }
 
+function getAllPrestataires() {
+    return {error: 0, data: prestataires};
+}
+
 /**
  * Obtiens les informations sur le prestataire, s'il existe
  * @param {string} name Le nom du prestataire
@@ -30,4 +34,4 @@ function getBoutiqueInfos(prestataire_id) {
     return {error: 0, status: 200, data: boutique};
 }
 
-export default {getPrestataire, getPrestataireFromName, getBoutiqueInfos};
+export default {getPrestataire, getPrestataireFromName, getBoutiqueInfos, getAllPrestataires};

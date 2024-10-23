@@ -67,7 +67,7 @@ export default {
 				this.$refs
 						.categoriesSelection
 						.removeItem(
-								this.possibleCategories
+								this.categories
 										.find(c => `category_${c.toLowerCase().replace(/\s+/g, '')}` === removed_filter_id)
 						)
 			} else if (removed_filter_id === "keywords") {
