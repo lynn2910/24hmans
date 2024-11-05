@@ -26,7 +26,7 @@ function getPrestataireFromName(name) {
             p.name.toLowerCase().replace(/\W/g, '') === name.toLowerCase().replace(/\W/g, ''));
 
     if (!presta) return {error: 1, status: 404, data: "prestataire inexistant"};
-    return {error: 0, status: 200, data: prestataires};
+    return {error: 0, status: 200, data: presta};
 }
 
 function getBoutiqueInfos(prestataire_id) {
