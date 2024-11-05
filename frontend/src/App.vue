@@ -8,7 +8,9 @@
 		<!--		</nav>-->
 
 		<NavbarComponent
-				v-if="!($route.fullPath.match(/(\/prestataire\/[^/]+\/panel)|(\/admin\/panel)/))"></NavbarComponent>
+				v-if="!($route.fullPath.match(/(\/prestataire\/[^/]+\/panel)|(\/admin\/panel)/))">
+    </NavbarComponent>
+
 		<router-view/>
 	</div>
 </template>

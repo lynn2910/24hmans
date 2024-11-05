@@ -9,6 +9,7 @@ module.exports = {
             transparent: 'transparent',
             current: 'currentColor',
             dark: "#1A1818",
+            red: "#D4002A",
             ...colors
         },
         extend: {
@@ -17,6 +18,10 @@ module.exports = {
                 'blue-700': '0px 0px 15px #07327F',
                 'green-700': '0px 0px 15px #2E7359',
             },
+            dropShadow: {
+                'all-white-700': '0px 0px 10px #FFFFFF',
+                'all-red-700': '0px 0px 10px #D4002A',
+            }
         },
     },
     variants: {},
