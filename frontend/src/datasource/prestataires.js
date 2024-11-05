@@ -39,7 +39,7 @@ let prestataires = [
     },
     {
         id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
-        icon: 'prestataires_icons/organisateurs_presta.jpg',
+        icon: 'prestataires_icons/organisateurs_presta.png',
         password: "9f97b71bbbb848323f91335d2e8dbc635ed2c503d05b9342a8b1e93a894b783e", // 'lemans'
         name: "24h du Mans" // Billetterie + Boutique officielle
     },
