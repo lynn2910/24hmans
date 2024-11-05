@@ -15,7 +15,15 @@ let prestataires = [
         id: "45309281-fc24-4e02-ad47-a275c64f5327",
         icon: 'prestataires_icons/porsche_presta.jpg',
         password: "a8583ccd0f2fe6d789fda0b3ff80711c8141b543b0334f3888fc11b52914a90e", // 'Spider-Porsche'
-        name: "Porsche" // Visite garage
+        name: "Porsche", // Visite garage,
+        links: [{name: "SIte officiel", url: "https://www.porsche.com"}],
+        description: "Porsche, constructeur automobile allemand de renommée mondiale, est connu pour ses voitures de sport de haute performance, synonymes de puissance, de luxe et d'ingénierie de précision. L’entreprise a été fondée en 1931 à Stuttgart par Ferdinand Porsche, ingénieur visionnaire et inventeur, d'abord sous le nom de \"Dr. Ing. h.c. F. Porsche GmbH\". Initialement, la société se consacrait à la consultation et au développement technique pour d'autres marques automobiles, notamment pour Volkswagen avec la création de la célèbre Coccinelle.\n" +
+            "\n" +
+            "La première voiture de la marque, la Porsche 356, est lancée en 1948 sous la direction de Ferry Porsche, fils de Ferdinand. Avec sa ligne élégante et sa légèreté, la 356 pose les bases de l'identité de Porsche : un design iconique, des performances hors normes et une maniabilité exceptionnelle. La célèbre Porsche 911, lancée en 1964, devient rapidement une légende dans le monde de l'automobile et demeure l’un des modèles les plus emblématiques de l’histoire, continuellement produit avec des évolutions pour répondre aux exigences modernes.\n" +
+            "\n" +
+            "À travers les décennies, Porsche diversifie sa gamme, produisant des modèles comme le Cayenne (SUV), la Panamera (berline sportive) et le Macan, tout en restant fidèle à ses racines sportives. En plus de ses véhicules de route, Porsche a également une longue histoire en compétition automobile, avec des succès dans des courses prestigieuses comme les 24 Heures du Mans. Ces victoires contribuent à renforcer la réputation de la marque comme pionnier en matière de performance et de fiabilité.\n" +
+            "\n" +
+            "Récemment, Porsche a franchi une nouvelle étape en se tournant vers l'électrification avec des modèles comme la Taycan, une voiture 100 % électrique qui combine l’ADN sportif de Porsche avec une technologie de pointe. Aujourd'hui, Porsche reste un symbole mondial de luxe et de sportivité, en alliant héritage, innovation et excellence technique."
     },
     {
         id: "255da203-781d-4e50-924f-0423638cdb68",

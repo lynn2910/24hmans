@@ -1,8 +1,14 @@
 <script>
+import {defineComponent} from "vue";
+import PrestataireProfil from "@/components/prestataire/PrestataireProfil.vue";
+
+export default defineComponent({
+    components: {PrestataireProfil}
+})
 </script>
 
 <template>
-<h1>hello</h1>
+  <PrestataireProfil></PrestataireProfil>
 </template>
 
 <style scoped>
