@@ -8,6 +8,6 @@ export default {
 
 <template>
   <div class=" overflow-y-auto">
-    <CarteInteractive width="100%" height="700px"/>
+    <CarteInteractive width="100%" height="100vh"/>
   </div>
 </template>

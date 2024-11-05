@@ -7,7 +7,7 @@
         :crs="L.CRS.Simple"
         :style="{ width: width, height: height }"
         :zoomControl="false"
-        class="z-10"
+        class="z-10 overflow-y-hidden"
     >
       <!-- Image overlay insertion -->
       <l-image-overlay
