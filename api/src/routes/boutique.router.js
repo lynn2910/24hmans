@@ -64,31 +64,37 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
 
     let items = [
         {
-            "item_id": 1,
+            "id_shop": "867fb638-7cb1-4228-a643-5c4f352f44b1",
+            "item_id": "035669e3-6960-410b-92a4-7734295098e7",
             "name": "Porte-clé frein",
             "image": null,
             "category": "be2cff03-7d12-4369-acff-037d12a36993",
             "stock": 79,
             "price": 16.99,
-            "description": ""
+            "description": "",
+            "deleted": 0
         },
         {
-            "item_id": 2,
-            "name": "Porte-clé porsche",
-            "image": null,
-            "category": "be2cff03-7d12-4369-acff-037d12a36993",
-            "stock": 146,
-            "price": 24.99,
-            "description": ""
-        },
-        {
-            "item_id": 3,
+            "id_shop": "867fb638-7cb1-4228-a643-5c4f352f44b1",
+            "item_id": "8a3bbb62-2ba0-4b9d-b230-902ea5bcf9ce",
             "name": "Écusson Porsche",
             "image": null,
             "category": "9af710a9-9c13-43d7-b710-a99c1323d77d",
             "stock": 14,
             "price": 34.99,
-            "description": ""
+            "description": "",
+            "deleted": 0
+        },
+        {
+            "id_shop": "867fb638-7cb1-4228-a643-5c4f352f44b1",
+            "item_id": "9c46e6d5-a2da-488c-ba6f-b687218038e2",
+            "name": "Porte-clé porsche",
+            "image": null,
+            "category": "be2cff03-7d12-4369-acff-037d12a36993",
+            "stock": 146,
+            "price": 24.99,
+            "description": "",
+            "deleted": 0
         }
     ];
 
@@ -107,7 +113,7 @@ categoryRouter.use("/", prestataireMiddleware)
 /**
  * Delete a category
  */
-categoryRouter.delete("/", (req, res) => {
+categoryRouter.delete("/:category_id", (req, res) => {
     // TODO add the request query
     // TODO check if no items is linked to this query (in this case, refuse to delete)
 
@@ -118,11 +124,11 @@ categoryRouter.delete("/", (req, res) => {
 /**
  * Modify a category
  */
-categoryRouter.patch("/", async (req, res) => {
+categoryRouter.patch("/:category_id", async (req, res) => {
     // TODO add the request query
 
     let body = req.body
-    console.log(`New category name: ${body['new_category_name']}`);
+    console.log(`Edit category name: ${body['new_category_name']}`);
 
     res.status(501).json({message: "Not implemented yet"})
 })
@@ -148,7 +154,61 @@ categoryRouter.post("/", async (req, res) => {
     })
 })
 
-routerBoutique.use("/:shop_id/:category_id", categoryRouter)
+routerBoutique.use("/:shop_id/category", categoryRouter)
+
+//
+//
+//  ITEMS
+//
+//
+
+routerBoutique.get("/:shop_id/item/:item_id", async (req, res) => {
+    res.status(501).json({message: "Not implemented yet"})
+})
+
+let itemRouter = new Router();
+itemRouter.use("/", prestataireMiddleware);
+
+/**
+ * Delete an item
+ */
+itemRouter.delete("/:item_id", async (req, res) => {
+    // TODO add the request query
+
+    // code 501 = Not implemented (https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501)
+    res.status(501).json({message: "Not implemented yet"})
+})
+
+/**
+ * Modify an item
+ */
+itemRouter.patch("/:item_id", async (req, res) => {
+    // TODO add the request query
+
+    let body = req.body
+    console.log(`Edit item: ${JSON.stringify(body, null, 2)}`);
+
+    res.status(501).json({message: "Not implemented yet"})
+})
+
+/**
+ * Create a new item
+ */
+itemRouter.post("/", async (req, res) => {
+    // TODO add the request query
+
+    let body = req.body;
+    console.log(`New item: ${JSON.stringify(body, null, 2)}`);
+
+    let id = uuid();
+
+    res.status(200).json({
+        message: "Item created",
+        item: {...req.body, id}
+    })
+})
+
+routerBoutique.use("/:shop_id/item", itemRouter)
 
 
 module.exports = routerBoutique;

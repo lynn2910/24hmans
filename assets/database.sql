@@ -42,17 +42,20 @@ CREATE TABLE shop_items_category
 
 CREATE TABLE shop_items
 (
-    id_shop     CHAR(36)           NOT NULL,
-    item_id     INT AUTO_INCREMENT NOT NULL,
+    id_shop     CHAR(36)      NOT NULL,
+    item_id     CHAR(36)      NOT NULL,
 
-    name        VARCHAR(128)       NOT NULL,
+    name        VARCHAR(128)  NOT NULL,
     image       VARBINARY(256),
 
     category    CHAR(36),
 
-    stock       INT                NOT NULL DEFAULT 0,
-    price       DECIMAL(6, 2)      NOT NULL,
-    description VARCHAR(4096)      NOT NULL DEFAULT '',
+    stock       INT           NOT NULL DEFAULT 0,
+    price       DECIMAL(6, 2) NOT NULL,
+    description VARCHAR(4096) NOT NULL DEFAULT '',
+
+    -- Permet de garder l'item pour les infos sur les produits achetés
+    deleted     BOOLEAN                DEFAULT FALSE,
 
     FOREIGN KEY (category) REFERENCES shop_items_category (category_id),
     PRIMARY KEY (item_id, id_shop)
@@ -87,9 +90,12 @@ VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'be2cff03-7d12-4369-acff-037d12a
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9af710a9-9c13-43d7-b710-a99c1323d77d', 'Écusson');
 
 INSERT INTO shop_items (id_shop, item_id, name, category, stock, price)
-VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 1, 'Porte-clé frein', 'be2cff03-7d12-4369-acff-037d12a36993', 79,
+VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', '035669e3-6960-410b-92a4-7734295098e7', 'Porte-clé frein',
+        'be2cff03-7d12-4369-acff-037d12a36993', 79,
         16.99),
-       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 2, 'Porte-clé porsche', 'be2cff03-7d12-4369-acff-037d12a36993', 146,
+       ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9c46e6d5-a2da-488c-ba6f-b687218038e2', 'Porte-clé porsche',
+        'be2cff03-7d12-4369-acff-037d12a36993', 146,
         24.99),
-       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 3, 'Écusson Porsche', '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
+       ('867fb638-7cb1-4228-a643-5c4f352f44b1', '8a3bbb62-2ba0-4b9d-b230-902ea5bcf9ce', 'Écusson Porsche',
+        '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
         34.99);
