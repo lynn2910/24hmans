@@ -1,5 +1,5 @@
 <template>
-	<!-- Pour éviter que la page n'apparaisse sous la navbar -->
+	<!-- Pour éviter que la page n'apparaisse sous la navbar: 'mt-36' -->
 	<div class="w-full mt-36">
 		<h1 class="font-bold text-4xl text-center">Boutique de {{ prestataire.name }}</h1>
 
