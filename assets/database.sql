@@ -75,6 +75,10 @@ VALUES ('Porsche', '45309281-fc24-4e02-ad47-a275c64f5327', 'prestataires_icons/p
        ('Mong\'man', '255da203-781d-4e50-924f-0423638cdb68', 'prestataires_icons/montgol_presta.jpg',
         '32de3639ca6fafb56a4b3c68f42cfe8a686c89d92b173a03becdcc02644d7511');
 
+#
+#       BOUTIQUE
+#
+
 INSERT INTO shop (shop_id, prestataire_id)
     VALUE ('867fb638-7cb1-4228-a643-5c4f352f44b1', '45309281-fc24-4e02-ad47-a275c64f5327');
 
