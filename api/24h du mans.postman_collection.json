@@ -1,0 +1,427 @@
+{
+	"info": {
+		"_postman_id": "d0700d1c-22c1-4f2c-84bf-f577aca08da6",
+		"name": "24h du mans",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "18249557"
+	},
+	"item": [
+		{
+			"name": "boutique",
+			"item": [
+				{
+					"name": ":shop_id",
+					"item": [
+						{
+							"name": "category/:category",
+							"item": [
+								{
+									"name": "delete category",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "last_christmas_i_gave_you_my_heart"
+											}
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/category/:category_id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"category",
+												":category_id"
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												},
+												{
+													"key": "category_id",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "edit category",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "last_christmas_i_gave_you_my_heart"
+											}
+										},
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"new_category_name\": \"Porte-clé\",\r\n    \"shop_id\": \"867fb638-7cb1-4228-a643-5c4f352f44b1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/category/:category_id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"category",
+												":category_id"
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												},
+												{
+													"key": "category_id",
+													"value": "9af710a9-9c13-43d7-b710-a99c1323d77d"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create category",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "last_christmas_i_gave_you_my_heart"
+											}
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"category_name\": \"Voitures miniatures\",\r\n    \"shop_id\": \"867fb638-7cb1-4228-a643-5c4f352f44b1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/category/",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"category",
+												""
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "item/:item_id",
+							"item": [
+								{
+									"name": "delete item",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "last_christmas_i_gave_you_my_heart"
+											}
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/item/:item_id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"item",
+												":item_id"
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												},
+												{
+													"key": "item_id",
+													"value": "035669e3-6960-410b-92a4-7734295098e7"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "edit item",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "last_christmas_i_gave_you_my_heart"
+											}
+										},
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"new_category_name\": \"Porte-clé\",\r\n    \"shop_id\": \"867fb638-7cb1-4228-a643-5c4f352f44b1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/item/:item_id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"item",
+												":item_id"
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												},
+												{
+													"key": "item_id",
+													"value": "035669e3-6960-410b-92a4-7734295098e7"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create item",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {
+												"token": "last_christmas_i_gave_you_my_heart"
+											}
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Porte-clé voiture\",\r\n    \"image\": null,\r\n    \"category\": \"be2cff03-7d12-4369-acff-037d12a36993\",\r\n    \"stock\": 0,\r\n    \"price\": 46.99,\r\n    \"description\": \"Un magnifique porte-clé à l'effigie de la 911\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/item",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"item"
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get item",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/item/:item_id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"item",
+												":item_id"
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												},
+												{
+													"key": "item_id",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get item from name",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/boutique/:shop_id/item/from_name?name=&prestataire=porsche",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"boutique",
+												":shop_id",
+												"item",
+												"from_name"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": ""
+												},
+												{
+													"key": "prestataire",
+													"value": "porsche"
+												}
+											],
+											"variable": [
+												{
+													"key": "shop_id",
+													"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/boutique/:shop_id/categories",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"boutique",
+										":shop_id",
+										"categories"
+									],
+									"variable": [
+										{
+											"key": "shop_id",
+											"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "items",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/boutique/:shop_id/items",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"boutique",
+										":shop_id",
+										"items"
+									],
+									"variable": [
+										{
+											"key": "shop_id",
+											"value": "867fb638-7cb1-4228-a643-5c4f352f44b1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "available_shops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/boutique/available_shops"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://127.0.0.1:4629",
+			"type": "string"
+		}
+	]
+}

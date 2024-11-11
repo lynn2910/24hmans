@@ -67,7 +67,7 @@ let boutiques = [
             {
                 item_id: 2,
                 name: "Porte-clé porsche",
-                image: null,
+                image: '/shop_images/porsche_porte_cle_ecusson.png',
                 category: "be2cff03-7d12-4369-acff-037d12a36993",
                 stock: 146,
                 price: 24.99,

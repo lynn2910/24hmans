@@ -36,4 +36,19 @@ function getBoutiqueInfos(prestataire_id) {
     return {error: 0, status: 200, data: boutique};
 }
 
-export default {getPrestataire, getPrestataireFromName, getBoutiqueInfos, getAllPrestataires};
+function getShopItemFromName(prestataire_name, item_name) {
+    let prestataire = getPrestataireFromName(prestataire_name);
+    if (prestataire.error) return {error: 1, status: 404, data: "prestataire inexistant"};
+    prestataire = prestataire.data;
+
+    let boutique = getBoutiqueInfos(prestataire.id);
+    if (boutique.error) return {error: 1, status: 404, data: "boutique inexistante"};
+    boutique = boutique.data;
+
+    let item = boutique.items.find(a => a.name.trim().toLowerCase().replace(/\s+/, '-') === item_name);
+
+    if (!item) return {error: 1, status: 404, data: "Item inexistant"};
+    return {error: 0, status: 200, data: item};
+}
+
+export default {getPrestataire, getPrestataireFromName, getBoutiqueInfos, getAllPrestataires, getShopItemFromName};

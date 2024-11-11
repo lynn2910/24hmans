@@ -165,6 +165,9 @@ routerBoutique.use("/:shop_id/category", categoryRouter)
 routerBoutique.get("/:shop_id/item/:item_id", async (req, res) => {
     res.status(501).json({message: "Not implemented yet"})
 })
+routerBoutique.get("/:shop_id/item/from_name", async (req, res) => {
+    res.status(501).json({message: "Not implemented yet", name_wanted: req.query.name})
+})
 
 let itemRouter = new Router();
 itemRouter.use("/", prestataireMiddleware);

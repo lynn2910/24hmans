@@ -1,5 +1,5 @@
 <template>
-	<div id="app" class="font-sans h-screen w-screen bg-dark text-white">
+	<div id="app" class="font-sans h-full w-screen bg-dark text-white">
 		<!-- On affiche la barre de navigation, sauf si on est dans le dashboard prestataire ou admin -->
 		<!--		<nav v-if="!($route.fullPath.startsWith('/prestataire') || $route.fullPath.startsWith('/admin'))">-->
 		<!--			<router-link to="/">Home</router-link>-->
@@ -9,7 +9,7 @@
 
 		<NavbarComponent
 				v-if="!($route.fullPath.match(/(\/prestataire\/[^/]+\/panel)|(\/admin\/panel)/))">
-    </NavbarComponent>
+		</NavbarComponent>
 
 		<router-view/>
 	</div>
