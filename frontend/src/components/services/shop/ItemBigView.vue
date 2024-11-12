@@ -21,6 +21,18 @@ export default {
 	computed: {
 		...mapGetters("prestataire/boutique", ["categories"]),
 	},
+	methods: {
+		/**
+		 * Return either white, yellow, orange or red, based on the stock number
+		 * @param {number|string} stock The stock of the article
+		 * @return {String} the tailwind class corresponding to the color
+		 */
+		getStockColor(stock) {
+			if (stock < 10) return "text-red-500";
+			else if (stock < 30) return "text-yellow-500";
+			else return "text-white";
+		}
+	},
 	actions: {...mapActions("prestataire/boutique", ["getShop"]),},
 	async beforeMount() {
 		let prestataire = await PrestataireService.getPrestataireFromName(this.$route.params.prestataire_name);
@@ -46,10 +58,14 @@ export default {
 		<!-- Si l'article existe bien -->
 		<div class="mt-36 h-full w-full flex flex-row" v-if="article">
 			<div class="flex flex-col items-center content-center w-[50%] h-full">
-				<img class="w-[50%] h-auto h-max-[90%]" v-if="article.image" :src="article.image"
+				<img v-if="article.image" class="w-[50%] h-auto h-max-[90%]" :src="article.image"
 						 alt="Impossible de charger l'image"/>
+				<div v-else class="w-[50%] h-[75vh] h-max-[90%] flex flex-col items-center content-center">
+					<img class="w-auto h-20 m-auto mb-0" src="@/assets/images/no_image.png" alt="Aucune image">
+					<h2 class="m-auto mt-2 text-base opacity-90">Aucun visuel</h2>
+				</div>
 			</div>
-			<div class="bg-white h-[75vh] w-0.5 overflow-hidden"></div>
+			<div class="bg-white bg-opacity-45 rounded-xl h-[75vh] w-0.5 overflow-hidden"></div>
 			<div class="w-[50%] pl-10 overflow-y-scroll mr-10">
 				<div class="flex flex-row content-center w-full">
 					<h1 class="text-3xl font-bold leading-loose mr-5">{{ article.name }}</h1>
@@ -58,19 +74,22 @@ export default {
 														class="w-min-30 w-auto my-auto"></ShopItemCategory>
 				</div>
 
-				<!-- TODO Ajouter les options liées au panier et au système de commandes -->
 				<div>
 					<h2 class="text-5xl my-4 mb-0 font-bold text-blue-500">{{ article.price.toFixed(2) }} €</h2>
 
 					<!-- Indicateur de stock -->
-					<p v-if="article.stock > 0" class="opacity-80">Encore <strong>{{ article.stock }}</strong> produits en stock
+					<p v-if="article.stock > 0" class="opacity-80">Encore <strong
+							:class="getStockColor(article.stock)">{{ article.stock }}</strong>
+						produits en stock
 					</p>
-					<p v-else class="opacity-80 text-red-500">Aucun article restant en stock</p>
+					<p v-else class="opacity-80 text-red-500">Stock épuisé</p>
 				</div>
 
 				<ShopDetail v-if="article.description && article.description.length > 0" name="Description" open>
 					<p>{{ article.description }}</p>
 				</ShopDetail>
+
+				<!-- TODO Ajouter les options liées au panier et au système de commandes (faire que ca colle au bas) -->
 			</div>
 		</div>
 
