@@ -5,10 +5,12 @@ export default {
     state: {
         categories: [],
         items: [],
+        shopExists: false
     },
     getters: {
         categories: state => state.categories,
         items: state => state.items,
+        shopExists: state => state.shopExists,
     },
     mutations: {
         updateCategories(state, categories) {
@@ -17,6 +19,9 @@ export default {
         updateItems(state, items) {
             state.items = items;
         },
+        updateShopExists(state, shopExists) {
+            state.shopExists = shopExists;
+        }
     },
     actions: {
         /**
@@ -33,8 +38,10 @@ export default {
                 console.log(res.data);
                 commit("updateCategories", res.data.categories);
                 commit("updateItems", res.data.items);
+                commit("updateShopExists", true);
             } else {
                 console.error(res.data);
+                commit("updateShopExists", false);
             }
         }
     }

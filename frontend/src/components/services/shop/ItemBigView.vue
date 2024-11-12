@@ -5,10 +5,11 @@ import ShopDetail from "@/components/services/shop/ShopDetail.vue";
 import ShopItemCategory from "@/components/services/shop/ShopItemCategory.vue";
 import PrestataireService from "@/services/prestataire.service";
 import store from "@/store";
+import NotExists from "@/components/services/NotExists.vue";
 
 export default {
 	name: "ItemBigView",
-	components: {ShopItemCategory, ShopDetail},
+	components: {NotExists, ShopItemCategory, ShopDetail},
 	data() {
 		return {
 			article: null
@@ -42,7 +43,8 @@ export default {
 			this.prestataire = prestataire.data;
 			await store.dispatch("prestataire/boutique/getShop", prestataire.data.id);
 		} else {
-			console.error(prestataire.data)
+			console.error(prestataire.data);
+			await this.$router.push({path: "/"});
 		}
 
 		let item = await BoutiqueService.getItemFromName(this.prestataire_name, this.item_name);
@@ -107,17 +109,9 @@ export default {
 
 
 		<!-- Si l'article n'existe pas -->
-		<div v-else class="w-screen h-screen flex items-center justify-center">
-			<div
-					class="w-[50%] h-[30%] border-2 border-orange-600 rounded-xl p-3 py-5 bg-orange-600 bg-opacity-10 text-center flex flex-col items-center justify-between">
-				<h1 class="text-2xl font-bold">Cet article n'existe pas</h1>
-				<p class="m-auto text-base">Vous tentez d'accéder à un article qui n'existe pas.</p>
-
-				<router-link :to="`/boutique/${prestataire_name}`"
-										 class="mt-auto text-xl underline text-blue-400 font-semibold hover:text-blue-600">Retourner à la
-					boutique
-				</router-link>
-			</div>
-		</div>
+		<NotExists v-else title="Cet article n'existe pas"
+							 description="Vous tentez d'accéder à un article qui n'existe pas."
+							 :route-back-u-r-l="`/boutique/${prestataire_name}`" route-back="Retourner à la
+					boutique"></NotExists>
 	</div>
 </template>
