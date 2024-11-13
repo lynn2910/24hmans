@@ -15,6 +15,7 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         "no-mixed-spaces-and-tabs": 'off',
         "no-irregular-whitespace": 'off',
-        "no-empty": "off"
+        "no-empty": "off",
+        'vue/multi-word-component-names': 'off'
     }
 }

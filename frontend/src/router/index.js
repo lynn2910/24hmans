@@ -52,6 +52,25 @@ const routes = [
         path: "/boutique/:prestataire_name/item/:item_name",
         name: "shop_view",
         component: () => import( '../views/services/shop/ShopItemView.vue')
+    },
+
+    {
+        path: "/dance",
+        redirect: (to) => {
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+            return '/'
+        },
+    },
+
+
+    // DERNIERE PAGE
+    {
+        path: "*",
+        name: "404",
+        component: () => import("../views/Error404.vue"),
+        meta: {
+            hideNavbar: true
+        }
     }
 ]
 
