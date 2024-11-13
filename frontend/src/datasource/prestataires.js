@@ -47,7 +47,20 @@ let prestataires = [
         id: "524aaa51-09c1-48f1-85d3-ac878394e1ff",
         icon: 'prestataires_icons/karting_presta.jpg',
         password: "da85e329212776cba7df7e11b396db625f4e20d8b747f99e0ccb0781b14c052e", // 'im-fast'
-        name: "Kart'24" // Karting
+        name: "Kart'24", // Karting
+        links: [{
+            name: "Site officiel",
+            url: "https://www.lemans-karting.com/karting/sessions-kart/?utm_source=google&utm_medium=cpc&utm_campaign=grp_marque&gad_source=1&gclid=CjwKCAiAudG5BhAREiwAWMlSjHrQwH3UEysrGgUOpWB5_tLZgToKz4d76wx4Xy4PBAZFkhhmq8ifGRoCvskQAvD_BwE"
+        }],
+        description: "Au cœur du légendaire circuit des 24 Heures du Mans, Karting 24 vous invite à vivre la passion du sport automobile sous une nouvelle forme. Avec une piste conçue pour reproduire les sensations des grandes courses et des karts de dernière génération, cet espace est devenu une référence incontournable pour les amateurs de vitesse et de sensations fortes.\n" +
+            "\n" +
+            "L'histoire de Karting 24 est ancrée dans le désir de rendre l'expérience des 24 Heures accessible à tous, novices comme pilotes expérimentés. Chaque virage et chaque ligne droite de notre circuit de karting rappellent les défis techniques du grand circuit, offrant une immersion totale dans l'univers de la compétition. Ici, vous pouvez vous mesurer à vos amis, à votre famille ou à d'autres passionnés dans des courses palpitantes, allant des sessions individuelles aux épreuves d'endurance.\n" +
+            "\n" +
+            "Karting 24 met à disposition une équipe de passionnés, dédiée à assurer un encadrement professionnel et une sécurité optimale. Les équipements de sécurité modernes et le suivi technique des karts font de chaque course une aventure exaltante mais sans risque. En parallèle, les infrastructures sur place offrent un confort maximal avec des zones de détente, un espace de restauration et une vue imprenable sur la piste.\n" +
+            "\n" +
+            "Les entreprises et les groupes peuvent profiter d'offres spéciales pour organiser des séminaires, des compétitions privées et des événements sur mesure. De nombreux adeptes du karting et amateurs de sensations fortes affluent à Karting 24 pour célébrer anniversaires, team-building et rassemblements sportifs dans une ambiance authentique et sportive.\n" +
+            "\n" +
+            "Plus qu’un simple centre de karting, Karting 24 est une immersion dans l'esprit de compétition et de camaraderie, où chaque participant peut ressentir l'adrénaline de la course tout en créant des souvenirs inoubliables. Venez découvrir le frisson de la piste et révélez le pilote qui est en vous !"
     },
     {
         id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
