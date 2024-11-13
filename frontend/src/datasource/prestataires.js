@@ -66,7 +66,17 @@ let prestataires = [
         id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
         icon: 'prestataires_icons/organisateurs_presta.jpg',
         password: "9f97b71bbbb848323f91335d2e8dbc635ed2c503d05b9342a8b1e93a894b783e", // 'lemans'
-        name: "24h du Mans" // Billetterie + Boutique officielle
+        name: "24h du Mans", // Billetterie + Boutique officielle
+        links: [{name: "Site officiel", url: "https://www.24h-lemans.com/"}],
+        description: "Les 24 Heures du Mans sont bien plus qu’une course automobile : c’est un défi d’endurance, un rendez-vous incontournable de l’innovation et une célébration de la passion automobile. Organisée chaque année depuis 1923 par l'Automobile Club de l'Ouest (ACO), cette course mythique se déroule sur le Circuit de la Sarthe, près de la ville du Mans, et rassemble des pilotes, des équipes et des constructeurs du monde entier pour une épreuve intense de 24 heures consécutives.\n" +
+            "\n" +
+            "Conçue pour tester les limites de la vitesse, de la fiabilité et de l'endurance humaine et mécanique, la course impose aux pilotes de maintenir un rythme effréné jour et nuit, en partageant le volant de voitures de pointe qui doivent résister aux rigueurs de la piste pendant une journée entière. Les prototypes et les GT, conçus spécialement pour cette compétition, poussent les ingénieurs et les constructeurs à innover constamment en matière de performance, d’aérodynamisme et d'efficacité énergétique.\n" +
+            "\n" +
+            "Les 24 Heures du Mans sont devenues un véritable laboratoire technologique, où des avancées telles que l'hybridation, les matériaux légers et les systèmes de sécurité ont vu le jour avant de rejoindre les véhicules de série. Au-delà de l’aspect technologique, cette course incarne des valeurs fortes : le courage, la ténacité et l'esprit d'équipe, avec des pilotes et des équipes qui se relaient sans cesse pour maintenir une vitesse de pointe tout en gérant l'usure de la voiture et la fatigue.\n" +
+            "\n" +
+            "Chaque année, des milliers de spectateurs affluent pour vivre cet événement unique, profitant d’une ambiance festive et électrisante, entre concerts, feux d’artifice et animations sur le circuit. Avec des pilotes légendaires et des voitures emblématiques ayant marqué l’histoire de la course, les 24 Heures du Mans continuent de captiver les passionnés de sport automobile et de renforcer leur place parmi les compétitions les plus prestigieuses au monde.\n" +
+            "\n" +
+            "Les 24 Heures du Mans ne sont pas simplement une course, mais une véritable épopée où la machine et l’humain repoussent leurs limites, écrivant chaque année un nouveau chapitre d’une légende vivante."
     },
 ]
 
