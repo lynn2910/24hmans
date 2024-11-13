@@ -29,7 +29,19 @@ let prestataires = [
         id: "255da203-781d-4e50-924f-0423638cdb68",
         icon: 'prestataires_icons/montgol_presta.jpg',
         password: "32de3639ca6fafb56a4b3c68f42cfe8a686c89d92b173a03becdcc02644d7511", // 'montgolfiere'
-        name: "Mong'man" // Montgolfière
+        name: "Mong'man", // Montgolfière,
+        links: [{name: "Site officiel", url: "https://montgolfiere-france.com/bapteme-en-montgolfiere-pres-du-mans/"}],
+        description: "Fondée en 2010, Mong'Man est une entreprise passionnée de montgolfières, spécialisée dans les vols au-dessus de l'emblématique circuit des 24 Heures du Mans. Basée au cœur de la Sarthe, Mong'Man est née d'un rêve partagé par ses fondateurs, anciens pilotes amateurs de montgolfière, qui souhaitaient offrir aux amoureux de l'aviation légère une expérience unique et exaltante : découvrir la magie des 24 Heures du Mans depuis les airs.\n" +
+            "\n" +
+            "Chaque année, Mong'Man attire des centaines de curieux et d'amateurs de sensations fortes, leur permettant de flotter au-dessus de ce circuit mythique et de vivre la course sous un angle exceptionnel. Les passagers peuvent observer les voitures de course filant en contrebas, capturer des vues spectaculaires du circuit et de la campagne environnante, et admirer la beauté du Mans dans une atmosphère paisible, bien loin du bruit et de l’agitation.\n" +
+            "\n" +
+            "Pour assurer une sécurité et une qualité de service irréprochables, Mong'Man investit dans des équipements de pointe et compte sur une équipe de pilotes chevronnés. Tous les vols sont accompagnés d’un briefing complet, permettant aux passagers de découvrir les bases de l’aérostation, l’histoire des montgolfières, et les anecdotes propres au circuit des 24 Heures.\n" +
+            "\n" +
+            "Au fil des ans, Mong'Man a élargi son offre pour inclure des vols en soirée, permettant aux passagers de voir les lumières scintillantes du circuit sous un ciel étoilé. L'entreprise propose également des événements privés, des séances photo et même des vols personnalisés pour les entreprises ou les groupes.\n" +
+            "\n" +
+            "Chez Mong'Man, chaque vol est conçu pour être bien plus qu’une simple expérience aérienne : c’est une immersion dans la beauté naturelle et mécanique de cette région légendaire. Que vous soyez passionné de courses automobiles ou simplement en quête d'une vue imprenable sur le Mans, Mong'Man vous invite à monter à bord pour un voyage inoubliable."
+
+
     },
     {
         id: "524aaa51-09c1-48f1-85d3-ac878394e1ff",
