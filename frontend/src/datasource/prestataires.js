@@ -79,6 +79,8 @@ let prestataires = [
             "Les 24 Heures du Mans ne sont pas simplement une course, mais une véritable épopée où la machine et l’humain repoussent leurs limites, écrivant chaque année un nouveau chapitre d’une légende vivante."
 
     },
+
+    // test car mes commits s'affichent pas
 ]
 
 let boutiques = [
