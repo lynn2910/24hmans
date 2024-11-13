@@ -7,16 +7,20 @@ app.use(express.json());
 
 // Système de logger
 if (process.env.PROD)
-  // En production
-  app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length]b'));
+    // En production
+    app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length]b'));
 else
-  // En développement
-  app.use(morgan(':method :url :status :response-time ms - :res[content-length]b'));
+    // En développement
+    app.use(morgan(':method :url :status :response-time ms - :res[content-length]b'));
 
 
 app.get("/", function (req, res) {
-  res.send("Hello World");
+    res.send("Hello World");
 });
+
+
+// API swagger
+require("./swagger.js").init_swagger(app);
 
 //
 //
@@ -25,7 +29,8 @@ app.get("/", function (req, res) {
 //
 
 
-// ...
+// Boutique
+app.use("/boutique", require("./routes/boutique.router"));
 
 
 //
@@ -34,16 +39,16 @@ app.get("/", function (req, res) {
 //
 //
 
-function errorHandler(error, req, res, next) {
-  res.status(error.status || 500).json({ error: { message: error.message } });
+function errorHandler(error, req, res, _next) {
+    res.status(error.status || 500).json({error: {message: error.message}});
 }
 
 app.use("*", (req, res, next) => {
-  if (res.closed) return next();
+    if (res.closed) return next();
 
-  const error = new Error("Route non trouvée");
-  error.status = 404;
-  next(error);
+    const error = new Error("Route non trouvée");
+    error.status = 404;
+    next(error);
 });
 
 app.use(errorHandler);
@@ -52,5 +57,5 @@ app.use(errorHandler);
 // Mettre le hostname sur '0.0.0.0' permet d'écouter toutes les adresses, utile pour le déploiement en production
 // et n'impacte pas l'environnement de développement.
 app.listen(process.env.API_PORT, "0.0.0.0", () => {
-  console.log(`Server running on http://127.0.0.1:${process.env.API_PORT}`);
+    console.log(`Server running on http://127.0.0.1:${process.env.API_PORT}`);
 });
