@@ -18,7 +18,14 @@
         <h1 class="font-bold italic text-5xl text-center m-14">24 Heures du Mans</h1>
 
         <div class="flex flex-row">
-          <img class="max-w-md rounded-xl" src="@/assets/images/presentation1.jpeg">
+          <div class="mx-auto mt-10">
+            <img
+                ref="presentationImg1"
+                class="max-w-md rounded-xl opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
+                src="@/assets/images/presentation1.jpeg"
+                alt="Présentation 1"
+            >
+          </div>
           <div class="flex flex-col">
             <h2 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
               Une course emblématique</h2>
@@ -37,13 +44,27 @@
               Heures du Mans sont une des trois courses les plus prestigieuses avec Monaco et Indianapolis. Vivez la
               passion des fans, la vitesse et la stratégie des bolides en action.</p>
           </div>
-          <img class="max-w-md rounded-xl" src="@/assets/images/presentation2.jpeg">
+          <div class="mx-auto mt-10">
+            <img
+                ref="presentationImg2"
+                class="max-w-md rounded-xl opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
+                src="@/assets/images/presentation2.jpeg"
+                alt="Présentation 2"
+            >
+          </div>
         </div>
 
         <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Quelques chiffres</h1>
 
         <div class="flex flex-row">
-          <img class="max-w-md" src="@/assets/images/chiffres.png">
+          <div class="flex flex-row">
+            <img
+                ref="chiffresImg"
+                class="max-w-md opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
+                src="@/assets/images/chiffres.png"
+                alt="Chiffres"
+            >
+          </div>
           <div class="flex flex-col">
             <h2 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
               Un grand pas</h2>
@@ -61,7 +82,14 @@
               24 Heures du Mans ! Votre présence et votre enthousiasme font de cet événement une expérience inoubliable.
               Nous avons hâte de vous retrouver pour vibrer ensemble à chaque nouvelle édition !</p>
           </div>
-          <img class="max-w-md rounded-xl" src="@/assets/images/tribune.jpg">
+          <div class="mx-auto mt-10">
+            <img
+                ref="tribuneImg"
+                class="max-w-md rounded-xl opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
+                src="@/assets/images/tribune.jpg"
+                alt="Tribune"
+            >
+          </div>
         </div>
 
         <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Prestataires</h1>
@@ -107,11 +135,13 @@
         <div v-if="filteredPrestataires.length" class="mt-5 grid grid-cols-1 md:grid-cols-4 gap-6">
           <router-link v-for="presta in filteredPrestataires" :key="presta.id"
                        :to="`/prestataire/${presta.name.toLowerCase().replace(/\W/g, '')}`"
-                       class="prestataire-item flex flex-col items-center justify-center text-center p-4 border border-gray-600 rounded shadow-lg">
+                       class="prestataire-item flex flex-col items-center justify-center text-center p-4 border border-gray-600 rounded shadow-lg
+                      transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white]">
             <img :src="presta.icon" alt="icon" class="prestataire-icon w-24 h-24 object-cover my-2 rounded-full"/>
             <h2 class="prestataire-name text-xl font-bold mt-3">{{ presta.name }}</h2>
           </router-link>
         </div>
+
 
         <p v-else>Aucun prestataire trouvé</p>
 
@@ -214,6 +244,34 @@ export default {
   actions: {...mapActions("prestataire", ["getAllPrestataires"]),},
   async beforeMount() {
     await store.dispatch("prestataire/getAllPrestataires");
+  },
+  mounted() {
+    // Crée un observateur d'intersection
+    const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            // Si l'image est visible à l'écran
+            if (entry.isIntersecting) {
+              entry.target.classList.add('opacity-100', 'scale-105', 'rotate-3');
+            } else {
+              // Si l'image sort de l'écran, on la réinitialise
+              entry.target.classList.remove('opacity-100', 'scale-105', 'rotate-3');
+            }
+          });
+        },
+        {threshold: 0.5} // Déclenche l'animation quand 50% de l'image est visible
+    );
+
+    // Crée un tableau de références d'images
+    const images = ['tribuneImg', 'presentationImg1', 'presentationImg2', 'chiffresImg'];
+
+    // Observer chaque image dans le tableau
+    images.forEach(refName => {
+      const img = this.$refs[refName];
+      if (img) {
+        observer.observe(img);
+      }
+    });
   }
 }
 </script>

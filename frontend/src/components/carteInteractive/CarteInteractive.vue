@@ -18,6 +18,9 @@
 
       <!-- Custom zoom control position (bottom left) -->
       <l-control-zoom position="bottomleft" class="leaflet-top leaflet-left z-10"></l-control-zoom>
+      <!-- Custom Marker -->
+      <l-marker :lat-lng="markerPosition" icon="markerIcon" class="z-20"></l-marker>
+
     </l-map>
   </div>
 </template>
@@ -48,9 +51,10 @@ export default {
   data() {
     return {
       zoom: 0, // Adjust zoom level for your image scale
-      center: [0, 0], // Center the map at [0, 0]
+      center: [720, 500], // Center the map at [0, 0]
       imageURL: carte, // URL of the image
       imageBounds: [[0, 0], [1000, 1000]], // Adjust based on the actual size of the image
+      markerPosition: [200, 200],
       L,
     };
   },
