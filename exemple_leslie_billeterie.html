@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Billeterie de Porsche</title>
+    <meta charset="utf-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .step::after {
+            content: counter(step);
+            counter-increment: step;
+            position: relative;
+
+            grid-template-rows: 40px 1fr;
+            grid-template-columns: auto;
+
+            display: grid;
+            height: 2rem;
+            width: 2rem;
+
+            place-items: center;
+            place-self: center;
+            border-radius: 9999px;
+        }
+
+        .step::before {
+            content: "";
+
+            top: 0;
+            grid-column-start: 1;
+            grid-row-start: 1;
+            height: .5rem;
+            width: 100%;
+
+            margin-inline-start: -100%;
+
+            background-color: #6b7280;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white h-screen w-screen">
+<div class="grid grid-cols-2 m-32 h-[70%] bg-emerald-400 bg-opacity-5 border border-gray-700 rounded-2xl">
+    <!-- Etapes -->
+    <div>
+        <!-- Indicateur de l'étape où nous sommes -->
+        <!-- Là, c'est un peu technique quand on ne connait pas trop le CSS-->
+        <!-- 3 étapes-->
+        <div class="py-10 pl-11 pr-11 mb-9 flex flex-row items-center static w-full justify-between border-b border-b-gray-700">
+            <div class="flex flex-row items-center content-center cursor-pointer">
+                <div class="bg-blue-600 text-white h-10 w-10 rounded-full flex flex-col items-center justify-center">
+                    <p class="font-bold text-white">1</p>
+                </div>
+                <div class="ml-2 flex flex-col content-center justify-center">
+                    <h2 class="font-bold leading-none">Etapes 1</h2>
+                    <p class="text-gray-400">Description</p>
+                </div>
+            </div>
+
+            <div class="flex flex-row items-center content-center cursor-pointer">
+                <div class="bg-blue-600 bg-opacity-15 text-white h-10 w-10 rounded-full flex flex-col items-center justify-center">
+                    <p class="font-bold text-blue-500">2</p>
+                </div>
+                <div class="ml-2 flex flex-col content-center justify-center">
+                    <h2 class="font-bold leading-none">Etapes 2</h2>
+                    <p class="text-gray-400">Description</p>
+                </div>
+            </div>
+
+            <div class="flex flex-row items-center content-center cursor-pointer">
+                <div class="bg-blue-600 bg-opacity-15 text-white h-10 w-10 rounded-full flex flex-col items-center justify-center">
+                    <p class="font-bold text-blue-500">3</p>
+                </div>
+                <div class="ml-2 flex flex-col content-center justify-center">
+                    <h2 class="font-bold leading-none">Etapes 3</h2>
+                    <p class="text-gray-400">Description</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Contenu direct de l'étape -->
+        <div class="p-11 pt-0">
+            Ici, tu devras utiliser la balise slot, regarde
+            frontend/src/components/dashboard/PrestataireDashboardTemplate.vue:312 (ligne 312),<br><br>
+            Puis regarde comment c'est utilisé dans frontend/src/views/prestataire_panel/PrestataireDashboardView.vue
+        </div>
+    </div>
+    <!-- Résumé -->
+    <div class=" p-11 border-l border-l-gray-700">
+        Résumé
+        <br><br>
+
+        Le résumé peut aller ici
+    </div>
+</div>
+</body>
+</html>

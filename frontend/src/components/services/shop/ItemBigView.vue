@@ -44,7 +44,7 @@ export default {
 			await store.dispatch("prestataire/boutique/getShop", prestataire.data.id);
 		} else {
 			console.error(prestataire.data);
-			await this.$router.push({path: "/"});
+			return;
 		}
 
 		let item = await BoutiqueService.getItemFromName(this.prestataire_name, this.item_name);
