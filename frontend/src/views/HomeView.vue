@@ -7,7 +7,7 @@
 
     <div class="absolute top-[42%] left-0 right-0 text-center font-semibold italic text-5xl text-white ml-80 mr-80">
       <h1 class="drop-shadow-all-white-700">
-        Les 24h du Mans, l’une des courses les plus emblématiques du sport auto
+        24h du Mans, prenez le départ du plus grand évènement automobile de France
       </h1>
     </div>
 
@@ -92,6 +92,33 @@
           </div>
         </div>
 
+        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Billeterie</h1>
+
+        <p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos <strong>offres de
+          billetterie</strong>,
+          pour garantir votre place lors de cet événement emblématique. Que vous soyez passionné de sport automobile ou
+          simplement curieux de vivre une expérience unique, nos billets vous <strong>donneront accès aux meilleures
+            places</strong> et
+          services pour profiter pleinement des 24 Heures du Mans.</p>
+        <router-link to="/billeterie">
+          <div class="mx-auto mt-10 content-center contain-content relative group">
+            <!-- L'image avec transition pour l'opacité au hover -->
+            <img
+                ref="ticketImg"
+                class="max-w-md mx-auto rounded-xl opacity-100 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg] group-hover:opacity-50"
+                src="@/assets/images/ticket.png"
+                alt="Ticket"
+            >
+
+            <!-- Texte qui apparaît au survol -->
+            <div
+                class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="font-bold text-xl">Lien vers la boutique</span>
+            </div>
+          </div>
+        </router-link>
+
+
         <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Prestataires</h1>
 
         <p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos prestataires, qui
@@ -155,6 +182,8 @@
           points d'intérêt <strong>pour une expérience optimale</strong> sur place.</p>
 
         <CarteInteractive width="80%" height="550px"/>
+
+        <img src="@/assets/images/descriptionServices.png" alt="description carte interactive"/>
 
       </div>
 
@@ -263,7 +292,7 @@ export default {
     );
 
     // Crée un tableau de références d'images
-    const images = ['tribuneImg', 'presentationImg1', 'presentationImg2', 'chiffresImg'];
+    const images = ['tribuneImg', 'presentationImg1', 'presentationImg2', 'chiffresImg', 'ticketImg'];
 
     // Observer chaque image dans le tableau
     images.forEach(refName => {
