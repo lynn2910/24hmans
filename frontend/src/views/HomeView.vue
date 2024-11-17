@@ -111,7 +111,7 @@
           </div>
           <div class="m-5 ml-20 w-max">
             <label for="categorie" class="w-30 text-2xl font-semibold">Filtrer par catégorie</label>
-            <div class="min-w-96">
+            <div class="min-w-96 z-50">
               <MultipleSelect
                   :items="['Boutique', 'Billeterie', 'Visite des écuries', 'Karting', 'Montgolfière']"
                   v-on:selectionChange="updateActiveFilters"
