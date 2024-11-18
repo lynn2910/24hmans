@@ -15,7 +15,7 @@
 
     <section class="absolute bg-dark text-white">
       <div class="p-5 mx-36">
-        <h1 class="font-bold italic text-5xl text-center m-14">24 Heures du Mans</h1>
+        <h2 class="font-bold italic text-5xl text-center m-14">24 Heures du Mans</h2>
 
         <div class="flex flex-row">
           <div class="mx-auto mt-10">
@@ -27,8 +27,8 @@
             >
           </div>
           <div class="flex flex-col">
-            <h2 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
-              Une course emblématique</h2>
+            <h3 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
+              Une course emblématique</h3>
             <p class="font-normal text-2xl text-start m-auto ml-6 mr-6 p-5 pt-0">Bienvenue aux 24 Heures du Mans,
               l'épreuve d'endurance mythique ! Chaque année depuis 1923, les meilleurs pilotes s'affrontent pendant 24
               heures sur un circuit unique combinant tracé Bugatti et routes publiques. Vitesse, stratégie et
@@ -38,8 +38,8 @@
 
         <div class="flex flex-row m-auto mt-20">
           <div class="flex flex-col">
-            <h2 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">Un circuit
-              unique</h2>
+            <h3 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">Un circuit
+              unique à la Sarthe</h3>
             <p class="font-normal text-2xl text-end m-auto ml-6 mr-6 p-5">Que vous soyez passionné ou curieux, les 24
               Heures du Mans sont une des trois courses les plus prestigieuses avec Monaco et Indianapolis. Vivez la
               passion des fans, la vitesse et la stratégie des bolides en action.</p>
@@ -54,7 +54,7 @@
           </div>
         </div>
 
-        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Quelques chiffres</h1>
+        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Quelques chiffres</h2>
 
         <div class="flex flex-row">
           <div class="flex flex-row">
@@ -66,8 +66,8 @@
             >
           </div>
           <div class="flex flex-col">
-            <h2 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
-              Un grand pas</h2>
+            <h3 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
+              Un grand pas</h3>
             <p class="font-normal text-2xl text-start m-auto ml-6 mr-6 p-5 pt-0">Fréquentation record pour le centenaire
               des 24 Heures du Mans 2023 ! Rejoignez des centaines de milliers de passionnés et vivez l’ambiance unique
               de cette course légendaire. Ne manquez pas le prochain rendez-vous et faites partie de l'histoire !</p>
@@ -76,8 +76,8 @@
 
         <div class="flex flex-row m-auto mt-20">
           <div class="flex flex-col">
-            <h2 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">Et un grand
-              merci</h2>
+            <h3 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">Et un grand
+              merci</h3>
             <p class="font-normal text-2xl text-end m-auto ml-6 mr-6 p-5">Merci à tous les passionnés venus célébrer les
               24 Heures du Mans ! Votre présence et votre enthousiasme font de cet événement une expérience inoubliable.
               Nous avons hâte de vous retrouver pour vibrer ensemble à chaque nouvelle édition !</p>
@@ -92,7 +92,7 @@
           </div>
         </div>
 
-        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Billeterie</h1>
+        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billeterie</h2>
 
         <p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos <strong>offres de
           billetterie</strong>,
@@ -119,7 +119,7 @@
         </router-link>
 
 
-        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Prestataires</h1>
+        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Prestataires</h2>
 
         <p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos prestataires, qui
           proposent
@@ -175,7 +175,7 @@
         <!--        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Services</h1>-->
 
 
-        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Carte Interactive</h1>
+        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Carte Interactive</h2>
 
         <p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Retrouvez toutes les informations
           sur l'événement <strong>grâce à notre carte interactive</strong>. Explorez facilement les lieux, services et
