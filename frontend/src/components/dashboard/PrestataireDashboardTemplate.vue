@@ -293,8 +293,8 @@
 					<p class="font-bold text-gray-300 my-auto px-3">{{ loggedInUser.name }}</p>
 				</router-link>
 
-				<router-link to="/" @click="logOut()"
-										 class="my-auto ml-auto p-3 pr-2 hover:bg-gray-50 hover:bg-opacity-5 hover:rounded-2xl">
+				<div @click="logoutUser"
+						 class="my-auto ml-auto p-3 pr-2 hover:bg-gray-50 hover:bg-opacity-5 hover:rounded-2xl cursor-pointer">
 					<svg class="ml-auto my-auto" width="23" height="20" viewBox="0 0 23 20" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<path
@@ -304,7 +304,7 @@
 								d="M2.20232 19.8208H12.1126C13.3272 19.8208 14.3149 18.8331 14.3149 17.6185V13.2139H12.1126V17.6185H2.20232L2.20232 2.20244H12.1126V6.60703H14.3149V2.20244C14.3149 0.987877 13.3272 0.000146866 12.1126 0.000146866H2.20232C0.987754 0.000146866 2.47955e-05 0.987877 2.47955e-05 2.20244L2.47955e-05 17.6185C2.47955e-05 18.8331 0.987754 19.8208 2.20232 19.8208Z"
 								style="fill: #fff"/>
 					</svg>
-				</router-link>
+				</div>
 			</div>
 		</div>
 		<!-- Le contenu iras ici -->
@@ -316,14 +316,20 @@
 
 <script>
 import IconEvent from "@/components/icons/IconEvent.vue";
-import store from "@/store/index"
 import {mapActions, mapState} from 'vuex'
+import {Selected} from "@/utils";
 
 export default {
 	name: "PrestataireDashboardTemplate",
 	components: {IconEvent},
 	async beforeMount() {
-		await store.dispatch('prestataire/login/getLoggedInUser', this.$route.params.prestataire_name);
+		if (!this.loggedInUser || this.userType !== Selected.Prestataire) {
+
+			if (this.userType !== Selected.Prestataire) console.log("Ce n'est pas un prestataire");
+			else console.log("Aucun utilisateur connecté n'a été trouvé");
+
+			await this.$router.push({name: 'login'});
+		}
 	},
 	props: {
 		/**
@@ -345,10 +351,14 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('prestataire/login', ['loggedInUser'])
+		...mapState('login', ['loggedInUser', 'userType'])
 	},
 	methods: {
-		...mapActions('prestataire/login', ['getLoggedInUser', 'logOut']),
+		...mapActions('login', ['login', 'logout']),
+		async logoutUser() {
+			this.logout();
+			await this.$router.push({name: "login"})
+		}
 	}
 }
 

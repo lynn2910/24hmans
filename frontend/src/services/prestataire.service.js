@@ -9,6 +9,10 @@ async function getPrestataire(id) {
     return LocalSource.getPrestataire(id)
 }
 
+async function loginPrestataire(id, password) {
+    return LocalSource.getPrestataireWithPassword(id, password)
+}
+
 async function getAllPrestataires() {
     return LocalSource.getAllPrestataires()
 }
@@ -22,4 +26,4 @@ async function getPrestataireFromName(name) {
     return LocalSource.getPrestataireFromName(name)
 }
 
-export default {getPrestataire, getPrestataireFromName, getAllPrestataires}
+export default {getPrestataire, getPrestataireFromName, getAllPrestataires, loginPrestataire}

@@ -21,6 +21,9 @@ module.exports = {
             dropShadow: {
                 'all-white-700': '0px 0px 10px #FFFFFF',
                 'all-red-700': '0px 0px 10px #D4002A',
+            },
+            backgroundImage: {
+                login: 'url("@/assets/images/login.jpg")',
             }
         },
     },

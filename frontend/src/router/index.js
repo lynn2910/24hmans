@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,7 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: HomeView
+        component: () => import("../views/HomeView.vue"),
     },
     {
         path: '/carte',
@@ -53,13 +52,20 @@ const routes = [
         name: "shop_view",
         component: () => import( '../views/services/shop/ShopItemView.vue')
     },
-
     {
         path: "/dance",
         redirect: () => {
             window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
             return '/'
         },
+    },
+    {
+        path: '/login',
+        name: "login",
+        component: () => import( '../views/LoginView.vue'),
+        meta: {
+            hideNavbar: true
+        }
     },
 
 

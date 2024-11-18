@@ -1,4 +1,3 @@
-import login from "@/store/prestataire/login";
 import boutique from "@/store/prestataire/boutique";
 import PrestataireService from "@/services/prestataire.service";
 
@@ -28,7 +27,6 @@ export default {
     },
 
     modules: {
-        login,
         boutique
     }
 }

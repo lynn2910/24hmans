@@ -1,4 +1,6 @@
 import {boutiques, prestataires} from "@/datasource/prestataires";
+import {users} from "@/datasource/user";
+import bcrypt from "bcryptjs";
 
 /**
  * Obtiens les informations sur le prestataire, s'il existe
@@ -9,6 +11,19 @@ function getPrestataire(id) {
 
     if (!presta) return {error: 1, status: 404, data: "prestataire inexistant"}
     return {error: 0, status: 200, data: presta};
+}
+
+function getPrestataireWithPassword(id, password) {
+    let prestataire = getPrestataireFromName(id);
+    if (prestataire.error) return prestataire;
+
+    prestataire = prestataire.data;
+    if (bcrypt.compareSync(prestataire.password, password)) return {
+        error: 1,
+        status: 404,
+        message: "Prestataire not found"
+    }
+    else return {error: 0, status: 200, data: prestataire};
 }
 
 function getAllPrestataires() {
@@ -51,4 +66,19 @@ function getShopItemFromName(prestataire_name, item_name) {
     return {error: 0, status: 200, data: item};
 }
 
-export default {getPrestataire, getPrestataireFromName, getBoutiqueInfos, getAllPrestataires, getShopItemFromName};
+function loginUser(email, password) {
+    let user = users.find(u => u.email === email && bcrypt.compareSync(u.password, password));
+
+    if (user) return {error: 0, status: 200, data: user}
+    else return {error: 1, status: 404, data: "User not found"};
+}
+
+export default {
+    getPrestataire,
+    getPrestataireFromName,
+    getPrestataireWithPassword,
+    getBoutiqueInfos,
+    getAllPrestataires,
+    getShopItemFromName,
+    loginUser
+};
