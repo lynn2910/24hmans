@@ -11,7 +11,7 @@ export default {
 	data() {
 		return {
 			selected: Selected.User,
-			account_creation: true,
+			account_creation: false,
 
 			login_id: "",
 			password: "",
@@ -33,6 +33,30 @@ export default {
 		// TODO en réalité c'est très mauvais; ca ne vérifie pas si on a de bons identifiants :o
 		if (this.loggedInUser && this.userType) {
 			this.redirectUser();
+		}
+
+		let query_params = this.$route.query;
+		if ('type' in query_params) {
+			switch (query_params.type) {
+				case 'user': {
+					this.selected = Selected.User;
+
+					if ('signup' in query_params) {
+						this.account_creation = true;
+					} else if ('login' in query_params) {
+						this.account_creation = false;
+					}
+					break;
+				}
+				case 'presta': {
+					this.selected = Selected.Prestataire;
+					break;
+				}
+				case 'admin': {
+					this.selected = Selected.Admin;
+					break;
+				}
+			}
 		}
 	},
 	methods: {
