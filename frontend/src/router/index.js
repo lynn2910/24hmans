@@ -23,14 +23,15 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
     {
-        path: "/prestataire/:prestataire_name/panel",
+        path: "/prestataire/panel",
         name: "prestataire_dashboard",
-        component: () => import( '../views/prestataire_panel/PrestataireDashboardView.vue')
+        component: () => import( '@/views/panels/prestataire/PrestataireDashboardView.vue'),
+        meta: {hideNavbar: true}
     },
     {
         path: "/prestataire/:prestataire_name/panel/statistiques",
         name: "prestataire_dashboard_stats",
-        component: () => import( '../views/prestataire_panel/PrestataireDashboardStatsView.vue')
+        component: () => import( '@/views/panels/prestataire/PrestataireDashboardStatsView.vue')
     },
     {
         path: "/prestataire/:prestataire_name",
@@ -63,9 +64,12 @@ const routes = [
         path: '/login',
         name: "login",
         component: () => import( '../views/LoginView.vue'),
-        meta: {
-            hideNavbar: true
-        }
+        meta: {hideNavbar: true}
+    },
+    {
+        path: "/admin/panel",
+        name: "admin_dashboard",
+        component: () => import( '../views/panels/admin/AdminDashboardView.vue'),
     },
 
 

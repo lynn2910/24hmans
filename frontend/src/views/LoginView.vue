@@ -102,12 +102,16 @@ export default {
 			switch (this.selected) {
 				case Selected.Prestataire: {
 					this.$router.push({
-						path: `/prestataire/${transformPrestataireName(this.loggedInUser.name)}/panel`
+						name: "prestataire_dashboard"
 					});
 					break
 				}
 				case Selected.User: {
 					this.$router.push({path: `/client/@me`});
+					break;
+				}
+				case Selected.Admin: {
+					this.$router.push({name: "admin_dashboard"});
 					break;
 				}
 				default: {
@@ -122,14 +126,7 @@ export default {
 		 * Permet de verrouiller ou déverrouiller le bouton de connexion
 		 */
 		isAllowedToLogin() {
-			switch (this.selected) {
-				case Selected.Prestataire: {
-					return this.login_id.length > 0 && this.password.length > 0;
-				}
-				default: {
-					return false;
-				}
-			}
+			return this.login_id.length > 0 && this.password.length > 0;
 		},
 		isAllowedToSignup() {
 			return (this.selected === Selected.User)
@@ -165,7 +162,7 @@ export default {
 				class="absolute top-1/2 -translate-y-1/2 ml-10 mt-10 bg-dark border border-black rounded-xl p-5 h-3/4 w-2/6 min-w-[500px] bg-opacity-65 backdrop-blur flex flex-col items-center content-center justify-between">
 			<!-- bg-opacity-50 backdrop-blur  -->
 
-			<!-- Sélection prestataire <> user <> admin -->
+			<!-- Sélection prestataire <> user <> prestataire -->
 			<div class="flex flex-row content-center justify-between">
 				<div
 						class="flex flex-row content-center justify-center border border-gray-500 rounded-3xl w-fit p-1 select-none">

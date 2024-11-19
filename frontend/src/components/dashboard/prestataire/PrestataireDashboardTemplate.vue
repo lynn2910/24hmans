@@ -328,7 +328,7 @@ export default {
 			if (this.userType !== Selected.Prestataire) console.log("Ce n'est pas un prestataire");
 			else console.log("Aucun utilisateur connecté n'a été trouvé");
 
-			await this.$router.push({first_name: 'login'});
+			await this.$router.push({name: 'login'});
 		}
 	},
 	props: {
@@ -357,7 +357,7 @@ export default {
 		...mapActions('login', ['login', 'logout']),
 		async logoutUser() {
 			this.logout();
-			await this.$router.push({first_name: "login"})
+			await this.$router.push({name: "login"});
 		}
 	}
 }
