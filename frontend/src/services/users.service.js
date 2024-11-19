@@ -4,4 +4,8 @@ async function loginUser(email, password) {
     return LocalSource.loginUser(email, password)
 }
 
-export default {loginUser}
+async function signupUser(email, password, first_name, last_name) {
+    return LocalSource.signupUser(email, password, first_name, last_name)
+}
+
+export default {loginUser, signupUser}

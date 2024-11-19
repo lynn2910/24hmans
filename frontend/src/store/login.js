@@ -1,4 +1,6 @@
 import PrestataireService from "@/services/prestataire.service";
+import UsersService from "@/services/users.service";
+import {Selected} from "@/utils";
 
 export default {
     namespaced: true,
@@ -42,6 +44,22 @@ export default {
                 commit('updateUserType', data.type);
             } else {
                 console.error(res);
+            }
+        },
+        /**
+         * @param commit
+         * @param {{email: string, first_name: string, last_name: string, password: string}} data
+         * @returns {Promise<void>}
+         */
+        async signup({commit}, data) {
+            console.log("Creating client account");
+
+            let res = await UsersService.signupUser(data.email, data.password, data.first_name, data.last_name);
+            if (!res.error) {
+                commit("updateLoggedInUser", res.data);
+                commit("updateUserType", Selected.User);
+            } else {
+                console.error(res)
             }
         },
         logout({commit}) {

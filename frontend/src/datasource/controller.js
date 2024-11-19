@@ -1,6 +1,7 @@
 import {boutiques, prestataires} from "@/datasource/prestataires";
 import {users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
+import {v4 as uuid} from "uuid";
 
 /**
  * Obtiens les informations sur le prestataire, s'il existe
@@ -73,6 +74,25 @@ function loginUser(email, password) {
     else return {error: 1, status: 404, data: "User not found"};
 }
 
+/**
+ * @param {string} email
+ * @param password
+ * @param {string} first_name
+ * @param {string} last_name
+ */
+function signupUser(email, password, first_name, last_name) {
+    let user = {
+        user_id: uuid().toString(),
+        created_at: Date.now(),
+        hashed_password: password,
+        email, first_name, last_name
+    }
+
+    users.push(user)
+
+    return {error: 0, status: 200, data: user};
+}
+
 export default {
     getPrestataire,
     getPrestataireFromName,
@@ -80,5 +100,6 @@ export default {
     getBoutiqueInfos,
     getAllPrestataires,
     getShopItemFromName,
-    loginUser
+    loginUser,
+    signupUser
 };
