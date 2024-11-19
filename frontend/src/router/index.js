@@ -29,7 +29,7 @@ const routes = [
         meta: {hideNavbar: true}
     },
     {
-        path: "/prestataire/:prestataire_name/panel/statistiques",
+        path: "/prestataire/panel/statistiques",
         name: "prestataire_dashboard_stats",
         component: () => import( '@/views/panels/prestataire/PrestataireDashboardStatsView.vue')
     },
