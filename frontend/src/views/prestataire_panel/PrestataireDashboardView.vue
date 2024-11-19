@@ -1,5 +1,5 @@
 <script setup>
-import PrestataireDashboardTemplate from "@/components/dashboard/PrestataireDashboardTemplate.vue";
+import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
 </script>
 
 <template>

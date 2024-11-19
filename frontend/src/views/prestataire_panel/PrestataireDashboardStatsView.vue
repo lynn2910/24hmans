@@ -1,5 +1,6 @@
 <script setup>
-import PrestataireDashboardWithTabsTemplate from "@/components/dashboard/PrestataireDashboardWithTabsTemplate.vue";
+import PrestataireDashboardWithTabsTemplate
+	from "@/components/dashboard/prestataire/PrestataireDashboardWithTabsTemplate.vue";
 import {ref} from "vue";
 
 const tabs = [

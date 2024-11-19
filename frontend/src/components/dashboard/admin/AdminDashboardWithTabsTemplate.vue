@@ -1,6 +1,6 @@
 <template>
 	<!-- On réutilise directement la template globale du dashboard -->
-	<PrestataireDashboardTemplate :current-page="currentPage">
+	<AdminDashboardTemplate :current-page="currentPage">
 		<!-- Tabs -->
 		<div class="h-20 w-full bg-dark flex flex-row content-center align-baseline">
 			<!-- Chaque onglet dans le for -->
@@ -19,15 +19,15 @@
 				<slot></slot>
 			</div>
 		</div>
-	</PrestataireDashboardTemplate>
+	</AdminDashboardTemplate>
 </template>
 
 <script>
-import PrestataireDashboardTemplate from "@/components/dashboard/PrestataireDashboardTemplate.vue";
+import AdminDashboardTemplate from "@/components/dashboard/admin/AdminDashboardTemplate.vue";
 
 export default {
 	name: "PrestataireDashboardWithTabsTemplate",
-	components: {PrestataireDashboardTemplate},
+	components: {AdminDashboardTemplate},
 	props: {
 		/**
 		 * La page actuelle où nous sommes.

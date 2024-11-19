@@ -3,7 +3,7 @@
 import {mapActions, mapState} from "vuex";
 import {ROUNDS, Selected, transformPrestataireName} from "@/utils";
 import bcrypt from 'bcryptjs'
-import IconEvent from "@/components/icons/IconEvent.vue";
+import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 
 export default {
 	name: "LoginView",

@@ -315,12 +315,12 @@
 </template>
 
 <script>
-import IconEvent from "@/components/icons/IconEvent.vue";
+import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 import {mapActions, mapState} from 'vuex'
 import {Selected} from "@/utils";
 
 export default {
-	name: "PrestataireDashboardTemplate",
+	name: "AdminDashboardTemplate",
 	components: {IconEvent},
 	async beforeMount() {
 		if (!this.loggedInUser || this.userType !== Selected.Prestataire) {
