@@ -103,7 +103,7 @@ export default {
 
 		<router-link to="/"
 								 class="absolute border border-black rounded-xl bg-dark bg-opacity-65 backdrop-blur p-5 ml-10 mt-5 hover:bg-opacity-45">
-			<IconEvent></IconEvent>
+			<IconEvent width="50" height="50"></IconEvent>
 		</router-link>
 
 		<!-- Login -->
