@@ -92,7 +92,7 @@
           </div>
         </div>
 
-        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billeterie</h2>
+        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billetterie</h2>
 
         <p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos <strong>offres de
           billetterie</strong>,
@@ -181,7 +181,7 @@
           sur l'événement <strong>grâce à notre carte interactive</strong>. Explorez facilement les lieux, services et
           points d'intérêt <strong>pour une expérience optimale</strong> sur place.</p>
 
-        <CarteInteractive width="80%" height="550px"/>
+        <CarteInteractive width="1000px" height="550px"/>
 
         <img src="@/assets/images/descriptionServices.png" alt="description carte interactive"/>
 
