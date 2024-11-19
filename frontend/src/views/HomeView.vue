@@ -92,7 +92,7 @@
           </div>
         </div>
 
-        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billetterie</h2>
+        <h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billeterie</h2>
 
         <p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos <strong>offres de
           billetterie</strong>,

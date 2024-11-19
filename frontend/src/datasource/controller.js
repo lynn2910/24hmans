@@ -1,4 +1,8 @@
 import {boutiques, prestataires} from "@/datasource/prestataires";
+import {users} from "@/datasource/user";
+import bcrypt from "bcryptjs";
+import {v4 as uuid} from "uuid";
+import {admins} from "@/datasource/admin";
 
 /**
  * Obtiens les informations sur le prestataire, s'il existe
@@ -11,8 +15,21 @@ function getPrestataire(id) {
     return {error: 0, status: 200, data: presta};
 }
 
+function getPrestataireWithPassword(id, password) {
+    let prestataire = getPrestataireFromName(id);
+    if (prestataire.error) return prestataire;
+
+    prestataire = prestataire.data;
+    if (!bcrypt.compareSync(password, prestataire.password)) return {
+        error: 1,
+        status: 404,
+        message: "Prestataire not found"
+    }
+    else return {error: 0, status: 200, data: prestataire};
+}
+
 function getAllPrestataires() {
-    return {error: 0, data: prestataires};
+    return {error: 0, status: 200, data: prestataires};
 }
 
 /**
@@ -51,4 +68,50 @@ function getShopItemFromName(prestataire_name, item_name) {
     return {error: 0, status: 200, data: item};
 }
 
-export default {getPrestataire, getPrestataireFromName, getBoutiqueInfos, getAllPrestataires, getShopItemFromName};
+function loginUser(email, password) {
+    let user = users.find(u => u.email === email && bcrypt.compareSync(password, u.hashed_password));
+
+    if (user) return {error: 0, status: 200, data: user}
+    else return {error: 1, status: 404, data: "User not found"};
+}
+
+/**
+ * @param {string} email
+ * @param password
+ * @param {string} first_name
+ * @param {string} last_name
+ */
+function signupUser(email, password, first_name, last_name) {
+    let user = {
+        user_id: uuid().toString(),
+        created_at: Date.now(),
+        hashed_password: password,
+        email, first_name, last_name
+    }
+
+    users.push(user)
+
+    return {error: 0, status: 200, data: user};
+}
+
+function loginAdmin(name, password) {
+    let admin = admins.find(u => u.name === name && bcrypt.compareSync(password, u.password));
+
+    if (admin) return {error: 0, status: 200, data: admin};
+    else return {error: 1, status: 404, data: "Admin not found"};
+}
+
+export default {
+    getPrestataire,
+    getPrestataireFromName,
+    getPrestataireWithPassword,
+    getBoutiqueInfos,
+    getAllPrestataires,
+    getShopItemFromName,
+    loginUser,
+    signupUser,
+    loginAdmin
+};
+
+// TODO implémenté dans la datasource mais rajouter dans les service
+// TODO le login coté admin marche aussi avec les identifiants prestataires :(

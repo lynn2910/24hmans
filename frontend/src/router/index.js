@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,7 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: HomeView
+        component: () => import("../views/HomeView.vue"),
     },
     {
         path: '/carte',
@@ -24,14 +23,15 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
     {
-        path: "/prestataire/:prestataire_name/panel",
+        path: "/prestataire/panel",
         name: "prestataire_dashboard",
-        component: () => import( '../views/prestataire_panel/PrestataireDashboardView.vue')
+        component: () => import( '@/views/panels/prestataire/PrestataireDashboardView.vue'),
+        meta: {hideNavbar: true}
     },
     {
-        path: "/prestataire/:prestataire_name/panel/statistiques",
+        path: "/prestataire/panel/statistiques",
         name: "prestataire_dashboard_stats",
-        component: () => import( '../views/prestataire_panel/PrestataireDashboardStatsView.vue')
+        component: () => import( '@/views/panels/prestataire/PrestataireDashboardStatsView.vue')
     },
     {
         path: "/prestataire/:prestataire_name",
@@ -53,13 +53,23 @@ const routes = [
         name: "shop_view",
         component: () => import( '../views/services/shop/ShopItemView.vue')
     },
-
     {
         path: "/dance",
         redirect: () => {
             window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
             return '/'
         },
+    },
+    {
+        path: '/login',
+        name: "login",
+        component: () => import( '../views/LoginView.vue'),
+        meta: {hideNavbar: true}
+    },
+    {
+        path: "/admin/panel",
+        name: "admin_dashboard",
+        component: () => import( '../views/panels/admin/AdminDashboardView.vue'),
     },
 
 

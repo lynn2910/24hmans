@@ -13,7 +13,7 @@
 				}}</p>
 		</div>
 		<div v-if="showItems"
-				 class="border-2 border-blue-400 border-opacity-50 rounded min-h-10 absolute top-12 w-full p-1 bg-dark"
+				 class="border-2 border-blue-400 border-opacity-50 rounded min-h-10 absolute top-12 w-full p-1 bg-dark z-50"
 				 :class="showItems ? 'border-opacity-100' : ''">
 			<div v-for="(item, index) in items" :key="index"
 					 class="flex flew-row align-middle py-2 px-3 hover:bg-gray-100 hover:bg-opacity-10 cursor-pointer rounded"
