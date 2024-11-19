@@ -14,7 +14,7 @@ let prestataires = [
     {
         id: "45309281-fc24-4e02-ad47-a275c64f5327",
         icon: 'prestataires_icons/porsche_presta.jpg',
-        password: "$2y$10$CEEsZTyCiQkGXcynf0ZMz.Fm7FTXFRsIcjSU/UWVqbiWPBve/XFWy", // 'Spider-Porsche'
+        password: "$2a$10$lqWLtDJk2CWRxnN8UH22qOvwCTPFNXMR8lhzWAQftMBzt6HY.VBOm", // 'Spider-Porsche'
         name: "Porsche", // Visite garage,
         links: [{name: "Site officiel", url: "https://www.porsche.com"}],
         description: "Porsche, constructeur automobile allemand de renommée mondiale, est connu pour ses voitures de sport de haute performance, synonymes de puissance, de luxe et d'ingénierie de précision. L’entreprise a été fondée en 1931 à Stuttgart par Ferdinand Porsche, ingénieur visionnaire et inventeur, d'abord sous le nom de \"Dr. Ing. h.c. F. Porsche GmbH\". Initialement, la société se consacrait à la consultation et au développement technique pour d'autres marques automobiles, notamment pour Volkswagen avec la création de la célèbre Coccinelle.\n" +

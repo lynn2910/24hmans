@@ -1,8 +1,7 @@
 <script>
 
 import {mapActions, mapState} from "vuex";
-import {ROUNDS, Selected, transformPrestataireName} from "@/utils";
-import bcrypt from 'bcryptjs'
+import {Selected, transformPrestataireName} from "@/utils";
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 
 export default {
@@ -74,48 +73,28 @@ export default {
 				this.account_creation = !this.account_creation;
 			}
 		},
-		loginUser() {
+		async loginUser() {
 			console.log("Connexion");
 
-			bcrypt.hash(this.password, ROUNDS, async (err, hash) => {
-				if (err) {
-					console.error(err);
-					return alert(`Erreur (hachage du password): ${err.message}`);
-				}
+			await this.login({id: transformPrestataireName(this.login_id), password: this.password, type: this.selected});
 
-				await this.login({id: transformPrestataireName(this.login_id), password: hash, type: this.selected});
+			if (!this.loggedInUser) {
+				this.box_message = "Identifiant ou mot de passe invalide"
+			} else this.redirectUser()
+		},
+		async signupUser() {
+			if (this.isAllowedToSignup) {
+
+				await this.signup({
+					email: this.account_creation_data.email,
+					password: this.account_creation_data.password,
+					first_name: this.account_creation_data.first_name,
+					last_name: this.account_creation_data.last_name,
+				});
 
 				if (!this.loggedInUser) {
-					this.box_message = "Identifiant ou mot de passe invalide"
+					this.box_message = "Impossible de créer un compte utilisateur"
 				} else this.redirectUser()
-			})
-		},
-		signupUser() {
-			if (this.isAllowedToSignup) {
-				console.log("hashing");
-				console.log(`password: ${this.account_creation_data.password}`)
-				bcrypt.hash(this.account_creation_data.password.toString(), ROUNDS, async (err, hash) => {
-					console.log(err)
-					console.log(hash)
-					if (err) {
-						console.error(err);
-						return alert(`Erreur (hachage du password): ${err.message}`);
-					}
-
-					console.log("signing up")
-					await this.signup({
-						email: this.account_creation_data.email,
-						password: hash,
-						first_name: this.account_creation_data.first_name,
-						last_name: this.account_creation_data.last_name
-					});
-
-					console.log("signed up")
-
-					if (!this.loggedInUser) {
-						this.box_message = "Impossible de créer un compte utilisateur"
-					} else this.redirectUser()
-				})
 			}
 		},
 		/**
@@ -233,7 +212,8 @@ export default {
 						<h1 class="font-bold text-xl text-center mb-10">Connexion</h1>
 
 						<div class="mb-3">
-							<p class="font-semibold my-2">Login</p>
+							<p class="font-semibold my-2" v-if="selected !== Selected.User">Login</p>
+							<p class="font-semibold my-2" v-else>Email</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									v-model="login_id"

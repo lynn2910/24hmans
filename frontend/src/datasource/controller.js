@@ -2,6 +2,7 @@ import {boutiques, prestataires} from "@/datasource/prestataires";
 import {users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
 import {v4 as uuid} from "uuid";
+import {admins} from "@/datasource/admin";
 
 /**
  * Obtiens les informations sur le prestataire, s'il existe
@@ -19,7 +20,7 @@ function getPrestataireWithPassword(id, password) {
     if (prestataire.error) return prestataire;
 
     prestataire = prestataire.data;
-    if (bcrypt.compareSync(prestataire.password, password)) return {
+    if (!bcrypt.compareSync(password, prestataire.password)) return {
         error: 1,
         status: 404,
         message: "Prestataire not found"
@@ -68,7 +69,7 @@ function getShopItemFromName(prestataire_name, item_name) {
 }
 
 function loginUser(email, password) {
-    let user = users.find(u => u.email === email && bcrypt.compareSync(u.password, password));
+    let user = users.find(u => u.email === email && bcrypt.compareSync(password, u.hashed_password));
 
     if (user) return {error: 0, status: 200, data: user}
     else return {error: 1, status: 404, data: "User not found"};
@@ -93,6 +94,13 @@ function signupUser(email, password, first_name, last_name) {
     return {error: 0, status: 200, data: user};
 }
 
+function loginAdmin(name, password) {
+    let admin = admins.find(u => u.name === name && bcrypt.compareSync(password, u.password));
+
+    if (admin) return {error: 0, status: 200, data: admin};
+    else return {error: 1, status: 404, data: "Admin not found"};
+}
+
 export default {
     getPrestataire,
     getPrestataireFromName,
@@ -101,5 +109,9 @@ export default {
     getAllPrestataires,
     getShopItemFromName,
     loginUser,
-    signupUser
+    signupUser,
+    loginAdmin
 };
+
+// TODO implémenté dans la datasource mais rajouter dans les service
+// TODO le login coté admin marche aussi avec les identifiants prestataires :(

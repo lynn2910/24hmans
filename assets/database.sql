@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS shop_items;
 DROP TABLE IF EXISTS shop_items_category;
 DROP TABLE IF EXISTS shop CASCADE;
 DROP TABLE IF EXISTS user CASCADE;
+DROP TABLE IF EXISTS admin CASCADE;
 
 DROP TABLE IF EXISTS prestataires;
 
@@ -15,6 +16,15 @@ CREATE TABLE prestataires
     name           VARCHAR(64) NOT NULL,
 
     PRIMARY KEY (prestataire_id)
+);
+
+CREATE TABLE admin
+(
+    admin_id INT AUTO_INCREMENT NOT NULL,
+    name     VARCHAR(64),
+    password VARCHAR(64),
+
+    PRIMARY KEY (admin_id)
 );
 
 CREATE TABLE user
@@ -137,6 +147,9 @@ VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
        ('f4f434b3-f256-484b-8935-29e13126c9e8', 'carla@gmail.com',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Carla', 'Wilson');
 -- Pour générer des personnes : https://www.name-generator.org.uk/last/
+
+INSERT INTO admin (admin_id, name, password)
+VALUES (1, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
 
 #
 #       BOUTIQUE

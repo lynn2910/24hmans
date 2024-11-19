@@ -286,7 +286,7 @@
 			<!-- Compte du prestataire -->
 			<div
 					class="border-white border-t-2 w-5/6 p-1 mx-auto mt-auto h-20 flex flex-row content-center align-middle py-2">
-				<router-link :to="`/prestataire/${$route.params.prestataire_name}`"
+				<router-link :to="`/prestataire/${transformPrestataireName(loggedInUser.name)}`"
 										 class="flex flex-row content-center align-middle hover:bg-gray-50 hover:bg-opacity-5 hover:rounded-2xl">
 					<img class="w-16 h-auto" :src="`${publicPath}${loggedInUser.icon}`" alt="icon">
 
@@ -317,7 +317,7 @@
 <script>
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 import {mapActions, mapState} from 'vuex'
-import {Selected} from "@/utils";
+import {Selected, transformPrestataireName} from "@/utils";
 
 export default {
 	name: "PrestataireDashboardTemplate",
@@ -354,6 +354,7 @@ export default {
 		...mapState('login', ['loggedInUser', 'userType'])
 	},
 	methods: {
+		transformPrestataireName,
 		...mapActions('login', ['login', 'logout']),
 		async logoutUser() {
 			this.logout();

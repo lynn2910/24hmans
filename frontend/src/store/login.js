@@ -1,6 +1,7 @@
 import PrestataireService from "@/services/prestataire.service";
 import UsersService from "@/services/users.service";
 import {Selected} from "@/utils";
+import AdminService from "@/services/admin.service";
 
 export default {
     namespaced: true,
@@ -37,7 +38,10 @@ export default {
             if (!('password' in data)) return alert("champ 'password' manquant pour login le prestataire :/")
 
             console.log("Get logged in user");
-            let res = await PrestataireService.loginPrestataire(data.id, data.password);
+            let res;
+            if (data.type === Selected.User) res = await UsersService.loginUser(data.id, data.password);
+            else if (data.type === Selected.Prestataire) res = await PrestataireService.loginPrestataire(data.id, data.password);
+            else if (data.type === Selected.Admin) res = await AdminService.loginAdmin(data.id, data.password);
 
             if (!res.error) {
                 commit("updateLoggedInUser", res.data);

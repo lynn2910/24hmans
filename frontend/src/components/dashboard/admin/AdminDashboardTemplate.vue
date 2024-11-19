@@ -31,9 +31,30 @@
 
 					<div v-if="currentPage === 'stats'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
+				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
+										 :to="`/admin/panel/users`">
+					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24">
+						<path
+								d="M15 11h7v2h-7zm1 4h6v2h-6zm-2-8h8v2h-8zM4 19h10v-1c0-2.757-2.243-5-5-5H7c-2.757 0-5 2.243-5 5v1h2zm4-7c1.995 0 3.5-1.505 3.5-3.5S9.995 5 8 5 4.5 6.505 4.5 8.5 6.005 12 8 12z"></path>
+					</svg>
+					<h2 class="my-auto pl-3 text-lg font-semibold">Utilisateurs</h2>
+
+					<div v-if="currentPage === 'users'" class="ml-auto w-2 bg-white rounded-2xl"></div>
+				</router-link>
+
+				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
+										 :to="`/admin/panel/users`">
+					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24">
+						<path d="M2 3h20v4H2zm17 5H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8h-2zm-3 6H8v-2h8v2z"></path>
+					</svg>
+					<h2 class="my-auto pl-3 text-lg font-semibold">Prestataires</h2>
+
+					<div v-if="currentPage === 'prestataires'" class="ml-auto w-2 bg-white rounded-2xl"></div>
+				</router-link>
+
 
 				<!-- Titre "SERVICES" -->
-				<h1 class="uppercase font-bold mt-14 mb-5 text-lg">Statistiques</h1>
+				<h1 class="uppercase font-bold mt-5 mb-5 text-lg">Statistiques</h1>
 
 				<!-- Liste des services -->
 				<router-link
