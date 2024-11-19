@@ -28,7 +28,7 @@ function getPrestataireWithPassword(id, password) {
 }
 
 function getAllPrestataires() {
-    return {error: 0, data: prestataires};
+    return {error: 0, status: 200, data: prestataires};
 }
 
 /**

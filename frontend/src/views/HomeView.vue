@@ -168,8 +168,6 @@
 						<h2 class="prestataire-name text-xl font-bold mt-3">{{ presta.name }}</h2>
 					</router-link>
 				</div>
-
-
 				<p v-else>Aucun prestataire trouvé</p>
 
 				<!--        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Services</h1>-->
