@@ -195,15 +195,15 @@
 // Importer directement les données
 // TODO A changer quand on aura les X.service.js associés
 import {billeterie, boutiques, garages, karting, montgolfieres} from "@/datasource/prestataires";
-import MultipleSelect from "@/components/selects/MultipleSelect.vue";
 import CarteInteractive from "@/components/carteInteractive/CarteInteractive.vue";
 import {mapActions, mapGetters} from "vuex";
 import store from "@/store";
-import FooterComponent from "@/components/footer/FooterComponent.vue";
+import FooterComponent from "@/components/navigation/footer/FooterComponent.vue";
+import MultipleSelect from "@/components/selects/MultipleSelect.vue";
 
 export default {
 	name: 'HomeView',
-	components: {FooterComponent, MultipleSelect, CarteInteractive},
+	components: {MultipleSelect, FooterComponent, CarteInteractive},
 	data() {
 		return {
 			nameFilter: '',
