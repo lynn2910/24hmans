@@ -5,9 +5,10 @@
       Your browser does not support the video tag.
     </video>
 
-    <div class="absolute top-[42%] left-0 right-0 text-center font-semibold italic text-5xl text-white ml-80 mr-80">
+    <div class="absolute top-[35%] left-0 right-0 text-center font-semibold not-italic text-5xl text-white ml-80 mr-80">
       <h1 class="drop-shadow-all-white-700">
         24h du Mans, prenez le départ du plus grand évènement automobile de France
+        <br><br><span class="not-italic text-4xl pt-5">11 AU 15 JUIN 2025</span>
       </h1>
     </div>
 
