@@ -325,7 +325,7 @@
 			</div>
 		</div>
 		<!-- Le contenu iras ici -->
-		<div class="w-full h-screen bg-white text-black">
+		<div class="w-full h-screen text-white "> <!-- bg-[#111827] -->
 			<slot></slot>
 		</div>
 	</div>

@@ -17,6 +17,10 @@ async function getAllPrestataires() {
     return LocalSource.getAllPrestataires()
 }
 
+async function getPrestatairesServicesCount() {
+    return LocalSource.getPrestatairesServicesCount();
+}
+
 /**
  * Récupère un prestataire à partir du nom
  * @param name Le nom du prestataire
@@ -26,4 +30,10 @@ async function getPrestataireFromName(name) {
     return LocalSource.getPrestataireFromName(name)
 }
 
-export default {getPrestataire, getPrestataireFromName, getAllPrestataires, loginPrestataire}
+export default {
+    getPrestataire,
+    getPrestataireFromName,
+    getAllPrestataires,
+    loginPrestataire,
+    getPrestatairesServicesCount
+}

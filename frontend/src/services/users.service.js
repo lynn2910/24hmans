@@ -8,4 +8,8 @@ async function signupUser(email, password, first_name, last_name) {
     return LocalSource.signupUser(email, password, first_name, last_name)
 }
 
-export default {loginUser, signupUser}
+async function getUserCount() {
+    return LocalSource.getAllUsers();
+}
+
+export default {loginUser, signupUser, getUserCount}

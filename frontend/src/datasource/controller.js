@@ -28,6 +28,21 @@ function getPrestataireWithPassword(id, password) {
     else return {error: 0, status: 200, data: prestataire};
 }
 
+function getPrestatairesServicesCount() {
+    let prestataires = getAllPrestataires();
+    if (prestataires.error) return prestataires;
+    prestataires = prestataires.data.map(p => ({id: p.id, name: p.name, nb_services: 0}))
+
+    prestataires.forEach((p) => {
+        if (boutiques.find((b) => b.prestataire_id === p.id)) {
+            p.nb_services++
+        }
+
+        // TODO
+    })
+    return {error: 0, status: 200, data: prestataires};
+}
+
 function getAllPrestataires() {
     return {error: 0, status: 200, data: prestataires};
 }
@@ -101,6 +116,10 @@ function loginAdmin(name, password) {
     else return {error: 1, status: 404, data: "Admin not found"};
 }
 
+function getAllUsers() {
+    return {error: 0, status: 200, data: users};
+}
+
 export default {
     getPrestataire,
     getPrestataireFromName,
@@ -110,5 +129,7 @@ export default {
     getShopItemFromName,
     loginUser,
     signupUser,
-    loginAdmin
+    loginAdmin,
+    getAllUsers,
+    getPrestatairesServicesCount
 };
