@@ -89,7 +89,7 @@ function signupUser(email, password, first_name, last_name) {
         email, first_name, last_name
     }
 
-    users.push(user)
+    users.push(user);
 
     return {error: 0, status: 200, data: user};
 }
@@ -112,6 +112,3 @@ export default {
     signupUser,
     loginAdmin
 };
-
-// TODO implémenté dans la datasource mais rajouter dans les service
-// TODO le login coté admin marche aussi avec les identifiants prestataires :(
