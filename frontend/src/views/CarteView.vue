@@ -1,5 +1,5 @@
 <script>
-import CarteInteractive from "@/components/carteInteractive/CarteInteractive.vue";
+import CarteInteractive from "@/components/carteInteractive/CarteInteractiveAdmin.vue";
 
 export default {
   components: {CarteInteractive},

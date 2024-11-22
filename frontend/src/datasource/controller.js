@@ -43,7 +43,21 @@ function getPrestatairesServicesCount() {
     return {error: 0, status: 200, data: prestataires};
 }
 
-function getAllPrestataires() {
+// function getPrestataireServices(id) {
+//     let prestataire = getPrestataireFromName(id);
+//     if (prestataire.error) return prestataire;
+//     prestataire = prestataire.data;
+//
+//     let services = [];
+//     if (boutiques.find((b) => b.prestataire_id === id)) {
+//         services.push("boutique");
+//     }
+//     // TODO
+//
+//     return {error: 0, status: 200, data: services};
+// }
+
+export function getAllPrestataires() {
     return {error: 0, status: 200, data: prestataires};
 }
 
@@ -128,6 +142,7 @@ export default {
     getAllPrestataires,
     getShopItemFromName,
     loginUser,
+    // getPrestataireServices,
     signupUser,
     loginAdmin,
     getAllUsers,

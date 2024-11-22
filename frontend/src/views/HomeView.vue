@@ -198,7 +198,7 @@
 // TODO A changer quand on aura les X.service.js associés
 import {billeterie, boutiques, garages, karting, montgolfieres} from "@/datasource/prestataires";
 import MultipleSelect from "@/components/selects/MultipleSelect.vue";
-import CarteInteractive from "@/components/carteInteractive/CarteInteractive.vue";
+import CarteInteractive from "@/components/carteInteractive/CarteInteractiveAdmin.vue";
 import {mapActions, mapGetters} from "vuex";
 import store from "@/store";
 import FooterComponent from "@/components/navigation/footer/FooterComponent.vue";
@@ -270,7 +270,9 @@ export default {
       return boutiques.some(boutique => boutique.prestataire_id === prestataireId);
     },
   },
-  actions: {...mapActions("prestataire", ["getAllPrestataires"]),},
+  actions: {
+    ...mapActions("prestataire", ["getAllPrestataires"]),
+  },
   async beforeMount() {
     await store.dispatch("prestataire/getAllPrestataires");
   },

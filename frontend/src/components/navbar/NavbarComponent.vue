@@ -9,7 +9,7 @@
     <div
         class="min-w-6/12 bg-dark m-auto rounded-full text-white flex flex-row font-semibold space-x-8 p-4 px-16 justify-center content-center shadow-2xl shadow-red-700">
       <!-- TODO changer les addresses :D -->
-      <router-link to="/billeterie"><p>Billetterie en ligne</p></router-link>
+      <router-link to="/billetterie"><p>Billetterie en ligne</p></router-link>
       <router-link to="/boutique"><p>Boutique en ligne</p></router-link>
       <router-link to="/carte"><p>Carte</p></router-link>
       <router-link :to="{ name: '/', hash: '#service' }">Services</router-link>
