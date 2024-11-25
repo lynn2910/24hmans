@@ -16,6 +16,7 @@ module.exports = {
         "no-mixed-spaces-and-tabs": 'off',
         "no-irregular-whitespace": 'off',
         "no-empty": "off",
-        'vue/multi-word-component-names': 'off'
+        'vue/multi-word-component-names': 'off',
+        'no-useless-escape': 'off'
     }
 }

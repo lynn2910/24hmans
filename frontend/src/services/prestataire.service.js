@@ -30,10 +30,20 @@ async function getPrestataireFromName(name) {
     return LocalSource.getPrestataireFromName(name)
 }
 
+async function deletePrestataire(id) {
+    return LocalSource.deletePrestataire(id)
+}
+
+async function createPrestataire(name, password) {
+    return LocalSource.createPrestataire({name, password})
+}
+
 export default {
     getPrestataire,
     getPrestataireFromName,
     getAllPrestataires,
     loginPrestataire,
-    getPrestatairesServicesCount
+    getPrestatairesServicesCount,
+    deletePrestataire,
+    createPrestataire
 }

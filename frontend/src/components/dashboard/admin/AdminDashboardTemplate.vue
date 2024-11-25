@@ -29,7 +29,7 @@
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Carte</h2>
 
-					<div v-if="currentPage === 'stats'" class="ml-auto w-2 bg-white rounded-2xl"></div>
+					<div v-if="currentPage === 'map'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
 										 :to="`/admin/panel/users`">
@@ -43,7 +43,7 @@
 				</router-link>
 
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-										 :to="`/admin/panel/users`">
+										 :to="`/admin/panel/prestataires`">
 					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24">
 						<path d="M2 3h20v4H2zm17 5H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8h-2zm-3 6H8v-2h8v2z"></path>
 					</svg>
@@ -307,7 +307,7 @@
 			<div
 					class="border-white border-t-2 w-5/6 p-1 mx-auto mt-auto h-20 flex flex-row content-center align-middle py-2">
 				<div class="flex flex-row content-center align-middle">
-					<p class="font-bold my-auto px-3 text-red-600 text-xl">{{ loggedInUser.name }}</p>
+					<p class="font-bold my-auto px-3 text-red-600 text-xl">{{ loggedInUser?.name }}</p>
 				</div>
 
 				<div @click="logoutUser"
@@ -354,11 +354,9 @@ export default {
 		 *
 		 * Peut-être :
 		 * - "home"
-		 * - "stats"
-		 * - "shop"
-		 * - "ecuries"
-		 * - "karting"
-		 * - "montgol"
+		 * - "map"
+		 * - "users"
+		 * - "prestataires"
 		 */
 		currentPage: String
 	},

@@ -3,6 +3,7 @@ import {users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
 import {v4 as uuid} from "uuid";
 import {admins} from "@/datasource/admin";
+import {ROUNDS} from "@/utils";
 
 /**
  * Obtiens les informations sur le prestataire, s'il existe
@@ -134,6 +135,42 @@ function getAllUsers() {
     return {error: 0, status: 200, data: users};
 }
 
+function deletePrestataire(prestataire_id) {
+    let index = prestataires.findIndex(u => u.id === prestataire_id);
+    if (index === -1) return {error: 1, status: 400, data: "No prestataire found"}
+
+    // TODO supprimer les services associés au prestataire :O
+    prestataires.splice(index, 1);
+
+    return {error: 0, status: 200, data: "Prestataire deleted"}
+}
+
+function createPrestataire(prestataire_data) {
+    if (!('name' in prestataire_data) || !('password' in prestataire_data)) return {
+        error: 1,
+        status: 400,
+        data: "Invalid data received"
+    }
+
+    return new Promise((resolve) => {
+        bcrypt.hash(prestataire_data.password, ROUNDS, (err, hash) => {
+            let id = uuid();
+
+            let prestataire = {
+                id,
+                name: prestataire_data.name,
+                password: hash,
+                description: "",
+                links: []
+            }
+
+            prestataires.push(prestataire);
+
+            return resolve({error: 0, status: 200, data: prestataire})
+        })
+    })
+}
+
 export default {
     getPrestataire,
     getPrestataireFromName,
@@ -146,5 +183,7 @@ export default {
     signupUser,
     loginAdmin,
     getAllUsers,
-    getPrestatairesServicesCount
+    getPrestatairesServicesCount,
+    deletePrestataire,
+    createPrestataire
 };
