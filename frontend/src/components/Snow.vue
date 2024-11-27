@@ -23,7 +23,7 @@
 				</svg>
 			</div>
 			<!-- Form -->
-			<div v-if="showEditPopup" class="text-black p-4 bg-white rounded-tl-xl">
+			<div v-if="showEditPopup" class="text-black p-4 bg-white rounded-tl-xl snow_popup">
 				<!-- Vitesse -->
 				<div>
 					<h3 class="font-semibold">Vitesse</h3>
@@ -66,7 +66,7 @@
 						<input type="number" min="-50" max="50" step="0.1" v-model="form.windMax" class="ml-2 w-14">
 					</div>
 				</div>
-
+				<!-- Actions -->
 				<div class="flex flex-row items-center content-center justify-between pr-3 mt-3 w-72">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 							 class="cursor-pointer"
@@ -102,7 +102,7 @@ export default {
 			snowflakes: [],
 			width: window.innerWidth,
 			height: window.innerHeight,
-			showEditPopup: true,
+			showEditPopup: false,
 			showSnow: true,
 			looping: false,
 			form: {
