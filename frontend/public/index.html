@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+    <!-- Meta -->
+    <meta name="description"
+          content="Découvrez l'univers passionnant des 24 Heures du Mans, la course d'endurance la plus prestigieuse au monde. Revivez les meilleurs moments, participez aux activités extraordinaires, achetez vos billets et plongez au cœur de l'événement.">
+    <meta name="keywords"
+          content="24h du Mans, course d'endurance, sport automobile, Le Mans, circuit des 24 Heures, billetterie, résultats, pilotes">
+
+    <!-- og:* -->
+    <meta name="og:description"
+          content="Découvrez l'univers passionnant des 24 Heures du Mans, la course d'endurance la plus prestigieuse au monde. Revivez les meilleurs moments, participez aux activités extraordinaires, achetez vos billets et plongez au cœur de l'événement.">
+    <meta name="og:title" content="Les 24h du Mans">
+    <meta property="og:image" content="/banner.jpg">
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>
