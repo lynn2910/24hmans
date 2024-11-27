@@ -6,8 +6,11 @@
 		</NavbarComponent>
 
 		<router-view/>
+
+		<Snow :radius="[1.0, 4.0]" :snow-amount="300" :speed="[0.5,2.0]"></Snow>
 	</div>
 </template>
 <script setup lang="ts">
 import NavbarComponent from "@/components/navigation/navbar/NavbarComponent.vue";
+import Snow from "@/components/Snow.vue";
 </script>
