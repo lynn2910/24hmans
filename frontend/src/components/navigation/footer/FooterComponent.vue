@@ -1,5 +1,5 @@
 <template>
-	<footer class="w-screen">
+	<footer class="w-screen" style="z-index: 9999;">
 		<svg
 				class="relative transform translate-y-[60%] w-screen h-auto mt-auto left-0 flex flex-row space-between drop-shadow-all-white-700"
 				width="1918"
