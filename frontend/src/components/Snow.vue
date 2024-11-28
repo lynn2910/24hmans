@@ -34,7 +34,7 @@
 
 						<br>
 						<p>Vitesse maximale</p>
-						<input type="range" min="0" max="10" step="0.1" v-model="form.speedMax">
+						<input type="range" min="0" max="50" step="0.1" v-model="form.speedMax">
 						<input type="number" min="0" step="0.1" v-model="form.speedMax" class="ml-2 w-14">
 					</div>
 				</div>

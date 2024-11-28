@@ -34,9 +34,15 @@ async function deletePrestataire(id) {
     return LocalSource.deletePrestataire(id)
 }
 
-async function createPrestataire(name, password) {
+async function createPrestataireWithHashing(name, password) {
     return LocalSource.createPrestataire({name, password})
 }
+
+
+async function importPrestataire(name, password) {
+    return LocalSource.createPrestataireInternal({name, password})
+}
+
 
 export default {
     getPrestataire,
@@ -45,5 +51,6 @@ export default {
     loginPrestataire,
     getPrestatairesServicesCount,
     deletePrestataire,
-    createPrestataire
+    createPrestataireWithHashing,
+    importPrestataire
 }

@@ -2,10 +2,10 @@
 	<div class="flex flex-row w-screen h-screen">
 		<div class="bg-dark h-screen text-white w-56 flex flex-col">
 			<div class="w-full py-3">
-				<IconEvent class="m-auto"></IconEvent>
+				<IconEvent class="m-auto" width="76" height="50"></IconEvent>
 			</div>
 
-			<div class="w-max ml-2 mt-5">
+			<div class="w-max ml-2 mt-1 fill-white">
 				<!-- Dashboard (home) + statistiques-->
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
 										 :to="`/prestataire/panel/`">
@@ -32,11 +32,21 @@
 
 					<div v-if="currentPage === 'stats'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
+				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
+										 :to="`/prestataire/panel/profile`">
+					<svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24">
+						<path
+								d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path>
+					</svg>
+					<h2 class="my-auto pl-3 text-lg font-semibold">Mon profile</h2>
+
+					<div v-if="currentPage === 'stats'" class="ml-auto w-2 bg-white rounded-2xl"></div>
+				</router-link>
 
 				<!-- Titre "SERVICES" -->
 				<h1 class="uppercase font-bold mt-14 mb-5 text-lg">Services</h1>
+				
 				<!-- Liste des services -->
-
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
 						:to="`/prestataire/panel/service/boutique`">
@@ -338,6 +348,7 @@ export default {
 		 * Peut-être :
 		 * - "home"
 		 * - "stats"
+		 * - "profile"
 		 * - "shop"
 		 * - "ecuries"
 		 * - "karting"

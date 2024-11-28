@@ -154,21 +154,25 @@ function createPrestataire(prestataire_data) {
 
     return new Promise((resolve) => {
         bcrypt.hash(prestataire_data.password, ROUNDS, (err, hash) => {
-            let id = uuid();
-
-            let prestataire = {
-                id,
-                name: prestataire_data.name,
-                password: hash,
-                description: "",
-                links: []
-            }
-
-            prestataires.push(prestataire);
-
-            return resolve({error: 0, status: 200, data: prestataire})
+            return resolve(createPrestataireInternal({...prestataire_data, password: hash}))
         })
     })
+}
+
+function createPrestataireInternal(prestataire_data) {
+    let id = uuid();
+
+    let prestataire = {
+        id,
+        name: prestataire_data.name,
+        password: prestataire_data.password,
+        description: "",
+        links: []
+    }
+
+    prestataires.push(prestataire);
+
+    return ({error: 0, status: 200, data: prestataire});
 }
 
 export default {
@@ -185,5 +189,6 @@ export default {
     getAllUsers,
     getPrestatairesServicesCount,
     deletePrestataire,
-    createPrestataire
+    createPrestataire,
+    createPrestataireInternal
 };

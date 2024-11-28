@@ -2,7 +2,7 @@
 	<div class="flex flex-row w-screen h-screen">
 		<div class="bg-dark h-screen text-white w-56 flex flex-col">
 			<div class="w-full py-3">
-				<IconEvent class="m-auto"></IconEvent>
+				<IconEvent class="m-auto" width="76" height="50"></IconEvent>
 			</div>
 
 			<div class="w-max ml-2 mt-5">

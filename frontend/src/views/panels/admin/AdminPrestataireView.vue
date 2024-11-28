@@ -8,7 +8,11 @@ Page de gestion des prestataires du dashboard admin
 	<AdminDashboardTemplate current-page="prestataires">
 		<div class="flex flex-row items-center content-center justify-start gap-5 h-[90%] w-full mt-[2.5%]">
 			<div class="w-full bg-blue-400 bg-opacity-5 m-5 mr-0 p-5 h-full border border-gray-700 rounded-2xl">
-				<h2 class="text-2xl font-bold mb-5">Prestataires</h2>
+				<div class="flex flex-row content-center items-center justify-between w-full mb-5">
+					<h2 class="text-2xl font-bold">Prestataires</h2>
+					<DownloadData @download="downloadPrestataires" @copy="copyPrestataires"
+												@import="importPrestataires"></DownloadData>
+				</div>
 
 				<table class="w-full text-left table-auto min-w-max">
 					<thead>
@@ -166,7 +170,6 @@ Page de gestion des prestataires du dashboard admin
 				</div>
 			</div>
 
-
 			<!-- Popups -->
 
 			<!-- Edit -->
@@ -188,6 +191,22 @@ Page de gestion des prestataires du dashboard admin
 				</div>
 			</Popup>
 
+			<!-- Copy popup -->
+			<Popup title="Copie des prestataires" v-if="showCopyPopup" @close="showCopyPopup = false;">
+				<p class="mt-1 mb-3">Vous avez copié avec succès les prestataires</p>
+				<button class="ml-auto bg-gray-500 hover:bg-gray-800 py-2 px-3 rounded" @click="showCopyPopup = false;">
+					Fermer
+				</button>
+			</Popup>
+
+			<Loading
+					v-if="showImportLoadingAnimation"
+					title="Création des nouveaux prestataires..."
+					indicator="prestataires créés"
+					:step="importingLoader.step"
+					:max-step="importingLoader.max">
+			</Loading>
+
 		</div>
 	</AdminDashboardTemplate>
 </template>
@@ -196,13 +215,15 @@ Page de gestion des prestataires du dashboard admin
 import AdminDashboardTemplate from "@/components/dashboard/admin/AdminDashboardTemplate.vue";
 import {mapActions, mapGetters} from "vuex";
 import store from "@/store";
-import PrestataireService from "@/services/prestataire.service";
 import {evaluatePasswordSecurity, passwordScoreColor, transformPrestataireName} from "@/utils";
 import Popup from "@/components/dashboard/Popup.vue";
+import DownloadData from "@/components/dashboard/DownloadData.vue";
+import Loading from "@/components/dashboard/Loading.vue";
+import PrestataireService from "@/services/prestataire.service";
 
 export default {
 	name: "AdminDashboardView",
-	components: {Popup, AdminDashboardTemplate},
+	components: {Loading, DownloadData, Popup, AdminDashboardTemplate},
 	data() {
 		return {
 			services: [],
@@ -220,13 +241,88 @@ export default {
 				error: false,
 				name: null,
 				invalidForm: false,
+			},
+			showCopyPopup: false,
+			showImportLoadingAnimation: false,
+
+			importingLoader: {
+				step: 0,
+				max: 0,
 			}
 		}
 	},
 	methods: {
+
+		// IMPORT
 		evaluatePasswordSecurity,
 		passwordScoreColor,
 		transformPrestataireName,
+
+		// DOWNLOAD/COPY/IMPORT
+		downloadPrestataires() {
+			let jsonPrestataires = JSON.stringify(this.prestataires);
+
+			const blob = new Blob([jsonPrestataires], {type: 'application/json'});
+
+			const link = document.createElement('a');
+			link.href = URL.createObjectURL(blob);
+			link.download = 'prestataires.json';
+			link.click();
+
+			URL.revokeObjectURL(link.href);
+		},
+		copyPrestataires() {
+			let jsonPrestataires = JSON.stringify(this.prestataires);
+			navigator.clipboard.writeText(jsonPrestataires)
+					.then(() => {
+						console.log('Prestataires copiés dans le presse-papier');
+						this.showCopyPopup = true;
+					})
+					.catch(err => {
+						console.error('Erreur de copie : ', err);
+					});
+		},
+		async importPrestataires(d) {
+			if (d.error) {
+				alert("Format de fichier invalide.")
+			}
+			let importedPrestataires = d.data;
+			this.showImportLoadingAnimation = true;
+
+			let alreadyCreatedPrestataires = this.prestataires.map(({id, name}) => ({id, name}));
+			this.importingLoader.max = importedPrestataires.length;
+
+			try {
+				for (const np of importedPrestataires) {
+					// Pour éviter les doublons :O
+					let doesAlreadyExist = alreadyCreatedPrestataires.some(p =>
+							transformPrestataireName(p.name) === transformPrestataireName(np.name)
+							|| p.id === np.id
+					);
+
+					if (!doesAlreadyExist) {
+						// Ajout du prestataire
+						alreadyCreatedPrestataires.push({name: np.name, id: np.id});
+
+						let res = await PrestataireService.importPrestataire(np.name, np.password);
+
+						console.log(res)
+					}
+
+					this.importingLoader.step++;
+				}
+
+				// Lastly, fetch again all prestataires
+				await store.dispatch("prestataire/getAllPrestataires");
+			} catch (err) {
+				alert("Une erreur est survenue. Êtes-vous sûr d'avoir utilisé le bon format de données?");
+				console.error(err)
+			}
+
+			this.showImportLoadingAnimation = false;
+		},
+
+		// POPUP
 		closePopup() {
 			this.showEditPopup = false;
 			this.showDeletePopup = false;
@@ -244,7 +340,8 @@ export default {
 
 			this.popupPrestataire = presta;
 		},
-		// Delete
+
+		// DELETE
 		async deletePrestataire(presta_id) {
 			let res = await PrestataireService.deletePrestataire(presta_id);
 
@@ -257,7 +354,7 @@ export default {
 			}
 		},
 
-		// Creation
+		// CREATION
 		resetPrestaCreationForm() {
 			this.presta_creation = {
 				name: "",
@@ -275,7 +372,7 @@ export default {
 				return;
 			}
 
-			let res = await PrestataireService.createPrestataire(this.presta_creation.name, this.presta_creation.password);
+			let res = await PrestataireService.createPrestataireWithHashing(this.presta_creation.name, this.presta_creation.password);
 
 			this.old_presta_creation.show = true;
 			this.old_presta_creation.invalidForm = false;
