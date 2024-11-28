@@ -145,13 +145,24 @@ Page de gestion des prestataires du dashboard admin
 				<div
 						class="bg-emerald-500 bg-opacity-5 border-2 border-emerald-500 rounded-xl p-5 w-full flex flex-row items-center content-center justify-start"
 						v-if="old_presta_creation.show && !old_presta_creation.error">
-					Le prestataire <strong class="mx-1">{{ old_presta_creation.name }}</strong> a été créé avec succès
+					<p>Le prestataire <strong class="mx-1">{{ old_presta_creation.name }}</strong> a été créé avec succès</p>
 				</div>
 
 				<div
 						class="bg-red-500 bg-opacity-5 border-2 border-red-500 rounded-xl p-5 w-full  flex flex-row items-center content-center justify-start"
-						v-if="old_presta_creation.show && old_presta_creation.error">
-					Une erreur est survenue en créant le prestataire <strong class="mx-1">{{ old_presta_creation.name }}</strong>
+						v-if="old_presta_creation.show && old_presta_creation.error && !old_presta_creation.invalidForm">
+					<p>Une erreur est survenue en créant le prestataire <strong class="mx-1">{{
+							old_presta_creation.name
+						}}</strong></p>
+				</div>
+
+				<div
+						class="bg-red-500 bg-opacity-5 border-2 border-red-500 rounded-xl p-5 w-full  flex flex-row items-center content-center justify-start"
+						v-else-if="old_presta_creation.show && old_presta_creation.error && old_presta_creation.invalidForm">
+					<p>Une erreur est survenue en créant le prestataire <strong class="mx-1">{{
+							old_presta_creation.name
+						}}</strong>:
+						Le nom et le mot de passe doivent être précisés</p>
 				</div>
 			</div>
 
@@ -208,6 +219,7 @@ export default {
 				show: false,
 				error: false,
 				name: null,
+				invalidForm: false,
 			}
 		}
 	},
@@ -255,9 +267,18 @@ export default {
 			};
 		},
 		async createPrestataire() {
+			if (this.presta_creation.name?.trim().length < 1 || this.presta_creation.password.trim().length < 1) {
+				this.old_presta_creation.show = true;
+				this.old_presta_creation.invalidForm = true;
+				this.old_presta_creation.error = true;
+				this.old_presta_creation.name = this.presta_creation.name;
+				return;
+			}
+
 			let res = await PrestataireService.createPrestataire(this.presta_creation.name, this.presta_creation.password);
 
 			this.old_presta_creation.show = true;
+			this.old_presta_creation.invalidForm = false;
 			this.old_presta_creation.error = res.error;
 			this.old_presta_creation.name = this.presta_creation.name;
 

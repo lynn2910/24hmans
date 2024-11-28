@@ -8,7 +8,7 @@
 		<router-view/>
 
 		<!-- Santa is here -->
-		<Snow :radius="[1.0, 4.0]" :snow-amount="500" :speed="[0.5,2.0]"></Snow>
+		<Snow :radius="[1.0, 4.5]" :snow-amount="500" :speed="[0.5,2.5]"></Snow>
 	</div>
 </template>
 <script setup lang="ts">
