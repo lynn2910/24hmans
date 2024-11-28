@@ -34,6 +34,13 @@
 					<label for="email">E-mail :</label>
 					<input type="email" id="email" v-model="form.email" required/>
 				</div>
+				<div>
+					<label>Choisir un garage</label>
+					<Select
+							:items="['Porsche', 'Ferrari']"
+							v-on:selectionChange="updateActiveFilters"
+					/>
+				</div>
 
 				<div>
 					<label for="billet">Numéro de billet :</label>
@@ -55,7 +62,10 @@
 </template>!nb
 
 <script>
+import Select from "@/components/selects/Select.vue";
+
 export default {
+	components: {Select},
 	data() {
 		return {
 			form: {
