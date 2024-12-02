@@ -83,7 +83,7 @@
 							des 24 Heures du Mans 2023 ! Rejoignez des centaines de milliers de passionnés et vivez
 							l’ambiance unique
 							de cette course légendaire. Ne manquez pas le prochain rendez-vous et faites partie de
-							l'histoire !</p>
+							l'histoire!</p>
 					</div>
 				</div>
 
@@ -96,7 +96,7 @@
 							célébrer les
 							24 Heures du Mans ! Votre présence et votre enthousiasme font de cet événement une
 							expérience inoubliable.
-							Nous avons hâte de vous retrouver pour vibrer ensemble à chaque nouvelle édition !</p>
+							Nous avons hâte de vous retrouver pour vibrer ensemble à chaque nouvelle édition!</p>
 					</div>
 					<div class="mx-auto mt-10">
 						<img
@@ -144,8 +144,7 @@
 					qui
 					proposent
 					une large gamme de services pour enrichir <strong>votre expérience</strong>. Chacun
-					d’eux est ravi de partager son savoir-faire et de contribuer à faire de votre événement <strong>un
-						moment
+					d’eux est ravi de partager son savoir-faire et de contribuer à faire de votre événement <strong>un moment
 						inoubliable.</strong></p>
 
 				<div class="flex flex-row content-center">
