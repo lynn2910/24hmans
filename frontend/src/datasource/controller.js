@@ -1,4 +1,4 @@
-import {boutiques, garages, prestataires} from "@/datasource/prestataires";
+import {boutiques, prestataires, billetteries} from "@/datasource/prestataires";
 import {users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
 import {v4 as uuid} from "uuid";
@@ -51,10 +51,7 @@ function getPrestataireServices(id) {
 
     let services = [];
     if (boutiques.find((b) => b.prestataire_id === id)) {
-        services.push("Boutique");
-    }
-    if (garages.find((g) => g.prestataire_id === id)) {
-        services.push("garage");
+        services.push("boutique");
     }
     // TODO
     return {error: 0, status: 200, data: services};
@@ -207,26 +204,18 @@ function addPrestataireLink(prestataire_id, {name, url}) {
     }
 }
 
-function updatePrestataire(prestataire_id, {description, name}) {
-    let p = getPrestataire(prestataire_id);
-    if (!p) return p;
-    let presta = p.data;
+function getAllCategoryTicket(prestataire_id){
+    let billeterie = billetteries.find(b => b.prestataire_id === prestataire_id);
 
-    console.log(description)
-    if (description) presta.description = description;
-    if (name) presta.name = name;
-
-    return {
-        error: 0,
-        status: 200,
-        data: presta
-    }
+    if (billeterie) return {error: 0, status: 200, data: billeterie.categories}
+    else return {error: 1, status: 404, data: "billetterie not found"};
 }
 
 export default {
     getPrestataire,
     getPrestataireFromName,
     getPrestataireWithPassword,
+    getAllCategoryTicket,
     getBoutiqueInfos,
     getAllPrestataires,
     getShopItemFromName,
@@ -240,6 +229,5 @@ export default {
     createPrestataire,
     createPrestataireInternal,
     updatePrestataireLink,
-    addPrestataireLink,
-    updatePrestataire
+    addPrestataireLink
 };

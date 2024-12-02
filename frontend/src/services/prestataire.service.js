@@ -51,12 +51,12 @@ async function updatePrestataireLink(presta_id, link_name, link_url, link_id) {
     return LocalSource.updatePrestataireLink(presta_id, {id: link_id, name: link_name, url: link_url})
 }
 
-async function updatePrestataire(presta_id, data) {
-    return LocalSource.updatePrestataire(presta_id, data)
-}
-
 async function addPrestataireLink(presta_id, name, url) {
     return LocalSource.addPrestataireLink(presta_id, {name, url})
+}
+
+async function getAllCategoryTicket(prestataire_id){
+    return LocalSource.getAllCategoryTicket(prestataire_id);
 }
 
 
@@ -72,5 +72,5 @@ export default {
     importPrestataire,
     updatePrestataireLink,
     addPrestataireLink,
-    updatePrestataire
+    getAllCategoryTicket
 }

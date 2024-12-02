@@ -160,13 +160,18 @@ let garages = [
     }
 ]
 
-let billeterie = [
+let billetteries = [
     {
-        prestataire_id: "524aaa51-09c1-48f1-85d3-ac878394e1ff"
+        prestataire_id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
+        categories: [
+            {category_label: "Tribune adulte", category_id: "baf910a9-9l13-43c9-b780-a77c1323d87d"},
+            {category_label: "Tribune enfant", category_id: "pyh129y6-67yt-2zf5-8ae6-rof18dzq5g2t"},
+            {category_label: "Tribune VIP", category_id: "qzj58df9-t027-tzhq-ta5d-hst28sh94zqm"}
+        ]
     }
 ]
 
 module.exports = {
     prestataires,
-    karting, montgolfieres, garages, billeterie, boutiques
+    karting, montgolfieres, garages, billetteries, boutiques
 }

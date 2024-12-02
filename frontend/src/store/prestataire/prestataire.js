@@ -1,6 +1,7 @@
 import boutique from "@/store/prestataire/boutique";
 import PrestataireService from "@/services/prestataire.service";
 
+
 export default {
     namespaced: true,
     state: {

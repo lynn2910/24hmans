@@ -77,6 +77,12 @@ const routes = [
         component: () => import( '../views/panels/admin/AdminPrestataireView.vue'),
     },
 
+    {
+        path:'/billetterie/:prestataire_name',
+        name: "billetterie",
+        component: () => import('../views/services/BilletterieView.vue'),
+    },
+
 
     // DERNIERE PAGE
     {
