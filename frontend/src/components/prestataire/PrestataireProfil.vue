@@ -54,7 +54,7 @@ export default {
                 <router-link
                         v-for="service in services"
                         :key="service"
-                        :to="`/${service.toLowerCase()}/${prestataire?.name.toLowerCase()}`"
+                        :to="service.toLowerCase() === 'garage' ? `/ecuries` : `/${service.toLowerCase()}/${prestataire?.name.toLowerCase()}`"
                         class="flex flex-col items-center text-center p-4 border border-gray-600 rounded shadow-lg
                                transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white]">
                     <div class="flex items-center justify-center w-16 h-16 bg-gray-300 rounded-full">

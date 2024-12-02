@@ -1,4 +1,4 @@
-import {boutiques, prestataires} from "@/datasource/prestataires";
+import {boutiques, garages, prestataires} from "@/datasource/prestataires";
 import {users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
 import {v4 as uuid} from "uuid";
@@ -52,6 +52,9 @@ function getPrestataireServices(id) {
     let services = [];
     if (boutiques.find((b) => b.prestataire_id === id)) {
         services.push("boutique");
+    }
+    if (garages.find((g) => g.prestataire_id === id)) {
+        services.push("garage");
     }
     // TODO
     return {error: 0, status: 200, data: services};
