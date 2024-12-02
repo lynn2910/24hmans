@@ -204,6 +204,22 @@ function addPrestataireLink(prestataire_id, {name, url}) {
     }
 }
 
+function updatePrestataire(prestataire_id, {description, name}) {
+    let p = getPrestataire(prestataire_id);
+    if (!p) return p;
+    let presta = p.data;
+
+    console.log(description)
+    if (description) presta.description = description;
+    if (name) presta.name = name;
+
+    return {
+        error: 0,
+        status: 200,
+        data: presta
+    }
+}
+
 export default {
     getPrestataire,
     getPrestataireFromName,
@@ -221,5 +237,6 @@ export default {
     createPrestataire,
     createPrestataireInternal,
     updatePrestataireLink,
-    addPrestataireLink
+    addPrestataireLink,
+    updatePrestataire
 };
