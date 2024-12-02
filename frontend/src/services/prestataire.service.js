@@ -47,6 +47,14 @@ async function importPrestataire(name, password) {
     return LocalSource.createPrestataireInternal({name, password})
 }
 
+async function updatePrestataireLink(presta_id, link_name, link_url, link_id) {
+    return LocalSource.updatePrestataireLink(presta_id, {id: link_id, name: link_name, url: link_url})
+}
+
+async function addPrestataireLink(presta_id, name, url) {
+    return LocalSource.addPrestataireLink(presta_id, {name, url})
+}
+
 
 export default {
     getPrestataire,
@@ -57,5 +65,7 @@ export default {
     getPrestataireServices,
     deletePrestataire,
     createPrestataireWithHashing,
-    importPrestataire
+    importPrestataire,
+    updatePrestataireLink,
+    addPrestataireLink
 }

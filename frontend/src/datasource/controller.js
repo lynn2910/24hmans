@@ -45,7 +45,7 @@ function getPrestatairesServicesCount() {
 }
 
 function getPrestataireServices(id) {
-    let prestataire = getPrestataireFromName(id);
+    let prestataire = getPrestataire(id);
     if (prestataire.error) return prestataire;
     prestataire = prestataire.data;
 
@@ -174,6 +174,36 @@ function createPrestataireInternal(prestataire_data) {
     return ({error: 0, status: 200, data: prestataire});
 }
 
+function updatePrestataireLink(prestataire_id, {id, name, url}) {
+    let p = getPrestataire(prestataire_id);
+    if (!p) return p;
+    let presta = p.data;
+
+    let linkIndex = presta.links.findIndex(l => l.id === id);
+    if (linkIndex < 0) return {error: 1, status: 404, message: "Link not found"}
+
+    presta.links[linkIndex] = {id, name, url}
+
+    return {error: 0, status: 200, message: "Link updated"}
+}
+
+function addPrestataireLink(prestataire_id, {name, url}) {
+    let p = getPrestataire(prestataire_id);
+    if (!p) return p;
+    let presta = p.data;
+
+    if (!presta.links) presta.links = []
+
+    let newId = presta.links.length;
+    presta.links.push({name, url, id: newId});
+
+    return {
+        error: 0,
+        status: 200,
+        data: {name, url, id: newId}
+    }
+}
+
 export default {
     getPrestataire,
     getPrestataireFromName,
@@ -189,5 +219,7 @@ export default {
     getPrestatairesServicesCount,
     deletePrestataire,
     createPrestataire,
-    createPrestataireInternal
+    createPrestataireInternal,
+    updatePrestataireLink,
+    addPrestataireLink
 };

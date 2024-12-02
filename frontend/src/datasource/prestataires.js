@@ -16,7 +16,7 @@ let prestataires = [
         icon: 'prestataires_icons/porsche_presta.jpg',
         password: "$2a$10$lqWLtDJk2CWRxnN8UH22qOvwCTPFNXMR8lhzWAQftMBzt6HY.VBOm", // 'Spider-Porsche'
         name: "Porsche", // Visite garage,
-        links: [{name: "Site officiel", url: "https://www.porsche.com"}],
+        links: [{id: 0, name: "Site officiel", url: "https://www.porsche.com"}],
         accentColor: '#9E8980',
         banner: '45309281-fc24-4e02-ad47-a275c64f5327.jpg',
         description: "Porsche, constructeur automobile allemand de renommée mondiale, est connu pour ses voitures de sport de haute performance, synonymes de puissance, de luxe et d'ingénierie de précision. L’entreprise a été fondée en 1931 à Stuttgart par Ferdinand Porsche, ingénieur visionnaire et inventeur, d'abord sous le nom de \"Dr. Ing. h.c. F. Porsche GmbH\". Initialement, la société se consacrait à la consultation et au développement technique pour d'autres marques automobiles, notamment pour Volkswagen avec la création de la célèbre Coccinelle.\n" +
@@ -32,7 +32,11 @@ let prestataires = [
         icon: 'prestataires_icons/montgol_presta.jpg',
         password: "$2y$10$GhHncEKGwYMsbC72aLNae..OUpuvCn.a7Tvyq8VkCWn7r5UNXgRim", // 'montgolfiere'
         name: "Mong'man", // Montgolfière,
-        links: [{name: "Site officiel", url: "https://montgolfiere-france.com/bapteme-en-montgolfiere-pres-du-mans/"}],
+        links: [{
+            id: 0,
+            name: "Site officiel",
+            url: "https://montgolfiere-france.com/bapteme-en-montgolfiere-pres-du-mans/"
+        }],
         accentColor: '#0A8799',
         banner: '255da203-781d-4e50-924f-0423638cdb68.jpg',
         description: "Fondée en 2010, Mong'Man est une entreprise passionnée de montgolfières, spécialisée dans les vols au-dessus de l'emblématique circuit des 24 Heures du Mans. Basée au cœur de la Sarthe, Mong'Man est née d'un rêve partagé par ses fondateurs, anciens pilotes amateurs de montgolfière, qui souhaitaient offrir aux amoureux de l'aviation légère une expérience unique et exaltante : découvrir la magie des 24 Heures du Mans depuis les airs.\n" +
@@ -53,6 +57,7 @@ let prestataires = [
         password: "$2y$10$GnxVPi3XmfkM.2MKgJNLfe/v3Qj7sLgVx1mqUC/vxeZXS7IE56j8i", // 'im-fast'
         name: "Kart'24", // Karting
         links: [{
+            id: 0,
             name: "Site officiel",
             url: "https://www.lemans-karting.com/karting/sessions-kart/?utm_source=google&utm_medium=cpc&utm_campaign=grp_marque&gad_source=1&gclid=CjwKCAiAudG5BhAREiwAWMlSjHrQwH3UEysrGgUOpWB5_tLZgToKz4d76wx4Xy4PBAZFkhhmq8ifGRoCvskQAvD_BwE"
         }],
@@ -73,7 +78,7 @@ let prestataires = [
         icon: 'prestataires_icons/organisateurs_presta.png',
         password: "$2y$10$NXLvYYnkO8Nvz7vnuE6GVuszoBjyTFyAH2.vINZ1OinJZC6tRi6D6", // 'lemans'
         name: "24h du Mans", // Billetterie + Boutique officielle
-        links: [{name: "Site officiel", url: "https://www.24h-lemans.com/"}],
+        links: [{id: 0, name: "Site officiel", url: "https://www.24h-lemans.com/"}],
         accentColor: '#AEC6C4',
         banner: 'af3a0f62-5b13-4b19-9d42-736870b268a0.jpg',
         description: "Les 24 Heures du Mans sont bien plus qu’une course automobile : c’est un défi d’endurance, un rendez-vous incontournable de l’innovation et une célébration de la passion automobile. Organisée chaque année depuis 1923 par l'Automobile Club de l'Ouest (ACO), cette course mythique se déroule sur le Circuit de la Sarthe, près de la ville du Mans, et rassemble des pilotes, des équipes et des constructeurs du monde entier pour une épreuve intense de 24 heures consécutives.\n" +

@@ -1,12 +1,16 @@
 <template>
-	<section class="absolute top-0 left-0 transition-all ease-in-out duration-700" @keydown.esc="emitCloseEvent">
+	<section class="absolute top-0 left-0 transition-all ease-in-out duration-700 z-50 min-w-32"
+					 @keydown.esc="emitCloseEvent">
 		<div class="fixed top-0 left-0 w-screen h-screen backdrop-blur z-10"
 				 @click="emitCloseEvent"></div>
 		<div
-				class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-row content-center items-center justify-center">
-			<div class="bg-dark rounded-xl">
+				class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-row content-center items-center justify-center"
+				:class="fullPage ? 'w-screen h-screen' : 'border border-gray-500 rounded-xl'">
+			<div class="overflow-y-scroll" :class="{'rounded-xl': !fullPage, background: bg}">
 				<!-- head -->
-				<div class="p-5 pb-2 flex flex-row items-center content-center justify-start">
+				<div
+						class="fixed z-[100] bg-dark w-full p-5 flex flex-row items-center content-center justify-start"
+						:class="fullPage ? 'top-0 left-0 w-screen' : 'rounded-t-xl'">
 					<h2 class="font-bold">{{ title }}</h2>
 					<svg @click="emitCloseEvent"
 							 xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +21,9 @@
 					</svg>
 				</div>
 				<!-- body -->
-				<div class="p-5 pt-2">
+				<div class="w-full mt-16"
+						 :class="{[bg]: true, 'p-5': !fullPage}"
+						 :style="{height: fullPage ? 'calc(100% - 4.5rem)' : 'auto'}">
 					<slot></slot>
 				</div>
 
@@ -30,7 +36,15 @@
 export default {
 	name: "Popup",
 	props: {
-		title: String
+		title: String,
+		fullPage: {
+			type: Boolean,
+			default: false
+		},
+		bg: {
+			type: String,
+			default: 'bg-dark'
+		}
 	},
 	methods: {
 		emitCloseEvent() {

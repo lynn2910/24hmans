@@ -173,8 +173,10 @@ Page de gestion des prestataires du dashboard admin
 			<!-- Popups -->
 
 			<!-- Edit -->
-			<Popup title="Modifier un prestataire" v-if="showEditPopup" @close="closePopup">
-				Cette popup permet de modifier les infos d'un prestataire
+			<Popup title="Modifier un prestataire" full-page v-if="showEditPopup" @close="closePopup" bg="bg-transparent">
+				<div class="w-[90vw] h-[90vh]">
+					<PrestataireEditPage :prestataire="popupPrestataire"></PrestataireEditPage>
+				</div>
 			</Popup>
 
 			<!-- Delete -->
@@ -220,10 +222,11 @@ import Popup from "@/components/dashboard/Popup.vue";
 import DownloadData from "@/components/dashboard/DownloadData.vue";
 import Loading from "@/components/dashboard/Loading.vue";
 import PrestataireService from "@/services/prestataire.service";
+import PrestataireEditPage from "@/components/dashboard/PrestataireEditPage.vue";
 
 export default {
 	name: "AdminDashboardView",
-	components: {Loading, DownloadData, Popup, AdminDashboardTemplate},
+	components: {PrestataireEditPage, Loading, DownloadData, Popup, AdminDashboardTemplate},
 	data() {
 		return {
 			services: [],
@@ -335,8 +338,8 @@ export default {
 			this.popupPrestataire = presta;
 		},
 		openDeletePopup(presta) {
-			this.showDeletePopup = true;
 			this.showEditPopup = false;
+			this.showDeletePopup = true;
 
 			this.popupPrestataire = presta;
 		},
