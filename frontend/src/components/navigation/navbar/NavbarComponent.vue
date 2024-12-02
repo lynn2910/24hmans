@@ -3,7 +3,7 @@
 		<div
 				class="w-1/12 bg-dark mr-auto ml-8 rounded-full text-white p-4 flex justify-center content-center shadow-2xl shadow-green-700">
 			<router-link to="/">
-				<IconEvent width="40" height="auto"></IconEvent>
+				<IconEvent height="30"></IconEvent>
 			</router-link>
 		</div>
 		<div
@@ -16,7 +16,8 @@
 			<router-link to="/montgolfieres"><p>Montgolfière</p></router-link>
 		</div>
 		<div
-				class="w-1/12 bg-dark ml-auto p-4 rounded-full text-white font-semibold mr-8 flex flex-row justify-center content-center shadow-2xl shadow-blue-700">
+				class="w-1/12 bg-dark ml-auto p-4 rounded-full text-white font-semibold mr-8 flex flex-row justify-center content-center shadow-2xl shadow-blue-700"
+				style="height: 60px">
 			<router-link to="/login"><p>Login</p></router-link>
 			<svg class="min-w-4 max-w-5 h-auto ml-1.5" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 					 viewBox="0 0 30 30" fill="none">
