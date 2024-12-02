@@ -22,29 +22,26 @@
 			<form @submit.prevent="inscrire">
 				<div>
 					<label for="nom">Nom :</label>
-					<input type="text" id="nom" v-model="form.nom" required/>
+					<input type="text" id="nom" v-model="form.nom" required class="text-black"/>
 				</div>
 
 				<div>
 					<label for="prenom">Prénom :</label>
-					<input type="text" id="prenom" v-model="form.prenom" required/>
+					<input type="text" id="prenom" v-model="form.prenom" required class="text-black"/>
 				</div>
 
 				<div>
 					<label for="email">E-mail :</label>
-					<input type="email" id="email" v-model="form.email" required/>
+					<input type="email" id="email" v-model="form.email" required class="text-black"/>
 				</div>
 				<div>
 					<label>Choisir un garage</label>
-					<Select
-							:items="['Porsche', 'Ferrari']"
-							v-on:selectionChange="updateActiveFilters"
-					/>
+					<Select :items="['Porsche', 'Ferrari']"/>
 				</div>
 
 				<div>
 					<label for="billet">Numéro de billet :</label>
-					<input type="text" id="billet" v-model="form.billet" required/>
+					<input type="text" id="billet" v-model="form.billet" required class="text-black"/>
 				</div>
 
 				<button type="submit">S'inscrire</button>
