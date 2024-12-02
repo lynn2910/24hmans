@@ -8,6 +8,7 @@
 
 			<!-- Body -->
 			<div class="p-5">
+				<!-- TODO -->
 				<h1 class="font-bold text-3xl text-center flex flex-row justify-center items-center content-center">
 					{{ prestataire.name }}
 					<svg xmlns="http://www.w3.org/2000/svg"
@@ -192,6 +193,8 @@ export default {
 		prestataire: Object,
 	},
 	methods: {
+		// NOM
+
 		// LINKS
 
 		openLinkEditPopup(link) {
