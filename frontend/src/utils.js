@@ -78,4 +78,6 @@ export function getOptimalTextColor(hexColor) {
     return luminance > 0.5 ? 'black' : 'white';
 }
 
+export const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
 export const TINY_MCE_API_KEY = "71o0l2wimwuifufnyayze8asmn0ekpued2g3oeybyznm5cnw"

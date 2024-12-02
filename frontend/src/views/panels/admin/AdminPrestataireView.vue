@@ -336,6 +336,9 @@ export default {
 			this.showDeletePopup = false;
 
 			this.popupPrestataire = presta;
+
+			console.log('Description: ', presta.description)
+			PrestataireEditPage.methods.setDescription(presta.description || '')
 		},
 		openDeletePopup(presta) {
 			this.showEditPopup = false;
