@@ -51,10 +51,10 @@ function getPrestataireServices(id) {
 
     let services = [];
     if (boutiques.find((b) => b.prestataire_id === id)) {
-        services.push("boutique");
+        services.push("Boutique");
     }
     if (garages.find((g) => g.prestataire_id === id)) {
-        services.push("garage");
+        services.push("Tirage au sort");
     }
     // TODO
     return {error: 0, status: 200, data: services};
