@@ -1,4 +1,4 @@
-import {boutiques, prestataires, billetteries} from "@/datasource/prestataires";
+import {boutiques, prestataires, billetteries, garages} from "@/datasource/prestataires";
 import {users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
 import {v4 as uuid} from "uuid";
@@ -39,6 +39,14 @@ function getPrestatairesServicesCount() {
             p.nb_services++
         }
 
+        if (garages.find(g => g.prestataire_id === p.id)) {
+            p.nb_services++;
+        }
+
+        if (billetteries.find(b => b.prestataire_id === p.id)) {
+            p.nb_services++;
+        }
+
         // TODO
     })
     return {error: 0, status: 200, data: prestataires};
@@ -51,7 +59,13 @@ function getPrestataireServices(id) {
 
     let services = [];
     if (boutiques.find((b) => b.prestataire_id === id)) {
-        services.push("boutique");
+        services.push("Boutique");
+    }
+    if (garages.find((g) => g.prestataire_id === id)) {
+        services.push("ecuries");
+    }
+    if (billetteries.find(b => b.prestataire_id === id)) {
+        services.push("billetterie");
     }
     // TODO
     return {error: 0, status: 200, data: services};
@@ -204,7 +218,7 @@ function addPrestataireLink(prestataire_id, {name, url}) {
     }
 }
 
-function getAllCategoryTicket(prestataire_id){
+function getAllCategoryTicket(prestataire_id) {
     let billeterie = billetteries.find(b => b.prestataire_id === prestataire_id);
 
     if (billeterie) return {error: 0, status: 200, data: billeterie.categories}
