@@ -76,6 +76,12 @@ const routes = [
         name: "admin_prestataires",
         component: () => import( '../views/panels/admin/AdminPrestataireView.vue'),
     },
+    {
+        path: "/prestataire/panel/service/ecuries",
+        name: "visite_ecuries",
+        component: () => import( '../views/panels/prestataire/PrestataireDashboardVisiteEcuries.vue'),
+        meta: {hideNavbar: true}
+    },
 
     {
         path:'/billetterie/:prestataire_name',
