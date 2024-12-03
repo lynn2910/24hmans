@@ -81,6 +81,7 @@ const routes = [
         name: "visite_ecuries",
         component: () => import( '../views/panels/prestataire/PrestataireDashboardVisiteEcuries.vue'),
         meta: {hideNavbar: true}
+        //test
     },
 
     {
