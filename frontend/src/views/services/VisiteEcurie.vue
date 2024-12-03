@@ -34,10 +34,6 @@
 					<label for="email">E-mail :</label>
 					<input type="email" id="email" v-model="form.email" required class="text-black"/>
 				</div>
-				<div>
-					<label>Choisir un garage</label>
-					<Select :items="['Porsche', 'Ferrari']"/>
-				</div>
 
 				<div>
 					<label for="billet">Numéro de billet :</label>
