@@ -55,10 +55,9 @@
 </template>!nb
 
 <script>
-import Select from "@/components/selects/Select.vue";
 
 export default {
-	components: {Select},
+	components: {},
 	data() {
 		return {
 			form: {
