@@ -42,7 +42,6 @@ async function createPrestataireWithHashing(name, password) {
     return LocalSource.createPrestataire({name, password})
 }
 
-
 async function importPrestataire(name, password) {
     return LocalSource.createPrestataireInternal({name, password})
 }
@@ -55,10 +54,13 @@ async function addPrestataireLink(presta_id, name, url) {
     return LocalSource.addPrestataireLink(presta_id, {name, url})
 }
 
-async function getAllCategoryTicket(prestataire_id){
+async function getAllCategoryTicket(prestataire_id) {
     return LocalSource.getAllCategoryTicket(prestataire_id);
 }
 
+async function updatePrestataire(presta_id, data) {
+    return LocalSource.updatePrestataire(presta_id, data)
+}
 
 export default {
     getPrestataire,
@@ -72,5 +74,6 @@ export default {
     importPrestataire,
     updatePrestataireLink,
     addPrestataireLink,
-    getAllCategoryTicket
+    getAllCategoryTicket,
+    updatePrestataire
 }

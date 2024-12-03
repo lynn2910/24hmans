@@ -201,6 +201,21 @@ function updatePrestataireLink(prestataire_id, {id, name, url}) {
     return {error: 0, status: 200, message: "Link updated"}
 }
 
+function updatePrestataire(prestataire_id, {description, name}) {
+    let p = getPrestataire(prestataire_id);
+    if (!p) return p;
+    let presta = p.data;
+
+    if (description) presta.description = description;
+    if (name) presta.name = name;
+
+    return {
+        error: 0,
+        status: 200,
+        data: presta
+    }
+}
+
 function addPrestataireLink(prestataire_id, {name, url}) {
     let p = getPrestataire(prestataire_id);
     if (!p) return p;
@@ -243,5 +258,6 @@ export default {
     createPrestataire,
     createPrestataireInternal,
     updatePrestataireLink,
-    addPrestataireLink
+    addPrestataireLink,
+    updatePrestataire
 };
