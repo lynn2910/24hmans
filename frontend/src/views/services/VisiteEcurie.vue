@@ -75,14 +75,6 @@ export default {
 		let res = await PrestataireService.getPrestataireFromName(this.$route.params['prestataire_name']);
 		if (!res.error){
 			this.prestataire = res.data;
-
-			res = await PrestataireService.getAllCategoryTicket(this.prestataire.id);
-
-			if (! res.error){
-				this.categories = res.data;
-			} else {
-				console.error(res.data);
-			}
 		} else {
 			console.error(`Cannot get prestataire: ${res.data}`)
 		}
