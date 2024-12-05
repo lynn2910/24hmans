@@ -32,6 +32,11 @@ function addItemToCart(user_id, item) {
     saveCart(cart);
 }
 
+function getItem(user_id, item_id) {
+    const cart = getUserCart(user_id);
+    return cart.items.find((i) => i.item_id === item_id);
+}
+
 function removeItemFromCart(user_id, item_id) {
     const cart = getUserCart(user_id);
     const index = cart.items.findIndex((i) => i.item_id === item_id);
@@ -47,4 +52,4 @@ function clearUserCart(user_id) {
     saveCart(cart);
 }
 
-export default {getUserCart, addUserCart, addItemToCart, removeItemFromCart, clearUserCart}
+export default {getUserCart, addUserCart, addItemToCart, removeItemFromCart, clearUserCart, getItem}
