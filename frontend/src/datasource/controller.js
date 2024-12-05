@@ -75,11 +75,7 @@ export function getAllPrestataires() {
     return {error: 0, status: 200, data: prestataires};
 }
 
-/**
- * Obtiens les informations sur le prestataire, s'il existe
- * @param {string} name Le nom du prestataire
- * @returns {{data: string, error: number, status: number}|{data: Prestataire, error: number, status: number}}
- */
+
 function getPrestataireFromName(name) {
     let presta = prestataires
         .find(p =>
