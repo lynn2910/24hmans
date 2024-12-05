@@ -39,7 +39,7 @@ const routes = [
         component: () => import("../views/PrestataireProfil.vue")
     },
     {
-        path: "/ecuries",
+        path: "/ecurie/:prestataire_name",
         name: "visite ecuries",
         component: () => import('../views/services/VisiteEcurie.vue')
     },

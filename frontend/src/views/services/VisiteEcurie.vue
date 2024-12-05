@@ -56,6 +56,8 @@
 
 <script>
 //test
+import PrestataireService from "@/services/prestataire.service";
+
 export default {
 	components: {},
 	data() {
@@ -68,6 +70,14 @@ export default {
 			},
 			messageConfirmation: ''
 		};
+	},
+	async beforeMount() {
+		let res = await PrestataireService.getPrestataireFromName(this.$route.params['prestataire_name']);
+		if (!res.error){
+			this.prestataire = res.data;
+		} else {
+			console.error(`Cannot get prestataire: ${res.data}`)
+		}
 	},
 	methods: {
 		inscrire() {
