@@ -10,7 +10,7 @@ export const users = [
     {
         "user_id": "f4f434b3-f256-484b-8935-29e13126c9e8",
         "email": "carla@gmail.com",
-        "hashed_password": "$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO",
+        "hashed_password": "$2y$10$hc/SewW8/cyVHDuSHHXDyOyrzbPrwcFjAIjXHOWqwAsLn0QxHfF4i",
         "first_name": "Carla",
         "last_name": "Wilson",
         "created_at": "2024-11-19 11:41:11"

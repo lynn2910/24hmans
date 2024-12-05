@@ -16,9 +16,20 @@
 			<router-link to="/montgolfieres"><p>Montgolfière</p></router-link>
 		</div>
 		<div
-				class="w-1/12 bg-dark ml-auto p-4 rounded-full text-white font-semibold mr-8 flex flex-row justify-center content-center shadow-2xl shadow-blue-700"
+				class="min-w-1/12 bg-dark ml-auto p-4 rounded-full text-white font-semibold mr-8 flex flex-row justify-center content-center shadow-2xl shadow-blue-700"
 				style="height: 60px">
-			<router-link to="/login"><p>Login</p></router-link>
+
+			<router-link to="/login" v-if="!loggedInUser"><p>Login</p></router-link>
+			<router-link to="/client/panel" v-else-if="loggedInUser && userType === Selected.User">
+				<p>Mon profil</p>
+			</router-link>
+			<router-link to="/prestataire/panel" v-else-if="loggedInUser && userType === Selected.Prestataire">
+				<p>Dashboard</p>
+			</router-link>
+			<router-link to="/admin/panel" v-else-if="loggedInUser && userType === Selected.Admin">
+				<p>Dashboard</p>
+			</router-link>
+
 			<svg class="min-w-4 max-w-5 h-auto ml-1.5" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 					 viewBox="0 0 30 30" fill="none">
 				<g clip-path="url(#clip0_95_645)">
@@ -35,6 +46,22 @@
 		</div>
 	</nav>
 </template>
-<script setup lang="ts">
+
+<script lang="ts">
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
+import {mapState} from "vuex";
+import {Selected} from "@/utils";
+
+export default {
+	name: "NavbarComponent",
+	components: {IconEvent},
+	data() {
+		return {
+			Selected
+		}
+	},
+	computed: {
+		...mapState('login', ['loggedInUser', 'userType']),
+	}
+}
 </script>

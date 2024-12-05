@@ -110,7 +110,7 @@ export default {
 					break
 				}
 				case Selected.User: {
-					this.$router.push({path: `/client/@me`});
+					this.$router.push({path: `/client/panel`});
 					break;
 				}
 				case Selected.Admin: {

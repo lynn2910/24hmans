@@ -77,6 +77,12 @@ const routes = [
         component: () => import( '../views/panels/admin/AdminPrestataireView.vue'),
     },
     {
+        path: "/client/panel",
+        name: "client_panel",
+        component: () => import("../views/panels/user/UserDashboardView.vue"),
+        meta: {hideNavbar: true}
+    },
+    {
         path: "/prestataire/panel/service/ecuries",
         name: "visite_ecuries",
         component: () => import( '../views/panels/prestataire/PrestataireDashboardVisiteEcuries.vue'),
@@ -85,7 +91,7 @@ const routes = [
     },
 
     {
-        path:'/billetterie/:prestataire_name',
+        path: '/billetterie/:prestataire_name',
         name: "billetterie",
         component: () => import('../views/services/BilletterieView.vue'),
     },

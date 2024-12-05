@@ -5,7 +5,7 @@ export default {
     state: {
         categories: [],
         items: [],
-        shopExists: false
+        shopExists: false,
     },
     getters: {
         categories: state => state.categories,
