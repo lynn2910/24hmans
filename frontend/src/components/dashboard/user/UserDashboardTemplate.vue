@@ -70,7 +70,7 @@ export default {
 		...mapState('login', ['loggedInUser', 'userType']),
 		bonjourOuBonsoir() {
 			const hour = (new Date()).getHours();
-			return hour < 8 || hour > 19 ? "Bonsoir" : "Bonjour"
+			return hour < 8 || hour >= 19 ? "Bonsoir" : "Bonjour"
 		}
 	},
 	async beforeMount() {
@@ -84,4 +84,3 @@ export default {
 	},
 }
 </script>
-
