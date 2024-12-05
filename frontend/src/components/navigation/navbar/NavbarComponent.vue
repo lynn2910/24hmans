@@ -15,8 +15,23 @@
 			<router-link :to="{ name: '/', hash: '#service' }">Services</router-link>
 			<router-link to="/montgolfieres"><p>Montgolfière</p></router-link>
 		</div>
+
+		<router-link
+				to="/cart"
+				style="height: 60px"
+				class="cursor-pointer min-w-1/12 bg-dark ml-auto p-4 rounded-full text-white font-semibold mr-8 flex flex-row justify-center content-center shadow-2xl shadow-blue-700">
+			<svg class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+				<path
+						d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921z"></path>
+				<circle cx="10.5" cy="19.5" r="1.5"></circle>
+				<circle cx="17.5" cy="19.5" r="1.5"></circle>
+			</svg>
+			<!-- TODO pas réactif (il faut recharger la page pour mettre à jour... Passer sur un store?)-->
+			<p class="ml-2 my-auto">{{ cartCount }}</p>
+		</router-link>
+
 		<div
-				class="min-w-1/12 bg-dark ml-auto p-4 rounded-full text-white font-semibold mr-8 flex flex-row justify-center content-center shadow-2xl shadow-blue-700"
+				class="min-w-1/12 bg-dark ml-0 p-4 rounded-full text-white font-semibold mr-8 flex flex-row justify-center content-center shadow-2xl shadow-blue-700"
 				style="height: 60px">
 
 			<router-link to="/login" v-if="!loggedInUser"><p>Login</p></router-link>
@@ -35,7 +50,7 @@
 				<g clip-path="url(#clip0_95_645)">
 					<path
 							d="M2.5 27.5C2.5 24.8478 3.55357 22.3043 5.42893 20.4289C7.3043 18.5536 9.84783 17.5 12.5 17.5C15.1522 17.5 17.6957 18.5536 19.5711 20.4289C21.4464 22.3043 22.5 24.8478 22.5 27.5H2.5ZM12.5 16.25C8.35625 16.25 5 12.8938 5 8.75C5 4.60625 8.35625 1.25 12.5 1.25C16.6437 1.25 20 4.60625 20 8.75C20 12.8938 16.6437 16.25 12.5 16.25ZM21.7037 19.0413C23.6158 19.5327 25.3241 20.6148 26.5854 22.1335C27.8467 23.6523 28.5968 25.5302 28.7287 27.5H25C25 24.2375 23.75 21.2675 21.7037 19.0413ZM19.175 16.1962C20.2225 15.2593 21.0602 14.1117 21.6332 12.8284C22.2062 11.5452 22.5016 10.1554 22.5 8.75C22.5027 7.04183 22.0657 5.36171 21.2312 3.87125C22.647 4.15574 23.9206 4.92172 24.8356 6.039C25.7505 7.15627 26.2503 8.55591 26.25 10C26.2503 10.8906 26.0603 11.7709 25.6926 12.5821C25.325 13.3932 24.7882 14.1164 24.1182 14.7032C23.4482 15.2899 22.6606 15.7267 21.808 15.9842C20.9555 16.2417 20.0578 16.314 19.175 16.1962Z"
-							fill="#F3F3F3"/>
+							class="fill-white"/>
 				</g>
 				<defs>
 					<clipPath id="clip0_95_645">
@@ -51,6 +66,7 @@
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 import {mapState} from "vuex";
 import {Selected} from "@/utils";
+import PanierService from "@/services/panier.service";
 
 export default {
 	name: "NavbarComponent",
@@ -62,6 +78,9 @@ export default {
 	},
 	computed: {
 		...mapState('login', ['loggedInUser', 'userType']),
+		cartCount() {
+			return PanierService.getItemCount(this.loggedInUser?.user_id || 'guest')
+		}
 	}
 }
 </script>
