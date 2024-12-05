@@ -80,7 +80,8 @@ export default {
 	components: {AddToCart, NotExists, ShopItemCategory, ShopDetail},
 	data() {
 		return {
-			article: null
+			article: null,
+			prestataire: null
 		}
 	},
 	props: {
@@ -96,7 +97,7 @@ export default {
 			console.log(`Add '${this.item_name}' (${this.article.item_id}) (${count}) to the cart`)
 			PanierService.addItemToCart(
 					this.loggedInUser?.user_id || 'guest',
-					{id: this.article.item_id, count}
+					{id: this.article.item_id, origin: this.prestataire.id, count}
 			)
 		},
 		/**

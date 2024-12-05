@@ -89,6 +89,12 @@ const routes = [
         meta: {hideNavbar: true}
         //test
     },
+    {
+        path: "/cart",
+        name: "cart",
+        component: () => import("../views/services/shop/CartView.vue"),
+        meta: {hideCart: true}
+    },
 
     {
         path: '/billetterie/:prestataire_name',

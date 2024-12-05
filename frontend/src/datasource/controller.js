@@ -107,6 +107,11 @@ function getShopItemFromName(prestataire_name, item_name) {
     return {error: 0, status: 200, data: item};
 }
 
+function getShopItem(prestataire_id, item_id) {
+    let boutique = boutiques.find(b => b.prestataire_id === prestataire_id);
+    return boutique.items.find(i => i.item_id === item_id);
+}
+
 function loginUser(email, password) {
     let user = users.find(u => u.email === email && bcrypt.compareSync(password, u.hashed_password));
 
@@ -255,5 +260,6 @@ export default {
     createPrestataireInternal,
     updatePrestataireLink,
     addPrestataireLink,
-    updatePrestataire
+    updatePrestataire,
+    getShopItem
 };

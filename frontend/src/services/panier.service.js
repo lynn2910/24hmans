@@ -58,7 +58,8 @@ function removeItemFromCart(user_id, item_id) {
     if (!carts[user_id]) carts[user_id] = {items: []};
     const cart = carts[user_id];
 
-    const index = cart.items.findIndex((i) => i.item_id === item_id);
+
+    const index = cart.items.findIndex((i) => i.id === item_id);
     if (index >= 0) {
         cart.items.splice(index, 1);
     }
