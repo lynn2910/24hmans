@@ -108,7 +108,7 @@
 					</div>
 				</div>
 
-				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billeterie</h2>
+				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billetterie</h2>
 
 				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos <strong>offres
 					de
@@ -132,7 +132,7 @@
 						<!-- Texte qui apparaît au survol -->
 						<div
 								class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-							<span class="font-bold text-xl">Lien vers la boutique</span>
+							<span class="font-bold text-xl">Lien vers la billetterie</span>
 						</div>
 					</div>
 				</router-link>
