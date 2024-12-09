@@ -29,11 +29,7 @@
 						<path d="M5 11h14v2H5z"></path>
 					</svg>
 
-					<input type="number"
-								 pattern="\d+"
-								 :value="count"
-								 min="1"
-								 class="bg-transparent rounded py-1 px-3 outline-none appearance-none w-14 my-1 text-center">
+					<p class="py-1 px-3 w-14 my-1 text-center select-none">{{ count }}</p>
 
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 							 @click="$emit('increase')"

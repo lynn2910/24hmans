@@ -64,7 +64,7 @@ export default {
 
 			if (shopItem.stock >= item.count + 1)
 				this.setItemCount({user_id: this.userId, item_id, count: item.count + 1});
-		}
+		},
 	},
 	computed: {
 		...mapState('login', ['loggedInUser', 'userType']),
