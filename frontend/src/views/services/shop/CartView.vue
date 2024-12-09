@@ -18,10 +18,13 @@
 		</div>
 
 		<!-- Résumé -->
-		<div class="p-5 rounded bg-emerald-500 bg-opacity-10 border border-gray-500 w-1/3">
-			<h2 class="font-bold text-2xl">Résumé</h2>
+		<div class="p-5 rounded bg-emerald-500 bg-opacity-10 border border-gray-500 w-1/3 flex flex-col justify-start">
+			<h2 class="font-bold text-2xl mb-5">Résumé</h2>
 
-			{{ cart }}
+			<p class="text-2xl font-bold">Total: <span class="text-blue-500">{{ totalPrice }}€</span><span
+					class="text-sm ml-1">TTC</span></p>
+
+			<button class="mt-auto mx-auto py-2 px-3 rounded-full bg-blue-500 hover:bg-blue-600 w-4/5">Payer</button>
 		</div>
 	</div>
 </template>
@@ -81,6 +84,9 @@ export default {
 				if (item) return {...item, ...i}
 				else return {...i, name: "Unknown"}
 			})
+		},
+		totalPrice() {
+			return this.nonNullItems.reduce((a, b) => a += b.price * b.count, 0)
 		}
 	},
 	async beforeCreate() {
