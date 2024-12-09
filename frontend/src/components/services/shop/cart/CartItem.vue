@@ -11,14 +11,38 @@
 			<!-- Nom -->
 			<router-link
 					:to="`/boutique/${transformPrestataireName(article.prestataire?.name || '')}/item/${transformPrestataireName(article.name)}`"
-					class="font-bold text-lg hover:underline">
+					class="font-bold text-lg hover:underline flex flex-row items-end justify-start">
 				{{ article.name }}
+				<p class="text-sm font-normal ml-2 text-gray-200">x {{ count }}</p>
 			</router-link>
 			<!-- Indicateur de stock si nécessaire -->
 			<p v-if="article.stock < 30" class="text-red-600">Il ne reste plus que {{ article.stock }} articles en stock</p>
 
 			<!-- Actions -->
-			<div class="flex flex-row items-center content-center justify-between">
+			<div class="flex flex-row items-center content-center justify-start mt-3">
+				<!-- Counter -->
+				<div
+						class="border border-gray-400 rounded-full flex flex-row items-center content-center justify-between p-1 mr-5">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+							 @click="$emit('decrease')"
+							 class="fill-white cursor-pointer">
+						<path d="M5 11h14v2H5z"></path>
+					</svg>
+
+					<input type="number"
+								 pattern="\d+"
+								 :value="count"
+								 min="1"
+								 class="bg-transparent rounded py-1 px-3 outline-none appearance-none w-14 my-1 text-center">
+
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+							 @click="$emit('increase')"
+							 class="fill-white cursor-pointer">
+						<path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
+					</svg>
+				</div>
+
+				<!-- Delete -->
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 						 class="fill-gray-300 hover:fill-red-500 cursor-pointer"
 						 @click="$emit('remove')">
@@ -27,19 +51,18 @@
 				</svg>
 			</div>
 		</div>
+
+		<div class="ml-auto flex flex-col items-end justify-end text-right">
+			<p class="font-bold text-xl text-blue-500">{{ totalPrice.toFixed(2) }}€</p>
+			<p class="text-gray-300 text-sm">{{ article.price.toFixed(2) }}€ x{{ count }}</p>
+		</div>
+
 		<svg v-if="isInvalid" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 			<path
 					d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
 		</svg>
 	</div>
 </template>
-
-<!--
-
-{ "item_id": 2, "name": "Porte-clé porsche", "image": "/shop_images/porsche_porte_cle_ecusson.png",
-"category": "be2cff03-7d12-4369-acff-037d12a36993", "stock": 146, "price": 24.99,
-"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." }
--->
 
 <script>
 import {transformPrestataireName} from "@/utils"
@@ -49,7 +72,7 @@ export default {
 	name: "CartItem",
 	props: {
 		count: Number,
-		article: Object
+		article: Object,
 	},
 	methods: {
 		...mapActions('prestataire/boutique', ['getCarts']),
@@ -58,6 +81,9 @@ export default {
 	computed: {
 		isInvalid() {
 			return this.article.count > this.article.stock;
+		},
+		totalPrice() {
+			return this.article.count * this.article.price
 		}
 	},
 	beforeMount() {

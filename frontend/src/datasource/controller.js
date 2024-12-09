@@ -116,10 +116,10 @@ function getAllItems() {
     return boutiques
         .map(({items, prestataire_id}) =>
             items.map(
-                ({item_id, price, name, image}) => {
+                ({item_id, price, name, image, stock}) => {
                     const prestataire = getPrestataire(prestataire_id)?.data || {};
                     return {
-                        item_id, price, name, image,
+                        item_id, price, name, image, stock,
                         prestataire
                     }
                 }

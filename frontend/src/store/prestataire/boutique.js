@@ -35,17 +35,25 @@ export default {
             state.carts = carts;
         },
         addItemToCart(state, {user_id, item}) {
-            state.carts[user_id].items.push(item);
-            PanierService.addItemToCart(user_id, item);
+            const index = state.carts[user_id].items.some(i => i.id === item.id);
+            if (index >= 0) {
+                state.carts[user_id].items.count += item.count;
+            } else {
+                state.carts[user_id].items.push(item);
+            }
         },
         removeItemFromCart(state, {user_id, item_id}) {
             const index = state.carts[user_id].items.findIndex(i => i.id === item_id);
             if (index >= 0) state.carts[user_id].items.splice(index, 1);
-
-            PanierService.removeItemFromCart(user_id, item_id);
         },
         updateAllShopItemsStore(state, items) {
             state.allShopItems = items;
+        },
+        updateItemCount(state, {user_id, item_id, count}) {
+            const index = state.carts[user_id].items.findIndex(i => i.id === item_id);
+            if (index >= 0) {
+                state.carts[user_id].items[index].count = count;
+            }
         }
     },
     actions: {
@@ -54,9 +62,15 @@ export default {
         },
         addItemToCart({commit}, {user_id, item}) {
             commit("addItemToCart", {user_id, item});
+            PanierService.addItemToCart(user_id, item);
         },
         removeItemFromCart({commit}, {user_id, item_id}) {
             commit("removeItemFromCart", {user_id, item_id});
+            PanierService.removeItemFromCart(user_id, item_id);
+        },
+        setItemCount({commit}, {user_id, item_id, count}) {
+            commit('updateItemCount', {user_id, item_id, count});
+            PanierService.setCountOfItem(user_id, item_id, count)
         },
         /**
          * Récupère la liste des items et des catégories

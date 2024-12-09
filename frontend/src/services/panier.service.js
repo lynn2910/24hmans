@@ -58,12 +58,25 @@ function removeItemFromCart(user_id, item_id) {
     if (!carts[user_id]) carts[user_id] = {items: []};
     const cart = carts[user_id];
 
-
     const index = cart.items.findIndex((i) => i.id === item_id);
     if (index >= 0) {
         cart.items.splice(index, 1);
     }
     saveCart(carts);
+}
+
+function setCountOfItem(user_id, item_id, count) {
+    console.log(1)
+    const carts = getCart();
+
+    if (!carts[user_id]) carts[user_id] = {items: []};
+    const cart = carts[user_id];
+
+    const index = cart.items.findIndex((i) => i.id === item_id);
+    if (index >= 0) {
+        cart.items[index].count = count;
+    }
+    saveCart(carts)
 }
 
 function clearUserCart(user_id) {
@@ -84,5 +97,6 @@ export default {
     clearUserCart,
     getItem,
     getItemCount,
+    setCountOfItem,
     getCart
 }

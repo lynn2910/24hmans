@@ -30,7 +30,6 @@ export default {
         async getAllPrestataires({commit}) {
             try {
                 let res = await PrestataireService.getAllPrestataires();
-                console.log(res);
 
                 if (!res.error) {
                     commit("updatePrestataires", res.data);
