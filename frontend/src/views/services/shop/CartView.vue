@@ -8,7 +8,7 @@
 				<p class="font-bold text-right my-auto">Prix</p>
 			</div>
 
-			<div class="flex flex-col justify-start">
+			<div class="flex flex-col justify-start h-full overflow-y-auto">
 				<CartItem v-for="(item, index) in nonNullItems" :key="index"
 									:article="item" :count="item.count"
 									@remove="deleteCartItem(item.item_id)"></CartItem>
@@ -26,60 +26,55 @@
 
 <script>
 import CartItem from "@/components/services/shop/cart/CartItem.vue";
-import BoutiqueService from "@/services/boutique.service";
-import PanierService from "@/services/panier.service";
-import {mapGetters, mapState} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 
 export default {
 	components: {CartItem},
 	data() {
 		return {
 			cart: {items: []},
-			items: [],
 		}
 	},
 	methods: {
+		...mapActions('prestataire/boutique', ['getCarts', 'removeItemFromCart', 'getAllItemsInShop']),
 		deleteCartItem(item_id) {
-			// TODO Ne marche pas, il faut reload... Passer sur un store!
-			PanierService.removeItemFromCart(this.userId, item_id)
-		}
+			console.log(`Deleting ${item_id}`)
+			this.removeItemFromCart({user_id: this.userId, item_id})
+		},
 	},
 	computed: {
 		...mapState('login', ['loggedInUser', 'userType']),
 		...mapGetters('prestataire', ['prestataires']),
+		...mapGetters("prestataire/boutique", ['getCart']),
+		...mapState('prestataire/boutique', ['allShopItems']),
 		userId() {
 			return this.loggedInUser?.user_id || 'guest';
 		},
 		nonNullItems() {
-			return this.items.filter((i) => i)
+			console.log(JSON.stringify(this.allShopItems, null, 2))
+			return this.getCart(this.userId).items.filter((i) => i).map((i) => {
+				console.log(JSON.stringify(i));
+				const item = this.allShopItems.find((it) => it.item_id === i.id && it.prestataire.id === i.origin);
+				console.log(item)
+				if (item) return {...item, ...i}
+				else return {...i, name: "Unknown"}
+			})
 		}
 	},
 	async beforeCreate() {
 		await this.$store.dispatch('prestataire/getAllPrestataires');
+		await this.getCarts();
 
-		this.cart = PanierService.getUserCart(this.userId);
-		const res = await BoutiqueService.getItemsBulk(this.cart?.items || []);
+		this.cart = this.getCart(this.userId);
+		console.log("cart: ", this.cart)
 
-		if (!res.error) {
-			// Add count in the datas
-			res.data.forEach(item => {
-				console.log(`Item id: ${item?.item_id}`)
-				console.log(this.cart.items.map(({origin, count, id}) => ({origin, count, id})))
-				const cartItem = this.cart.items.find(({id}) => id === item?.item_id);
-				console.log("cartItem: ", cartItem)
-				if (item && cartItem) {
-					item.count = cartItem.count;
-					const presta = this.prestataires.find((prestataire) => prestataire.id === cartItem.origin);
-					console.log("origin: ", cartItem.origin)
-					console.log(this.prestataires)
-					item.prestataire = presta;
-				}
-			})
-
-			this.items = res.data;
-		} else {
-			console.error(`Cannot fetch all items in the cart: ${res.data}`)
-		}
+		await this.getAllItemsInShop();
+		// if (!res.error) {
+		// 	console.log(res.data)
+		// 	// Add count in the datas
+		// } else {
+		// 	console.error(`Cannot fetch all items in the cart: ${res.data}`)
+		// }
 	}
 }
 </script>

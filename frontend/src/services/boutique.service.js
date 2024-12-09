@@ -18,4 +18,8 @@ async function getItemsBulk(item_id_list) {
     return {error: 0, status: 200, data: item_id_list.map((item) => LocalSource.getShopItem(item.origin, item.id))};
 }
 
-export default {getShopInformations, getItemFromName, getItemsBulk}
+async function getAllItems() {
+    return {error: 0, status: 200, data: LocalSource.getAllItems()}
+}
+
+export default {getShopInformations, getItemFromName, getItemsBulk, getAllItems}

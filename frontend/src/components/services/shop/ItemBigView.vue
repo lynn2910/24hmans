@@ -38,7 +38,7 @@
 
 				<!-- Panier -->
 				<div class="mt-auto">
-					<AddToCart @addToCart="addItemToCart" :max="article.stock"></AddToCart>
+					<AddToCart @addToCart="addItemToCartLocal" :max="article.stock"></AddToCart>
 				</div>
 			</div>
 		</div>
@@ -73,7 +73,6 @@ import PrestataireService from "@/services/prestataire.service";
 import store from "@/store";
 import NotExists from "@/components/services/NotExists.vue";
 import AddToCart from "@/components/services/shop/cart/AddToCart.vue";
-import PanierService from "@/services/panier.service";
 
 export default {
 	name: "ItemBigView",
@@ -93,11 +92,17 @@ export default {
 		...mapState('login', ['loggedInUser'])
 	},
 	methods: {
-		addItemToCart(count) {
+		...mapActions('prestataire/boutique', ['addItemToCart']),
+		addItemToCartLocal(count) {
 			console.log(`Add '${this.item_name}' (${this.article.item_id}) (${count}) to the cart`)
-			PanierService.addItemToCart(
-					this.loggedInUser?.user_id || 'guest',
-					{id: this.article.item_id, origin: this.prestataire.id, count}
+			this.addItemToCart(
+					{
+						user_id: this.loggedInUser?.user_id || 'guest',
+						item: {
+							id: this.article.item_id, origin:
+							this.prestataire.id, count
+						}
+					}
 			)
 		},
 		/**

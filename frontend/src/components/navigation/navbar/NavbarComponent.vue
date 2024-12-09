@@ -27,8 +27,7 @@
 				<circle cx="10.5" cy="19.5" r="1.5"></circle>
 				<circle cx="17.5" cy="19.5" r="1.5"></circle>
 			</svg>
-			<!-- TODO pas réactif (il faut recharger la page pour mettre à jour... Passer sur un store?)-->
-			<p class="ml-2 my-auto">{{ cartCount }}</p>
+			<p class="ml-2 my-auto">{{ getCartCount(userId) }}</p>
 		</router-link>
 
 		<div
@@ -65,9 +64,8 @@
 
 <script lang="ts">
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
-import {mapState} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 import {Selected} from "@/utils";
-import PanierService from "@/services/panier.service";
 
 export default {
 	name: "NavbarComponent",
@@ -77,10 +75,20 @@ export default {
 			Selected
 		}
 	},
+	beforeMount() {
+		this.getCarts();
+	},
+	methods: {
+		...mapActions('prestataire/boutique', ['getCarts'])
+	},
 	computed: {
 		...mapState('login', ['loggedInUser', 'userType']),
+		...mapGetters('prestataire/boutique', ['getCart', 'getCartCount']),
+		userId() {
+			return this.loggedInUser?.user_id || 'guest';
+		},
 		cartCount() {
-			return PanierService.getItemCount(this.loggedInUser?.user_id || 'guest')
+			return this.getCartCount(this.user_id)
 		}
 	}
 }

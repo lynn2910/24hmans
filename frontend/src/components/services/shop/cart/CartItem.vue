@@ -43,6 +43,7 @@
 
 <script>
 import {transformPrestataireName} from "@/utils"
+import {mapActions} from "vuex";
 
 export default {
 	name: "CartItem",
@@ -51,12 +52,16 @@ export default {
 		article: Object
 	},
 	methods: {
+		...mapActions('prestataire/boutique', ['getCarts']),
 		transformPrestataireName
 	},
 	computed: {
 		isInvalid() {
 			return this.article.count > this.article.stock;
 		}
+	},
+	beforeMount() {
+		this.getCarts();
 	}
 }
 </script>

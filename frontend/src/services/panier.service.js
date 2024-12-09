@@ -76,4 +76,13 @@ function getItemCount(user_id) {
     return getUserCart(user_id)?.items.reduce((a, b) => a += b.count, 0) || 0;
 }
 
-export default {getUserCart, addUserCart, addItemToCart, removeItemFromCart, clearUserCart, getItem, getItemCount}
+export default {
+    getUserCart,
+    addUserCart,
+    addItemToCart,
+    removeItemFromCart,
+    clearUserCart,
+    getItem,
+    getItemCount,
+    getCart
+}

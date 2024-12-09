@@ -112,6 +112,21 @@ function getShopItem(prestataire_id, item_id) {
     return boutique.items.find(i => i.item_id === item_id);
 }
 
+function getAllItems() {
+    return boutiques
+        .map(({items, prestataire_id}) =>
+            items.map(
+                ({item_id, price, name, image}) => {
+                    const prestataire = getPrestataire(prestataire_id)?.data || {};
+                    return {
+                        item_id, price, name, image,
+                        prestataire
+                    }
+                }
+            )
+        ).flat()
+}
+
 function loginUser(email, password) {
     let user = users.find(u => u.email === email && bcrypt.compareSync(password, u.hashed_password));
 
@@ -261,5 +276,6 @@ export default {
     updatePrestataireLink,
     addPrestataireLink,
     updatePrestataire,
-    getShopItem
+    getShopItem,
+    getAllItems
 };
