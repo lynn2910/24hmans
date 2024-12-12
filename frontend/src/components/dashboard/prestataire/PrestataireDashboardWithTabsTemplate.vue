@@ -6,16 +6,16 @@
 			<!-- Chaque onglet dans le for -->
 			<div v-for="(t, index) in tabs" :key="index"
 					 @click="$emit('changeTab', t.id)"
-					 class="mx-3 w-48 h-2/3 mt-auto rounded-t-lg p-3 text-center font-bold cursor-pointer"
+					 class="mx-3 w-48 h-2/3 mt-auto rounded-lg p-3 text-center font-bold cursor-pointer"
 					 :class="(currentTab === t.id ? 'bg-white text-black' : 'text-white bg-transparent hover:bg-white hover:bg-opacity-15 hover:transition')">
 				<h2>{{ t.name }}</h2>
 			</div>
 		</div>
 
 		<!-- Pages -->
-		<div class="flex flex-row h-full">
-			<div class="w-3 bg-dark h-full"></div>
-			<div class="h-full">
+		<div class="flex flex-row h-full pt-5 bg-dark">
+			<div class="w-3  h-full"></div>
+			<div class="h-full w-full text-white">
 				<slot></slot>
 			</div>
 		</div>

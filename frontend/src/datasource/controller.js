@@ -109,23 +109,32 @@ function getShopItemFromName(prestataire_name, item_name) {
 
 function getShopItem(prestataire_id, item_id, is_presta = false) {
     let boutique = boutiques.find(b => (is_presta || b.enabled) && b.prestataire_id === prestataire_id);
-    return boutique.items.find(i => i.item_id === item_id);
+    return {error: 0, status: 200, data: boutique.items.find(i => i.item_id === item_id)};
+}
+
+function getShopItems(prestataire_id, is_presta = false) {
+    let boutique = boutiques.find(b => (is_presta || b.enabled) && b.prestataire_id === prestataire_id);
+    return {error: 0, status: 200, data: boutique.items};
 }
 
 function getAllItems() {
-    return boutiques
-        .filter(b => b.enabled)
-        .map(({items, prestataire_id}) =>
-            items.map(
-                ({item_id, price, name, image, stock}) => {
-                    const prestataire = getPrestataire(prestataire_id)?.data || {};
-                    return {
-                        item_id, price, name, image, stock,
-                        prestataire
+    return {
+        error: 0,
+        status: 200,
+        data: boutiques
+            .filter(b => b.enabled)
+            .map(({items, prestataire_id}) =>
+                items.map(
+                    ({item_id, price, name, image, stock}) => {
+                        const prestataire = getPrestataire(prestataire_id)?.data || {};
+                        return {
+                            item_id, price, name, image, stock,
+                            prestataire
+                        }
                     }
-                }
-            )
-        ).flat()
+                )
+            ).flat()
+    }
 }
 
 function loginUser(email, password) {
@@ -297,5 +306,6 @@ export default {
     updatePrestataire,
     getShopItem,
     getAllItems,
-    getAllEcurieParticipants
+    getAllEcurieParticipants,
+    getShopItems
 };
