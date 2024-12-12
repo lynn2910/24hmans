@@ -35,6 +35,8 @@ export default {
             state.carts = carts;
         },
         addItemToCart(state, {user_id, item}) {
+            if (!state.carts[user_id]) state.carts[user_id] = {items: []}
+
             const index = state.carts[user_id].items.some(i => i.id === item.id);
             if (index >= 0) {
                 state.carts[user_id].items.count += item.count;
@@ -43,6 +45,8 @@ export default {
             }
         },
         removeItemFromCart(state, {user_id, item_id}) {
+            if (!state.carts[user_id]) state.carts[user_id] = {items: []}
+
             const index = state.carts[user_id].items.findIndex(i => i.id === item_id);
             if (index >= 0) state.carts[user_id].items.splice(index, 1);
         },
@@ -50,6 +54,8 @@ export default {
             state.allShopItems = items;
         },
         updateItemCount(state, {user_id, item_id, count}) {
+            if (!state.carts[user_id]) state.carts[user_id] = {items: []}
+            
             const index = state.carts[user_id].items.findIndex(i => i.id === item_id);
             if (index >= 0) {
                 state.carts[user_id].items[index].count = count;
