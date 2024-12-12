@@ -13,9 +13,9 @@
 		</div>
 
 		<!-- Pages -->
-		<div class="flex flex-row h-full pt-5 bg-dark">
+		<div class="flex flex-row pt-5 bg-dark" style="height: calc(100% - 5rem)">
 			<div class="w-3  h-full"></div>
-			<div class="h-full w-full text-white">
+			<div class="w-full text-white">
 				<slot></slot>
 			</div>
 		</div>
