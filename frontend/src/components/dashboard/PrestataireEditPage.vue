@@ -26,7 +26,7 @@
 
 					<div v-for="(link, index) in prestataire.links || []" :key="index"
 							 class="rounded-3xl py-2 px-3 hover:mix-blend-difference flex flex-row justify-center content-center items-center mx-1"
-							 :style="{backgroundColor: prestataire.accentColor, color: blackOrWhite}">
+							 :style="{backgroundColor: prestataire.accentColor || '#fff', color: blackOrWhite}">
 						<a :href="link.url" class="font-semibold leading-loose">{{ link.name }}</a>
 						<svg xmlns="http://www.w3.org/2000/svg"
 								 @click="openLinkEditPopup(link)"

@@ -387,6 +387,7 @@ export default {
 
 			if (!res.error) {
 				this.resetPrestaCreationForm();
+				this.addPrestataireToCache(res.data);
 			} else {
 				console.error(res.status + " -- " + res.data)
 			}
@@ -396,7 +397,7 @@ export default {
 		...mapGetters('prestataire', ['prestataires']),
 	},
 	actions: {
-		...mapActions('prestataire', ["getAllPrestataires"])
+		...mapActions('prestataire', ["getAllPrestataires", "addPrestataireToCache"])
 	},
 	async beforeMount() {
 		await store.dispatch("prestataire/getAllPrestataires");

@@ -196,7 +196,9 @@ function createPrestataireInternal(prestataire_data) {
         name: prestataire_data.name,
         password: prestataire_data.password,
         description: "",
-        links: []
+        links: [],
+        accentColor: "#fff",
+        banner: null
     }
 
     prestataires.push(prestataire);

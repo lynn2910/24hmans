@@ -21,11 +21,22 @@ export default {
         updatePrestataires(state, prestataires) {
             state.prestataires = prestataires;
         },
+        addPresta(state, presta) {
+            state.prestataires.push(presta);
+        }
         // updateServices(state, { presta, services }) {
         //     state.services = { ...state.services, [presta]: services };
         // }
     },
     actions: {
+        /**
+         * Ajoute le prestataire dans le store (ne l'ajoute pas dans l'API!)
+         * @param commit
+         * @param presta
+         */
+        addPrestataireToCache({commit}, presta) {
+            commit('addPresta', presta);
+        },
         // Actions to handle asynchronous operations
         async getAllPrestataires({commit}) {
             try {
