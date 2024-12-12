@@ -255,6 +255,21 @@ function getAllCategoryTicket(prestataire_id) {
     if (billeterie) return {error: 0, status: 200, data: billeterie.categories}
     else return {error: 1, status: 404, data: "billetterie not found"};
 }
+function getAllEcurieParticipants(presta_name){
+    let presta = getPrestataireFromName(presta_name);
+    if (presta.error) return presta;
+    presta = presta.data;
+
+    let garage = garages
+        .find(garage => garage.prestataire_id === presta.id)
+        ?.participants;
+    if (garage) return {data:garage, status: 200, error: 0}
+    else return {
+        data: "garage not found",
+        status: 404,
+        error : 1
+    }
+}
 
 export default {
     getPrestataire,
@@ -277,5 +292,6 @@ export default {
     addPrestataireLink,
     updatePrestataire,
     getShopItem,
-    getAllItems
+    getAllItems,
+    getAllEcurieParticipants
 };
