@@ -31,7 +31,14 @@ const routes = [
     {
         path: "/prestataire/panel/statistiques",
         name: "prestataire_dashboard_stats",
-        component: () => import( '@/views/panels/prestataire/PrestataireDashboardStatsView.vue')
+        component: () => import( '@/views/panels/prestataire/PrestataireDashboardStatsView.vue'),
+        meta: {hideNavbar: true}
+    },
+    {
+        path: "/prestataire/panel/service/shop",
+        name: "prestataire_dashboard_shop",
+        component: () => import( '@/views/panels/prestataire/PrestataireDashboardShopView.vue'),
+        meta: {hideNavbar: true}
     },
     {
         path: "/prestataire/:prestataire_name",

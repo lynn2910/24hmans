@@ -29,13 +29,13 @@ function getPrestataireWithPassword(id, password) {
     else return {error: 0, status: 200, data: prestataire};
 }
 
-function getPrestatairesServicesCount() {
+function getPrestatairesServicesCount(is_presta = false) {
     let prestataires = getAllPrestataires();
     if (prestataires.error) return prestataires;
     prestataires = prestataires.data.map(p => ({id: p.id, name: p.name, nb_services: 0}))
 
     prestataires.forEach((p) => {
-        if (boutiques.find((b) => b.prestataire_id === p.id)) {
+        if (boutiques.find((b) => (is_presta || b.enabled) && b.prestataire_id === p.id)) {
             p.nb_services++
         }
 
@@ -52,13 +52,13 @@ function getPrestatairesServicesCount() {
     return {error: 0, status: 200, data: prestataires};
 }
 
-function getPrestataireServices(id) {
+function getPrestataireServices(id, is_presta = false) {
     let prestataire = getPrestataire(id);
     if (prestataire.error) return prestataire;
     prestataire = prestataire.data;
 
     let services = [];
-    if (boutiques.find((b) => b.prestataire_id === id)) {
+    if (boutiques.find((b) => (is_presta || b.enabled) && b.prestataire_id === id)) {
         services.push("Boutique");
     }
     if (garages.find((g) => g.prestataire_id === id)) {
@@ -85,8 +85,8 @@ function getPrestataireFromName(name) {
     return {error: 0, status: 200, data: presta};
 }
 
-function getBoutiqueInfos(prestataire_id) {
-    let boutique = boutiques.find(b => b.prestataire_id === prestataire_id);
+function getBoutiqueInfos(prestataire_id, is_presta = false) {
+    let boutique = boutiques.find(b => (is_presta || b.enabled) && b.prestataire_id === prestataire_id);
 
     if (!boutique) return {error: 1, status: 404, data: "boutique inexistante"};
     return {error: 0, status: 200, data: boutique};
@@ -107,13 +107,14 @@ function getShopItemFromName(prestataire_name, item_name) {
     return {error: 0, status: 200, data: item};
 }
 
-function getShopItem(prestataire_id, item_id) {
-    let boutique = boutiques.find(b => b.prestataire_id === prestataire_id);
+function getShopItem(prestataire_id, item_id, is_presta = false) {
+    let boutique = boutiques.find(b => (is_presta || b.enabled) && b.prestataire_id === prestataire_id);
     return boutique.items.find(i => i.item_id === item_id);
 }
 
 function getAllItems() {
     return boutiques
+        .filter(b => b.enabled)
         .map(({items, prestataire_id}) =>
             items.map(
                 ({item_id, price, name, image, stock}) => {
@@ -257,7 +258,8 @@ function getAllCategoryTicket(prestataire_id) {
     if (billeterie) return {error: 0, status: 200, data: billeterie.categories}
     else return {error: 1, status: 404, data: "billetterie not found"};
 }
-function getAllEcurieParticipants(presta_name){
+
+function getAllEcurieParticipants(presta_name) {
     let presta = getPrestataireFromName(presta_name);
     if (presta.error) return presta;
     presta = presta.data;
@@ -265,11 +267,11 @@ function getAllEcurieParticipants(presta_name){
     let garage = garages
         .find(garage => garage.prestataire_id === presta.id)
         ?.participants;
-    if (garage) return {data:garage, status: 200, error: 0}
+    if (garage) return {data: garage, status: 200, error: 0}
     else return {
         data: "garage not found",
         status: 404,
-        error : 1
+        error: 1
     }
 }
 

@@ -45,11 +45,11 @@
 
 				<!-- Titre "SERVICES" -->
 				<h1 class="uppercase font-bold mt-14 mb-5 text-lg">Services</h1>
-				
+
 				<!-- Liste des services -->
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/prestataire/panel/service/boutique`">
+						:to="`/prestataire/panel/service/shop`">
 					<svg class="my-auto" width="37" height="38" viewBox="0 0 37 38" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
