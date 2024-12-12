@@ -25,5 +25,5 @@ cd ..
 
 echo "Redémarrage des services..."
 
-systemctl --user restart 24h_man_front.service
-systemctl --user restart 24h_man_api.service
+systemctl --user restart 24hman_front.service
+systemctl --user restart 24hman_api.service
