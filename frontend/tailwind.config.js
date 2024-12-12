@@ -9,7 +9,6 @@ module.exports = {
             colors: {
                 current: 'currentColor',
                 dark: "#1A1818",
-                red: "#D4002A",
             },
             boxShadow: {
                 'red-700': '0px 0px 15px #D4002A',
