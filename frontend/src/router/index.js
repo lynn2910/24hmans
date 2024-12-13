@@ -18,6 +18,10 @@ const routes = [
         name: "Carte",
         component: () => import("../views/CarteView.vue"),
     },
+    ...servicesRouter,
+    ...adminPanelRouter,
+    ...clientPanelRouter,
+    ...prestatairePanelRouter,
     {
         path: "/prestataire/:prestataire_name",
         name: "prestataire_profile",
@@ -42,10 +46,6 @@ const routes = [
         component: () => import("../views/services/shop/CartView.vue"),
         meta: {hideCart: true}
     },
-    ...servicesRouter,
-    ...adminPanelRouter,
-    ...clientPanelRouter,
-    ...prestatairePanelRouter,
 
     // DERNIERE PAGE
     {
