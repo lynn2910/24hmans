@@ -97,42 +97,46 @@ Page de gestion des prestataires du dashboard admin
 				<!-- Password -->
 				<div class="mb-3">
 					<p class="font-semibold my-2">Mot de passe</p>
-					<div class="flex flex-row items-center content-center justify-between">
-						<div class="w-5/6">
-							<input
-									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
-									v-model="presta_creation.password"
-									@keyup="presta_creation.passwordLevel = evaluatePasswordSecurity(presta_creation.password)"
-									:type="presta_creation.showPassword ? 'text' : 'password'"
-									placeholder="mot de passe" minlength="1">
 
-							<!-- Security level -->
-							<div
-									class="flex flex-row w-full items-center content-center justify-between mt-2">
-								<div v-for="scoreRequired in [0,1,2,3,4]" :key="scoreRequired"
-										 class="rounded w-1/6 m-auto h-1"
-										 :class="presta_creation.passwordLevel > scoreRequired ? passwordScoreColor(presta_creation.passwordLevel) : 'bg-gray-400'"></div>
+					<PasswordField @levelUpdate="(i) => presta_creation.passwordLevel = i"
+												 @passwordChange="(p) => presta_creation.password = p"></PasswordField>
 
-							</div>
-						</div>
+					<!--					<div class="flex flex-row items-center content-center justify-between">-->
+					<!--						<div class="w-5/6">-->
+					<!--							<input-->
+					<!--									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"-->
+					<!--									v-model="presta_creation.password"-->
+					<!--									@keyup="presta_creation.passwordLevel = evaluatePasswordSecurity(presta_creation.password)"-->
+					<!--									:type="presta_creation.showPassword ? 'text' : 'password'"-->
+					<!--									placeholder="mot de passe" minlength="1">-->
 
-						<div
-								class="bg-dark w-10 h-10 flex flex-col rounded ml-5 border border-gray-400 cursor-pointer hover:border-blue-500"
-								@click="presta_creation.showPassword = !presta_creation.showPassword">
-							<svg v-if="presta_creation.showPassword" class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg"
-									 width="24"
-									 height="24"
-									 viewBox="0 0 24 24">
-								<path
-										d="M17 8V7c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2H9V7c0-1.654 1.346-3 3-3s3 1.346 3 3v1h2zm1 4 .002 8H6v-8h12z"></path>
-							</svg>
-							<svg v-else class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-									 viewBox="0 0 24 24">
-								<path
-										d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm6 10 .002 8H6v-8h12zm-9-2V7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9z"></path>
-							</svg>
-						</div>
-					</div>
+					<!--							&lt;!&ndash; Security level &ndash;&gt;-->
+					<!--							<div-->
+					<!--									class="flex flex-row w-full items-center content-center justify-between mt-2">-->
+					<!--								<div v-for="scoreRequired in [0,1,2,3,4]" :key="scoreRequired"-->
+					<!--										 class="rounded w-1/6 m-auto h-1"-->
+					<!--										 :class="presta_creation.passwordLevel > scoreRequired ? passwordScoreColor(presta_creation.passwordLevel) : 'bg-gray-400'"></div>-->
+
+					<!--							</div>-->
+					<!--						</div>-->
+
+					<!--						<div-->
+					<!--								class="bg-dark w-10 h-10 flex flex-col rounded ml-5 border border-gray-400 cursor-pointer hover:border-blue-500"-->
+					<!--								@click="presta_creation.showPassword = !presta_creation.showPassword">-->
+					<!--							<svg v-if="presta_creation.showPassword" class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg"-->
+					<!--									 width="24"-->
+					<!--									 height="24"-->
+					<!--									 viewBox="0 0 24 24">-->
+					<!--								<path-->
+					<!--										d="M17 8V7c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2H9V7c0-1.654 1.346-3 3-3s3 1.346 3 3v1h2zm1 4 .002 8H6v-8h12z"></path>-->
+					<!--							</svg>-->
+					<!--							<svg v-else class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"-->
+					<!--									 viewBox="0 0 24 24">-->
+					<!--								<path-->
+					<!--										d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm6 10 .002 8H6v-8h12zm-9-2V7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9z"></path>-->
+					<!--							</svg>-->
+					<!--						</div>-->
+					<!--					</div>-->
 				</div>
 
 				<!-- Boutons-->
@@ -223,10 +227,11 @@ import DownloadData from "@/components/dashboard/DownloadData.vue";
 import Loading from "@/components/dashboard/Loading.vue";
 import PrestataireService from "@/services/prestataire.service";
 import PrestataireEditPage from "@/components/dashboard/PrestataireEditPage.vue";
+import PasswordField from "@/components/dashboard/PasswordField.vue";
 
 export default {
 	name: "AdminDashboardView",
-	components: {PrestataireEditPage, Loading, DownloadData, Popup, AdminDashboardTemplate},
+	components: {PasswordField, PrestataireEditPage, Loading, DownloadData, Popup, AdminDashboardTemplate},
 	data() {
 		return {
 			services: [],
