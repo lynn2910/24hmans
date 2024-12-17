@@ -16,8 +16,8 @@ function getPrestataire(id) {
     return {error: 0, status: 200, data: presta};
 }
 
-function getPrestataireWithPassword(id, password) {
-    let prestataire = getPrestataireFromName(id);
+function getPrestataireWithPassword(name, password) {
+    let prestataire = getPrestataireFromName(name);
     if (prestataire.error) return prestataire;
 
     prestataire = prestataire.data;
@@ -87,9 +87,12 @@ function getPrestataireFromName(name) {
 
 function getBoutiqueInfos(prestataire_id, is_presta = false) {
     let boutique = boutiques.find(b => (is_presta || b.enabled) && b.prestataire_id === prestataire_id);
+    let prestataire = getPrestataire(prestataire_id)?.data;
 
-    if (!boutique) return {error: 1, status: 404, data: "boutique inexistante"};
-    return {error: 0, status: 200, data: boutique};
+    console.log(prestataire)
+
+    if (!boutique || !prestataire) return {error: 1, status: 404, data: "boutique inexistante"};
+    return {error: 0, status: 200, data: {...boutique, prestataire}};
 }
 
 function getShopItemFromName(prestataire_name, item_name) {

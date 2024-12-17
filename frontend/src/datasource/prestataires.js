@@ -16,6 +16,7 @@ let prestataires = [
         icon: 'prestataires_icons/porsche_presta.jpg',
         password: "$2a$10$lqWLtDJk2CWRxnN8UH22qOvwCTPFNXMR8lhzWAQftMBzt6HY.VBOm", // 'Spider-Porsche'
         name: "Porsche", // Visite garage,
+        email: "porsche@gmail.com",
         links: [{id: 0, name: "Site officiel", url: "https://www.porsche.com"}],
         accentColor: '#9E8980',
         banner: '45309281-fc24-4e02-ad47-a275c64f5327.jpg',
@@ -32,6 +33,7 @@ let prestataires = [
         icon: 'prestataires_icons/montgol_presta.jpg',
         password: "$2y$10$GhHncEKGwYMsbC72aLNae..OUpuvCn.a7Tvyq8VkCWn7r5UNXgRim", // 'montgolfiere'
         name: "Mong'man", // Montgolfière,
+        email: "mongman@gmail.com",
         links: [{
             id: 0,
             name: "Site officiel",
@@ -56,6 +58,7 @@ let prestataires = [
         icon: 'prestataires_icons/karting_presta.jpg',
         password: "$2y$10$GnxVPi3XmfkM.2MKgJNLfe/v3Qj7sLgVx1mqUC/vxeZXS7IE56j8i", // 'im-fast'
         name: "Kart'24", // Karting
+        email: "kart24@gmail.com",
         links: [{
             id: 0,
             name: "Site officiel",
@@ -78,6 +81,7 @@ let prestataires = [
         icon: 'prestataires_icons/organisateurs_presta.png',
         password: "$2y$10$NXLvYYnkO8Nvz7vnuE6GVuszoBjyTFyAH2.vINZ1OinJZC6tRi6D6", // 'lemans'
         name: "24h du Mans", // Billetterie + Boutique officielle
+        email: "24hmans@gmail.com",
         links: [{id: 0, name: "Site officiel", url: "https://www.24h-lemans.com/"}],
         accentColor: '#AEC6C4',
         banner: 'af3a0f62-5b13-4b19-9d42-736870b268a0.jpg',
@@ -97,6 +101,7 @@ let prestataires = [
         icon: "",
         password: "$2a$10$eMcDHdcnvFWXlBiEYcKAy.9T9k7DrWXtkepZytO6Z9aLsisubKDYa", //zeky#codeky
         name: "Codeky",
+        email: "codeky@codeky.com",
         links: [{id: 0, name: "Site officiel", url: "https://codeky.fr/"}],
         accentColor: '#AEC6C4',
         banner: '',
