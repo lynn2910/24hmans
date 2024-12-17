@@ -89,8 +89,6 @@ function getBoutiqueInfos(prestataire_id, is_presta = false) {
     let boutique = boutiques.find(b => (is_presta || b.enabled) && b.prestataire_id === prestataire_id);
     let prestataire = getPrestataire(prestataire_id)?.data;
 
-    console.log(prestataire)
-
     if (!boutique || !prestataire) return {error: 1, status: 404, data: "boutique inexistante"};
     return {error: 0, status: 200, data: {...boutique, prestataire}};
 }
@@ -287,7 +285,37 @@ function getAllEcurieParticipants(presta_name) {
     }
 }
 
+function addArticleToBoutique(presta_id, article) {
+    let boutique = getBoutiqueInfos(presta_id, true);
+    if (!boutique) return boutique.data;
+    boutique = boutique.data;
+
+    let newId = boutique.items.length;
+    let a = {
+        ...article,
+        id: newId,
+        price: article.price
+    };
+    console.log(a)
+    boutique.items.push(a);
+
+    return {error: 0, status: 200, data: a}
+}
+
+function removeItemFromBoutique(presta_id, article_id) {
+    let boutique = getBoutiqueInfos(presta_id, true);
+    if (!boutique) return boutique.data;
+    boutique = boutique.data;
+
+    const index = boutique.items.findIndex(l => l.item_id === article_id)
+    if (index < 0) return {error: 1, status: 401, data: "article not found"};
+
+    boutique.items.splice(index, 1);
+    return {error: 0, status: 200, data: "Article deleted successfully"};
+}
+
 export default {
+    addArticleToBoutique, removeItemFromBoutique,
     getPrestataire,
     getPrestataireFromName,
     getPrestataireWithPassword,

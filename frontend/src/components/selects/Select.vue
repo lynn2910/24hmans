@@ -1,7 +1,7 @@
 <template>
 	<div class="relative w-full select-none" v-click-outside="closeItemsTab">
 		<div
-				class="w-full h-10 border-2 border-blue-400 border-opacity-50 rounded text-sm flex flex-row align-middle justify-start"
+				class="w-full h-10 border-2 border-blue-400 border-opacity-50 rounded text-sm flex flex-row align-middle justify-start bg-dark"
 				:class="showItems ? 'border-opacity-100' : ''"
 				@click="showItems = true">
 			<!-- Placeholder -->
@@ -33,7 +33,8 @@ export default {
 	methods: {
 		itemClicked(item) {
 			this.selected = item;
-
+			this.showItems = false;
+			
 			this.$emit("selectionChange", this.selected)
 		},
 		closeItemsTab() {

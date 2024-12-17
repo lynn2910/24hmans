@@ -9,7 +9,8 @@ export default {
         items: [],
         shopExists: false,
         carts: {},
-        allShopItems: []
+        allShopItems: [],
+        prestataire: {}
     },
     getters: {
         categories: state => state.categories,
@@ -53,13 +54,19 @@ export default {
         updateAllShopItemsStore(state, items) {
             state.allShopItems = items;
         },
+        updateBoutiquePresta(state, prestataire) {
+            state.prestataire = prestataire;
+        },
         updateItemCount(state, {user_id, item_id, count}) {
             if (!state.carts[user_id]) state.carts[user_id] = {items: []}
-            
+
             const index = state.carts[user_id].items.findIndex(i => i.id === item_id);
             if (index >= 0) {
                 state.carts[user_id].items[index].count = count;
             }
+        },
+        addArticleInItems(state, article) {
+            state.items.push(article);
         }
     },
     actions: {
@@ -89,9 +96,9 @@ export default {
             let res = await ShopService.getShopInformations(prestataire_id);
 
             if (!res.error) {
-                console.log(res.data);
                 commit("updateCategories", res.data.categories);
                 commit("updateItems", res.data.items);
+                commit("updateBoutiquePresta", res.data.prestataire);
                 commit("updateShopExists", true);
             } else {
                 console.error(res.data);
@@ -105,6 +112,20 @@ export default {
                 commit("updateAllShopItemsStore", res.data);
             } else {
                 console.error(`Cannot get all items stored in all shops: ${res.data}`)
+            }
+        },
+        async addArticleToBoutique(_, {prestataire_id, article}) {
+            const res = await BoutiqueService.addArticleToBoutique(prestataire_id, article);
+
+            if (res.error) {
+                console.error(res.data);
+            }
+        },
+        async removeArticleFromBoutique(_, {prestataire_id, article_id}) {
+            const res = await BoutiqueService.removeArticleFromBoutique(prestataire_id, article_id);
+
+            if (res.error) {
+                console.error(res.data);
             }
         }
     }

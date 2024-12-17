@@ -30,4 +30,20 @@ async function getShopItems(prestataire_id, is_presta = false) {
     return LocalSource.getShopItems(prestataire_id, is_presta)
 }
 
-export default {getShopInformations, getItemFromName, getItemsBulk, getAllItems, getShopItems}
+async function addArticleToBoutique(prestataire_id, article) {
+    return LocalSource.addArticleToBoutique(prestataire_id, article)
+}
+
+async function removeArticleFromBoutique(prestataire_id, article_id) {
+    return LocalSource.removeItemFromBoutique(prestataire_id, article_id)
+}
+
+export default {
+    getShopInformations,
+    getItemFromName,
+    getItemsBulk,
+    getAllItems,
+    getShopItems,
+    addArticleToBoutique,
+    removeArticleFromBoutique
+}

@@ -5,13 +5,13 @@
 
 			<table class="block overflow-x-scroll overflow-y-scroll w-full whitespace-nowrap">
 				<thead>
-				<tr class="text-left">
+				<tr class="text-left border-b-2 border-blue-gray-100">
 					<!--					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-5">Id</th>-->
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52">Nom</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52 max-w-52">Catégorie</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-32">Stock</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-24">Prix (€)</th>
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Description</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-full">Description</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50"></th>
 				</tr>
 				</thead>
@@ -42,7 +42,7 @@
 					</td>
 					<td class="p-4 py-2">
 						<p class="block font-sans text-sm antialiasing font-normal leading-normal text-blue-gray-900">
-							{{ article.price?.toFixed(2) || 0.00 }}
+							{{ article.price.toFixed && article.price > 0 ? article.price?.toFixed(2) || 0 : 0 }}€
 						</p>
 					</td>
 					<td class="p-4 py-2 max-w-56 truncate">
@@ -69,7 +69,8 @@
 							</svg>
 						</div>
 						<!-- Delete -->
-						<div class="px-2 cursor-pointer fill-red-500 hover:fill-red-400 my-auto">
+						<div class="px-2 cursor-pointer fill-red-500 hover:fill-red-400 my-auto"
+								 @click="$emit('articleDelete', article.item_id)">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 								<path
 										d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path>
@@ -94,12 +95,54 @@
 					<path
 							d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM5 5h3v14H5zm5 14V5h9v14z"></path>
 				</svg>
-				<h2 class="font-bold" v-if="expends.creation">Création</h2>
+				<h2 class="font-bold" v-if="expends.creation">Création d'un article</h2>
 			</div>
 
 			<!-- Form -->
-			<div v-if="expends.creation">
-				Création d'un article :D
+			<div v-if="expends.creation" class="flex flex-col justify-start">
+
+				<div>
+					<p class="my-1">Nom</p>
+					<input
+							class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
+							v-model="creationForm.name"
+							type="text"
+							placeholder="Nom du prestataire"
+							minlength="1">
+				</div>
+
+				<div>
+					<p class="my-1">Catégorie</p>
+					<Select placeholder="Catégorie" :items="[NO_CTG_SELECTED, ...categories.map((c) => c.category_label)]"
+									@selectionChange="changeCategorySelectedCreation"></Select>
+				</div>
+
+				<div>
+					<p class="my-1">Stock</p>
+					<input
+							class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
+							v-model="creationForm.stock"
+							type="number"
+							placeholder="Stock initial du produit"
+							minlength="1">
+				</div>
+
+				<div>
+					<p class="my-1">Prix (en €)</p>
+					<input
+							class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
+							v-model="creationForm.price"
+							type="number"
+							placeholder="Prix de vente"
+							minlength="1">
+				</div>
+
+				<button class="py-2 px-3 rounded mt-5"
+								:class="isItemCreationValid ? 'bg-blue-500 hover:bg-blue-600 cursor-pointer': 'bg-gray-500 cursor-not-allowed'"
+								@click="createArticle">
+					Ajouter l'article
+				</button>
+
 			</div>
 		</div>
 	</div>
@@ -107,9 +150,11 @@
 
 <script>
 import {transformPrestataireName} from "@/utils";
+import Select from "@/components/selects/Select.vue";
 
 export default {
 	name: "PrestataireShopArticles",
+	components: {Select},
 	props: {
 		articles: {
 			type: Array,
@@ -125,16 +170,52 @@ export default {
 		}
 	},
 	data() {
+		const NO_CTG_SELECTED = "Aucune catégorie";
 		return {
+			creationForm: {
+				name: "",
+				category: NO_CTG_SELECTED,
+				stock: 0,
+				price: 0
+			},
+			NO_CTG_SELECTED,
 			expends: {
 				creation: true
 			}
+		}
+	},
+	computed: {
+		isItemCreationValid() {
+			return this.creationForm.name.length > 0
+					&& !this.articles.some(a => a.name.toLowerCase().trim() === this.creationForm.name.toLowerCase().trim())
+					&& (
+							this.creationForm.category
+							&& this.creationForm.category !== this.NO_CTG_SELECTED
+							&& this.categories.find(category => category.category_id === this.creationForm.category.category_id)
+					) && this.creationForm.stock >= 0 && this.creationForm.price >= 0;
 		}
 	},
 	methods: {
 		transformPrestataireName,
 		findCategory(id) {
 			return this.categories.find(category => category.category_id === id)
+		},
+		changeCategorySelectedCreation(newCategory) {
+			let ctg = this.categories.find(category => category.category_label.trim().toLowerCase() === newCategory.trim().toLowerCase());
+			if (ctg || newCategory === this.NO_CTG_SELECTED) {
+				this.creationForm.category = ctg;
+			} else {
+				console.error(`Cannot find category with label '${newCategory.trim().toLowerCase()}'`)
+			}
+		},
+		createArticle() {
+			if (this.isItemCreationValid) {
+				this.$emit('createArticle', {
+					...this.creationForm,
+					category: this.creationForm.category?.category_id,
+					price: Number.parseFloat(this.creationForm.price)
+				});
+			}
 		}
 	}
 }
