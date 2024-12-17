@@ -7,6 +7,7 @@ export default {
     state: {
         categories: [],
         items: [],
+        shopId: null,
         shopExists: false,
         carts: {},
         allShopItems: [],
@@ -65,8 +66,8 @@ export default {
                 state.carts[user_id].items[index].count = count;
             }
         },
-        addArticleInItems(state, article) {
-            state.items.push(article);
+        updateShopId(state, shop_id) {
+            state.shopId = shop_id;
         }
     },
     actions: {
@@ -100,6 +101,7 @@ export default {
                 commit("updateItems", res.data.items);
                 commit("updateBoutiquePresta", res.data.prestataire);
                 commit("updateShopExists", true);
+                commit('updateShopId', res.data.shop_id)
             } else {
                 console.error(res.data);
                 commit("updateShopExists", false);
