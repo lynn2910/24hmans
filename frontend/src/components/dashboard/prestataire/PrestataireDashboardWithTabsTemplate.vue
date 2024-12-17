@@ -14,8 +14,8 @@
 
 		<!-- Pages -->
 		<div class="flex flex-row pt-5 bg-dark" style="height: calc(100% - 5rem)">
-			<div class="w-3  h-full"></div>
-			<div class="w-full text-white">
+			<div class="w-3 h-full"></div>
+			<div class="overflow-scroll h-full" style="width: calc(100% - 0.75rem)">
 				<slot></slot>
 			</div>
 		</div>

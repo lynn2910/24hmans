@@ -1,8 +1,9 @@
 <template>
 	<PrestataireDashboardWithTabsTemplate :current-tab="activeTab" current-page="shop" :tabs="tabs"
 																				@changeTab="changeTab">
-		<div v-if="activeTab === 'items'">
-			<PrestataireShopArticles :articles="shop.items" :categories="shop.categories"></PrestataireShopArticles>
+		<div v-if="activeTab === 'items'" class="h-[95%]">
+			<PrestataireShopArticles :prestataire="shop.prestataire" :articles="shop.items"
+															 :categories="shop.categories"></PrestataireShopArticles>
 		</div>
 		<div v-if="activeTab === 'categories'">
 			<h1>Catégories</h1>
@@ -42,6 +43,7 @@ export default {
 	},
 	async beforeMount() {
 		let res = await BoutiqueService.getShopInformations(this.loggedInUser.id, true);
+		console.log(res)
 		if (!res.error) {
 			this.shop = res.data;
 		} else {

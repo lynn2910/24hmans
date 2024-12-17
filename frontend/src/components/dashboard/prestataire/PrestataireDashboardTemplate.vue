@@ -296,11 +296,11 @@
 			<!-- Compte du prestataire -->
 			<div
 					class="border-white border-t-2 w-5/6 p-1 mx-auto mt-auto h-20 flex flex-row content-center align-middle py-2">
-				<router-link :to="`/prestataire/${transformPrestataireName(loggedInUser.name)}`"
+				<router-link :to="`/prestataire/${transformPrestataireName(loggedInUser?.name || '')}`"
 										 class="flex flex-row content-center align-middle hover:bg-gray-50 hover:bg-opacity-5 hover:rounded-2xl">
-					<img class="w-16 h-auto" :src="`${publicPath}${loggedInUser.icon}`" alt="icon">
+					<img class="w-16 h-auto" :src="`${publicPath}${loggedInUser?.icon}`" alt="icon">
 
-					<p class="font-bold text-gray-300 my-auto px-3">{{ loggedInUser.name }}</p>
+					<p class="font-bold text-gray-300 my-auto px-3">{{ loggedInUser?.name }}</p>
 				</router-link>
 
 				<div @click="logoutUser"
@@ -318,7 +318,7 @@
 			</div>
 		</div>
 		<!-- Le contenu iras ici -->
-		<div class="w-full h-screen bg-white text-black">
+		<div class="h-screen bg-dark text-white overflow-scroll" style="width: calc(100% - 14rem)">
 			<slot></slot>
 		</div>
 	</div>
