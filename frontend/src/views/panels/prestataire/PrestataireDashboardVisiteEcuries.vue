@@ -55,8 +55,7 @@ export  default {
                 <h3>Participants sélectionnés :</h3>
                 <ul>
                     <li v-for="participant in selectedParticipants" :key="participant.email">
-                        {{ participant.lastname }} - {{ participant.name }} -
-                        ({{ new Date(participant.time).toLocaleString() }})
+                        {{ participant.lastname }} - {{ participant.name }} - {{participant.email}} - {{participant.phone}}
                     </li>
                 </ul>
             </div>
