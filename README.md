@@ -21,11 +21,8 @@ Structure du fichier `api/.env`:
 API_PORT=4629
 PROD=false # Ou 'true' en production, mais c'est évident
 
-DATABASE_NAME="24hmans"
-DATABASE_USER="<user>"
-DATABASE_PASSWORD="<password>"
-DATABASE_HOST="localhost"
-DATABASE_PORT=3306
+# Utilisé par l'ORM
+DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
 ```
 
 _Le port `4629` est recommandé pour le développement, car c'est celui-ci qui est utilisé dans Swagger_

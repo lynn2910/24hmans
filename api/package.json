@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "src/api.js",
   "scripts": {
-    "api": "nodemon src/api.js"
+    "api": "prisma generate --no-hints && prisma db push && nodemon src/api.js"
   },
   "author": "",
   "license": "",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^6.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "morgan": "^1.10.0",
