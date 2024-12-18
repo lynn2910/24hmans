@@ -1,6 +1,11 @@
 const {PrismaClient} = require('@prisma/client')
-
-module.exports = new PrismaClient()
+module.exports = new PrismaClient({
+    omit: {
+        prestataire: {password: true},
+        user: {password: true},
+        prestataireLink: {prestataire_id: true},
+    }
+})
 
 // prisma.user.create({
 //     data: {

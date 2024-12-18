@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "src/api.js",
   "scripts": {
-    "api": "prisma generate --no-hints && prisma db push && nodemon src/api.js"
+    "api": "prisma generate --no-hints && prisma db push && nodemon src/api.js",
+    "db": "prisma generate --no-hints && prisma db push"
   },
   "author": "",
   "license": "",

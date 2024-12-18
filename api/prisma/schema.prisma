@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 datasource db {
@@ -14,15 +15,44 @@ datasource db {
 }
 
 model User {
-  id            String          @id
-  email         String          @unique
-  first_name    String
-  last_name     String
-  password      String
-  AchatBoutique AchatBoutique[]
+  id         String @id
+  email      String @unique
+  first_name String
+  last_name  String
+  password   String
+  // AchatBoutique AchatBoutique[]
 }
 
-model AchatBoutique {
-  userId String @id
-  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Prestataire {
+  id       String  @id
+  icon     String?
+  password String
+
+  name       String @unique
+  // La référence dans les URLs (par exemple 'porsche', 'kart24', '24hmans', 'mongman' etc...)
+  referencer String @unique
+  email      String
+
+  accentColor String?
+  banner      String?
+
+  links PrestataireLink[]
+
+  @@index([name])
 }
+
+model PrestataireLink {
+  prestataire_id String
+  id             Int    @id @default(autoincrement())
+  name           String
+  url            String
+
+  Prestataire Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+
+  @@unique([prestataire_id, id])
+}
+
+// model AchatBoutique {
+//   userId String @id
+//   User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }

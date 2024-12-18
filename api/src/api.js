@@ -34,6 +34,7 @@ require("./swagger.js").init_swagger(app);
 
 // Boutique
 app.use("/boutique", require("./routes/boutique.router"));
+app.use("/prestataire", require("./routes/prestataire.router"));
 
 
 //
