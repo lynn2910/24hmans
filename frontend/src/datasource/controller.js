@@ -62,10 +62,10 @@ function getPrestataireServices(id, is_presta = false) {
         services.push("Boutique");
     }
     if (garages.find((g) => g.prestataire_id === id)) {
-        services.push("ecurie");
+        services.push("Ecurie");
     }
     if (billetteries.find(b => b.prestataire_id === id)) {
-        services.push("billetterie");
+        services.push("Billetterie");
     }
     // TODO
     return {error: 0, status: 200, data: services};

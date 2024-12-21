@@ -6,37 +6,27 @@ export default {
     namespaced: true,
     state: {
         prestataires: [],
-        // services: [],
+        prestataireServices: {},
     },
     getters: {
         // Getters must be functions that compute derived state
         prestataires: (state) => state.prestataires,
-        // Example of another getter if needed
-        // services: (state) => (presta) => {
-        //     return presta ? state.services[state] || [] : [];
-        // },
+        getPrestataireServices: (state) => (prestataireId) => {
+            return state.prestataireServices[prestataireId] || [];
+        }
     },
     mutations: {
-        // Mutations to update the state
         updatePrestataires(state, prestataires) {
             state.prestataires = prestataires;
+        },
+        updatePrestataireServices(state, {prestataireId, services}) {
+            state.prestataireServices = {...state.prestataireServices, [prestataireId]: services};
         },
         addPresta(state, presta) {
             state.prestataires.push(presta);
         }
-        // updateServices(state, { presta, services }) {
-        //     state.services = { ...state.services, [presta]: services };
-        // }
     },
     actions: {
-        /**
-         * Ajoute le prestataire dans le store (ne l'ajoute pas dans l'API!)
-         * @param commit
-         * @param presta
-         */
-        addPrestataireToCache({commit}, presta) {
-            commit('addPresta', presta);
-        },
         // Actions to handle asynchronous operations
         async getAllPrestataires({commit}) {
             try {
@@ -51,23 +41,25 @@ export default {
                 console.error("Error fetching prestataires:", error);
             }
         },
-        // Example of another action if needed
-        // async getServicesForPresta({ commit }, presta) {
-        //     try {
-        //         let res = await PrestataireService.getPrestatairesServices(presta);
-        //         console.log(res);
+        addPrestataireToCache({commit}, presta) {
+            commit('addPresta', presta);
+        },
+        async getPrestataireServices({commit}, prestataireId) {
+            try {
+                let res = await PrestataireService.getPrestataireServices(prestataireId);
+                console.log(res);
 
-        //         if (!res.error) {
-        //             commit("updateServices", { presta, services: res.data });
-        //         } else {
-        //             console.error(res.data);
-        //         }
-        //     } catch (error) {
-        //         console.error("Error fetching services for presta:", error);
-        //     }
-        // }
+                if (res && res.data && Array.isArray(res.data)) {
+                    commit("updatePrestataireServices", {prestataireId, services: res.data});
+                } else {
+                    console.error(res.data);
+                }
+            } catch (error) {
+                console.error("Error fetching prestataireServices:", error);
+            }
+        },
     },
     modules: {
-        boutique, // Nested module if necessary
+        boutique,
     },
 };

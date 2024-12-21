@@ -1,13 +1,13 @@
 <script>
-import CarteInteractive from "@/components/carteInteractive/CarteInteractiveAdmin.vue";
+import CarteInteractivePublic from "@/components/carteInteractive/CarteInteractivePublic.vue";
 
 export default {
-  components: {CarteInteractive},
+  components: {CarteInteractivePublic},
 }
 </script>
 
 <template>
   <div class=" overflow-y-auto">
-    <CarteInteractive width="100%" height="100vh"/>
+    <CarteInteractivePublic width="100%" height="100vh"/>
   </div>
 </template>
