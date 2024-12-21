@@ -13,7 +13,7 @@ function getPrestataireFromName(prestataire_name) {
     return prisma.prestataire.findFirst({
         where: {
             referencer: {
-                contains: prestataire_name,
+                equals: prestataire_name,
             }
         },
         include: {

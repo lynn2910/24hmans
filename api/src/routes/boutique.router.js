@@ -9,11 +9,20 @@ const prestataireMiddleware = require("../middlewares/prestataire.middleware");
  * @swagger
  * definitions:
  *      AvailableShop:
- *          type: Object
+ *          type: object
  *          properties:
  *              shop_id:
  *                  type: string
  *              prestataire_id:
+ *                  type: string
+ *      ShopCategory:
+ *          type: object
+ *          properties:
+ *              category_label:
+ *                  type: string
+ *              category_id:
+ *                  type: string
+ *              shop_id:
  *                  type: string
  */
 
@@ -42,31 +51,49 @@ routerBoutique.get("/available_shops", (req, res) => {
 })
 
 /**
- * Get all categories from a shop
+ * @swagger
+ * /boutique/{shop_id}/categories:
+ *   get:
+ *      tags:
+ *          - Boutique
+ *      summary: Récupère la liste des catégories d'une boutique
+ *      parameters:
+ *         - in: path
+ *           name: shop_id
+ *           required: true
+ *           description: Identifiant de la boutique ou nom de référence du prestataire
+ *           schema:
+ *             type: string
+ *      responses:
+ *          200:
+ *              description: "La liste des catégories de la boutique choisie"
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/definitions/ShopCategory'
+ *          404:
+ *              description: "Si la boutique n'existe pas ou n'est pas accessible"
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
  */
 routerBoutique.get("/:shop_id/categories", (req, res) => {
-    // TODO add the request to the db
-
-    if (req.params.shop_id !== "867fb638-7cb1-4228-a643-5c4f352f44b1") {
-        res.status(404)
-            .json({
-                message: "No shop found"
-            });
-        return;
-    }
-
-    let categories = [
-        {
-            "category_id": "9af710a9-9c13-43d7-b710-a99c1323d77d",
-            "category_label": "Écusson"
+    BoutiqueService.getShopCategories(req.params.shop_id).then(
+        (categories) => {
+            if (!categories) res.status(404).json({message: "No shop found"});
+            res.status(200).json(categories);
         },
-        {
-            "category_id": "be2cff03-7d12-4369-acff-037d12a36993",
-            "category_label": "Porte-clé"
+        (err) => {
+            console.error(err.message);
+            res.status(500).json({message: `Cannot get the categories: ${err.message}`})
         }
-    ]
-
-    res.status(200).json(categories)
+    )
 })
 
 /**

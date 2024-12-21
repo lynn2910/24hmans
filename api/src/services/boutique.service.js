@@ -9,6 +9,35 @@ function getAllShops() {
     })
 }
 
+function getShopCategories(shop_id) {
+    return prisma.boutiqueCategory.findMany({
+        select: {
+            category_id: true,
+            category_label: true,
+            shop_id: true,
+        },
+        where: {
+            OR: [
+                {
+                    shop_id: {
+                        equals: shop_id,
+                    },
+                },
+                {
+                    shop: {
+                        prestataire: {
+                            referencer: {
+                                equals: shop_id,
+                            },
+                        },
+                    },
+                },
+            ],
+        },
+    });
+}
+
 module.exports = {
     getAllShops,
+    getShopCategories
 }
