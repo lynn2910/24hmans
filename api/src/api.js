@@ -17,13 +17,14 @@ else
     app.use(morgan(':method :url :status :response-time ms - :res[content-length]b'));
 
 
+// API swagger
+require("./swagger.js").init_swagger(app);
+
+
 app.get("/", function (req, res) {
     res.send("Hello World");
 });
 
-
-// API swagger
-require("./swagger.js").init_swagger(app);
 
 //
 //
@@ -62,4 +63,22 @@ app.use(errorHandler);
 // et n'impacte pas l'environnement de développement.
 app.listen(process.env.API_PORT, "0.0.0.0", () => {
     console.log(`Server running on http://127.0.0.1:${process.env.API_PORT}`);
+});
+
+
+// Fermer proprement le serveur
+process.on("SIGINT", () => {
+    console.log("\nArrêt du serveur...");
+    app.close(() => {
+        console.log("Serveur arrêté proprement. Port libéré.");
+        process.exit(0);
+    });
+});
+
+process.on("SIGTERM", () => {
+    console.log("\nArrêt demandé (SIGTERM)...");
+    app.close(() => {
+        console.log("Serveur arrêté proprement. Port libéré.");
+        process.exit(0);
+    });
 });
