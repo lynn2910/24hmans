@@ -38,9 +38,9 @@ const routerPresta = new Router();
 /**
  * @swagger
  * /prestataire/{prestataire}:
- *     tags:
- *         - prestataire
  *     get:
+ *         tags:
+ *           - Prestataire
  *         summary: Récupère les informations d'un prestataire à partir de son nom ou identifiant
  *         parameters:
  *           - in: path
@@ -60,10 +60,11 @@ const routerPresta = new Router();
  *                 description: Un message d'erreur quand le prestataire n'existe pas
  *                 content:
  *                      application/json:
- *                          type: object
- *                          properties:
- *                              message:
- *                                  type: string
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  message:
+ *                                      type: string
  */
 routerPresta.get(
     "/:prestataire_name",

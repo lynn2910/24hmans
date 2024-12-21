@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id         String @id
+  id         String @id @db.VarChar(36)
   email      String @unique
   first_name String
   last_name  String
@@ -24,7 +24,7 @@ model User {
 }
 
 model Prestataire {
-  id       String  @id
+  id       String  @id @db.VarChar(36)
   icon     String?
   password String
 
@@ -36,18 +36,19 @@ model Prestataire {
   accentColor String?
   banner      String?
 
-  links PrestataireLink[]
+  links    PrestataireLink[]
+  boutique Boutique?
 
   @@index([name])
 }
 
 model PrestataireLink {
-  prestataire_id String
+  prestataire_id String @db.VarChar(36)
   id             Int    @id @default(autoincrement())
   name           String
   url            String
 
-  Prestataire Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+  prestataire Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
 
   @@unique([prestataire_id, id])
 }
@@ -56,3 +57,38 @@ model PrestataireLink {
 //   userId String @id
 //   User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 // }
+
+model Boutique {
+  prestataire_id String      @unique @db.VarChar(36)
+  prestataire    Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+
+  enabled Boolean @default(false)
+  shop_id String  @id
+
+  categories       BoutiqueCategory[]
+  BoutiqueArticles BoutiqueArticles[]
+}
+
+model BoutiqueCategory {
+  shop_id        String @db.VarChar(36)
+  category_id    String @id
+  category_label String
+
+  shop             Boutique           @relation(fields: [shop_id], references: [shop_id], onDelete: Cascade)
+  BoutiqueArticles BoutiqueArticles[]
+}
+
+model BoutiqueArticles {
+  shop_id String   @db.VarChar(36)
+  shop    Boutique @relation(fields: [shop_id], references: [shop_id], onDelete: Cascade)
+
+  item_id     Int     @id @default(autoincrement())
+  name        String
+  image       String?
+  price       Decimal
+  stock       Int
+  description String  @default("") @db.Text
+
+  category_id String
+  category    BoutiqueCategory @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
+}

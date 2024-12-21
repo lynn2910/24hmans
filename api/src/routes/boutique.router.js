@@ -1,21 +1,44 @@
 const {Router} = require("express");
 let uuid = require("uuid").v4;
+const BoutiqueService = require("../services/boutique.service");
 
 const routerBoutique = new Router();
 const prestataireMiddleware = require("../middlewares/prestataire.middleware");
 
 /**
- * Get all available shops and the corresponding prestataire
+ * @swagger
+ * definitions:
+ *      AvailableShop:
+ *          type: Object
+ *          properties:
+ *              shop_id:
+ *                  type: string
+ *              prestataire_id:
+ *                  type: string
+ */
+
+/**
+ * @swagger
+ * /boutique/available_shops:
+ *   get:
+ *      tags:
+ *          - Boutique
+ *      summary: Obtient toutes les boutiques disponibles
+ *      responses:
+ *          200:
+ *              description: "La liste des boutiques accessibles"
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/definitions/AvailableShop'
  */
 routerBoutique.get("/available_shops", (req, res) => {
-    // TODO add the request to the db
-
-    let shops = [{
-        shop_id: '867fb638-7cb1-4228-a643-5c4f352f44b1',
-        prestataire_id: '45309281-fc24-4e02-ad47-a275c64f5327'
-    }]
-
-    res.status(200).json(shops);
+    BoutiqueService.getAllShops().then(
+        (shops) => res.status(200).json(shops),
+        (err) => res.status(500).json({message: err.message})
+    )
 })
 
 /**

@@ -29,11 +29,11 @@ VALUES ('45309281-fc24-4e02-ad47-a275c64f5327', 'Site officiel', 'https://www.po
         'https://www.lemans-karting.com/karting/sessions-kart'),
        ('af3a0f62-5b13-4b19-9d42-736870b268a0', 'Notre site', 'https://24h.chamallow.fr');
 
-# INSERT INTO user (user_id, email, hashed_password, first_name, last_name)
-# VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
-#         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Test', 'Family'),
-#        ('f4f434b3-f256-484b-8935-29e13126c9e8', 'carla@gmail.com',
-#         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Carla', 'Wilson');
+INSERT INTO user (id, email, password, first_name, last_name)
+VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
+        '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Test', 'Family'),
+       ('f4f434b3-f256-484b-8935-29e13126c9e8', 'carla@gmail.com',
+        '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Carla', 'Wilson');
 # -- Pour générer des personnes : https://www.name-generator.org.uk/last/
 #
 # INSERT INTO admin (admin_id, name, password)
@@ -43,20 +43,20 @@ VALUES ('45309281-fc24-4e02-ad47-a275c64f5327', 'Site officiel', 'https://www.po
 # #       BOUTIQUE
 # #
 #
-# INSERT INTO shop (shop_id, prestataire_id)
-#     VALUE ('867fb638-7cb1-4228-a643-5c4f352f44b1', '45309281-fc24-4e02-ad47-a275c64f5327');
-#
-# INSERT INTO shop_items_category (shop_id, category_id, category_label)
-# VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'be2cff03-7d12-4369-acff-037d12a36993', 'Porte-clé'),
-#        ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9af710a9-9c13-43d7-b710-a99c1323d77d', 'Écusson');
-#
-# INSERT INTO shop_items (id_shop, item_id, name, category, stock, price)
-# VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', '035669e3-6960-410b-92a4-7734295098e7', 'Porte-clé frein',
-#         'be2cff03-7d12-4369-acff-037d12a36993', 79,
-#         16.99),
-#        ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9c46e6d5-a2da-488c-ba6f-b687218038e2', 'Porte-clé porsche',
-#         'be2cff03-7d12-4369-acff-037d12a36993', 146,
-#         24.99),
-#        ('867fb638-7cb1-4228-a643-5c4f352f44b1', '8a3bbb62-2ba0-4b9d-b230-902ea5bcf9ce', 'Écusson Porsche',
-#         '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
-#         34.99);
+INSERT INTO boutique (shop_id, prestataire_id)
+    VALUE ('867fb638-7cb1-4228-a643-5c4f352f44b1', '45309281-fc24-4e02-ad47-a275c64f5327');
+
+INSERT INTO boutiquecategory (shop_id, category_id, category_label)
+VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'be2cff03-7d12-4369-acff-037d12a36993', 'Porte-clé'),
+       ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9af710a9-9c13-43d7-b710-a99c1323d77d', 'Écusson');
+
+INSERT INTO boutiquearticles (shop_id, name, category_id, stock, price)
+VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
+        'be2cff03-7d12-4369-acff-037d12a36993', 79,
+        16.99),
+       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé porsche',
+        'be2cff03-7d12-4369-acff-037d12a36993', 146,
+        24.99),
+       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
+        '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
+        34.99);
