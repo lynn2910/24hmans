@@ -43,8 +43,8 @@ VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
 # #       BOUTIQUE
 # #
 #
-INSERT INTO boutique (shop_id, prestataire_id)
-    VALUE ('867fb638-7cb1-4228-a643-5c4f352f44b1', '45309281-fc24-4e02-ad47-a275c64f5327');
+INSERT INTO boutique (shop_id, prestataire_id, enabled)
+    VALUE ('867fb638-7cb1-4228-a643-5c4f352f44b1', '45309281-fc24-4e02-ad47-a275c64f5327', true);
 
 INSERT INTO boutiquecategory (shop_id, category_id, category_label)
 VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'be2cff03-7d12-4369-acff-037d12a36993', 'Porte-clé'),

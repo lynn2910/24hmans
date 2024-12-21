@@ -1,5 +1,6 @@
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require("swagger-jsdoc");
+const jsYaml = require("js-yaml");
 
 function init_swagger(app) {
     const swaggerOptions = {
@@ -21,6 +22,9 @@ function init_swagger(app) {
     };
 
     const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
+    const jsYaml = require('js-yaml');
+    require("fs").writeFileSync('swagger.yaml', jsYaml.dump(swaggerDocs));
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 

@@ -5,6 +5,9 @@ function getAllShops() {
         select: {
             prestataire_id: true,
             shop_id: true,
+        },
+        where: {
+            enabled: true
         }
     })
 }
@@ -17,6 +20,9 @@ function getShopCategories(shop_id) {
             shop_id: true,
         },
         where: {
+            shop: {
+                enabled: true
+            },
             OR: [
                 {
                     shop_id: {

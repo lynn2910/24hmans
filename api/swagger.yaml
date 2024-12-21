@@ -1,0 +1,131 @@
+swagger: 2.0.0
+openapi: 3.1.0
+info:
+  title: 24h du Mans - API
+  description: >-
+    Notre API met à votre disposition un trésor de données sur la plus célèbre
+    course d'endurance au monde.
+  version: 1.0.0
+servers:
+  - url: http://localhost:4629/
+    description: Environnement de développement
+paths:
+  /boutique/available_shops:
+    get:
+      tags:
+        - Boutique
+      summary: Obtient toutes les boutiques disponibles
+      responses:
+        '200':
+          description: La liste des boutiques accessibles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/AvailableShop'
+  /boutique/{shop_id}/categories:
+    get:
+      tags:
+        - Boutique
+      summary: Récupère la liste des catégories d'une boutique
+      parameters:
+        - in: path
+          name: shop_id
+          required: true
+          description: Identifiant de la boutique ou nom de référence du prestataire
+          schema:
+            type: string
+      responses:
+        '200':
+          description: La liste des catégories de la boutique choisie
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/ShopCategory'
+        '404':
+          description: Si la boutique n'existe pas ou n'est pas accessible
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /prestataire/{prestataire}:
+    get:
+      tags:
+        - Prestataire
+      summary: >-
+        Récupère les informations d'un prestataire à partir de son nom ou
+        identifiant
+      parameters:
+        - in: path
+          name: prestataire
+          required: true
+          description: Nom ou identifiant du prestataire
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Les informations sur le prestataire
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Prestataire'
+        '404':
+          description: Un message d'erreur quand le prestataire n'existe pas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+definitions:
+  AvailableShop:
+    type: object
+    properties:
+      shop_id:
+        type: string
+      prestataire_id:
+        type: string
+  ShopCategory:
+    type: object
+    properties:
+      category_label:
+        type: string
+      category_id:
+        type: string
+      shop_id:
+        type: string
+  PrestataireLink:
+    type: Object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      url:
+        type: string
+  Prestataire:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      email:
+        type: string
+      accentColor:
+        type: string
+      banner:
+        type: string
+      links:
+        type: array
+        items:
+          $ref: '#/definitions/PrestataireLink'
+components: {}
+tags: []
