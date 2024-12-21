@@ -38,6 +38,8 @@ const routerPresta = new Router();
 /**
  * @swagger
  * /prestataire/{prestataire}:
+ *     tags:
+ *         - prestataire
  *     get:
  *         summary: Récupère les informations d'un prestataire à partir de son nom ou identifiant
  *         parameters:
@@ -54,21 +56,30 @@ const routerPresta = new Router();
  *                     application/json:
  *                         schema:
  *                             $ref: '#/definitions/Prestataire'
- *
- *
+ *             404:
+ *                 description: Un message d'erreur quand le prestataire n'existe pas
+ *                 content:
+ *                      application/json:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
  */
-routerPresta.get("/:prestataire_name", async (req, res) => {
-    let presta = await getPrestataireFromName(req.params.prestataire_name);
-    // If not with name, consider that it's the ID
-    if (!presta) presta = await getPrestataire(req.params.prestataire_name);
+routerPresta.get(
+    "/:prestataire_name",
+    async (req, res) => {
+        let presta = await getPrestataireFromName(req.params.prestataire_name);
+        // If not with name, consider that it's the ID
+        if (!presta) presta = await getPrestataire(req.params.prestataire_name);
 
-    if (presta) {
-        res.status(200).json(presta);
-    } else {
-        res.status(404).json({
-            message: "prestataire not found.",
-        });
+        if (presta) {
+            res.status(200).json(presta);
+        } else {
+            res.status(404).json({
+                message: "prestataire not found.",
+            });
+        }
     }
-});
+);
 
 module.exports = routerPresta;

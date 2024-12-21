@@ -8,7 +8,7 @@ function init_swagger(app) {
             openapi: "3.1.0",
             info: {
                 title: "24h du Mans - API",
-                description: "Notre API met à votre disposition un trésor de données sur la plus célèbre course d'endurance au monde. Créez des outils personnalisés pour analyser les performances des pilotes, suivre les résultats en direct et revivre les moments forts de l'histoire des 24 Heures du Mans.",
+                description: "Notre API met à votre disposition un trésor de données sur la plus célèbre course d'endurance au monde.",
                 version: "1.0.0",
             },
             servers: [
