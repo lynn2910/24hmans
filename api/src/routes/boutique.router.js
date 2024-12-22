@@ -40,6 +40,7 @@ const prestataireMiddleware = require("../middlewares/prestataire.middleware");
  *                  - price
  *                  - stock
  *                  - category
+ *                  - referencer
  *               properties:
  *                   shop_id:
  *                       type: string
@@ -47,6 +48,8 @@ const prestataireMiddleware = require("../middlewares/prestataire.middleware");
  *                   item_id:
  *                       type: integer
  *                   name:
+ *                       type: string
+ *                   referencer:
  *                       type: string
  *                   image:
  *                       type: string
@@ -376,7 +379,6 @@ routerBoutique.patch("/:shop_id/categories/:category_id", prestataireMiddleware,
  *                                  $ref: '#/components/schemas/ShopItem'
  */
 routerBoutique.get("/:shop_id/items", (req, res) => {
-    console.log(req.query)
     BoutiqueService.getShopItems(req.params.shop_id, req.query).then(
         (items) => {
             if (!items) res.status(404).json({message: "No shop found"});
@@ -390,8 +392,55 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
 })
 
 
+/**
+ * @swagger
+ * /boutique/{shop_id}/items/{item_id}/:
+ *      parameters:
+ *          - in: path
+ *            name: shop_id
+ *            required: true
+ *            description: "L'ID de la boutique"
+ *            schema:
+ *              type: string
+ *          - in: path
+ *            name: item_id
+ *            required: true
+ *            description: "L'ID de l'article ou son identifiant de référencement"
+ *            schema:
+ *              type: string
+ *      get:
+ *          tags:
+ *              - Boutique
+ *          summary: "Get the informations of a specific article"
+ *          responses:
+ *              200:
+ *                  description: "The article"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/ShopItem'
+ *              404:
+ *                  description: "If the article doesn't exist"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  message:
+ *                                      type: string
+ *
+ */
 routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
-    res.status(501).json({message: "Not implemented yet"})
+    BoutiqueService.getShopItemByName(req.params.shop_id, req.params.item_id).then(
+        (item) => {
+            if (item) res.status(200).json(item)
+            else res.status(404).json({message: "No item found"});
+        },
+        (err) => {
+            console.error(err.message);
+            res.status(500).json({message: `Cannot get the item: ${err.message}`})
+        }
+    )
 })
 
 

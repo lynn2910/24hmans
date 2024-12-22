@@ -5,8 +5,6 @@
 #
 
 
-DELETE
-FROM prestataire;
 INSERT INTO prestataire (name, id, icon, password, email, referencer)
 VALUES ('Porsche', '45309281-fc24-4e02-ad47-a275c64f5327', 'prestataires_icons/porsche_presta.jpg',
         '$2a$10$Jfw2HzNUl/FQk.30LkQJhOa1W3rr1RDT7KUOmTVbN.ucf44w3PlEK', 'porsche@gmail.com',
@@ -19,8 +17,6 @@ VALUES ('Porsche', '45309281-fc24-4e02-ad47-a275c64f5327', 'prestataires_icons/p
         '$2y$10$GhHncEKGwYMsbC72aLNae..OUpuvCn.a7Tvyq8VkCWn7r5UNXgRim', '24hmans@gmail.com', 'mongman');
 -- montgolfiere
 
-DELETE
-FROM prestatairelink;
 INSERT INTO prestatairelink (prestataire_id, name, url)
 VALUES ('45309281-fc24-4e02-ad47-a275c64f5327', 'Site officiel', 'https://www.porsche.com'),
        ('255da203-781d-4e50-924f-0423638cdb68', 'Nos prestations',
@@ -50,13 +46,13 @@ INSERT INTO boutiquecategory (shop_id, category_id, category_label)
 VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'be2cff03-7d12-4369-acff-037d12a36993', 'Porte-clé'),
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9af710a9-9c13-43d7-b710-a99c1323d77d', 'Écusson');
 
-INSERT INTO boutiquearticles (shop_id, name, category_id, stock, price)
+INSERT INTO boutiquearticles (shop_id, name, category_id, stock, price, referencer)
 VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
         'be2cff03-7d12-4369-acff-037d12a36993', 79,
-        16.99),
+        16.99, 'porte-clé-frein'),
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé porsche',
         'be2cff03-7d12-4369-acff-037d12a36993', 146,
-        24.99),
+        24.99, 'porte-clé-porsche'),
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
         '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
-        34.99);
+        34.99, 'écusson-porsche');

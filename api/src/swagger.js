@@ -13,9 +13,10 @@ function init_swagger(app) {
                 version: "1.0.0",
             },
             servers: [
-                {url: `http://localhost:${process.env.API_PORT}/`, description: "Environnement de développement"},
-                // {url: "https://api.24h.chamallow.fr", description: "Production - Live server"}
-                // TODO Impossible de faire fonctionner swagger avec l'API en production O_o
+                {
+                    url: process.env.PROD === 'true' ? 'https://api.24h.chamallow.fr/' : `http://localhost:${process.env.API_PORT}/`,
+                    description: "Environnement de développement"
+                },
             ],
         },
         apis: ["./src/routes/*.js"],

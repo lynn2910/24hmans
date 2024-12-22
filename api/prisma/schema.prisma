@@ -83,6 +83,7 @@ model BoutiqueArticles {
   shop    Boutique @relation(fields: [shop_id], references: [shop_id], onDelete: Cascade)
 
   item_id     Int     @id @default(autoincrement())
+  referencer  String  @unique
   name        String
   image       String?
   price       Decimal
