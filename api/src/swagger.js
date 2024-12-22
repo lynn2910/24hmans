@@ -26,7 +26,19 @@ function init_swagger(app) {
     const jsYaml = require('js-yaml');
     require("fs").writeFileSync('swagger.yaml', jsYaml.dump(swaggerDocs));
 
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+    app.use(
+        "/api-docs",
+        swaggerUi.serve,
+        swaggerUi.setup(
+            swaggerDocs,
+            {
+                explorer: true,
+                customCssUrl: '/swagger_theme.css', // Slightly modified from https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-flattop.css
+                deepLinking: true,
+                filter: true
+            }
+        )
+    );
 
 }
 

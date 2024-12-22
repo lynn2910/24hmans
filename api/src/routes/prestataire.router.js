@@ -5,34 +5,35 @@ const routerPresta = new Router();
 
 /**
  * @swagger
- * definitions:
- *   PrestataireLink:
- *     type: Object
- *     properties:
- *      id:
- *          type: integer
- *      name:
- *          type: string
- *      url:
- *          type: string
+ * components:
+ *      schemas:
+ *        PrestataireLink:
+ *          type: Object
+ *          properties:
+ *           id:
+ *               type: integer
+ *           name:
+ *               type: string
+ *           url:
+ *               type: string
  *
- *   Prestataire:
- *     type: object
- *     properties:
- *       id:
- *         type: integer
- *       name:
- *         type: string
- *       email:
- *         type: string
- *       accentColor:
- *          type: string
- *       banner:
- *          type: string
- *       links:
- *          type: array
- *          items:
- *             $ref: '#/definitions/PrestataireLink'
+ *        Prestataire:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: integer
+ *            name:
+ *              type: string
+ *            email:
+ *              type: string
+ *            accentColor:
+ *               type: string
+ *            banner:
+ *               type: string
+ *            links:
+ *               type: array
+ *               items:
+ *                  $ref: '#/components/schemas/PrestataireLink'
  */
 
 /**
@@ -55,7 +56,7 @@ const routerPresta = new Router();
  *                 content:
  *                     application/json:
  *                         schema:
- *                             $ref: '#/definitions/Prestataire'
+ *                             $ref: '#/components/schemas/Prestataire'
  *             404:
  *                 description: Un message d'erreur quand le prestataire n'existe pas
  *                 content:

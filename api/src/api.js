@@ -8,6 +8,7 @@ require("./db");
 const app = express();
 require("dotenv").config();
 
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors({
     origin: '*',
