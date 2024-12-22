@@ -428,6 +428,81 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *                              properties:
  *                                  message:
  *                                      type: string
+ *      patch:
+ *          tags:
+ *              - Boutique
+ *          summary: "Update the fields of an article"
+ *          requestBody:
+ *            required: true
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    name:
+ *                      type: string
+ *                      required: false
+ *                    image:
+ *                      type: string
+ *                      format: uri
+ *                    price:
+ *                      type: number
+ *                      required: false
+ *                    stock:
+ *                      type: integer
+ *                      required: false
+ *                    description:
+ *                      type: string
+ *                      required: false
+ *                    category_id:
+ *                      type: string
+ *                      format: uuid
+ *                      required: false
+ *          responses:
+ *              200:
+ *                  description: "The updated article"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/ShopItem'
+ *              404:
+ *                  description: "If the article doesn't exist"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  message:
+ *                                      type: string
+ *              400:
+ *                  description: "No valid fields to update have been given."
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  message:
+ *                                      type: string
+ *      delete:
+ *          tags:
+ *              - Boutique
+ *          summary: "Delete a specific article"
+ *          responses:
+ *              200:
+ *                  description: "The deleted article"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/ShopItem'
+ *              404:
+ *                  description: "If the article doesn't exist"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  message:
+ *                                      type: string
  *
  */
 routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
@@ -438,46 +513,88 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
         },
         (err) => {
             console.error(err.message);
-            res.status(500).json({message: `Cannot get the item: ${err.message}`})
+            res.status(500).json({message: err.message})
         }
     )
 })
 
-
 /**
- * Create a new item
+ * @swagger
+ * /boutique/{shop_id}/items:
+ *      parameters:
+ *          - in: path
+ *            name: shop_id
+ *            required: true
+ *            description: "L'ID de la boutique"
+ *            schema:
+ *              type: string
+ *      post:
+ *          tags:
+ *              - Boutique
+ *          summary: "Create a new article"
+ *          requestBody:
+ *            required: true
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    name:
+ *                      type: string
+ *                      required: true
+ *                    price:
+ *                      type: number
+ *                      required: true
+ *                    stock:
+ *                      type: integer
+ *                      required: false
+ *                    category_id:
+ *                      type: string
+ *                      format: uuid
+ *                      required: true
+ *          responses:
+ *              200:
+ *                  description: "The created article"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/ShopItem'
  */
 routerBoutique.post("/:shop_id/items/", async (req, res) => {
-    // TODO add the request query
-
-    let body = req.body;
-    console.log(`New item: ${JSON.stringify(body, null, 2)}`);
-
-    let id = uuid();
-
-    res.status(200).json({
-        message: "Item created",
-        item: {...req.body, id}
-    })
+    BoutiqueService.createItem(
+        req.params.shop_id,
+        req.body
+    ).then(
+        (created_article) => res.status(200).json(created_article),
+        (err) => res.status(500).json({message: err.message})
+    )
 })
 
-/**
- * Modify an item
- */
 routerBoutique.patch("/:shop_id/items/:item_id", async (req, res) => {
-    // TODO add the request query
-
-    let body = req.body
-    console.log(`Edit item: ${JSON.stringify(body, null, 2)}`);
-
-    res.status(501).json({message: "Not implemented yet"})
+    BoutiqueService.editItem(
+        req.params.shop_id,
+        req.params.item_id,
+        req.body
+    ).then(
+        (updated_item) => res.status(200).json(updated_item),
+        (err) => {
+            console.error(err.message);
+            res.status(err.status).json({message: err.message})
+        }
+    )
 })
 
 routerBoutique.delete("/:shop_id/items/:item_id", async (req, res) => {
-    // TODO add the request query
-
-    // code 501 = Not implemented (https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501)
-    res.status(501).json({message: "Not implemented yet"})
+    BoutiqueService.deleteItem(
+        req.params.shop_id,
+        req.params.item_id,
+    ).then(
+        (deleted_item) => res.status(200).json(deleted_item),
+        (err) => {
+            console.error(err.message);
+            res.status(500).json({message: err.message})
+        }
+    )
 })
 
 

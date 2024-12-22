@@ -86,7 +86,7 @@ model BoutiqueArticles {
   referencer  String  @unique
   name        String
   image       String?
-  price       Decimal
+  price       Decimal @db.Decimal(5, 2)
   stock       Int
   description String? @db.Text
 
