@@ -1,5 +1,5 @@
 module.exports = function (req, res, next) {
-    const sessionId = req.query.session;
+    const sessionId = req.query.sessionId;
 
     if (!sessionId) {
         return res.status(401).json({message: "Access denied"});

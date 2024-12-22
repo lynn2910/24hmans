@@ -54,6 +54,55 @@ paths:
                 properties:
                   message:
                     type: string
+    post:
+      summary: Create a new category for a shop
+      description: >-
+        Adds a new category to the specified shop; Requires shop owner
+        authorization.
+      parameters:
+        - in: path
+          name: shop_id
+          required: true
+          description: The ID of the shop
+          schema:
+            type: string
+        - in: query
+          name: sessionId
+          required: true
+          description: Session ID for authentication
+          schema:
+            type: string
+      tags:
+        - Boutique
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_label:
+                  type: string
+                  description: The label or name of the new category.
+                  required: true
+      responses:
+        '200':
+          description: Category successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  category:
+                    $ref: '#/definitions/ShopCategory'
+        '400':
+          description: Unauthorized - Missing or invalid authentication credentials
+        '403':
+          description: Forbidden - Shop owner authorization required
+        '500':
+          description: Internal Server Error - Unexpected error during category creation
   /prestataire/{prestataire}:
     get:
       tags:

@@ -87,8 +87,10 @@ model BoutiqueArticles {
   image       String?
   price       Decimal
   stock       Int
-  description String  @default("") @db.Text
+  description String? @db.Text
 
   category_id String
   category    BoutiqueCategory @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
 }

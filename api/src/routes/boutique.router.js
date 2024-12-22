@@ -51,6 +51,31 @@ routerBoutique.get("/available_shops", (req, res) => {
 })
 
 /**
+ * Return all items and apply filters if necessary
+ */
+routerBoutique.get("/:shop_id/items", (req, res) => {
+    // TODO add the filtering system in the query
+
+    BoutiqueService.getShopItems(req.params.shop_id).then(
+        (items) => {
+            if (!items) res.status(404).json({message: "No shop found"});
+            else res.status(200).json(items);
+        },
+        (err) => {
+            console.error(err.message);
+            res.status(500).json({message: err.message})
+        }
+    )
+})
+
+//
+//
+//  CATEGORIES
+//
+//
+
+
+/**
  * @swagger
  * /boutique/{shop_id}/categories:
  *   get:
@@ -94,76 +119,83 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
             res.status(500).json({message: `Cannot get the categories: ${err.message}`})
         }
     )
-})
+});
 
 /**
- * Return all items and apply filters if necessary
+ * @swagger
+ * /boutique/{shop_id}/categories:
+ *   post:
+ *     summary: Create a new category for a shop
+ *     description: "Adds a new category to the specified shop; Requires shop owner authorization."
+ *     parameters:
+ *       - in: path
+ *         name: shop_id
+ *         required: true
+ *         description: "The ID of the shop"
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: sessionId
+ *         required: true
+ *         description: Session ID for authentication
+ *         schema:
+ *           type: string
+ *     tags:
+ *       - Boutique
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               category_label:
+ *                 type: string
+ *                 description: "The label or name of the new category."
+ *                 required: true
+ *     responses:
+ *       200:
+ *          description: "Category successfully created"
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          message:
+ *                              type: string
+ *                          category:
+ *                              $ref: '#/definitions/ShopCategory'
+ *       400:
+ *          description: "Unauthorized - Missing or invalid authentication credentials"
+ *       403:
+ *          description: "Forbidden - Shop owner authorization required"
+ *       500:
+ *          description: "Internal Server Error - Unexpected error during category creation"
  */
-routerBoutique.get("/:shop_id/items", (req, res) => {
-    // TODO add the db request
-    // TODO add the filtering system in the query
-
-
-    if (req.params.shop_id !== "867fb638-7cb1-4228-a643-5c4f352f44b1") {
-        res.status(404)
-            .json({
-                message: "No shop found"
+routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) => {
+    BoutiqueService.addCategory(
+        req.body['category_label'].trim(),
+        req.params.shop_id
+    ).then(
+        (category) => {
+            res.status(200).json({
+                message: "Category created",
+                category: category
             });
-        return;
-    }
-
-    let items = [
-        {
-            "id_shop": "867fb638-7cb1-4228-a643-5c4f352f44b1",
-            "item_id": "035669e3-6960-410b-92a4-7734295098e7",
-            "name": "Porte-clé frein",
-            "image": null,
-            "category": "be2cff03-7d12-4369-acff-037d12a36993",
-            "stock": 79,
-            "price": 16.99,
-            "description": "",
-            "deleted": 0
         },
-        {
-            "id_shop": "867fb638-7cb1-4228-a643-5c4f352f44b1",
-            "item_id": "8a3bbb62-2ba0-4b9d-b230-902ea5bcf9ce",
-            "name": "Écusson Porsche",
-            "image": null,
-            "category": "9af710a9-9c13-43d7-b710-a99c1323d77d",
-            "stock": 14,
-            "price": 34.99,
-            "description": "",
-            "deleted": 0
-        },
-        {
-            "id_shop": "867fb638-7cb1-4228-a643-5c4f352f44b1",
-            "item_id": "9c46e6d5-a2da-488c-ba6f-b687218038e2",
-            "name": "Porte-clé porsche",
-            "image": null,
-            "category": "be2cff03-7d12-4369-acff-037d12a36993",
-            "stock": 146,
-            "price": 24.99,
-            "description": "",
-            "deleted": 0
+        (err) => {
+            console.error(`Cannot create category '${req.body['category_label']}' for shop '${req.body['shop_id']}': ` + err.message);
+            res.status(500).json({
+                message: `Cannot create category '${req.body['category_label']}' for shop '${req.body['shop_id']}': ` + err.message
+            })
         }
-    ];
-
-    res.status(200).json(items)
+    )
 })
-
-//
-//
-//  CATEGORIES
-//
-//
-
-let categoryRouter = new Router();
-categoryRouter.use("/", prestataireMiddleware)
 
 /**
  * Delete a category
  */
-categoryRouter.delete("/:category_id", (req, res) => {
+routerBoutique.delete("/:shop_id/categories/:category_id", prestataireMiddleware, (req, res) => {
     // TODO add the request query
     // TODO check if no items is linked to this query (in this case, refuse to delete)
 
@@ -174,7 +206,7 @@ categoryRouter.delete("/:category_id", (req, res) => {
 /**
  * Modify a category
  */
-categoryRouter.patch("/:category_id", async (req, res) => {
+routerBoutique.patch("/:shop_id/categories/:category_id", async (req, res) => {
     // TODO add the request query
 
     let body = req.body
@@ -183,28 +215,6 @@ categoryRouter.patch("/:category_id", async (req, res) => {
     res.status(501).json({message: "Not implemented yet"})
 })
 
-/**
- * Create a new category
- */
-categoryRouter.post("/", async (req, res) => {
-    // TODO add the request query
-
-    let body = req.body;
-    console.log(`New category: ${body['category_name']} in the shop ${body['shop_id']}`);
-
-    let id = uuid();
-
-    res.status(200).json({
-        message: "Category created",
-        category: {
-            category_label: body['category_name'],
-            category_id: id.toString(),
-            shop_id: body['shop_id'],
-        }
-    })
-})
-
-routerBoutique.use("/:shop_id/category", categoryRouter)
 
 //
 //
