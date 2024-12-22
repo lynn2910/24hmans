@@ -237,6 +237,52 @@ routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) =>
  *                 description: "Forbidden - Shop owner authorization required"
  *              500:
  *                 description: "Internal Server Error - Unexpected error during category deletion"
+ *      patch:
+ *          summary: "Update the label of a category"
+ *          tags:
+ *              - Boutique
+ *          parameters:
+ *              - in: path
+ *                name: shop_id
+ *                required: true
+ *                description: "The ID of the shop"
+ *                schema:
+ *                  type: string
+ *              - in: path
+ *                name: category_id
+ *                required: true
+ *                description: "The ID of the category to delete"
+ *                schema:
+ *                  type: string
+ *          requestBody:
+ *            required: true
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    category_label:
+ *                      type: string
+ *                      description: "The new label of the category."
+ *                      required: true
+ *          responses:
+ *              200:
+ *                  description: "Category successfully updated"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  message:
+ *                                      type: string
+ *                                  category:
+ *                                      $ref: '#/definitions/ShopCategory'
+ *              400:
+ *                 description: "Unauthorized - Missing or invalid authentication credentials"
+ *              403:
+ *                 description: "Forbidden - Shop owner authorization required"
+ *              500:
+ *                 description: "Internal Server Error - Unexpected error during category update"
  */
 routerBoutique.delete("/:shop_id/categories/:category_id", prestataireMiddleware, (req, res) => {
     BoutiqueService.deleteCategory(req.params.category_id, req.params.shop_id).then(
@@ -250,16 +296,16 @@ routerBoutique.delete("/:shop_id/categories/:category_id", prestataireMiddleware
     )
 })
 
-/**
- * Modify a category
- */
-routerBoutique.patch("/:shop_id/categories/:category_id", async (req, res) => {
-    // TODO add the request query
-
-    let body = req.body
-    console.log(`Edit category name: ${body['new_category_name']}`);
-
-    res.status(501).json({message: "Not implemented yet"})
+routerBoutique.patch("/:shop_id/categories/:category_id", prestataireMiddleware, async (req, res) => {
+    BoutiqueService.editCategoryLabel(req.body['category_label'], req.params.category_id, req.params.shop_id).then(
+        (category) => res.status(200).json({message: "Category updated", category: category}),
+        (err) => {
+            console.error(err.message);
+            res.status(500).json({
+                message: `Cannot update category: ${err.message}`
+            })
+        }
+    )
 })
 
 
