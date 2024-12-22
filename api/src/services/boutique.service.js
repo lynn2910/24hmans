@@ -13,6 +13,7 @@ function getAllShops() {
     })
 }
 
+
 function getShopCategories(shop_id) {
     return prisma.boutiqueCategory.findMany({
         select: {
@@ -42,58 +43,6 @@ function getShopCategories(shop_id) {
             ],
         },
     });
-}
-
-/**
- * @param shop_id
- * @param {{ search: string?, category_id: string[] }} filters
- * @return {Promise<any>} Items
- */
-function getShopItems(shop_id, filters = {}) {
-    const {search, category_id} = filters;
-
-    return prisma.boutiqueArticles.findMany({
-        include: {
-            category: {
-                omit: {
-                    shop_id: true
-                }
-            }
-        },
-        omit: {
-            category_id: true,
-            deleted: true,
-        },
-        where: {
-            shop: {
-                enabled: true,
-            },
-            OR: [
-                {
-                    shop_id: {
-                        equals: shop_id,
-                    },
-                },
-                {
-                    shop: {
-                        prestataire: {
-                            referencer: {
-                                equals: shop_id,
-                            },
-                        },
-                    },
-                },
-            ],
-            name: {
-                search: search,
-            },
-            category: {
-                category_id: {
-                    in: Array.isArray(category_id) ? category_id : [category_id],
-                }
-            },
-        }
-    })
 }
 
 async function addCategory(category_label, shop_id) {
@@ -156,8 +105,94 @@ async function editCategoryLabel(category_label, category_id, shop_id) {
     })
 }
 
+
+/**
+ * @param shop_id
+ * @param {{ search: string?, category_id: string[] }} filters
+ * @return {Promise<any>} Items
+ */
+function getShopItems(shop_id, filters = {}) {
+    const {search, category_id} = filters;
+
+    return prisma.boutiqueArticles.findMany({
+        include: {
+            category: {
+                omit: {
+                    shop_id: true
+                }
+            }
+        },
+        omit: {
+            category_id: true,
+            deleted: true,
+        },
+        where: {
+            shop: {
+                enabled: true,
+            },
+            OR: [
+                {
+                    shop_id: {
+                        equals: shop_id,
+                    },
+                },
+                {
+                    shop: {
+                        prestataire: {
+                            referencer: {
+                                equals: shop_id,
+                            },
+                        },
+                    },
+                },
+            ],
+            name: {
+                search: search,
+            },
+            category: {
+                category_id: {
+                    in: Array.isArray(category_id) ? category_id : [category_id],
+                }
+            },
+        }
+    })
+}
+
+
+function getShopItemByName(shop_id, item_id) {
+
+    return prisma.boutiqueArticles.findFirst({
+        include: {
+            category: {
+                omit: {
+                    shop_id: true,
+                },
+            },
+        },
+        omit: {
+            category_id: true,
+            deleted: true,
+        },
+        where: {
+            OR: [
+                {
+                    referencer: {
+                        equals: item_id,
+                    },
+                },
+                {
+                    item_id: {
+                        equals: isNaN(item_id) ? -1 : Number.parseInt(item_id),
+                    }
+                }
+            ]
+        },
+    });
+}
+
+
 module.exports = {
     getAllShops,
+    getShopItems, getShopItemByName,
     getShopCategories, addCategory, editCategoryLabel, deleteCategory,
-    getShopItems,
 }
