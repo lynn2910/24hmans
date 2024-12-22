@@ -338,9 +338,6 @@ routerBoutique.patch("/:shop_id/categories/:category_id", prestataireMiddleware,
 /**
  * @swagger
  * /boutique/{shop_id}/items:
- *      tags:
- *          - Boutique
- *      summary: "Get all items from the shop with potential filters to apply"
  *      parameters:
  *          - in: path
  *            name: shop_id
@@ -348,20 +345,39 @@ routerBoutique.patch("/:shop_id/categories/:category_id", prestataireMiddleware,
  *            description: "L'ID de la boutique"
  *            schema:
  *              type: string
- *      responses:
- *          200:
- *              description: "La liste des items"
- *              content:
- *                  application/json:
+ *      get:
+ *          tags:
+ *              - Boutique
+ *          summary: "Get all items from the shop with potential filters to apply"
+ *          parameters:
+ *              - in: query
+ *                name: search
+ *                required: false
+ *                description: "Search if the following string is in the name or description"
+ *                schema:
+ *                  type: string
+ *              - in: query
+ *                name: category_id
+ *                required: false
+ *                description: "Search all items with the category"
+ *                schema:
+ *                  type: array
+ *                  items:
  *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#/components/schemas/ShopItem'
+ *                          type: string
+ *          responses:
+ *              200:
+ *                  description: "La liste des items"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/ShopItem'
  */
 routerBoutique.get("/:shop_id/items", (req, res) => {
-    // TODO add the filtering system in the query
-
-    BoutiqueService.getShopItems(req.params.shop_id).then(
+    console.log(req.query)
+    BoutiqueService.getShopItems(req.params.shop_id, req.query).then(
         (items) => {
             if (!items) res.status(404).json({message: "No shop found"});
             else res.status(200).json(items);

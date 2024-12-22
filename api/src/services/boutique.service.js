@@ -44,7 +44,14 @@ function getShopCategories(shop_id) {
     });
 }
 
-function getShopItems(shop_id) {
+/**
+ * @param shop_id
+ * @param {{ search: string?, category_id: string[] }} filters
+ * @return {Promise<any>} Items
+ */
+function getShopItems(shop_id, filters = {}) {
+    const {search, category_id} = filters;
+
     return prisma.boutiqueArticles.findMany({
         include: {
             category: {
@@ -77,6 +84,14 @@ function getShopItems(shop_id) {
                     },
                 },
             ],
+            name: {
+                search: search,
+            },
+            category: {
+                category_id: {
+                    in: Array.isArray(category_id) ? category_id : [category_id],
+                }
+            },
         }
     })
 }
