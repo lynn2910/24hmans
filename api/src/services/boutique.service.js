@@ -105,9 +105,25 @@ async function addCategory(category_label, shop_id) {
     })
 }
 
+async function deleteCategory(category_id, shop_id) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const category = await prisma.boutiqueCategory.delete({
+                where: {
+                    category_id,
+                    shop_id
+                }
+            })
+
+            resolve(category)
+        } catch (e) {
+            reject({message: `An error occurred: ${e.message}`});
+        }
+    })
+}
+
 module.exports = {
     getAllShops,
-    getShopCategories,
+    getShopCategories, addCategory, deleteCategory,
     getShopItems,
-    addCategory
 }

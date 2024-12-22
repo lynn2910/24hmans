@@ -193,14 +193,61 @@ routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) =>
 })
 
 /**
- * Delete a category
+ * @swagger
+ * /boutique/{shop_id}/categories/{category_id}:
+ *      parameters:
+ *          - in: query
+ *            name: sessionId
+ *            required: true
+ *            description: Session ID for authentication
+ *            schema:
+ *              type: string
+ *      delete:
+ *          summary: Delete a category from the shop
+ *          tags:
+ *              - Boutique
+ *          parameters:
+ *              - in: path
+ *                name: shop_id
+ *                required: true
+ *                description: "The ID of the shop"
+ *                schema:
+ *                  type: string
+ *              - in: path
+ *                name: category_id
+ *                required: true
+ *                description: "The ID of the category to delete"
+ *                schema:
+ *                  type: string
+ *          responses:
+ *              200:
+ *                  description: "Category successfully deleted"
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              properties:
+ *                                  message:
+ *                                      type: string
+ *                                  category:
+ *                                      $ref: '#/definitions/ShopCategory'
+ *              400:
+ *                 description: "Unauthorized - Missing or invalid authentication credentials"
+ *              403:
+ *                 description: "Forbidden - Shop owner authorization required"
+ *              500:
+ *                 description: "Internal Server Error - Unexpected error during category deletion"
  */
 routerBoutique.delete("/:shop_id/categories/:category_id", prestataireMiddleware, (req, res) => {
-    // TODO add the request query
-    // TODO check if no items is linked to this query (in this case, refuse to delete)
-
-    // code 501 = Not implemented (https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501)
-    res.status(501).json({message: "Not implemented yet"})
+    BoutiqueService.deleteCategory(req.params.category_id, req.params.shop_id).then(
+        (ctg) => res.status(200).json({message: "Category deleted", category: ctg}),
+        (err) => {
+            console.error(err.message);
+            res.status(500).json({
+                message: `Cannot delete category: '${err.message}'`
+            })
+        }
+    )
 })
 
 /**
