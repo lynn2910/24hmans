@@ -8,8 +8,10 @@ API:  https://api.24h.chamallow.fr
 ## Sujet
 
 Cette application web full-stack a été développée dans le cadre d'un projet universitaire par Cédric COLIN, Sugdenaz
-EKICI, Anna GAIFFE, Marvyn Levin, Leslie Mérat. Elle permet de gérer les prestataires, les organisateurs et les
-visiteurs d'un événement majeur comme les 24h du Mans. L'application propose des fonctionnalités interactives, telles
+EKICI, Anna GAIFFE, Marvyn LEVIN, Leslie MERAT.
+Elle permet de gérer les prestataires, les organisateurs et les
+visiteurs d'un événement majeur comme les 24h du Mans.
+L'application propose des fonctionnalités interactives, telles
 qu'une carte interactive des emplacements, des statistiques sur l'affluence, et la gestion des services pour chaque
 prestataire.
 
@@ -19,7 +21,7 @@ Structure du fichier `api/.env`:
 
 ```dotenv
 API_PORT=4629
-PROD=false  # Ou 'true' en production, mais c'est évident
+PROD=false# Ou 'true' en production, mais c'est évident
 
 # Utilisé par l'ORM 'Prisma'
 DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
@@ -51,25 +53,25 @@ Nous allons vous présenter **comment** ce système a été imaginé et conçu.
 ### 1.1 Conception
 
 Le système repose sur un principe simple.
-Prenons la route suivante:
+Prenons la route suivante :
 
 ```
 /boutique/porsche/items/porte-cle-porsche/
 ```
 
-Nous pouvons découper cette route en liste de mots:
+Nous pouvons découper cette route en liste de mots :
 
 ```js
 ["boutique", "porsche", "items", "porte-cle-porsche"]
 ```
 
-Mais si on peut appliquer ce système à l'URL de la requête, on peut aussi avec la route de définition:
+Mais si on peut appliquer ce système à l'URL de la requête, on peut aussi avec la route de définition :
 
 ```js
 ["boutique", ":shop_id", "items", ":item_id"]
 ```
 
-On peut alors définir un système de **règles** où nous pouvons vérifier la correspondance entre plusieurs URL:
+On peut alors définir un système de **règles** où nous pouvons vérifier la correspondance entre plusieurs URL :
 
 ```
     Match:
@@ -81,16 +83,17 @@ boutique  porsche   items  porte-cle-porsche
 boutique  :shop_id  items
 ```
 
-Une fois cela fait, nos règles peuvent suivre un ensemble de définitions, tel:
+Une fois cela fait, nos règles peuvent suivre un ensemble de définitions, tel :
 
 1. **Les méthodes :** Cela permet de définir un ensemble de règles pour une même route, mais avec des permissions
-   différentes
-2. **Les permissions :** Cela va de soi, il faut définir quels types d'utilisateurs ont accès à une route.
+   différentes selon la ou les méthode(s).
+2. **Les permissions :** Cela va de soi, il faut définir quels types d'utilisateurs ont accès à une route ou si l'accès
+   est autorisé/interdit.
 3. **Le `scope` de la règle :** Un peu plus complexe.
    Cela permet de dire que certaines règles sont appliquées aux
    routes des prestataires, d'autres aux routes utilisateurs ou administrateurs.
 
-Pour illustrer ces fonctionnalités, voici un exemple d'utilisation:
+Pour illustrer ces fonctionnalités, voici un exemple d'utilisation :
 
 ```js
 app.get("/hello/:name/presta", prestataireMiddleware, function (req, res) {
