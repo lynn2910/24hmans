@@ -4,16 +4,17 @@ const cors = require("cors");
 
 // Initialize the database
 require("./db");
+const {createRule, User, Permission, Method} = require("./permissions");
 
 const app = express();
 require("dotenv").config();
 
 app.use(express.static('public'));
 app.use(express.json());
-app.use(cors({
-    origin: '*',
-    optionsSuccessStatus: 200,
-}));
+// app.use(cors({
+//     origin: '*',
+//     optionsSuccessStatus: 200,
+// }));
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "https://api.24h.chamallow.fr");
     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS");
@@ -37,6 +38,11 @@ require("./swagger.js").init_swagger(app);
 app.get("/", function (req, res) {
     res.send("Hello World");
 });
+
+app.get("/hello/:name", require("./middlewares/prestataire.middleware"), function (req, res) {
+    res.send(`Hello ${req.params.name}`);
+});
+createRule("/hello/:name", Method.All, User.Prestataire, [Permission.Prestataire, Permission.Admin]);
 
 
 //

@@ -20,7 +20,6 @@ model User {
   first_name String
   last_name  String
   password   String
-  // AchatBoutique AchatBoutique[]
 }
 
 model Prestataire {
@@ -52,11 +51,6 @@ model PrestataireLink {
 
   @@unique([prestataire_id, id])
 }
-
-// model AchatBoutique {
-//   userId String @id
-//   User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
 
 model Boutique {
   prestataire_id String      @unique @db.VarChar(36)
@@ -94,4 +88,11 @@ model BoutiqueArticles {
   category    BoutiqueCategory @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
 
   deleted Boolean @default(false)
+}
+
+model Sessions {
+  sessionId String   @id @db.Char(10)
+  userType  Int // Either 'user', 'presta' or 'admin'
+  userId    String   @unique @db.Char(36)
+  createdAt DateTime @default(now())
 }

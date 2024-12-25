@@ -1,4 +1,5 @@
-module.exports = function (req, res, next) {
+const {checkAccess, Method, User, checkPermissions} = require("../permissions");
+module.exports = async function (req, res, next) {
     const sessionId = req.query.sessionId;
 
     if (!sessionId) {
@@ -7,7 +8,18 @@ module.exports = function (req, res, next) {
 
     req.session = sessionId;
 
-    // TODO vérifier les droits
+    const accessRule = checkAccess(req.url, Method.fromRequest(req.method), User.Prestataire, sessionId);
+    if (!accessRule) {
+        return next()
+        // return res.status(500).json({message: "Internal Server Error", error: "No rule have been found"});
+    }
 
-    next();
+    const access = await checkPermissions(accessRule, sessionId, User.Prestataire);
+
+    if (access) {
+        req.session = access;
+        next()
+    } else {
+        res.status(401).json({message: "Access denied"});
+    }
 }

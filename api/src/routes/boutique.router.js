@@ -432,6 +432,13 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          tags:
  *              - Boutique
  *          summary: "Update the fields of an article"
+ *          parameters:
+ *              - in: query
+ *                name: sessionId
+ *                required: true
+ *                description: Session ID for authentication
+ *                schema:
+ *                  type: string
  *          requestBody:
  *            required: true
  *            content:
@@ -487,6 +494,13 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          tags:
  *              - Boutique
  *          summary: "Delete a specific article"
+ *          parameters:
+ *              - in: query
+ *                name: sessionId
+ *                required: true
+ *                description: Session ID for authentication
+ *                schema:
+ *                  type: string
  *          responses:
  *              200:
  *                  description: "The deleted article"
@@ -528,6 +542,12 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
  *            description: "L'ID de la boutique"
  *            schema:
  *              type: string
+ *          - in: query
+ *            name: sessionId
+ *            required: true
+ *            description: Session ID for authentication
+ *            schema:
+ *              type: string
  *      post:
  *          tags:
  *              - Boutique
@@ -560,7 +580,7 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
  *                          schema:
  *                              $ref: '#/components/schemas/ShopItem'
  */
-routerBoutique.post("/:shop_id/items/", async (req, res) => {
+routerBoutique.post("/:shop_id/items/", prestataireMiddleware, async (req, res) => {
     BoutiqueService.createItem(
         req.params.shop_id,
         req.body
@@ -570,7 +590,7 @@ routerBoutique.post("/:shop_id/items/", async (req, res) => {
     )
 })
 
-routerBoutique.patch("/:shop_id/items/:item_id", async (req, res) => {
+routerBoutique.patch("/:shop_id/items/:item_id", prestataireMiddleware, async (req, res) => {
     BoutiqueService.editItem(
         req.params.shop_id,
         req.params.item_id,
@@ -584,7 +604,7 @@ routerBoutique.patch("/:shop_id/items/:item_id", async (req, res) => {
     )
 })
 
-routerBoutique.delete("/:shop_id/items/:item_id", async (req, res) => {
+routerBoutique.delete("/:shop_id/items/:item_id", prestataireMiddleware, async (req, res) => {
     BoutiqueService.deleteItem(
         req.params.shop_id,
         req.params.item_id,
