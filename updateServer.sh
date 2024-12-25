@@ -21,6 +21,9 @@ echo "Mise à jour du backend..."
 cd ../api || echo "Le dossier 'api' n'existe pas. (wtf?)"
 npm install
 
+# Update database schemas (prisma)
+npm run db
+
 cd ..
 
 echo "Redémarrage des services..."
