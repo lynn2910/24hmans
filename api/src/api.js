@@ -43,6 +43,7 @@ app.get("/hello/:name", require("./middlewares/prestataire.middleware"), functio
     res.send(`Hello ${req.params.name}`);
 });
 createRule("/hello/:name", Method.All, User.Prestataire, [Permission.Prestataire, Permission.Admin]);
+createRule("/hello/:name", Method.GET, User.None, [Permission.Public]);
 
 
 //

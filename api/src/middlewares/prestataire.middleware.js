@@ -1,12 +1,9 @@
 const {checkAccess, Method, User, checkPermissions} = require("../permissions");
+
 module.exports = async function (req, res, next) {
     const sessionId = req.query.sessionId;
 
-    if (!sessionId) {
-        return res.status(401).json({message: "Access denied"});
-    }
-
-    req.session = sessionId;
+    if (!sessionId) return res.status(401).json({message: "Access denied"});
 
     const accessRule = checkAccess(req.url, Method.fromRequest(req.method), User.Prestataire, sessionId);
     if (!accessRule) {

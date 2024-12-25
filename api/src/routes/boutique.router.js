@@ -542,16 +542,17 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
  *            description: "L'ID de la boutique"
  *            schema:
  *              type: string
- *          - in: query
- *            name: sessionId
- *            required: true
- *            description: Session ID for authentication
- *            schema:
- *              type: string
  *      post:
  *          tags:
  *              - Boutique
  *          summary: "Create a new article"
+ *          parameters
+ *              - in: query
+ *                name: sessionId
+ *                required: true
+ *                description: Session ID for authentication
+ *                schema:
+ *                  type: string
  *          requestBody:
  *            required: true
  *            content:

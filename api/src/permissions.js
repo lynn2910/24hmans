@@ -7,7 +7,11 @@ const req = require("express/lib/request");
 const User = {
     User: 1,
     Prestataire: 2,
-    Admin: 3
+    Admin: 3,
+    // Les utilisateurs non-connectés
+    None: 4,
+    // Tout les types d'utilisateurs
+    All: 5
 }
 
 /**
@@ -108,7 +112,7 @@ function cookUrl(url) {
 
 function searchInRules(preparation, method, user_type) {
     for (const rule of RULES) {
-        if (rule.preparation.length !== preparation.length || rule.user_type !== user_type) continue;
+        if (rule.preparation.length !== preparation.length || (rule.user_type !== user_type && rule.user_type !== User.All)) continue;
 
         // Check on each index
         let isValid = true;
