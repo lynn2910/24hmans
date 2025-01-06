@@ -80,7 +80,7 @@ export default {
       },
     };
   },
-  mounted() {
+  beforeMount() {
     this.initMap(this.onPopupOpen, this.getPrestataire);
     this.loadInitialShapes();
   },

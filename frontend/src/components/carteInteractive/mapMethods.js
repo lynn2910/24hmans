@@ -141,7 +141,6 @@ export default {
     },
 
     addPopupToShape(layer, getPrestataire) {
-        console.log("OUOUAUA" + layer.service)
         const popupContent = `
       <h2 class="w-full p-1 text-sm font-extrabold"> ${layer.name || 'Emplacement vide'} </h2>
 

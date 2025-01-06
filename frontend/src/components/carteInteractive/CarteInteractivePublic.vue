@@ -57,38 +57,52 @@ export default {
     };
   },
   mounted() {
-    console.log(this.getPrestataire);
-    this.initMap(this.onPopupOpen, this.getPrestataire);
-    this.loadInitialShapes();
-  },
+    store.dispatch("prestataire/getAllPrestataires").then(() => {
+      this.initMap(this.onPopupOpen, this.getPrestataire);
+      this.loadInitialShapes();
+    });
+  }
+  ,
+
   computed: {
-    ...mapGetters("prestataire", ["prestataires"]),
+    ...
+        mapGetters("prestataire", ["prestataires"]),
     customRoundedClass() {
       return this.roundedClass || '';
-    },
-  },
+    }
+    ,
+  }
+  ,
   methods: {
-    ...mapMethods,
+    ...
+        mapMethods,
     onPopupOpen(layer) {
       console.log("popup open")
       console.log(layer)
       this.$emit('zoneSelected', layer)
       this.fillPopupWithData(layer);
-    },
+    }
+    ,
     loadInitialShapes() {
       this.shapesData = initialShapes;
       this.reloadShapesOnMap(this.getPrestataire);
-    },
+    }
+    ,
 
     getPrestataire(id) {
       return this.prestataires.find((prestataire) => prestataire.id === id);
-    },
+    }
+    ,
 
-    ...mapActions("prestataire", ["getAllPrestataires"]),
+    ...
+        mapActions("prestataire", ["getAllPrestataires"]),
 
     async beforeMount() {
       await store.dispatch("prestataire/getAllPrestataires");
-    },
-  },
-};
+    }
+    ,
+  }
+  ,
+}
+;
 </script>
