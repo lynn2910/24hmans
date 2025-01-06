@@ -150,6 +150,7 @@ export default {
         <p class="w-full text-sm">Description : ${layer.description || 'Aucune description'}  </p>
         <p class="w-full text-sm">Prestataire : ${layer?.provider ? getPrestataire(layer.provider)?.name || "ERROR" : 'Aucun prestataire'}  </p>
         <p class="w-full text-sm">Service associé : ${layer.service || 'Aucun service'}  </p>
+        <p class="w-full text-sm">Catégorie : ${layer.category || 'default'}  </p>
       </div>
     `;
         layer.bindPopup(popupContent);
@@ -163,6 +164,7 @@ export default {
             {id: 'description', property: 'description'},
             {id: 'prestataires', property: 'provider'},
             {id: 'services', property: 'service'},
+            {id: 'category', property: 'category'},
         ];
 
         fields.forEach(({id, property}) => {
@@ -182,8 +184,13 @@ export default {
                     }
                 });
 
-                this.applyCategoryStyle(layer);
+                // Sauvegarder les modifications dans shapesData
                 this.saveShape(layer);
+
+                // Re-appliquer le style basé sur la catégorie
+                this.applyCategoryStyle(layer);
+
+                // Fermer le popup après enregistrement
                 layer.closePopup();
             };
         }
@@ -215,6 +222,7 @@ export default {
     },
 
     saveAllShapes() {
+        console.log("shapesData before save:", this.shapesData);
         const dataToSave = JSON.stringify(this.shapesData);
         const blob = new Blob([dataToSave], {type: 'application/json'});
         const link = document.createElement('a');
