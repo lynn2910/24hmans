@@ -318,7 +318,7 @@
 			</div>
 		</div>
 		<!-- Le contenu iras ici -->
-		<div class="h-screen bg-dark text-white overflow-scroll" style="width: calc(100% - 14rem)">
+		<div class="h-screen bg-dark text-white overflow-auto" style="width: calc(100% - 14rem)">
 			<slot></slot>
 		</div>
 	</div>
