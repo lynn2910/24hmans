@@ -17,7 +17,11 @@ let prestataires = [
         password: "$2a$10$lqWLtDJk2CWRxnN8UH22qOvwCTPFNXMR8lhzWAQftMBzt6HY.VBOm", // 'Spider-Porsche'
         name: "Porsche", // Visite garage,
         email: "porsche@gmail.com",
-        links: [{id: 0, name: "Site officiel", url: "https://www.porsche.com"}],
+        links: [{
+            id: 0,
+            name: "Site officiel",
+            url: "https://www.porsche.com"
+        }],
         accentColor: '#9E8980',
         banner: '45309281-fc24-4e02-ad47-a275c64f5327.jpg',
         description: "Porsche, constructeur automobile allemand de renommée mondiale, est connu pour ses voitures de sport de haute performance, synonymes de puissance, de luxe et d'ingénierie de précision. L’entreprise a été fondée en 1931 à Stuttgart par Ferdinand Porsche, ingénieur visionnaire et inventeur, d'abord sous le nom de \"Dr. Ing. h.c. F. Porsche GmbH\". Initialement, la société se consacrait à la consultation et au développement technique pour d'autres marques automobiles, notamment pour Volkswagen avec la création de la célèbre Coccinelle.\n" +
@@ -82,7 +86,11 @@ let prestataires = [
         password: "$2y$10$NXLvYYnkO8Nvz7vnuE6GVuszoBjyTFyAH2.vINZ1OinJZC6tRi6D6", // 'lemans'
         name: "24h du Mans", // Billetterie + Boutique officielle
         email: "24hmans@gmail.com",
-        links: [{id: 0, name: "Site officiel", url: "https://www.24h-lemans.com/"}],
+        links: [{
+            id: 0,
+            name: "Site officiel",
+            url: "https://www.24h-lemans.com/"
+        }],
         accentColor: '#AEC6C4',
         banner: 'af3a0f62-5b13-4b19-9d42-736870b268a0.jpg',
         description: "Les 24 Heures du Mans sont bien plus qu’une course automobile : c’est un défi d’endurance, un rendez-vous incontournable de l’innovation et une célébration de la passion automobile. Organisée chaque année depuis 1923 par l'Automobile Club de l'Ouest (ACO), cette course mythique se déroule sur le Circuit de la Sarthe, près de la ville du Mans, et rassemble des pilotes, des équipes et des constructeurs du monde entier pour une épreuve intense de 24 heures consécutives.\n" +
@@ -98,14 +106,20 @@ let prestataires = [
     },
     {
         id: "0b7956e6-1262-49f7-aaab-c5ab60d16cba",
-        icon: "",
+        icon: "prestataires_icons/codeky_presta.jpeg",
         password: "$2a$10$eMcDHdcnvFWXlBiEYcKAy.9T9k7DrWXtkepZytO6Z9aLsisubKDYa", //zeky#codeky
         name: "Codeky",
         email: "codeky@codeky.com",
         links: [{id: 0, name: "Site officiel", url: "https://codeky.fr/"}],
         accentColor: '#AEC6C4',
-        banner: '',
-        description: "",
+        banner: '0b7956e6-1262-49f7-aaab-c5ab60d16cba.jpg',
+        description: "Belforaine, la fête foraine du futur, réinvente l’expérience du divertissement en mêlant innovation, sensations fortes et découvertes technologiques, un peu comme les 24 Heures du Mans transforment chaque année l’univers du sport automobile. Tout comme cette course emblématique, Belforaine met en avant l’excitation, l’audace et l’innovation. Les visiteurs peuvent se plonger dans des aventures immersives qui rappellent la vitesse et la précision des bolides sur le circuit, avec des attractions palpitantes comme les montagnes russes futuristes ou les simulateurs de réalité virtuelle.\n" +
+            "\n" +
+            "À l’image des 24H du Mans qui ne cessent de repousser les limites de la performance humaine et technologique, Belforaine invite chacun à dépasser ses propres frontières à travers des activités aussi variées qu'intenses. La LAN Fest, véritable paradis pour les gamers, évoque l’ambiance compétitive et collaborative des équipes de course, tandis que les spectacles et animations du parc célèbrent la créativité et l'esprit d'innovation.\n" +
+            "\n" +
+            "Même les plaisirs culinaires ne sont pas en reste : tout comme les 24 Heures du Mans offrent une immersion totale avec des expériences gastronomiques pour les passionnés de sport et de vitesse, Belforaine propose un voyage culinaire futuriste avec des plats innovants et des saveurs inédites.\n" +
+            "\n" +
+            "Belforaine et les 24 Heures du Mans partagent une philosophie commune : offrir à chaque visiteur ou spectateur des moments inoubliables, où la magie, l’audace et l’émerveillement se rencontrent. Que vous soyez amateur de sensations fortes, passionné par la technologie ou simple curieux, Belforaine est l’écrin idéal pour prolonger l’esprit captivant des 24 Heures du Mans et vivre une aventure hors du commun.",
 
     },
 ]
