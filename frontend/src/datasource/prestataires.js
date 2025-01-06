@@ -265,6 +265,13 @@ let billetteries = [
             {category_label: "Tribune adulte", category_id: "baf910a9-9l13-43c9-b780-a77c1323d87d"},
             {category_label: "Tribune enfant", category_id: "pyh129y6-67yt-2zf5-8ae6-rof18dzq5g2t"},
             {category_label: "Tribune VIP", category_id: "qzj58df9-t027-tzhq-ta5d-hst28sh94zqm"}
+        ],
+        forfaits: [
+            {label: "Mercredi 11 juin 2025", id: "tjz859s2-8g34-43t5-h845-z87g1589t15h"},
+            {label: "Jeudi 12 juin 2025", id: "tjz859s2-8g36-43t5-h845-z87g1589t15h"},
+            {label: "Vendredi 13 juin 2025", id: "tjz859s2-8g38-43t5-h845-z87g1589t15h"},
+            {label: "Samedi 14 juin 2025", id: "tjz859s2-8g40-43t5-h845-z87g1589t15h"},
+            {label: "Dimanche 15 juin 2025", id: "tjz859s2-8g42-43t5-h845-z87g1589t15h"}
         ]
     }
 ]
