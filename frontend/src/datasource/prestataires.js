@@ -144,7 +144,7 @@ let boutiques = [
                 item_id: 1,
                 name: "Porte-clé frein",
                 image: null,
-                category: "be2cff03-7d12-4369-acff-037d12a36993",
+                category_id: "be2cff03-7d12-4369-acff-037d12a36993",
                 stock: 79,
                 price: 16.99,
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -153,7 +153,7 @@ let boutiques = [
                 item_id: 2,
                 name: "Porte-clé porsche",
                 image: '/shop_images/porsche_porte_cle_ecusson.png',
-                category: "be2cff03-7d12-4369-acff-037d12a36993",
+                category_id: "be2cff03-7d12-4369-acff-037d12a36993",
                 stock: 146,
                 price: 24.99,
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -162,7 +162,7 @@ let boutiques = [
                 item_id: 3,
                 name: "Écusson Porsche",
                 image: null,
-                category: "9af710a9-9c13-43d7-b710-a99c1323d77d",
+                category_id: "9af710a9-9c13-43d7-b710-a99c1323d77d",
                 stock: 14,
                 price: 34.99,
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
