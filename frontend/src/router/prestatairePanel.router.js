@@ -19,7 +19,7 @@ export default [
     },
     {
         path: "/prestataire/panel/service/ecuries",
-        name: "visite_ecuries",
+        name: "visite_ecuries_panel",
         component: () => import( '../views/panels/prestataire/PrestataireDashboardVisiteEcuries.vue'),
         meta: {hideNavbar: true}
     }
