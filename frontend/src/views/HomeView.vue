@@ -15,7 +15,7 @@
     <img src="../assets/images/monument_prefere_francais.png" alt="Monument préféré des français"
          class="w-72 h-auto absolute top-[65%] left-10 z-50 drop-shadow-all-white-700">
 
-    <div class="absolute top-[92%] bottom-0 left-0 right-0 rounded-t-3xl h-24 bg-dark"></div>
+    <div class="absolute top-[92%] bottom-0 left-0 right-0 rounded-t-3xl h-lvh bg-dark"></div>
 
     <section class="absolute bg-dark text-white">
       <div class="p-5 mx-36">
@@ -207,7 +207,9 @@
 
         <CarteInteractivePublic width="1000px" height="550px" borderRadius="16px"/>
 
-        <img src="@/assets/images/descriptionServices.png" alt="description carte interactive"/>
+        <div class="flex justify-center items-center">
+          <img class="flex" src="@/assets/images/descriptionServices.png" alt="description carte interactive"/>
+        </div>
 
       </div>
 
