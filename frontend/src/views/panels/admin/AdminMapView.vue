@@ -67,7 +67,7 @@ Page de gestion de la carte interactive admin
 
           <button id="save-info"
                   class="mt-6 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none text-xl">
-            Save
+            Enregistrer
           </button>
         </div>
       </div>

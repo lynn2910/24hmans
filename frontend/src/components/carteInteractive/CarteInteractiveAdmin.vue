@@ -93,9 +93,7 @@ export default {
   methods: {
     ...mapMethods,
     onPopupOpen(layer) {
-      console.log("popup open")
-      console.log(layer)
-      this.$emit('zoneSelected', layer)
+      this.$emit('zoneSelected', layer);
     },
     loadInitialShapes() {
       this.shapesData = initialShapes;
