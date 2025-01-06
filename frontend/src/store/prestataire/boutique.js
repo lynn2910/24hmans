@@ -9,6 +9,7 @@ export default {
         items: [],
         shopId: null,
         shopExists: false,
+        shopEnabled: false,
         carts: {},
         allShopItems: [],
         prestataire: {}
@@ -68,6 +69,9 @@ export default {
         },
         updateShopId(state, shop_id) {
             state.shopId = shop_id;
+        },
+        updateShopEnabled(state, shopEnabled) {
+            state.shopEnabled = shopEnabled;
         }
     },
     actions: {
@@ -101,6 +105,7 @@ export default {
                 commit("updateItems", res.data.items);
                 commit("updateBoutiquePresta", res.data.prestataire);
                 commit("updateShopExists", true);
+                commit('updateShopEnabled', res.data.enabled || false);
                 commit('updateShopId', res.data.shop_id)
             } else {
                 console.error(res.data);

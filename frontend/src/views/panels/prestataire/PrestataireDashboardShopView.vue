@@ -9,8 +9,11 @@
 															 @download="downloadBoutique" @copy="copyBoutique"
 															 @import="importPrestataires"></PrestataireShopArticles>
 		</div>
-		<div v-if="activeTab === 'categories'">
+		<div v-else-if="activeTab === 'categories'">
 			<h1>Catégories</h1>
+		</div>
+		<div v-else-if="activeTab === 'settings'">
+			<PrestataireShopSettings :prestataire="prestataire"></PrestataireShopSettings>
 		</div>
 
 		<Loading v-if="showImportLoadingAnimation"></Loading>
@@ -24,9 +27,11 @@ import {mapState} from "vuex";
 import PrestataireShopArticles from "@/views/panels/prestataire/shop/PrestataireShopArticles.vue";
 import {transformPrestataireName, wait} from "@/utils";
 import Loading from "@/components/dashboard/Loading.vue";
+import PrestataireShopSettings from "@/views/panels/prestataire/shop/PrestataireShopSettings.vue";
+
 
 export default {
-	components: {Loading, PrestataireShopArticles, PrestataireDashboardWithTabsTemplate},
+	components: {PrestataireShopSettings, Loading, PrestataireShopArticles, PrestataireDashboardWithTabsTemplate},
 	data() {
 		return {
 			tabs: [
@@ -44,8 +49,11 @@ export default {
 	},
 	methods: {
 		changeTab(newTab) {
+			if (newTab !== this.activeTab) {
+				this.$router.replace({query: {tab: this.activeTab}});
+			}
+
 			this.activeTab = newTab;
-			this.$router.replace({query: {tab: this.activeTab}});
 		},
 
 		// DOWNLOAD/COPY/IMPORT
@@ -111,13 +119,6 @@ export default {
 	},
 	async beforeMount() {
 		await this.$store.dispatch("prestataire/boutique/getShop", this.loggedInUser.id)
-		// let res = await BoutiqueService.getShopInformations(this.loggedInUser.id, true);
-		// console.log(res)
-		// if (!res.error) {
-		// 	this.shop = res.data;
-		// } else {
-		// 	console.error(`Cannot get the shop informations: ${res.data}`)
-		// }
 	}
 }
 </script>

@@ -6,17 +6,17 @@ export default [
     },
     {
         path: "/ecurie/:prestataire_name",
-        name: "visite ecuries",
+        name: "visite_ecuries",
         component: () => import('../views/services/VisiteEcurie.vue')
     },
     {
         path: "/boutique/:prestataire_name",
         name: "shop_view",
-        component: () => import( '../views/services/shop/ShopView.vue')
+        component: () => import( '../views/services/shop/ShopView.vue'),
     },
     {
         path: "/boutique/:prestataire_name/item/:item_name",
-        name: "shop_view",
+        name: "shop_item_view",
         component: () => import( '../views/services/shop/ShopItemView.vue')
     }
 ]

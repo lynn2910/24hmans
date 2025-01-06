@@ -104,8 +104,9 @@ export default {
 
 			const backURL = this.$route.query.backURL;
 			if (backURL) {
-				console.log(`redirecting to ${decodeURIComponent(backURL)}`)
-				this.$router.push({path: decodeURIComponent(backURL)});
+				const uri = decodeURIComponent(backURL);
+				console.log(`redirecting to ${uri}`);
+				this.$router.push({path: uri});
 				return;
 			}
 

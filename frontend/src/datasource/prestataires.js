@@ -22,6 +22,7 @@ let prestataires = [
             name: "Site officiel",
             url: "https://www.porsche.com"
         }],
+        referencer: 'porsche',
         accentColor: '#9E8980',
         banner: '45309281-fc24-4e02-ad47-a275c64f5327.jpg',
         description: "Porsche, constructeur automobile allemand de renommée mondiale, est connu pour ses voitures de sport de haute performance, synonymes de puissance, de luxe et d'ingénierie de précision. L’entreprise a été fondée en 1931 à Stuttgart par Ferdinand Porsche, ingénieur visionnaire et inventeur, d'abord sous le nom de \"Dr. Ing. h.c. F. Porsche GmbH\". Initialement, la société se consacrait à la consultation et au développement technique pour d'autres marques automobiles, notamment pour Volkswagen avec la création de la célèbre Coccinelle.\n" +
@@ -43,6 +44,7 @@ let prestataires = [
             name: "Site officiel",
             url: "https://montgolfiere-france.com/bapteme-en-montgolfiere-pres-du-mans/"
         }],
+        referencer: 'mongman',
         accentColor: '#0A8799',
         banner: '255da203-781d-4e50-924f-0423638cdb68.jpg',
         description: "Fondée en 2010, Mong'Man est une entreprise passionnée de montgolfières, spécialisée dans les vols au-dessus de l'emblématique circuit des 24 Heures du Mans. Basée au cœur de la Sarthe, Mong'Man est née d'un rêve partagé par ses fondateurs, anciens pilotes amateurs de montgolfière, qui souhaitaient offrir aux amoureux de l'aviation légère une expérience unique et exaltante : découvrir la magie des 24 Heures du Mans depuis les airs.\n" +
@@ -68,6 +70,7 @@ let prestataires = [
             name: "Site officiel",
             url: "https://www.lemans-karting.com/karting/sessions-kart/?utm_source=google&utm_medium=cpc&utm_campaign=grp_marque&gad_source=1&gclid=CjwKCAiAudG5BhAREiwAWMlSjHrQwH3UEysrGgUOpWB5_tLZgToKz4d76wx4Xy4PBAZFkhhmq8ifGRoCvskQAvD_BwE"
         }],
+        referencer: 'kart24',
         accentColor: '#C8B791',
         banner: '524aaa51-09c1-48f1-85d3-ac878394e1ff.jpg',
         description: "Au cœur du légendaire circuit des 24 Heures du Mans, Karting 24 vous invite à vivre la passion du sport automobile sous une nouvelle forme. Avec une piste conçue pour reproduire les sensations des grandes courses et des karts de dernière génération, cet espace est devenu une référence incontournable pour les amateurs de vitesse et de sensations fortes.\n" +
@@ -91,6 +94,7 @@ let prestataires = [
             name: "Site officiel",
             url: "https://www.24h-lemans.com/"
         }],
+        referencer: '24hdumans',
         accentColor: '#AEC6C4',
         banner: 'af3a0f62-5b13-4b19-9d42-736870b268a0.jpg',
         description: "Les 24 Heures du Mans sont bien plus qu’une course automobile : c’est un défi d’endurance, un rendez-vous incontournable de l’innovation et une célébration de la passion automobile. Organisée chaque année depuis 1923 par l'Automobile Club de l'Ouest (ACO), cette course mythique se déroule sur le Circuit de la Sarthe, près de la ville du Mans, et rassemble des pilotes, des équipes et des constructeurs du monde entier pour une épreuve intense de 24 heures consécutives.\n" +
@@ -111,6 +115,7 @@ let prestataires = [
         name: "Codeky",
         email: "codeky@codeky.com",
         links: [{id: 0, name: "Site officiel", url: "https://codeky.fr/"}],
+        referencer: "codeky",
         accentColor: '#AEC6C4',
         banner: '0b7956e6-1262-49f7-aaab-c5ab60d16cba.jpg',
         description: "Belforaine, la fête foraine du futur, réinvente l’expérience du divertissement en mêlant innovation, sensations fortes et découvertes technologiques, un peu comme les 24 Heures du Mans transforment chaque année l’univers du sport automobile. Tout comme cette course emblématique, Belforaine met en avant l’excitation, l’audace et l’innovation. Les visiteurs peuvent se plonger dans des aventures immersives qui rappellent la vitesse et la précision des bolides sur le circuit, avec des attractions palpitantes comme les montagnes russes futuristes ou les simulateurs de réalité virtuelle.\n" +
