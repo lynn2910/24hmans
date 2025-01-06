@@ -10,7 +10,14 @@
 															 @import="importPrestataires"></PrestataireShopArticles>
 		</div>
 		<div v-else-if="activeTab === 'categories'">
-			<h1>Catégories</h1>
+
+			<PrestataireShopCategories :prestataire="prestataire" :articles="items"
+																 :categories="categories"
+																 @createArticle="createArticle"
+																 @articleDelete="deleteArticle"
+																 @download="downloadBoutique" @copy="copyBoutique"
+																 @import="importPrestataires">
+			</PrestataireShopCategories>
 		</div>
 		<div v-else-if="activeTab === 'settings'">
 			<PrestataireShopSettings :prestataire="prestataire"></PrestataireShopSettings>
@@ -28,16 +35,20 @@ import PrestataireShopArticles from "@/views/panels/prestataire/shop/Prestataire
 import {transformPrestataireName, wait} from "@/utils";
 import Loading from "@/components/dashboard/Loading.vue";
 import PrestataireShopSettings from "@/views/panels/prestataire/shop/PrestataireShopSettings.vue";
+import PrestataireShopCategories from "@/views/panels/prestataire/shop/PrestataireShopCategories.vue";
 
 
 export default {
-	components: {PrestataireShopSettings, Loading, PrestataireShopArticles, PrestataireDashboardWithTabsTemplate},
+	components: {
+		PrestataireShopCategories,
+		PrestataireShopSettings, Loading, PrestataireShopArticles, PrestataireDashboardWithTabsTemplate
+	},
 	data() {
 		return {
 			tabs: [
 				{id: "settings", name: "Paramètres généraux"},
 				{id: "items", name: "Articles"},
-				{id: "categories", name: "Catégorie"},
+				{id: "categories", name: "Catégories"},
 			],
 			activeTab: "settings",
 			showImportLoadingAnimation: false
@@ -49,8 +60,8 @@ export default {
 	},
 	methods: {
 		changeTab(newTab) {
-			if (newTab !== this.activeTab) {
-				this.$router.replace({query: {tab: this.activeTab}});
+			if (newTab !== this.activeTab && this.$route.query.tab !== newTab) {
+				this.$router.replace({query: {tab: newTab}});
 			}
 
 			this.activeTab = newTab;
@@ -118,6 +129,13 @@ export default {
 		},
 	},
 	async beforeMount() {
+		const tab = this.$route.query.tab;
+
+		console.log("Tab in query: ", tab, this.activeTab);
+		if (tab && this.tabs.some(t => t.id === tab) && this.activeTab !== tab) {
+			this.changeTab(tab)
+		}
+
 		await this.$store.dispatch("prestataire/boutique/getShop", this.loggedInUser.id)
 	}
 }

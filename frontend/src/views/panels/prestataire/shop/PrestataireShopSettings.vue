@@ -3,7 +3,7 @@
 		<div
 				class="bg-opacity-25 border-2  text-center p-5 rounded flex flex-col items-center justify-center"
 				:class="shopEnabled ? 'bg-emerald-600 border-emerald-600' : 'bg-red-600 border-red-600'">
-			<p>La boutique <strong>{{ shopEnabled && shopExists ? 'est en ligne' : 'n\'est pas en ligne' }}</strong></p>
+			<p>La boutique <strong>{{ shopEnabled ? 'est en ligne' : 'n\'est pas en ligne' }}</strong></p>
 
 			<div>
 				<router-link target="_blank" :to="{ name: 'shop_view', params: { prestataire_name: prestataire.referencer }}"
