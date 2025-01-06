@@ -341,7 +341,7 @@ export default {
 			await this.$router.push({
 				name: 'login',
 				query: {
-					backURL: encodeURIComponent(this.$route.path),
+					backURL: this.$route.fullPath,
 					userType: Selected.Prestataire.toString()
 				}
 			});
