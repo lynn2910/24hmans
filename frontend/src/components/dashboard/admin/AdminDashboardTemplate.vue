@@ -344,8 +344,14 @@ export default {
 
 			if (this.userType !== Selected.Admin) console.log("Ce n'est pas un administrateur");
 			else console.log("Aucun utilisateur connecté n'a été trouvé");
-
-			await this.$router.push({name: 'login'});
+			
+			await this.$router.push({
+				name: 'login',
+				query: {
+					backURL: encodeURIComponent(this.$route.path),
+					userType: Selected.Admin.toString()
+				}
+			});
 		}
 	},
 	props: {

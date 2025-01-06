@@ -30,11 +30,11 @@ export default {
 	data() {
 		return {
 			tabs: [
-				{id: "home", name: "Paramètres généraux"},
+				{id: "settings", name: "Paramètres généraux"},
 				{id: "items", name: "Articles"},
 				{id: "categories", name: "Catégorie"},
 			],
-			activeTab: "items",
+			activeTab: "settings",
 			showImportLoadingAnimation: false
 		}
 	},
