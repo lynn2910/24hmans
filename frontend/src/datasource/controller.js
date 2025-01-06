@@ -321,6 +321,13 @@ function getAllForfaitTicket(prestataire_id) {
     else return {error: 1, status: 404, data: "Forfait not found"};
 }
 
+function getAllPersonneTicket(prestataire_id){
+    let billeterie = billetteries.find(b => b.prestataire_id === prestataire_id);
+
+    if(billeterie) return {error: 0, status: 200, data: billeterie.personnes}
+    else return {error: 1, status: 404, data: "Personne not found"};
+}
+
 export default {
     addArticleToBoutique, removeItemFromBoutique,
     getPrestataire,
@@ -328,6 +335,7 @@ export default {
     getPrestataireWithPassword,
     getAllCategoryTicket,
     getAllForfaitTicket,
+    getAllPersonneTicket,
     getBoutiqueInfos,
     getAllPrestataires,
     getShopItemFromName,

@@ -48,7 +48,7 @@
             <div class="p-11 pt-0">
                 <BilletterieTypeBillet v-if="currentStep === Etape.TypeBillet" @category="typeBilletSelected(categories)" :categories="categories"></BilletterieTypeBillet>
                 <BilletterieDateSelection v-if="currentStep === Etape.Date" @forfaits="datesSelected" :forfaits="forfaits"></BilletterieDateSelection>
-                <BilletteriePersonneSelection v-if="currentStep === Etape.Personne"></BilletteriePersonneSelection>
+                <BilletteriePersonneSelection v-if="currentStep === Etape.Personne" @personne="personnesSelected" :personnes="personnes"></BilletteriePersonneSelection>
                 <BilletteriePaiement v-if="currentStep === Etape.Paiement"></BilletteriePaiement>
             </div>
         </div>
@@ -81,10 +81,12 @@ export default {
             Etape,
             categories: [],
             forfaits: [],
+            personnes: [],
             prestataire: null,
             currentStep: Etape.TypeBillet,
             selectedTypeBillet: null,
-            selectedDates: [] // Stockage des forfaits sélectionnés
+            selectedDates: [], // Stockage des forfaits sélectionnés
+            selectedPersonnes: null
         };
     },
     async beforeMount() {
@@ -105,6 +107,14 @@ export default {
             } else {
                 console.error(res.data);
             }
+
+            res = await PrestataireService.getAllPersonneTicket(this.prestataire.id);
+            if (! res.error){
+                this.personnes = res.data;
+            } else {
+                console.error(res.data);
+            }
+
         } else {
             console.error(`Cannot get prestataire: ${res.data}`);
         }
@@ -120,6 +130,10 @@ export default {
         datesSelected(selectedForfaits) {
             this.selectedDates = selectedForfaits;
             this.changeStep(Etape.Personne);
+        },
+        personnesSelected(personne){
+            this.selectedPersonnes = personne;
+            this.changeStep(Etape.Paiement);
         }
     }
 };

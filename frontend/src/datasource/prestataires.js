@@ -272,6 +272,11 @@ let billetteries = [
             {label: "Vendredi 13 juin 2025", id: "tjz859s2-8g38-43t5-h845-z87g1589t15h"},
             {label: "Samedi 14 juin 2025", id: "tjz859s2-8g40-43t5-h845-z87g1589t15h"},
             {label: "Dimanche 15 juin 2025", id: "tjz859s2-8g42-43t5-h845-z87g1589t15h"}
+        ],
+        personnes: [
+            {label: "Famille (x2 enfant, x2 adulte)", id: "hrs561r5-4f65-24f5-y45v1556f25g"},
+            {label: "Étudiant x1", id: "hrs561r5-4f67-24f5-y45v1556f25g"},
+            {label: "Sénior x2", id: "hrs561r5-4f69-24f5-y45v1556f25g"}
         ]
     }
 ]
