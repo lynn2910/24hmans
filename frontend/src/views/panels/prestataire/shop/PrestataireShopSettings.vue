@@ -1,16 +1,21 @@
 <template>
 	<div class="mr-10">
 		<div
-				class="bg-emerald-600 bg-opacity-25 border-2 border-emerald-600 text-center p-5 rounded flex flex-col items-center justify-center">
-			La boutique {{ shopEnabled && shopExists ? 'est en ligne' : 'n\'est pas en ligne' }}
+				class="bg-opacity-25 border-2  text-center p-5 rounded flex flex-col items-center justify-center"
+				:class="shopEnabled ? 'bg-emerald-600 border-emerald-600' : 'bg-red-600 border-red-600'">
+			<p>La boutique <strong>{{ shopEnabled && shopExists ? 'est en ligne' : 'n\'est pas en ligne' }}</strong></p>
 
-			<router-link :to="{ name: 'shop_view', params: { prestataire_name: prestataire.referencer }}"
-									 class="bg-dark p-2 rounded mt-5 flex flex-row content-center items-center">
-				<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" width="24" height="24" viewBox="0 0 24 24">
-					<path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path>
-				</svg>
-				<p class="ml-1.5 mb-0.5">Voir la boutique</p>
-			</router-link>
+			<div>
+				<router-link target="_blank" :to="{ name: 'shop_view', params: { prestataire_name: prestataire.referencer }}"
+										 class="bg-dark p-2 rounded mt-5 flex flex-row content-center items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" width="24" height="24" viewBox="0 0 24 24">
+						<path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path>
+					</svg>
+					<p class="ml-1.5 mb-0.5">Voir la boutique</p>
+				</router-link>
+				<p class="italic w-56" v-if="shopEnabled">Visible pour tous</p>
+				<p class="italic w-56" v-else>Uniquement visible pour vous</p>
+			</div>
 		</div>
 
 		<h2 class="font-bold text-2xl my-5">Paramètres</h2>
@@ -18,7 +23,7 @@
 		<div class="flex flex-col gap-5 justify-start">
 
 			<div class="flex flex-row items-center gap-5">
-				<Toggle :value="shopEnabled"></Toggle>
+				<Toggle :value="shopEnabled" @change="publishOrUnpublish"></Toggle>
 				<p>Accessible au public</p>
 			</div>
 
@@ -37,7 +42,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 import Toggle from "@/components/selects/Toggle.vue";
 
 export default {
@@ -53,6 +58,15 @@ export default {
 	},
 	computed: {
 		...mapState('prestataire/boutique', ['shopEnabled', 'shopExists'])
+	},
+	methods: {
+		...mapActions('prestataire/boutique', ['enableOrDisableShop']),
+		publishOrUnpublish() {
+			this.enableOrDisableShop({
+				prestataire_id: this.prestataire.id,
+				value: !this.shopEnabled
+			});
+		}
 	}
 }
 </script>

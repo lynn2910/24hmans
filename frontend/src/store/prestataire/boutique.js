@@ -134,6 +134,14 @@ export default {
             if (res.error) {
                 console.error(res.data);
             }
+        },
+        async enableOrDisableShop({commit}, {prestataire_id, value}) {
+            const res = await ShopService.enableOrDisableShop(prestataire_id, value);
+            if (res.error) {
+                console.error(res.data);
+            } else {
+                commit('updateShopEnabled', res.data.enabled || false);
+            }
         }
     }
 }

@@ -321,11 +321,19 @@ function getAllForfaitTicket(prestataire_id) {
     else return {error: 1, status: 404, data: "Forfait not found"};
 }
 
-function getAllPersonneTicket(prestataire_id){
+function getAllPersonneTicket(prestataire_id) {
     let billeterie = billetteries.find(b => b.prestataire_id === prestataire_id);
 
-    if(billeterie) return {error: 0, status: 200, data: billeterie.personnes}
+    if (billeterie) return {error: 0, status: 200, data: billeterie.personnes}
     else return {error: 1, status: 404, data: "Personne not found"};
+}
+
+function enableOrDisableShop(prestataire_id, newStatus) {
+    let shop = boutiques.find(b => b.prestataire_id === prestataire_id);
+    if (!shop) return {error: 1, status: 404, data: "shop not found"};
+
+    shop.enabled = newStatus;
+    return {error: 0, status: 200, data: shop}
 }
 
 export default {
@@ -354,5 +362,6 @@ export default {
     getShopItem,
     getAllItems,
     getAllEcurieParticipants,
-    getShopItems
+    getShopItems,
+    enableOrDisableShop
 };

@@ -38,6 +38,11 @@ async function removeArticleFromBoutique(prestataire_id, article_id) {
     return LocalSource.removeItemFromBoutique(prestataire_id, article_id)
 }
 
+
+async function enableOrDisableShop(presta_id, newValue) {
+    return LocalSource.enableOrDisableShop(presta_id, newValue);
+}
+
 export default {
     getShopInformations,
     getItemFromName,
@@ -45,5 +50,6 @@ export default {
     getAllItems,
     getShopItems,
     addArticleToBoutique,
-    removeArticleFromBoutique
+    removeArticleFromBoutique,
+    enableOrDisableShop
 }
