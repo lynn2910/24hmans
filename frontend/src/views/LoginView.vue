@@ -9,7 +9,7 @@ export default {
 	components: {IconEvent},
 	data() {
 		return {
-			selected: Selected.User,
+			selected: Number.parseInt(this.$route.query.userType) || Selected.User,
 			account_creation: false,
 
 			login_id: "",
@@ -24,7 +24,6 @@ export default {
 				password: "",
 				confirm_password: "",
 			},
-
 			Selected
 		}
 	},
@@ -102,6 +101,14 @@ export default {
 		 */
 		redirectUser() {
 			console.log("Redirecting user")
+
+			const backURL = this.$route.query.backURL;
+			if (backURL) {
+				console.log(`redirecting to ${decodeURIComponent(backURL)}`)
+				this.$router.push({path: decodeURIComponent(backURL)});
+				return;
+			}
+
 			switch (this.selected) {
 				case Selected.Prestataire: {
 					this.$router.push({

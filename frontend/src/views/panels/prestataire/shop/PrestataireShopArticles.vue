@@ -15,7 +15,7 @@
 					<!--					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-5">Id</th>-->
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52">Nom</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52 max-w-52">Catégorie</th>
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-32">Stock</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-24">Stock</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-24">Prix (€)</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-full">Description</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50"></th>
@@ -88,6 +88,7 @@
 
 			</table>
 
+			<p v-if="articles?.length < 1" class="mx-1 my-3">Aucun article à afficher</p>
 		</div>
 		<!-- Création -->
 		<div

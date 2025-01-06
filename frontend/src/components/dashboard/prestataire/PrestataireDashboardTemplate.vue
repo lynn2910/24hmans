@@ -338,7 +338,13 @@ export default {
 			if (this.userType !== Selected.Prestataire) console.log("Ce n'est pas un prestataire");
 			else console.log("Aucun utilisateur connecté n'a été trouvé");
 
-			await this.$router.push({name: 'login'});
+			await this.$router.push({
+				name: 'login',
+				query: {
+					backURL: encodeURIComponent(this.$route.path),
+					userType: Selected.Prestataire.toString()
+				}
+			});
 		}
 	},
 	props: {

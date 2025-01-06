@@ -12,7 +12,7 @@
 		<div v-if="activeTab === 'categories'">
 			<h1>Catégories</h1>
 		</div>
-		
+
 		<Loading v-if="showImportLoadingAnimation"></Loading>
 	</PrestataireDashboardWithTabsTemplate>
 </template>
@@ -30,6 +30,7 @@ export default {
 	data() {
 		return {
 			tabs: [
+				{id: "home", name: "Paramètres généraux"},
 				{id: "items", name: "Articles"},
 				{id: "categories", name: "Catégorie"},
 			],
@@ -44,6 +45,7 @@ export default {
 	methods: {
 		changeTab(newTab) {
 			this.activeTab = newTab;
+			this.$router.replace({query: {tab: this.activeTab}});
 		},
 
 		// DOWNLOAD/COPY/IMPORT
