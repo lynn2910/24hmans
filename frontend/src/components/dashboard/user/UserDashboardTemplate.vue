@@ -78,8 +78,14 @@ export default {
 
 			if (this.userType !== Selected.User) console.log("Ce n'est pas un utilisateur");
 			else console.log("Aucun utilisateur connecté n'a été trouvé");
-
-			await this.$router.push({name: 'login'});
+			
+			await this.$router.push({
+				name: 'login',
+				query: {
+					backURL: encodeURIComponent(this.$route.path),
+					userType: Selected.User.toString()
+				}
+			});
 		}
 	},
 }
