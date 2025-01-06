@@ -62,6 +62,10 @@ async function getAllForfaitTicket(prestataire_id) {
     return LocalSource.getAllForfaitTicket(prestataire_id);
 }
 
+async function getAllPersonneTicket(prestataire_id){
+    return LocalSource.getAllPersonneTicket(prestataire_id);
+}
+
 async function updatePrestataire(presta_id, data) {
     return LocalSource.updatePrestataire(presta_id, data);
 }
@@ -80,5 +84,6 @@ export default {
     addPrestataireLink,
     getAllCategoryTicket,
     getAllForfaitTicket,
+    getAllPersonneTicket,
     updatePrestataire
 }
