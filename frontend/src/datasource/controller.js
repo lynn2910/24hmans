@@ -314,12 +314,20 @@ function removeItemFromBoutique(presta_id, article_id) {
     return {error: 0, status: 200, data: "Article deleted successfully"};
 }
 
+function getAllForfaitTicket(prestataire_id) {
+    let billeterie = billetteries.find(b => b.prestataire_id === prestataire_id);
+
+    if (billeterie) return {error: 0, status: 200, data: billeterie.forfaits}
+    else return {error: 1, status: 404, data: "Forfait not found"};
+}
+
 export default {
     addArticleToBoutique, removeItemFromBoutique,
     getPrestataire,
     getPrestataireFromName,
     getPrestataireWithPassword,
     getAllCategoryTicket,
+    getAllForfaitTicket,
     getBoutiqueInfos,
     getAllPrestataires,
     getShopItemFromName,
