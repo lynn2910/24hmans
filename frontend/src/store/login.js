@@ -12,6 +12,7 @@ export default {
         loggedInUser: null,
         /**
          * Le type d'utilisateur connecté
+         * @type {Selected}
          */
         userType: null
     },
