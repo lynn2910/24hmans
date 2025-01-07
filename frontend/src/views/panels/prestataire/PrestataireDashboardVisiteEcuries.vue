@@ -10,15 +10,22 @@ export default {
         ...mapState("login", ["loggedInUser"])
     },
     data() {
-        return { participants: [], selectedParticipants: [] }
+        return {
+            participants: [],
+            selectedParticipants: []
+        };
     },
     async beforeMount() {
+        const prestataireKey = `selectedParticipants_${transformPrestataireName(this.loggedInUser.name)}`;
+        const savedParticipants = localStorage.getItem(prestataireKey);
+        if (savedParticipants) {
+            this.selectedParticipants = JSON.parse(savedParticipants);
+        }
         let res = await EcurieService.getAllEcurieParticipants(transformPrestataireName(this.loggedInUser.name));
-
         if (!res.error) {
             this.participants = res.data;
         } else {
-            console.error(`cannot get participant: ${res.data}`)
+            console.error(`cannot get participant: ${res.data}`);
         }
     },
     methods: {
@@ -26,10 +33,13 @@ export default {
             this.selectedParticipants = await EcurieService.tirageAuSort(
                 transformPrestataireName(this.loggedInUser.name)
             );
+            const prestataireKey = `selectedParticipants_${transformPrestataireName(this.loggedInUser.name)}`;
+            localStorage.setItem(prestataireKey, JSON.stringify(this.selectedParticipants));
         },
     },
 }
 </script>
+
 
 <template>
     <PrestataireDashboardTemplate current-page="home">
@@ -49,6 +59,7 @@ export default {
                     Tirage au sort
                 </button>
             </div>
+
             <div class="flex-1 bg-white p-6 rounded-lg shadow-xl">
                 <h3 v-if="selectedParticipants.length > 0" class="text-2xl font-semibold text-gray-800 mb-6">Participants sélectionnés</h3>
 
