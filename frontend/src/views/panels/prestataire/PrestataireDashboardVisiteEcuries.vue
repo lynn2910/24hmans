@@ -36,14 +36,18 @@ export default {
             const prestataireKey = `selectedParticipants_${transformPrestataireName(this.loggedInUser.name)}`;
             localStorage.setItem(prestataireKey, JSON.stringify(this.selectedParticipants));
         },
+        clearSelectedParticipants() {
+            this.selectedParticipants = [];
+            const prestataireKey = `selectedParticipants_${transformPrestataireName(this.loggedInUser.name)}`;
+            localStorage.removeItem(prestataireKey);
+        }
     },
 }
 </script>
-
-
 <template>
     <PrestataireDashboardTemplate current-page="home">
         <div class="p-6 lg:p-10 flex flex-col lg:flex-row gap-6">
+            <!-- Liste des Participants -->
             <div class="flex-1 bg-gradient-to-tl from-black to-gray-800 text-white p-6 rounded-lg shadow-xl">
                 <h2 class="text-2xl font-bold mb-6">Liste des Participants</h2>
 
@@ -60,6 +64,7 @@ export default {
                 </button>
             </div>
 
+            <!-- Résultat du Tirage -->
             <div class="flex-1 bg-white p-6 rounded-lg shadow-xl">
                 <h3 v-if="selectedParticipants.length > 0" class="text-2xl font-semibold text-gray-800 mb-6">Participants sélectionnés</h3>
 
@@ -71,6 +76,12 @@ export default {
                 </ul>
 
                 <p v-else class="mt-4 text-gray-600">Aucun participant sélectionné.</p>
+
+                <button @click="clearSelectedParticipants"
+                        v-if="selectedParticipants.length > 0"
+                        class="mt-6 bg-red-500 text-white py-2 px-6 rounded-full font-semibold transition-all hover:bg-red-600 transform hover:scale-105">
+                    Effacer la sélection
+                </button>
             </div>
         </div>
     </PrestataireDashboardTemplate>
