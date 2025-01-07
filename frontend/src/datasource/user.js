@@ -55,5 +55,16 @@ export const user_orders = [
                 amount: 5
             }
         ],
+
+        tickets: [
+            {
+                ticket_id: 1,
+                ticket: {
+                    category_id: "baf910a9-9l13-43c9-b780-a77c1323d87d",
+                    forfait_id: ["tjz859s2-8g40-43t5-h845-z87g1589t15h", "tjz859s2-8g42-43t5-h845-z87g1589t15h"],
+                    personne_id: ["hrs561r5-4f65-24f5-y45v1556f25g"],
+                }
+            }
+        ],
     }
 ]
