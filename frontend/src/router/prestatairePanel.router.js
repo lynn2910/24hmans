@@ -22,5 +22,11 @@ export default [
         name: "visite_ecuries_panel",
         component: () => import( '../views/panels/prestataire/PrestataireDashboardVisiteEcuries.vue'),
         meta: {hideNavbar: true}
+    },
+    {
+        path: "/prestataire/panel/map",
+        name: "presta_carte",
+        component: () => import( '../views/panels/prestataire/PrestataireMapView.vue'),
+        meta: {hideNavbar: true}
     }
 ]

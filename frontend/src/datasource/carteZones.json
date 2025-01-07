@@ -4962,7 +4962,7 @@
     "logistics": "Gaz, Montgolfière, Personnel",
     "surface": "200",
     "description": "Site de départ des montgolfières Est, grand tour au dessus des 24H Du Mans.",
-    "provider": "",
+    "provider": "255da203-781d-4e50-924f-0423638cdb68",
     "service": "",
     "category": "montgolfieres"
   },
@@ -4992,7 +4992,7 @@
     "logistics": "Gaz, Montgolfière, Personnel",
     "surface": "150",
     "description": "Site de départ des montgolfières Ouest, grand tour au dessus des 24H Du Mans.",
-    "provider": "",
+    "provider": "255da203-781d-4e50-924f-0423638cdb68",
     "service": "",
     "category": "montgolfieres"
   }
