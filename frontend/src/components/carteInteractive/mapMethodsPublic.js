@@ -47,7 +47,7 @@ export default {
         //         polygon: true,
         //         circle: true,
         //         marker: false,
-        //         circlemarker: false,
+        //         circlemarker: false,Z
         //         polyline: true,
         //         rectangle: true,
         //     },
@@ -141,7 +141,6 @@ export default {
     },
 
     addPopupToShape(layer, getPrestataire) {
-
         let popupContent = '';
         const presta = layer?.provider ? getPrestataire(layer.provider) : null;
 

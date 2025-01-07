@@ -110,7 +110,7 @@ let prestataires = [
     },
     {
         id: "0b7956e6-1262-49f7-aaab-c5ab60d16cba",
-        icon: "prestataires_icons/codeky_presta.jpeg",
+        icon: "prestataires_icons/codeky_presta.jpg",
         password: "$2a$10$eMcDHdcnvFWXlBiEYcKAy.9T9k7DrWXtkepZytO6Z9aLsisubKDYa", //zeky#codeky
         name: "Codeky",
         email: "codeky@codeky.com",

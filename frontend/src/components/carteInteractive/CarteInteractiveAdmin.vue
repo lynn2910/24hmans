@@ -61,12 +61,11 @@ export default {
       type: String,
       default: '',
     },
-    getPrestataire: Function
-  },
-  data() {
-    return {
-      shapesData: [],
-      categories: {
+    getPrestataire: Function,
+
+    categories: {
+      type: Object,
+      default: () => ({
         default: '#848485',
         tribunes: '#e3b424',
         parkingsRouge: '#1417bd',
@@ -77,7 +76,12 @@ export default {
         emplacements: '#1b6825',
         montgolfieres: '#67290b',
         boutique: '#bf1102',
-      },
+      }),
+    },
+  },
+  data() {
+    return {
+      shapesData: [],
     };
   },
   mounted() {
@@ -93,9 +97,7 @@ export default {
   methods: {
     ...mapMethods,
     onPopupOpen(layer) {
-      console.log("popup open")
-      console.log(layer)
-      this.$emit('zoneSelected', layer)
+      this.$emit('zoneSelected', layer);
     },
     loadInitialShapes() {
       this.shapesData = initialShapes;

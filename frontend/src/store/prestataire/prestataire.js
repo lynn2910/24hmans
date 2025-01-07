@@ -47,7 +47,6 @@ export default {
         async getPrestataireServices({commit}, prestataireId) {
             try {
                 let res = await PrestataireService.getPrestataireServices(prestataireId);
-                console.log(res);
 
                 if (res && res.data && Array.isArray(res.data)) {
                     commit("updatePrestataireServices", {prestataireId, services: res.data});

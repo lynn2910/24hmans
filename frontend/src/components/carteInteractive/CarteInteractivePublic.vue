@@ -57,10 +57,12 @@ export default {
     };
   },
   mounted() {
-    console.log(this.getPrestataire);
-    this.initMap(this.onPopupOpen, this.getPrestataire);
-    this.loadInitialShapes();
+    store.dispatch("prestataire/getAllPrestataires").then(() => {
+      this.initMap(this.onPopupOpen, this.getPrestataire);
+      this.loadInitialShapes();
+    });
   },
+
   computed: {
     ...mapGetters("prestataire", ["prestataires"]),
     customRoundedClass() {

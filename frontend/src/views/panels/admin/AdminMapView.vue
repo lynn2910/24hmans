@@ -11,8 +11,14 @@ Page de gestion de la carte interactive admin
       <!--    Carte Interactive vue admin-->
       <div
           class="w-full justify-start gap-4 m-5 mr-0 h-full bg-blue-400 bg-opacity-5 border border-gray-700 rounded-2xl m-0 p-2">
-        <CarteInteractiveAdmin width="100%" height="100%" borderRadius="0px" @zoneSelected="updateFormData"
-                               :get-prestataire="getPrestataire"/>
+        <CarteInteractiveAdmin
+            width="100%"
+            height="100%"
+            borderRadius="0px"
+            @zoneSelected="updateFormData"
+            :categories="categories"
+            :get-prestataire="getPrestataire"
+        />
       </div>
       <!--    Formulaire de modification d'une zone spécifique-->
       <div
@@ -38,7 +44,7 @@ Page de gestion de la carte interactive admin
         </div>
         <div class="mt-3">
           <label for="description" class="text-sm font-semibold">Description</label>
-          <textarea rows="5" id="description" v-model="formData.description"
+          <textarea rows="2" id="description" v-model="formData.description"
                     class="w-full text-black p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Entrez votre texte ici..."></textarea>
         </div>
@@ -65,9 +71,25 @@ Page de gestion de la carte interactive admin
             </option>
           </select>
 
+          <div class="mt-3">
+            <label for="category" class="text-sm font-semibold">Catégorie</label>
+            <select
+                id="category"
+                v-model="formData.category"
+                class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm">
+              <option
+                  v-for="(color, index) in categories"
+                  :key="index"
+                  :value="index">
+                {{ categoryNames[index] }}
+              </option>
+            </select>
+          </div>
+
+
           <button id="save-info"
                   class="mt-6 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none text-xl">
-            Save
+            Enregistrer
           </button>
         </div>
       </div>
@@ -93,10 +115,34 @@ export default {
         description: '',
         selectedPrestataire: '',
         selectedService: '',
-      }
-    };
+        category: '', // default
+      },
+      categories: {
+        default: '#848485',
+        tribunes: '#e3b424',
+        parkingsRouge: '#1417bd',
+        parkingsBleu: '#1417bd',
+        parkingsVip: '#1417bd',
+        garages: '#cd5707',
+        pistes: '#0b000b',
+        emplacements: '#1b6825',
+        montgolfieres: '#67290b',
+        boutique: '#bf1102',
+      },
+      categoryNames: {
+        default: 'Default',
+        tribunes: 'Tribunes',
+        parkingsRouge: 'Parkings Rouge',
+        parkingsBleu: 'Parkings Bleu',
+        parkingsVip: 'Parkings VIP',
+        garages: 'Garages',
+        pistes: 'Pistes',
+        emplacements: 'Emplacements',
+        montgolfieres: 'Montgolfières',
+        boutique: 'Boutique',
+      },
+    }
   },
-
   computed: {
     ...mapGetters("prestataire", ["prestataires", "getPrestataireServices"]),
 
@@ -121,6 +167,7 @@ export default {
       this.formData.description = layer.description || '';
       this.formData.selectedPrestataire = layer.provider || null;
       this.formData.selectedService = layer.service || null;
+      this.formData.category = layer.category || 'default';
     },
 
     loadServices(prestataireId) {
@@ -139,5 +186,6 @@ export default {
   created() {
     this.$store.dispatch("prestataire/getAllPrestataires");
   }
+
 };
 </script>
