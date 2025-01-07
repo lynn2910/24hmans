@@ -87,7 +87,29 @@ model BoutiqueArticles {
   category_id String
   category    BoutiqueCategory @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
 
-  deleted Boolean @default(false)
+  deleted          Boolean            @default(false)
+  UserOrderArticle UserOrderArticle[]
+}
+
+model UserOrder {
+  user_id     String             @db.VarChar(36)
+  order_id    String             @id @db.VarChar(36)
+  total_price Int
+  date        DateTime           @default(now())
+  articles    UserOrderArticle[]
+}
+
+model UserOrderArticle {
+  order_id   String           @db.VarChar(36)
+  order      UserOrder        @relation(fields: [order_id], references: [order_id], onDelete: Cascade)
+  article_id Int
+  article    BoutiqueArticles @relation(fields: [article_id], references: [item_id], onDelete: Cascade)
+
+  // Price at the moment of the order
+  unit_price Decimal @db.Decimal(5, 2)
+  amount     Int
+
+  @@id([order_id, article_id])
 }
 
 model Sessions {
