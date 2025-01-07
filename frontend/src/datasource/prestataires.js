@@ -267,9 +267,9 @@ let billetteries = [
     {
         prestataire_id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
         categories: [
-            {category_label: "Tribune adulte", category_id: "baf910a9-9l13-43c9-b780-a77c1323d87d"},
-            {category_label: "Tribune enfant", category_id: "pyh129y6-67yt-2zf5-8ae6-rof18dzq5g2t"},
-            {category_label: "Tribune VIP", category_id: "qzj58df9-t027-tzhq-ta5d-hst28sh94zqm"}
+            {category_label: "Tribune", category_id: "baf910a9-9l13-43c9-b780-a77c1323d87d"},
+            {category_label: "Tribune VIP", category_id: "qzj58df9-t027-tzhq-ta5d-hst28sh94zqm"},
+            {category_label: "Tribune personne à mobilité réduite", category_id: "qzj58df9-t027-tzhq-ta5d-hst28sh94zqm"}
         ],
         forfaits: [
             {label: "Mercredi 11 juin 2025", id: "tjz859s2-8g34-43t5-h845-z87g1589t15h"},
@@ -279,9 +279,9 @@ let billetteries = [
             {label: "Dimanche 15 juin 2025", id: "tjz859s2-8g42-43t5-h845-z87g1589t15h"}
         ],
         personnes: [
-            {label: "Famille (x2 enfant, x2 adulte)", id: "hrs561r5-4f65-24f5-y45v1556f25g"},
-            {label: "Étudiant x1", id: "hrs561r5-4f67-24f5-y45v1556f25g"},
-            {label: "Sénior x2", id: "hrs561r5-4f69-24f5-y45v1556f25g"}
+            {label: "Famille (x2 adulte) nombre d'enfants :", id: "hrs561r5-4f65-24f5-y45v1556f25g"},
+            {label: "Étudiant nombre de places : ", id: "hrs561r5-4f67-24f5-y45v1556f25g"},
+            {label: "Sénior nombre de places : ", id: "hrs561r5-4f69-24f5-y45v1556f25g"}
         ]
     }
 ]

@@ -12,11 +12,11 @@
                 </span>
             </div>
             <button
-                class="text-white text-lg font-bold cursor-pointer hover:underline mt-3"
+                class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                 :disabled="selectedForfaits.length === 0"
                 @click="emitSelectedForfaits"
             >
-                Suivant ->
+                Suivant
             </button>
         </div>
     </div>

@@ -48,7 +48,7 @@
             <div class="p-11 pt-0">
                 <BilletterieTypeBillet v-if="currentStep === Etape.TypeBillet" @category="typeBilletSelected(categories)" :categories="categories"></BilletterieTypeBillet>
                 <BilletterieDateSelection v-if="currentStep === Etape.Date" @forfaits="datesSelected" :forfaits="forfaits"></BilletterieDateSelection>
-                <BilletteriePersonneSelection v-if="currentStep === Etape.Personne" @personne="personnesSelected" :personnes="personnes"></BilletteriePersonneSelection>
+                <BilletteriePersonneSelection v-if="currentStep === Etape.Personne" @submit="personnesSelected" :personnes="personnes"></BilletteriePersonneSelection>
                 <BilletteriePaiement v-if="currentStep === Etape.Paiement"></BilletteriePaiement>
             </div>
         </div>
@@ -85,8 +85,8 @@ export default {
             prestataire: null,
             currentStep: Etape.TypeBillet,
             selectedTypeBillet: null,
-            selectedDates: [], // Stockage des forfaits sélectionnés
-            selectedPersonnes: null
+            selectedDates: [],
+            selectedPersonnes: []
         };
     },
     async beforeMount() {
@@ -131,8 +131,8 @@ export default {
             this.selectedDates = selectedForfaits;
             this.changeStep(Etape.Personne);
         },
-        personnesSelected(personne){
-            this.selectedPersonnes = personne;
+        personnesSelected(personnesInputs) {
+            this.selectedPersonnes = personnesInputs;
             this.changeStep(Etape.Paiement);
         }
     }
