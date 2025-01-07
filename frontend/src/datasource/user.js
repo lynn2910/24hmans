@@ -16,3 +16,44 @@ export const users = [
         "created_at": "2024-11-19 11:41:11"
     }
 ]
+
+export const user_orders = [
+    {
+        user_id: "e052f135-13db-4a0d-aa15-f9bffac00359",
+        order_id: "b04806c0-7790-4bf0-bb49-a7564c8b338e",
+
+        total_price: 225.92,
+        date: new Date("2025-01-07T09:14:34.576Z"),
+
+        articles: [
+            {
+                article_id: 1,
+                article: {
+                    item_id: 1,
+                    name: "Porte-clé frein",
+                    image: null,
+                    category_id: "be2cff03-7d12-4369-acff-037d12a36993",
+                    stock: 79,
+                    price: 16.99,
+                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                },
+                unit_price: 16.99,
+                amount: 3
+            },
+            {
+                article_id: 3,
+                article: {
+                    item_id: 3,
+                    name: "Écusson Porsche",
+                    image: null,
+                    category_id: "9af710a9-9c13-43d7-b710-a99c1323d77d",
+                    stock: 14,
+                    price: 34.99,
+                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                },
+                unit_price: 34.99,
+                amount: 5
+            }
+        ],
+    }
+]

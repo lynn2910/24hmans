@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-dark h-screen w-screen flex flex-row ">
 		<!-- head -->
-		<div class="m-5 p-5 w-1/5 min-w-1/5 bg-emerald-400 bg-opacity-5 rounded border border-gray-700 flex flex-col"
+		<div class="m-5 p-5 w-1/5 min-w-80 bg-emerald-400 bg-opacity-5 rounded border border-gray-700 flex flex-col"
 				 style="height: calc(100% - 3rem)">
 			<!-- Go back home -->
 			<router-link to="/"

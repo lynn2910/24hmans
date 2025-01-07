@@ -12,4 +12,18 @@ async function getUserCount() {
     return LocalSource.getAllUsers();
 }
 
-export default {loginUser, signupUser, getUserCount}
+async function getUserOrders(user_id) {
+    return LocalSource.getUserOrders(user_id);
+}
+
+async function newOrder(order) {
+    return LocalSource.newOrder(order);
+}
+
+export default {
+    loginUser,
+    signupUser,
+    getUserCount,
+    getUserOrders,
+    newOrder
+}

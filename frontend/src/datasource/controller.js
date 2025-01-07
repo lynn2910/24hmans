@@ -1,5 +1,5 @@
 import {boutiques, prestataires, billetteries, garages} from "@/datasource/prestataires";
-import {users} from "@/datasource/user";
+import {user_orders, users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
 import {v4 as uuid} from "uuid";
 import {admins} from "@/datasource/admin";
@@ -336,6 +336,19 @@ function enableOrDisableShop(prestataire_id, newStatus) {
     return {error: 0, status: 200, data: shop}
 }
 
+function getUserOrders(user_id) {
+    let local_user_orders = user_orders.filter(user => user.user_id === user_id);
+    if (!local_user_orders) return {error: 1, status: 404, data: "user not found"};
+    else return {error: 0, status: 200, data: local_user_orders}
+}
+
+function newOrder(order) {
+    let preparedOrder = {...order, order_id: uuid()}
+    user_orders.push(preparedOrder);
+
+    return {error: 0, status: 200, preparedOrder}
+}
+
 export default {
     addArticleToBoutique, removeItemFromBoutique,
     getPrestataire,
@@ -363,5 +376,7 @@ export default {
     getAllItems,
     getAllEcurieParticipants,
     getShopItems,
-    enableOrDisableShop
+    enableOrDisableShop,
+    getUserOrders,
+    newOrder
 };
