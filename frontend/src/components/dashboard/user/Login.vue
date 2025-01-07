@@ -1,23 +1,33 @@
 <template>
 	<div
-			class="bg-dark border border-black rounded-xl p-5 h-full  w-2/6 min-w-[500px] bg-opacity-65 backdrop-blur flex flex-col items-center content-center justify-between">
+			:class="hideContainerDecorations ? '' : 'bg-dark border border-black rounded-xl '"
+			class="p-5 h-full  w-2/6 min-w-[500px] bg-opacity-65 backdrop-blur flex flex-col items-center content-center justify-between">
 
 		<!-- Sélection prestataire <> user <> prestataire -->
 		<div class="flex flex-row content-center justify-between">
 			<div
 					class="flex flex-row content-center justify-center border border-gray-500 rounded-3xl w-fit p-1 select-none">
-				<h2 class="w-[8rem] text-center cursor-pointer px-3 py-2 rounded-3xl"
-						:class="selected === Selected.User        ? 'bg-blue-600' : 'hover:bg-blue-600 hover:bg-opacity-20'"
+				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
+						:class="
+							(omit_logins.includes(Selected.User) ? '' : (selected === Selected.User ? 'bg-blue-600 cursor-pointer' : 'hover:bg-blue-600 hover:bg-opacity-20 cursor-pointer'))
+							+ (omit_logins.includes(Selected.User) ? 'text-gray-600 cursor-not-allowed' : '')
+						"
 						@click="changedSelectedLogin(Selected.User)">
 					Utilisateur
 				</h2>
-				<h2 class="w-[8rem] text-center cursor-pointer px-3 py-2 rounded-3xl"
-						:class="selected === Selected.Prestataire ? 'bg-blue-600' : 'hover:bg-blue-600 hover:bg-opacity-20'"
+				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
+						:class="
+							(omit_logins.includes(Selected.Prestataire) ? '' : (selected === Selected.Prestataire ? 'bg-blue-600 cursor-pointer' : 'hover:bg-blue-600 hover:bg-opacity-20 cursor-pointer'))
+							+ (omit_logins.includes(Selected.Prestataire) ? 'text-gray-600 cursor-not-allowed' : '')
+						"
 						@click="changedSelectedLogin(Selected.Prestataire)">
 					Prestataire
 				</h2>
-				<h2 class="w-[8rem] text-center cursor-pointer px-3 py-2 rounded-3xl"
-						:class="selected === Selected.Admin ? 'bg-blue-600' : 'hover:bg-blue-600 hover:bg-opacity-20'"
+				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
+						:class="
+							(omit_logins.includes(Selected.Admin) ? '' : (selected === Selected.Admin ? 'bg-blue-600 cursor-pointer' : 'hover:bg-blue-600 hover:bg-opacity-20 cursor-pointer'))
+							+ (omit_logins.includes(Selected.Admin) ? 'text-gray-600 cursor-not-allowed' : '')
+						"
 						@click="changedSelectedLogin(Selected.Admin)">
 					Administrateur
 				</h2>
@@ -204,7 +214,7 @@
 			</div>
 
 			<div class="flex flex-row items-center justify-between px-7 w-full my-auto h-20">
-				<router-link to="/" class="mr-5">
+				<router-link to="/" class="mr-5" v-if="!hideHomeIcon">
 					<IconEvent width="50" height="50"></IconEvent>
 				</router-link>
 				<div v-if="box_message && box_message.length > 0"
@@ -251,9 +261,9 @@ export default {
 		}
 
 		let query_params = this.$route.query;
-		if ('type' in query_params) {
-			switch (query_params.type) {
-				case 'user': {
+		if ('userType' in query_params) {
+			switch (query_params.userType) {
+				case Selected.User: {
 					this.selected = Selected.User;
 
 					if ('signup' in query_params) {
@@ -263,11 +273,11 @@ export default {
 					}
 					break;
 				}
-				case 'presta': {
+				case Selected.Prestataire: {
 					this.selected = Selected.Prestataire;
 					break;
 				}
-				case 'admin': {
+				case Selected.Admin: {
 					this.selected = Selected.Admin;
 					break;
 				}
@@ -278,11 +288,20 @@ export default {
 		transformPrestataireName,
 		...mapActions('login', ["login", "signup"]),
 		changedSelectedLogin(new_type) {
+			if (this.omit_logins.includes(new_type)) {
+				return;
+			}
+
 			if (this.selected === Selected.User) {
 				this.account_creation = false;
 			}
 
 			this.selected = new_type;
+
+			if (this.$route.query.userType !== this.selected) {
+				this.$router.replace({query: {userType: this.selected}});
+				delete this.$route.query['backURL']
+			}
 		},
 		changeAccountCreationSelection() {
 			if (this.selected === Selected.User) {
@@ -310,20 +329,29 @@ export default {
 
 				if (!this.loggedInUser) {
 					this.box_message = "Impossible de créer un compte utilisateur"
-				} else this.redirectUser()
+				} else this.redirectUser(this.selected)
 			}
 		},
 		/**
 		 * Redirige l'utilisateur une fois le login effectué
 		 */
 		redirectUser(user_type) {
+			if (this.noRedirection)
+				return;
+
 			console.log("Redirecting user")
 
 			const backURL = this.$route.query.backURL;
+			const userType = this.$route.query.userType;
 			if (backURL) {
 				const uri = decodeURIComponent(backURL);
 				console.log(`redirecting to ${uri}`);
-				this.$router.push({path: uri});
+				let good = true;
+				if (userType === Selected.User && !uri.startsWith('/client/panel')) good = false;
+				if (userType === Selected.Prestataire && !uri.startsWith('/prestataire/panel')) good = false;
+				if (userType === Selected.Admin && !uri.startsWith('/admin/panel')) good = false;
+
+				if (good) this.$router.push({path: uri});
 				return;
 			}
 
@@ -365,6 +393,24 @@ export default {
 							(this.account_creation_data.password.length > 0) &&
 							(this.account_creation_data.password === this.account_creation_data.confirm_password)
 					);
+		}
+	},
+	props: {
+		hideHomeIcon: {
+			type: Boolean,
+			default: false
+		},
+		hideContainerDecorations: {
+			type: Boolean,
+			default: false
+		},
+		omit_logins: {
+			type: Array,
+			default: () => []
+		},
+		noRedirection: {
+			type: Boolean,
+			default: false
 		}
 	}
 }
