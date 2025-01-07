@@ -12,7 +12,7 @@
                 >
             </div>
         </div>
-        <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" :disabled="selectedPersonne.length === 0" @click="submitSelection">Suivant</button>
+        <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" :disabled="selectedPersonne.length === 0 && personneInputs.length === 0" @click="submitSelection">Suivant</button>
     </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             selectedPersonne: [],
-            personneInputs: [] // Tableau pour stocker les valeurs des inputs
+            personneInputs: []
         };
     },
     mounted() {
@@ -35,18 +35,13 @@ export default {
         togglePersonne(personne) {
             const index = this.selectedPersonne.indexOf(personne);
             if (index === -1) {
-                // Ajoute le forfait s'il n'est pas déjà sélectionné
                 this.selectedPersonne.push(personne);
             } else {
-                // Supprime le forfait s'il est déjà sélectionné
                 this.selectedPersonne.splice(index, 1);
             }
         },
-        personneSelected(pers) {
-            this.$emit('personne', pers);
-        },
+
         submitSelection() {
-            // Émettre les données saisies et signaler que l'étape est terminée
             this.$emit('submit', this.personneInputs);
         }
     }
