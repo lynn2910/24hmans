@@ -237,9 +237,9 @@ export default {
         },
         async updateName() {
             if (this.editedName !== this.prestataire.name) {
-                let res = await PrestataireService.updatePrestataireName(
+                let res = await PrestataireService.updatePrestataire(
                     this.prestataire.id,
-                    this.editedName
+                    { name: this.editedName }
                 );
 
                 if (!res.error) {
