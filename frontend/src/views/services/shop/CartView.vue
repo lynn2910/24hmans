@@ -93,7 +93,7 @@ export default {
 				articles,
 			};
 
-			this.clearUserCart();
+			this.clearCart(this.loggedInUser.id);
 			let res = await UsersService.newOrder(preparation);
 			if (!res.error) {
 				this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}})
