@@ -38,6 +38,8 @@
 				<button @click="buildNewOrder" class="py-2 px-3 rounded-xl bg-blue-500 hover:bg-blue-600 w-4/5">Payer</button>
 			</div>
 		</div>
+
+		<LoginPopup v-if="!loggedInUser && showLoginPopup" @close="showLoginPopup = false"></LoginPopup>
 	</div>
 </template>
 
@@ -45,12 +47,14 @@
 import CartItem from "@/components/services/shop/cart/CartItem.vue";
 import {mapActions, mapGetters, mapState} from "vuex";
 import UsersService from "@/services/users.service";
+import LoginPopup from "@/components/dashboard/LoginPopup.vue";
 
 export default {
-	components: {CartItem},
+	components: {LoginPopup, CartItem},
 	data() {
 		return {
 			cart: {items: []},
+			showLoginPopup: false
 		}
 	},
 	methods: {
@@ -83,7 +87,11 @@ export default {
 			this.clearCart(id);
 		},
 		async buildNewOrder() {
-			console.log(JSON.stringify(this.cart, null, 2));
+			if (!this.loggedInUser) {
+				this.showLoginPopup = true;
+				return;
+			}
+
 			let items = this.cart.items;
 			let articles = items.map(({id, count}) => ({article_id: id, amount: count}));
 
@@ -96,23 +104,8 @@ export default {
 			this.clearCart(this.loggedInUser.id);
 			let res = await UsersService.newOrder(preparation);
 			if (!res.error) {
-				this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}})
+				this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}});
 			}
-
-			// {
-			// 	"items": [
-			// 		{
-			// 			"id": 2,
-			// 			"origin": "45309281-fc24-4e02-ad47-a275c64f5327",
-			// 			"count": 3
-			// 		},
-			// 		{
-			// 			"id": 3,
-			// 			"origin": "45309281-fc24-4e02-ad47-a275c64f5327",
-			// 			"count": 5
-			// 		}
-			// 	]
-			// }
 		}
 	},
 	computed: {
@@ -150,6 +143,14 @@ export default {
 		// } else {
 		// 	console.error(`Cannot fetch all items in the cart: ${res.data}`)
 		// }
+	},
+	watch: {
+		loggedInUser(newUser) {
+			if (newUser && this.showLoginPopup) {
+				this.showLoginPopup = false;
+				this.buildNewOrder();
+			}
+		}
 	}
 }
 </script>
