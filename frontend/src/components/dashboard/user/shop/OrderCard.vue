@@ -1,7 +1,8 @@
 <template>
 	<div class="rounded border border-gray-600 w-full">
 		<!-- head -->
-		<div class="flex flex-row items-center justify-start select-none" @click="showBody = !showBody">
+		<div class="flex flex-row items-center justify-start select-none p-2 bg-black bg-opacity-10 rounded-t"
+				 @click="showBody = !showBody">
 			<div class="fill-white">
 				<svg v-if="showBody" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 					<path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
@@ -10,7 +11,7 @@
 					<path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
 				</svg>
 			</div>
-			<div class="p-2 bg-black bg-opacity-10 rounded-t">{{ order.order_id }}</div>
+			<div>{{ order.order_id }}</div>
 		</div>
 
 		<!-- body -->
@@ -23,8 +24,7 @@
 			<div class="w-2/3">
 				<h3 class="font-bold text-lg mb-2 gap-5">Liste des articles</h3>
 
-				<div v-for="item in order.articles" :key="item.article_id"
-						 class="">
+				<div v-for="item in order.articles" :key="item.article_id">
 
 					<div class="flex flex-row items-start justify-start">
 						<!-- Informations de l'article-->
