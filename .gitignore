@@ -7,3 +7,5 @@ frontend/.env
 api/package-lock.json
 api/node_modules
 /api/swagger.yaml
+
+.run/*
