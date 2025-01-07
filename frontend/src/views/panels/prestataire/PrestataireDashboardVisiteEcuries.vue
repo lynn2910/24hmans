@@ -59,7 +59,8 @@ export default {
                 </ul>
                 <p v-else class="mt-4 text-gray-200">Aucun participant trouvé pour ce prestataire.</p>
 
-                <button @click="handleTirage" class="mt-4 bg-white text-black py-2 px-6 rounded-full font-semibold transition-all hover:bg-gray-200 transform hover:scale-105">
+                <button @click="handleTirage"
+                        class="mt-4 bg-blue-500 text-white py-2 px-6 rounded-full font-semibold transition-all hover:bg-blue-600 transform hover:scale-105 shadow-md">
                     Tirage au sort
                 </button>
             </div>
