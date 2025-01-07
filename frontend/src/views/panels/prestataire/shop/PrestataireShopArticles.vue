@@ -38,7 +38,7 @@
 					</td>
 					<td class="p-4 py-2">
 						<p class="block font-sans text-sm antialiasing font-normal leading-normal bg-blue-600 py-1 px-2 rounded-full text-center">
-							{{ findCategory(article.category || -1)?.category_label }}
+							{{ findCategory(article.category_id || -1)?.category_label }}
 						</p>
 					</td>
 					<td class="p-4 py-2">
