@@ -2,8 +2,9 @@
 	<UserDashboardTemplate>
 		<h1 class="text-xl font-bold mb-3">Mes commandes</h1>
 
-		<div class="flex flex-row flex-wrap gap-5">
+		<div class="flex flex-row flex-wrap gap-5 overflow-y-scroll max-h-[95%]">
 			<OrderCard v-for="order in orders" :key="order.order_id" :order="order"></OrderCard>
+			<p v-if="orders.length < 1">Vous n'avez passé aucune commande.</p>
 		</div>
 	</UserDashboardTemplate>
 </template>
@@ -25,9 +26,9 @@ export default {
 		}
 	},
 	async beforeMount() {
-		let res = await UsersService.getUserOrders(this.loggedInUser.user_id);
+		let res = await UsersService.getUserOrders(this.loggedInUser.id);
 		if (!res.error) {
-			this.orders = res.data;
+			this.orders = res.data.sort((a, b) => a.date.getUTCMilliseconds() - b.date.getUTCMilliseconds());
 		} else {
 			console.error(res.data)
 		}

@@ -72,6 +72,9 @@ export default {
         },
         updateShopEnabled(state, shopEnabled) {
             state.shopEnabled = shopEnabled;
+        },
+        clearCart(state, user_id) {
+            state.carts[user_id] = {items: []}
         }
     },
     actions: {
@@ -142,6 +145,10 @@ export default {
             } else {
                 commit('updateShopEnabled', res.data.enabled || false);
             }
+        },
+        clearCart({commit}, user_id) {
+            commit('clearCart', user_id);
+            PanierService.clearCart(user_id);
         }
     }
 }

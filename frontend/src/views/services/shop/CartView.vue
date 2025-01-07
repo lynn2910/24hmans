@@ -24,7 +24,19 @@
 			<p class="text-2xl font-bold">Total: <span class="text-blue-500">{{ totalPrice.toFixed(2) }}€</span><span
 					class="text-sm ml-1">TTC</span></p>
 
-			<button class="mt-auto mx-auto py-2 px-3 rounded-full bg-blue-500 hover:bg-blue-600 w-4/5">Payer</button>
+			<!-- TODO Force to be logged in -->
+			<div class="flex flex-row items-center mt-auto gap-3">
+				<!-- TODO clearCart(user_id) -->
+				<div class="bg-gray-500 hover:bg-red-500 cursor-pointer p-2 rounded-xl" @click="clearUserCart">
+					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							 viewBox="0 0 24 24">
+						<path
+								d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path>
+					</svg>
+				</div>
+
+				<button @click="buildNewOrder" class="py-2 px-3 rounded-xl bg-blue-500 hover:bg-blue-600 w-4/5">Payer</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -32,6 +44,7 @@
 <script>
 import CartItem from "@/components/services/shop/cart/CartItem.vue";
 import {mapActions, mapGetters, mapState} from "vuex";
+import UsersService from "@/services/users.service";
 
 export default {
 	components: {CartItem},
@@ -41,7 +54,7 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions('prestataire/boutique', ['getCarts', 'removeItemFromCart', 'getAllItemsInShop', 'setItemCount']),
+		...mapActions('prestataire/boutique', ['getCarts', 'removeItemFromCart', 'getAllItemsInShop', 'setItemCount', 'clearCart']),
 		deleteCartItem(item_id) {
 			console.log(`Deleting ${item_id}`)
 			this.removeItemFromCart({user_id: this.userId, item_id})
@@ -65,6 +78,42 @@ export default {
 			if (shopItem.stock >= item.count + 1)
 				this.setItemCount({user_id: this.userId, item_id, count: item.count + 1});
 		},
+		clearUserCart() {
+			let id = this.loggedInUser?.id || 'guest';
+			this.clearCart(id);
+		},
+		async buildNewOrder() {
+			console.log(JSON.stringify(this.cart, null, 2));
+			let items = this.cart.items;
+			let articles = items.map(({id, count}) => ({article_id: id, amount: count}));
+
+			const preparation = {
+				user_id: this.loggedInUser.id,
+				date: new Date(),
+				articles,
+			};
+
+			this.clearUserCart();
+			let res = await UsersService.newOrder(preparation);
+			if (!res.error) {
+				this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}})
+			}
+
+			// {
+			// 	"items": [
+			// 		{
+			// 			"id": 2,
+			// 			"origin": "45309281-fc24-4e02-ad47-a275c64f5327",
+			// 			"count": 3
+			// 		},
+			// 		{
+			// 			"id": 3,
+			// 			"origin": "45309281-fc24-4e02-ad47-a275c64f5327",
+			// 			"count": 5
+			// 		}
+			// 	]
+			// }
+		}
 	},
 	computed: {
 		...mapState('login', ['loggedInUser', 'userType']),

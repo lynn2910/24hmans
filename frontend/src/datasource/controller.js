@@ -337,16 +337,47 @@ function enableOrDisableShop(prestataire_id, newStatus) {
 }
 
 function getUserOrders(user_id) {
-    let local_user_orders = user_orders.filter(user => user.user_id === user_id);
+    let local_user_orders = user_orders
+        .filter(user => user.user_id === user_id);
+
     if (!local_user_orders) return {error: 1, status: 404, data: "user not found"};
     else return {error: 0, status: 200, data: local_user_orders}
 }
 
 function newOrder(order) {
-    let preparedOrder = {...order, order_id: uuid()}
+    let total_price = 0;
+
+    let all_articles = boutiques.flatMap(b => b.items);
+
+    let articles = order.articles.map((article) => {
+        let {article_id, amount} = article;
+
+        let foundArticle = all_articles.find((article) => article.item_id === article_id);
+
+        if (foundArticle.stock < amount)
+            throw new Error("Trying to buy an article where there isn't enough stock!")
+
+        foundArticle.stock -= amount;
+
+        total_price += foundArticle.price * amount;
+
+        return ({
+            article, article_id, amount,
+            unit_price: foundArticle.price
+        })
+    })
+
+    let preparedOrder = {
+        user_id: order.user_id,
+        order_id: uuid(),
+        total_price,
+        date: order.date,
+        articles: articles
+    }
+
     user_orders.push(preparedOrder);
 
-    return {error: 0, status: 200, preparedOrder}
+    return {error: 0, status: 200, data: preparedOrder}
 }
 
 export default {

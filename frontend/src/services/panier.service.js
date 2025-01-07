@@ -89,6 +89,12 @@ function getItemCount(user_id) {
     return getUserCart(user_id)?.items.reduce((a, b) => a += b.count, 0) || 0;
 }
 
+function clearCart(user_id) {
+    const cart = getCart();
+    cart[user_id] = {items: []};
+    saveCart(cart);
+}
+
 export default {
     getUserCart,
     addUserCart,
@@ -98,5 +104,6 @@ export default {
     getItem,
     getItemCount,
     setCountOfItem,
-    getCart
+    getCart,
+    clearCart
 }
