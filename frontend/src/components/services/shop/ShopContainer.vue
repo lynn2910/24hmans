@@ -12,7 +12,7 @@
 					<ShopItem v-for="item in filteredItems"
 										:key="item.item_id"
 										:item="item"
-										:category="categories.find(c => c.category_id === item.category).category_label"></ShopItem>
+										:category="categories.find(c => c.category_id === item.category_id)?.category_label"></ShopItem>
 				</div>
 			</div>
 		</div>
@@ -49,8 +49,6 @@ export default {
 			let categoriesToFilter = [];
 
 			this.filters.forEach((filter) => {
-
-				console.log(filter)
 				if (filter.id === "keywords") {
 					result = result.filter((item) => item.name.toLowerCase().includes(filter.value.toLowerCase()));
 				} else if (filter.id.startsWith("category_")) {
@@ -59,9 +57,9 @@ export default {
 				}
 			})
 
-			if (categoriesToFilter.length > 0) {
+			if (this.categories && categoriesToFilter.length > 0) {
 				result = result.filter((item) => {
-					let category_label = this.categories.find((c) => c.category_id === item.category).category_label;
+					let category_label = this.categories.find((c) => c.category_id === item.category)?.category_label;
 					return categoriesToFilter.includes(category_label.toLowerCase().replace(/\s+/g, ''))
 				});
 			}
@@ -78,7 +76,6 @@ export default {
 	},
 	async beforeMount() {
 		let prestataire = await PrestataireService.getPrestataireFromName(this.$route.params.prestataire_name);
-		console.log(prestataire)
 
 		if (!prestataire.error) {
 			this.prestataire = prestataire.data;

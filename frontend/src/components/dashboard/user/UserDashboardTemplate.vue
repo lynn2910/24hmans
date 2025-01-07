@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-dark h-screen w-screen flex flex-row ">
 		<!-- head -->
-		<div class="m-5 p-5 w-1/5 min-w-1/5 bg-emerald-400 bg-opacity-5 rounded border border-gray-700"
+		<div class="m-5 p-5 w-1/5 min-w-1/5 bg-emerald-400 bg-opacity-5 rounded border border-gray-700 flex flex-col"
 				 style="height: calc(100% - 3rem)">
 			<!-- Go back home -->
 			<router-link to="/"
@@ -12,15 +12,15 @@
 				<p>Retourner à la page d'accueil</p>
 			</router-link>
 
-			<h1 class="mt-7 ml-3 text-lg">
+			<router-link :to="{ name: 'client_panel' }" class="mt-7 ml-3 text-lg">
 				<strong class="text-xl">{{ bonjourOuBonsoir }}</strong> {{ loggedInUser?.first_name }}
-				{{ loggedInUser?.last_name }}
-			</h1>
+				{{ loggedInUser?.last_name?.toUpperCase() }}
+			</router-link>
 
 			<!-- liens -->
 			<div class="mt-8 w-2/3 ml-5 mr-auto">
 				<!-- Billets -->
-				<router-link to="/user/panel/tickets" class="mt-3 flex flex-row items-center content-center justify-start">
+				<router-link to="/client/panel/tickets" class="mt-3 flex flex-row items-center content-center justify-start">
 					<svg class="fill-white mr-3 my-auto" xmlns="http://www.w3.org/2000/svg" width="24"
 							 height="24"
 							 viewBox="0 0 24 24">
@@ -30,8 +30,8 @@
 					</svg>
 					<h2 class="font-bold text-xl">Mes billets</h2>
 				</router-link>
-				<!-- Billets -->
-				<router-link to="/user/panel/tickets" class="mt-3 flex flex-row items-center content-center justify-start">
+				<!-- Courses -->
+				<router-link to="/client/panel/races" class="mt-3 flex flex-row items-center content-center justify-start">
 					<svg class="fill-white mr-3 my-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 							 viewBox="0 0 24 24">
 						<path
@@ -41,7 +41,8 @@
 					<h2 class="font-bold text-xl">Mes courses</h2>
 				</router-link>
 				<!-- Boutique -->
-				<router-link to="/user/panel/tickets" class="mt-3 flex flex-row items-center content-center justify-start">
+				<router-link :to="{ name: 'client_panel_orders'}"
+										 class="mt-3 flex flex-row items-center content-center justify-start">
 					<svg class="fill-white mr-3 my-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 							 viewBox="0 0 24 24">
 						<path
@@ -51,6 +52,21 @@
 				</router-link>
 			</div>
 
+			<!-- logout -->
+			<div
+					@click="logoutUser"
+					class="flex flex-row items-center justify-between mt-auto py-2 px-3 bg-black bg-opacity-10 hover:bg-opacity-50 cursor-pointer rounded border border-gray-600">
+				<h2 class="font-bold">Se déconnecter</h2>
+				<svg class="ml-auto my-auto" width="23" height="20" viewBox="0 0 23 20" fill="none"
+						 xmlns="http://www.w3.org/2000/svg">
+					<path
+							d="M6.60689 8.8092V11.0115L16.5172 11.0115V14.3149L22.0229 9.91035L16.5172 5.50576V8.8092L6.60689 8.8092Z"
+							style="fill: #fff"/>
+					<path
+							d="M2.20232 19.8208H12.1126C13.3272 19.8208 14.3149 18.8331 14.3149 17.6185V13.2139H12.1126V17.6185H2.20232L2.20232 2.20244H12.1126V6.60703H14.3149V2.20244C14.3149 0.987877 13.3272 0.000146866 12.1126 0.000146866H2.20232C0.987754 0.000146866 2.47955e-05 0.987877 2.47955e-05 2.20244L2.47955e-05 17.6185C2.47955e-05 18.8331 0.987754 19.8208 2.20232 19.8208Z"
+							style="fill: #fff"/>
+				</svg>
+			</div>
 		</div>
 		<!-- Body -->
 		<div class="m-5 ml-0 p-5 w-4/5 min-w-4/5 bg-emerald-400 bg-opacity-5 rounded border border-gray-700"
@@ -61,7 +77,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 import {Selected} from "@/utils";
 
 export default {
@@ -88,5 +104,12 @@ export default {
 			});
 		}
 	},
+	methods: {
+		...mapActions('login', ['login', 'logout']),
+		async logoutUser() {
+			this.logout();
+			await this.$router.push({name: "login"});
+		}
+	}
 }
 </script>

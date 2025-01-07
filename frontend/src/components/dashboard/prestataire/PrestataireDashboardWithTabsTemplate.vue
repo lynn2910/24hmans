@@ -2,7 +2,7 @@
 	<!-- On réutilise directement la template globale du dashboard -->
 	<PrestataireDashboardTemplate :current-page="currentPage">
 		<!-- Tabs -->
-		<div class="h-20 w-full bg-dark flex flex-row content-center align-baseline">
+		<div class="h-20 w-full bg-dark flex flex-row content-center align-baseline select-none">
 			<!-- Chaque onglet dans le for -->
 			<div v-for="(t, index) in tabs" :key="index"
 					 @click="$emit('changeTab', t.id)"
