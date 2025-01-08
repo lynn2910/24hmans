@@ -1,8 +1,8 @@
 <template>
 	<div class="mt-36">
-		<h1 class="font-bold text-3xl text-center">Politique de confidentialité</h1>
+		<h1 class="font-bold text-3xl text-center mb-10">Politique de confidentialité</h1>
 
-		<div class="mx-40">
+		<div class="mx-10 md:mx-40">
 			<h2 class="text-xl font-bold my-5">1. Introduction</h2>
 
 			<p>La présente politique de confidentialité a pour objet de vous informer sur la manière dont nous collectons,

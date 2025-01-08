@@ -1,8 +1,8 @@
 <template>
 	<div class="mt-36">
-		<h1 class="font-bold text-3xl text-center">Mentions légales</h1>
+		<h1 class="font-bold text-3xl text-center mb-10">Mentions légales</h1>
 
-		<div class="mx-40">
+		<div class="mx-10 md:mx-40">
 			<h2 class="text-xl font-bold mb-5">Éditeur du site</h2>
 
 			<p>
