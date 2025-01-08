@@ -47,6 +47,22 @@ const routes = [
         meta: {hideCart: true}
     },
 
+    {
+        path: "/mentions",
+        name: "mentions_legales",
+        component: () => import("../views/bonus/MentionsLegales.vue"),
+    },
+    {
+        path: "/donnees",
+        name: "donnees_personnelles",
+        component: () => import("../views/bonus/DonneesPersonnelles.vue"),
+    },
+    {
+        path: "/cgv",
+        name: "cgv_billeterie",
+        component: () => import("../views/bonus/CGVBilleterie.vue"),
+    },
+
     // DERNIERE PAGE
     {
         path: "*",

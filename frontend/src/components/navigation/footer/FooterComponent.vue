@@ -24,9 +24,9 @@
 				<div class="z-50 w-2/3 flex flex-row">
 					<div class="flex flex-col m-5 max-w-44 text-center mr-14 mt-auto ml-auto">
 						<p class="text-2xl font-bold italic">A PROPOS</p>
-						<router-link to="/billeterie"><p>MENTIONS LEGALES</p></router-link>
-						<router-link to="/boutique"><p>DONNEES PERSONNELLES</p></router-link>
-						<router-link to="/carte"><p>CGV BILLETERIE</p></router-link>
+						<router-link :to="{name: 'mentions_legales'}"><p>MENTIONS LEGALES</p></router-link>
+						<router-link :to="{name: 'donnees_personnelles'}"><p>DONNEES PERSONNELLES</p></router-link>
+						<router-link :to="{name: 'cgv_billeterie'}"><p>CGV BILLETERIE</p></router-link>
 					</div>
 					<div class="flex flex-col m-5 max-w-44 text-center mr-14 mt-auto">
 						<p class="text-2xl font-bold italic">SERVICES</p>
