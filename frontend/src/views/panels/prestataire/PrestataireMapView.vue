@@ -30,27 +30,37 @@ Page de gestion de la carte interactive presta
           <label for="name" class="text-xl font-bold">Nom de l'emplacement</label>
           <input type="text" id="name" v-model="formData.name"
                  class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
-                 placeholder="Entrez le nom de l'emplacement"/>
-          :disabled="isReadonly"
+                 placeholder="Entrez le nom de l'emplacement"
+                 :disabled="isReadonly"
+                 :class="{'bg-gray-100 opacity-90': isReadonly}"
+          />
         </div>
         <div class="mt-3">
           <label for="logistics" class="text-sm font-semibold">Logistique</label>
-          <div class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm bg-gray-100 opacity-90">
-            {{ formData.logistics || 'Aucune logistique' }}
-          </div>
+          <input type="text" id="logistics" v-model="formData.logistics"
+                 class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
+                 placeholder="Entrez la logistique"
+                 :disabled="forceReadonly"
+                 :class="{'bg-gray-100 opacity-90': forceReadonly}"
+          />
         </div>
         <div class="mt-3">
           <label for="surface" class="text-sm font-semibold">Surface (m²)</label>
-          <div class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm bg-gray-100 opacity-90">
-            {{ formData.surface || 'Aucune surface' }}
-          </div>
+          <input type="number" id="surface" v-model="formData.surface"
+                 class="w-full p-1 border rounded-md text-black border-gray-300" placeholder="Entrez la surface en m²"
+                 step="1"
+                 :disabled="forceReadonly"
+                 :class="{'bg-gray-100 opacity-90': forceReadonly}"
+          />
         </div>
         <div class="mt-3">
           <label for="description" class="text-sm font-semibold">Description</label>
           <textarea rows="2" id="description" v-model="formData.description"
                     class="w-full text-black p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Entrez votre texte ici...">
-            :readonly="isReadonly"
+                    placeholder="Entrez votre texte ici..."
+                    :readonly="isReadonly"
+                    :class="{'bg-gray-100 opacity-90': isReadonly}"
+          >
           </textarea>
         </div>
         <div class="mt-3">
@@ -60,23 +70,60 @@ Page de gestion de la carte interactive presta
               class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
               @change="loadServices"
               :disabled="isReadonly"
+              :class="{'bg-gray-100 opacity-90': isReadonly}"
           >
-            <option v-for="prestataire in availablePrestataires" :key="prestataire.id" :value="prestataire.id">
-              {{ prestataire.name }}
+
+            <option v-if="isReadonly" :value="formData.selectedPrestataire">
+              {{ getPrestataire(formData.selectedPrestataire)?.name }}
+            </option>
+
+            <template v-if="!isReadonly">
+              <option v-for="prestataire in availablePrestataires" :key="prestataire.id" :value="prestataire.id">
+                {{ prestataire.name }}
+              </option>
+            </template>
+          </select>
+        </div>
+
+        <div class="mt-3">
+          <label for="services" class="text-sm font-semibold">Services disponibles</label>
+          <select
+              id="services"
+              v-model="formData.selectedService"
+              class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
+              :disabled="isReadonly"
+              :class="{'bg-gray-100 opacity-90': isReadonly}"
+          >
+            <option v-for="(service, index) in selectedPrestataireServices" :key="index"
+                    :value="service">
+              {{ service }}
             </option>
           </select>
         </div>
 
         <div class="mt-3">
           <label for="category" class="text-sm font-semibold">Catégorie</label>
-          <div class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm bg-gray-100 opacity-90">
-            {{ categoryNames[formData.category] || 'Aucune catégorie' }}
-          </div>
+          <select
+              id="category"
+              v-model="formData.category"
+              class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
+              :disabled="forceReadonly"
+              :class="{'bg-gray-100 opacity-90': forceReadonly}"
+          >
+            <option
+                v-for="(color, index) in categories"
+                :key="index"
+                :value="index">
+              {{ categoryNames[index] }}
+            </option>
+          </select>
         </div>
 
+        <!--:disabled="isReadonly"-->
         <button id="save-info"
                 :disabled="isReadonly"
-                class="mt-6 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none text-xl">
+                :class="isReadonly? 'bg-gray-500 cursor-not-allowed': 'bg-blue-500 hover:bg-blue-600 cursor-pointer'"
+                class="mt-6 px-3 py-2 text-white rounded-md focus:outline-none text-xl">
           Enregistrer
         </button>
       </div>
@@ -95,6 +142,8 @@ export default {
 
   data() {
     return {
+      isReadonly: true,
+      forceReadonly: true,
       formData: {
         name: '',
         logistics: '',
@@ -134,24 +183,23 @@ export default {
     ...mapGetters("prestataire", ["prestataires", "getPrestataireServices"]),
     ...mapState('login', ['loggedInUser']),
 
-    isReadonly() {
-      return this.formData.selectedPrestataire != null;
-    },
     selectedPrestataireServices() {
       return this.getPrestataireServices(this.formData.selectedPrestataire) || [];
     },
+
     availablePrestataires() {
-      console.log("Connexion: ", this.prestataires.filter(p => p.id === this.loggedInUser?.id));
       return this.prestataires.filter(p => p.id === this.loggedInUser?.id);
     },
   },
 
   watch: {
     'formData.selectedPrestataire'(newPrestataireId) {
-      if (newPrestataireId) {
+      // Vérifie si la valeur a changé et force une mise à jour des dépendances
+      if (newPrestataireId !== null) {
         this.loadServices(newPrestataireId);
       }
-    }
+      this.$forceUpdate();
+    },
   },
 
   methods: {
@@ -163,6 +211,13 @@ export default {
       this.formData.selectedPrestataire = layer.provider || null;
       this.formData.selectedService = layer.service || null;
       this.formData.category = layer.category || 'default';
+
+      this.isReadonly = !(
+          // Si l'utilisateur connecté est le prestataire
+          this.formData.selectedPrestataire === this.loggedInUser?.id ||
+          // Si aucun prestataire n'est assigné
+          this.formData.selectedPrestataire === null
+      );
     },
 
     loadServices(prestataireId) {
