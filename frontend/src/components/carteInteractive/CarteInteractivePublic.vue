@@ -57,6 +57,7 @@ export default {
     };
   },
   mounted() {
+    // TODO fetch map > carte.service.js
     store.dispatch("prestataire/getAllPrestataires").then(() => {
       this.initMap(this.onPopupOpen, this.getPrestataire);
       this.loadInitialShapes();
