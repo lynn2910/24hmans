@@ -131,6 +131,7 @@ Page de gestion de la carte interactive presta
   </PrestataireDashboardTemplate>
 </template>
 
+
 <script>
 import {mapGetters, mapState} from 'vuex';
 import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
