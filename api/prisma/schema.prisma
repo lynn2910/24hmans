@@ -14,6 +14,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//
+//
+//    UTILISATEUR
+//
+//
+
 model User {
   id         String @id @db.VarChar(36)
   email      String @unique
@@ -21,6 +27,12 @@ model User {
   last_name  String
   password   String
 }
+
+//
+//
+//    PRESTATAIRE
+//
+//
 
 model Prestataire {
   id       String  @id @db.VarChar(36)
@@ -37,6 +49,7 @@ model Prestataire {
 
   links    PrestataireLink[]
   boutique Boutique?
+  Shape    Shape[]
 
   @@index([name])
 }
@@ -51,6 +64,12 @@ model PrestataireLink {
 
   @@unique([prestataire_id, id])
 }
+
+//
+//
+//    BOUTIQUE
+//
+//
 
 model Boutique {
   prestataire_id String      @unique @db.VarChar(36)
@@ -119,7 +138,42 @@ model Sessions {
   createdAt DateTime @default(now())
 }
 
-// BILLETTERIE
+//
+//
+//    CARTE INTERACTIVE
+//
+//
+
+model Shape {
+  shape_id    Int     @id @default(autoincrement())
+  name        String?
+  logistics   String?
+  surface     String?
+  description String?
+  provider    String? @db.VarChar(36)
+  service     String?
+  category    String?
+
+  // Un Shape peut avoir plusieurs Points
+  point       Point[]
+  prestataire Prestataire? @relation(fields: [provider], references: [id], onDelete: SetNull)
+}
+
+model Point {
+  point_id Int     @id @default(autoincrement())
+  lat      Decimal @db.Decimal(30, 20)
+  lng      Decimal @db.Decimal(30, 20)
+
+  shape_id Int
+
+  shape Shape @relation(fields: [shape_id], references: [shape_id], onDelete: Cascade)
+}
+
+//
+//
+//    BILLETTERIE
+//
+//
 
 model Billetteries {
   billetterie_label String @db.VarChar(50)

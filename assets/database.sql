@@ -4,7 +4,6 @@
 #
 #
 
-
 INSERT INTO Prestataire (name, id, icon, password, email, referencer)
 VALUES ('Porsche', '45309281-fc24-4e02-ad47-a275c64f5327', 'prestataires_icons/porsche_presta.jpg',
         '$2a$10$Jfw2HzNUl/FQk.30LkQJhOa1W3rr1RDT7KUOmTVbN.ucf44w3PlEK', 'porsche@gmail.com',
@@ -30,15 +29,20 @@ VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Test', 'Family'),
        ('f4f434b3-f256-484b-8935-29e13126c9e8', 'carla@gmail.com',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Carla', 'Wilson');
+
+
 # -- Pour générer des personnes : https://www.name-generator.org.uk/last/
 #
 # INSERT INTO admin (admin_id, name, password)
 # VALUES (1, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
+
+
 #
-# #
-# #       BOUTIQUE
-# #
 #
+#   BOUTIQUE
+#
+#
+
 INSERT INTO Boutique (shop_id, prestataire_id, enabled)
     VALUE ('867fb638-7cb1-4228-a643-5c4f352f44b1', '45309281-fc24-4e02-ad47-a275c64f5327', true);
 
@@ -56,6 +60,16 @@ VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
         '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
         34.99, 'écusson-porsche');
+
+
+
+#
+#
+#   CARTE INTERACTIVE
+#
+#
+
+# Voir parserDataMap.js
 
 -- Billetterie
 

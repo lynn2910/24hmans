@@ -120,11 +120,11 @@ Page de gestion de la carte interactive presta
           </select>
         </div>
 
-        <!--:disabled="isReadonly"-->
         <button id="save-info"
                 :disabled="isReadonly"
                 :class="isReadonly? 'bg-gray-500 cursor-not-allowed': 'bg-blue-500 hover:bg-blue-600 cursor-pointer'"
-                class="mt-6 px-3 py-2 text-white rounded-md focus:outline-none text-xl">
+                class="mt-6 px-3 py-2 text-white rounded-md focus:outline-none text-xl"
+        >
           Enregistrer
         </button>
       </div>
@@ -227,7 +227,8 @@ export default {
       } else {
         this.formData.selectedService = null;
       }
-    },
+    }
+    ,
 
     getPrestataire(id) {
       return this.prestataires.find((prestataire) => prestataire.id === id);
