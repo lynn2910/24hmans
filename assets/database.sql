@@ -76,26 +76,30 @@ VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
 INSERT INTO Billetteries(billetterie_label, billetterie_id)
     VALUES ('Tribunes', 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
 
-INSERT INTO Categories (category_label, category_id)
-    VALUES ('Tribune', 1), ('Tribune personne à mobilité réduite', 2), ('Tribune VIP', 3);
+INSERT INTO BilletterieCategories (category_label, category_id, billetterie_id)
+    VALUES ('Tribune', 1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Tribune personne à mobilité réduite', 2, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Tribune VIP', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
 
-INSERT INTO Forfaits (forfait_label, forfait_id)
-    VALUES ('Mercredi 11 juin 2025',1),
-           ('Jeudi 12 juin 2025', 2),
-           ('Vendredi 13 juin 2025', 3),
-           ('Samedi 14 juin 2025', 4),
-           ('Dimanche 15 juin 2025', 5);
+INSERT INTO BilletterieForfaits (forfait_label, forfait_id, billetterie_id)
+    VALUES ('Mercredi 11 juin 2025',1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Jeudi 12 juin 2025', 2, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Vendredi 13 juin 2025', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Samedi 14 juin 2025', 4, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Dimanche 15 juin 2025', 5, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
 
-INSERT INTO Personnes(personne_label, personne_id)
-    VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1),
-           ('Étudiant nombre de places : ', 2),
-           ('Sénior nombre de places : ', 3);
+INSERT INTO BilletteriePersonnes(personne_label, personne_id, billetterie_id)
+    VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Étudiant nombre de places : ', 2, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Sénior nombre de places : ', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Adulte nombre de places : ', 4, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Mineur nombre de places : ', 5, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
 
 #INSERT INTO Tickets(user_id, ticket_id, billetterie_id, category_id)
 #   VALUES
 #
-#INSERT INTO TicketForfaits(forfait_id, ticket_id)
+#INSERT INTO TicketBilletterieForfaits(forfait_id, ticket_id)
 #   VALUES
 #
-#INSERT INTO TicketPersonnes(ticket_id, personne_type_id, quantity)
+#INSERT INTO TicketBilletteriePersonnes(ticket_id, personne_type_id, quantity)
 #   VALUES

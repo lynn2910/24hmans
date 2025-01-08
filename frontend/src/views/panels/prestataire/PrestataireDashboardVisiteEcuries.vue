@@ -40,10 +40,16 @@ export default {
             this.selectedParticipants = [];
             const prestataireKey = `selectedParticipants_${transformPrestataireName(this.loggedInUser.name)}`;
             localStorage.removeItem(prestataireKey);
+        },
+        clearParticipantsList() {
+            this.participants = [];
+            const prestataireKey = `selectedParticipants_${transformPrestataireName(this.loggedInUser.name)}`;
+            localStorage.removeItem(prestataireKey);
         }
     },
 }
 </script>
+
 <template>
     <PrestataireDashboardTemplate current-page="home">
         <div class="p-6 lg:p-10 flex flex-col lg:flex-row gap-6">
@@ -51,10 +57,17 @@ export default {
             <div class="flex-1 bg-gradient-to-tl from-black to-gray-800 text-white p-6 rounded-lg shadow-xl">
                 <h2 class="text-2xl font-bold mb-6 flex items-center justify-between">
                     Liste des Participants
-                    <button @click="handleTirage"
-                            class="bg-blue-500 text-white py-2 px-4 rounded-full font-semibold transition-all hover:bg-blue-600 transform hover:scale-105 shadow-md text-sm ml-4">
-                        Tirage au sort
-                    </button>
+                    <div class="flex items-center">
+                        <button @click="handleTirage"
+                                class="bg-blue-500 text-white py-2 px-4 rounded-full font-semibold transition-all hover:bg-blue-600 transform hover:scale-105 shadow-md text-sm ml-4">
+                            Tirage au sort
+                        </button>
+                        <button @click="clearParticipantsList"
+                                v-if="participants.length > 0"
+                                class="bg-yellow-500 text-white py-2 px-4 rounded-full font-semibold text-sm transition-all hover:bg-yellow-600 transform hover:scale-105 shadow-md ml-4">
+                            Effacer les participants
+                        </button>
+                    </div>
                 </h2>
 
                 <ul v-if="participants.length > 0" class="space-y-3">

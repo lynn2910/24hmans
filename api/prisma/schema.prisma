@@ -180,19 +180,22 @@ model Billetteries {
   billetterie_id    String @id @db.Char(36)
 }
 
-model Categories {
+model BilletterieCategories {
   category_label String @db.VarChar(50)
   category_id    Int    @id
+  billetterie_id String @db.Char(36)
 }
 
-model Forfaits {
-  forfait_label String @db.VarChar(50)
-  forfait_id    Int    @id
+model BilletterieForfaits {
+  forfait_label  String @db.VarChar(50)
+  forfait_id     Int    @id
+  billetterie_id String @db.Char(36)
 }
 
-model Personnes {
+model BilletteriePersonnes {
   personne_label String @db.VarChar(50)
   personne_id    Int    @id
+  billetterie_id String @db.Char(36)
 }
 
 model Tickets {
@@ -202,14 +205,14 @@ model Tickets {
   category_id    Int
 }
 
-model TicketForfaits {
+model TicketBilletterieForfaits {
   forfait_id Int
   ticket_id  Int
 
   @@id([forfait_id, ticket_id])
 }
 
-model TicketPersonnes {
+model TicketBilletteriePersonnes {
   ticket_id        Int
   personne_type_id Int
   quantity         Int
