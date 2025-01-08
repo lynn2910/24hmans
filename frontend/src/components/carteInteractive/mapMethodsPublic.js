@@ -109,13 +109,12 @@ export default {
             if (layer) {
                 // Ajouter des propriétés supplémentaires à la couche si nécessaire
                 layer.category = shape.category || 'default';
-                layer.name = shape.name;
-                layer.logistics = shape.logistics;
-                layer.surface = shape.surface;
-                layer.description = shape.description;
-                layer.provider = shape.provider;
-                layer.service = shape.service;
-
+                layer.name = shape.name || '';
+                layer.logistics = shape.logistics || '';
+                layer.surface = shape.surface || '';
+                layer.description = shape.description || '';
+                layer.provider = shape.provider || '';
+                layer.service = shape.service || '';
 
                 // Ajouter la couche au groupe de caractéristiques
                 this.featureGroup.addLayer(layer);
