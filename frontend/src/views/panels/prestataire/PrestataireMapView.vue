@@ -32,7 +32,7 @@ Page de gestion de la carte interactive presta
                  class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
                  placeholder="Entrez le nom de l'emplacement"
                  :disabled="isReadonly"
-                 :class="{'bg-gray-100 opacity-90': isReadonly}"
+                 :class="{'bg-gray-100 opacity-70': isReadonly}"
           />
         </div>
         <div class="mt-3">
@@ -41,16 +41,17 @@ Page de gestion de la carte interactive presta
                  class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
                  placeholder="Entrez la logistique"
                  :disabled="forceReadonly"
-                 :class="{'bg-gray-100 opacity-90': forceReadonly}"
+                 :class="{'bg-gray-100 opacity-70': forceReadonly}"
           />
         </div>
         <div class="mt-3">
           <label for="surface" class="text-sm font-semibold">Surface (m²)</label>
           <input type="number" id="surface" v-model="formData.surface"
-                 class="w-full p-1 border rounded-md text-black border-gray-300" placeholder="Entrez la surface en m²"
+                 class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
+                 placeholder="Entrez la surface en m²"
                  step="1"
                  :disabled="forceReadonly"
-                 :class="{'bg-gray-100 opacity-90': forceReadonly}"
+                 :class="{'bg-gray-100 opacity-70': forceReadonly}"
           />
         </div>
         <div class="mt-3">
@@ -59,7 +60,7 @@ Page de gestion de la carte interactive presta
                     class="w-full text-black p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Entrez votre texte ici..."
                     :readonly="isReadonly"
-                    :class="{'bg-gray-100 opacity-90': isReadonly}"
+                    :class="{'bg-gray-100 opacity-70': isReadonly}"
           >
           </textarea>
         </div>
@@ -70,7 +71,7 @@ Page de gestion de la carte interactive presta
               class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
               @change="loadServices"
               :disabled="isReadonly"
-              :class="{'bg-gray-100 opacity-90': isReadonly}"
+              :class="{'bg-gray-100 opacity-70': isReadonly}"
           >
 
             <option v-if="isReadonly" :value="formData.selectedPrestataire">
@@ -92,7 +93,7 @@ Page de gestion de la carte interactive presta
               v-model="formData.selectedService"
               class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
               :disabled="isReadonly"
-              :class="{'bg-gray-100 opacity-90': isReadonly}"
+              :class="{'bg-gray-100 opacity-70': isReadonly}"
           >
             <option v-for="(service, index) in selectedPrestataireServices" :key="index"
                     :value="service">
@@ -108,7 +109,7 @@ Page de gestion de la carte interactive presta
               v-model="formData.category"
               class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
               :disabled="forceReadonly"
-              :class="{'bg-gray-100 opacity-90': forceReadonly}"
+              :class="{'bg-gray-100 opacity-70': isReadonly}"
           >
             <option
                 v-for="(color, index) in categories"
