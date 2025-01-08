@@ -268,7 +268,10 @@ let billetteries = [
         prestataire_id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
         categories: [
             {category_label: "Tribune", category_id: "baf910a9-9l13-43c9-b780-a77c1323d87d"},
-            {category_label: "Tribune personne à mobilité réduite", category_id: "qzj58df9-t027-tzhq-ta5p-hst28sh94zqm"},
+            {
+                category_label: "Tribune personne à mobilité réduite",
+                category_id: "qzj58df9-t027-tzhq-ta5p-hst28sh94zqm"
+            },
             {category_label: "Tribune VIP", category_id: "qzj58df9-t027-tzhq-ta5d-hst28sh94zqm"}
         ],
         forfaits: [

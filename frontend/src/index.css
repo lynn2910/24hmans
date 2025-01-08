@@ -15,3 +15,21 @@ body {
         -moz-appearance: textfield !important;
     }
 }
+
+
+.apexcharts-text {
+    fill: #fff !important;
+}
+
+.apexcharts-tooltip,
+.apexcharts-tooltip.apexcharts-theme-light,
+.apexcharts-tooltip-title {
+    background-color: #333 !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+.apexcharts-legend-text {
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}

@@ -2,6 +2,7 @@
 import PrestataireDashboardWithTabsTemplate
 	from "@/components/dashboard/prestataire/PrestataireDashboardWithTabsTemplate.vue";
 import {ref} from "vue";
+import PrestataireShopStats from "@/components/dashboard/prestataire/stats/PrestataireShopStats.vue";
 
 const tabs = [
 	{id: "shop", name: "Boutique"},
@@ -24,7 +25,9 @@ console.log(activeTab)
 <template>
 	<PrestataireDashboardWithTabsTemplate :current-tab="activeTab" current-page="stats" :tabs="tabs"
 																				v-on:changeTab="changeTab">
-		<div v-if="activeTab === 'shop'">boutique</div>
+		<div v-if="activeTab === 'shop'">
+			<PrestataireShopStats></PrestataireShopStats>
+		</div>
 		<div v-if="activeTab === 'karting'">karting</div>
 		<div v-if="activeTab === 'billeterie'">billeterie</div>
 		<div v-if="activeTab === 'ecuries'">ecuries</div>
