@@ -2,7 +2,7 @@
 import PrestataireService from "@/services/prestataire.service";
 
 export default {
-    name: "Boutiques",
+    name: "Billetteries",
     async beforeMount() {
         try {
             const prestatairesRes = await PrestataireService.getAllPrestataires();
@@ -13,8 +13,8 @@ export default {
                     const servicesRes = await PrestataireService.getPrestataireServices(prestataire.id);
                     if (!servicesRes.error) {
                         const services = servicesRes.data;
-                        if (services.some(service => service.toLowerCase() === "boutique")) {
-                            this.boutiques.push(prestataire);
+                        if (services.some(service => service.toLowerCase() === "billetterie")) {
+                            this.billetteries.push(prestataire);
                         }
                     }
                 }
@@ -22,12 +22,12 @@ export default {
                 console.error(prestatairesRes.data);
             }
         } catch (error) {
-            console.error("Erreur lors du chargement des boutiques :", error);
+            console.error("Erreur lors du chargement des billetteries :", error);
         }
     },
     data() {
         return {
-            boutiques: [],
+            billetteries: [],
             publicPath: process.env.BASE_URL,
         };
     },
@@ -36,12 +36,12 @@ export default {
 
 <template>
     <div class="w-full mt-36 bg-dark">
-        <h1 class="font-extrabold text-4xl text-center py-8">Liste des Boutiques</h1>
+        <h1 class="font-extrabold text-4xl text-center py-8">Liste des Billetteries</h1>
 
-        <!-- Affichage des boutiques -->
+        <!-- Affichage des billetteries -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 ">
             <div
-                v-for="prestataire in boutiques"
+                v-for="prestataire in billetteries"
                 :key="prestataire.id"
                 class="flex flex-col items-center text-center p-6 border border-gray-600 rounded shadow-lg
                        transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white] ">
@@ -52,18 +52,16 @@ export default {
                 />
                 <h2 class="text-2xl font-bold mb-2">{{ prestataire.name }}</h2>
                 <router-link
-                    :to="`/boutique/${prestataire.name.toLowerCase()}`"
+                    :to="`/billetterie/${prestataire.name.toLowerCase()}`"
                     class="py-2 px-5 bg-gray-700 rounded-3xl hover:bg-gray-500 text-white">
-                    Voir la Boutique
+                    Voir la Billetterie
                 </router-link>
             </div>
         </div>
 
-        <!-- Message si aucune boutique n'est disponible -->
-        <p v-if="!boutiques.length" class="text-center text-lg mt-12">
-            Aucun prestataire ne possède de boutique pour le moment.
+        <!-- Message si aucune billetterie n'est disponible -->
+        <p v-if="!billetteries.length" class="text-center text-lg mt-12">
+            Aucun prestataire ne possède de billetterie pour le moment.
         </p>
     </div>
 </template>
-
-

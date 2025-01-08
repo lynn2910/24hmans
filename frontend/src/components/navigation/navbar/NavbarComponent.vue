@@ -11,7 +11,7 @@
 			</router-link>
 
 			<div class="flex flex-row items-center justify-center mr-auto w-3/4 gap-8">
-				<router-link to="/billetterie"><p>Billetterie</p></router-link>
+				<router-link to="/billetteries"><p>Billetterie</p></router-link>
 				<router-link to="/boutiques"><p>Boutique</p></router-link>
 				<router-link to="/carte"><p>Carte</p></router-link>
 				<!-- L'utilisation de mode: hash est trop complexe-->

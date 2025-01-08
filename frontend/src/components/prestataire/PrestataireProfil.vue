@@ -68,7 +68,7 @@ export default {
 
         <!-- Message si aucun service n'est disponible -->
         <p v-else class="text-lg mt-6"
-           style="display: flex; justify-content: center; height: 15vh;">Aucun service disponible...</p>
+           style="display: flex; justify-content: center; height: 15vh;">Aucun service <disponible class="."></disponible></p>
     </div>
 
 </template>
