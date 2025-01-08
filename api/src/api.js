@@ -81,6 +81,7 @@ app.use(errorHandler);
 // et n'impacte pas l'environnement de développement.
 app.listen(process.env.API_PORT, "0.0.0.0", () => {
     console.log(`Server running on http://127.0.0.1:${process.env.API_PORT}`);
+    console.log(`Swagger running on http://127.0.0.1:${process.env.API_PORT}/api-docs/`);
 });
 
 
