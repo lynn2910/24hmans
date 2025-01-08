@@ -14,6 +14,7 @@
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "core-js": "^3.8.3",
+    "imask": "^7.6.1",
     "leaflet": "^1.9.4",
     "leaflet-draw": "^1.0.4",
     "uuid": "^11.0.3",

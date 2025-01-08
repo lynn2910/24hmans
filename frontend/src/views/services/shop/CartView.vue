@@ -1,7 +1,7 @@
 <template>
 	<div class="pt-36 px-28 pb-10 flex flex-row w-screen h-screen">
 		<!-- Articles -->
-		<div class="w-2/3">
+		<div class="w-1/2">
 			<div
 					class="flex flex-row justify-between items-center py-5 ml-5 mr-5 border-b border-b-white border-opacity-50 ">
 				<h1 class="font-bold text-2xl">Votre panier</h1>
@@ -18,11 +18,18 @@
 		</div>
 
 		<!-- Résumé -->
-		<div class="p-5 rounded bg-emerald-500 bg-opacity-10 border border-gray-500 w-1/3 flex flex-col justify-start">
-			<h2 class="font-bold text-2xl mb-5">Résumé</h2>
+		<div class="p-5 rounded bg-emerald-500 bg-opacity-10 border border-gray-500 w-1/2 flex flex-col justify-start">
+			<div class="grid grid-cols-3">
+				<div>
+					<h2 class="font-bold text-2xl mb-5">Résumé</h2>
+					<p class="text-2xl font-bold">Total: <span class="text-blue-500">{{ totalPrice.toFixed(2) }}€</span><span
+							class="text-sm ml-1">TTC</span></p>
+				</div>
 
-			<p class="text-2xl font-bold">Total: <span class="text-blue-500">{{ totalPrice.toFixed(2) }}€</span><span
-					class="text-sm ml-1">TTC</span></p>
+				<div class="col-span-2">
+					<PaymentInformations></PaymentInformations>
+				</div>
+			</div>
 
 			<!-- TODO Force to be logged in -->
 			<div class="flex flex-row items-center mt-auto gap-3">
@@ -48,9 +55,10 @@ import CartItem from "@/components/services/shop/cart/CartItem.vue";
 import {mapActions, mapGetters, mapState} from "vuex";
 import UsersService from "@/services/users.service";
 import LoginPopup from "@/components/dashboard/LoginPopup.vue";
+import PaymentInformations from "@/components/PaymentInformations.vue";
 
 export default {
-	components: {LoginPopup, CartItem},
+	components: {PaymentInformations, LoginPopup, CartItem},
 	data() {
 		return {
 			cart: {items: []},
