@@ -43,6 +43,22 @@ async function enableOrDisableShop(presta_id, newValue) {
     return LocalSource.enableOrDisableShop(presta_id, newValue);
 }
 
+async function getBoutiqueChiffreAffaireSerie(presta_id) {
+    return LocalSource.getBoutiqueChiffreAffaireSerie(presta_id);
+}
+
+async function getBoutiqueStats(prestataire_id) {
+    return LocalSource.getBoutiqueStats(prestataire_id);
+}
+
+async function getBoutiqueCategoriesSellsStats(prestataire_id) {
+    return LocalSource.getBoutiqueCategoriesSellsStats(prestataire_id);
+}
+
+async function getBoutiqueArticleSellsStats(prestataire_id) {
+    return LocalSource.getBoutiqueArticleSellsStats(prestataire_id);
+}
+
 export default {
     getShopInformations,
     getItemFromName,
@@ -51,5 +67,6 @@ export default {
     getShopItems,
     addArticleToBoutique,
     removeArticleFromBoutique,
-    enableOrDisableShop
+    enableOrDisableShop,
+    getBoutiqueChiffreAffaireSerie, getBoutiqueStats, getBoutiqueCategoriesSellsStats, getBoutiqueArticleSellsStats
 }

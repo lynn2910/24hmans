@@ -40,19 +40,22 @@
 
 <script>
 import InfoCard from "@/components/dashboard/stats/InfoCard.vue";
+import BoutiqueService from "@/services/boutique.service";
+import {mapState} from "vuex";
+import ApexCharts from "apexcharts";
 
 export default {
 	name: "PrestataireShopStats",
 	components: {InfoCard},
 	data() {
-		return ({
+		return {
 			clients_count: 3,
 			commands: 14,
 			total_gains: 17864.96,
 			gains_chart_infos: {
 				series: [{
 					name: 'Gains',
-					data: [10, 20, 36, 79, 84, 24, 56]
+					data: []
 				}],
 				chartOptions: {
 					chart: {
@@ -81,21 +84,27 @@ export default {
 					yaxis: {
 						title: {
 							text: "Argent gagnée en €"
+						},
+						labels: {
+							formatter: function (value) {
+								return value.toLocaleString('fr-FR') + "€";
+							}
 						}
 					}
 				},
 			},
 			categories_chart: {
-				series: [44, 87],
+				series: [],
 				chartOptions: {
 					chart: {
+						id: "shop_categories",
 						width: 380,
 						type: 'pie',
 					},
 					legend: {
-						show: false
+						show: true,
+						position: 'right',
 					},
-					labels: ['Écussons', 'Porte-clé'],
 					title: {
 						text: 'Répartition des ventes par catégorie de produit',
 					},
@@ -108,33 +117,13 @@ export default {
 				},
 			},
 			articles_chart: {
-				series: [
-					{
-						data: [
-							{
-								x: 'Porte-clé frein',
-								y: 218
-							},
-							{
-								x: 'Écusson porsche',
-								y: 149
-							},
-							{
-								x: 'Porte-clé porsche',
-								y: 184
-							},
-							{
-								x: 'Porte-clé 911',
-								y: 58
-							},
-						]
-					}
-				],
+				series: [{data: []}],
 				chartOptions: {
 					legend: {
 						show: false
 					},
 					chart: {
+						id: "shop_articles",
 						width: 380,
 						type: 'treemap'
 					},
@@ -142,9 +131,65 @@ export default {
 						text: 'Répartition des ventes par article'
 					}
 				},
+			},
+		};
+	},
+	computed: {
+		...mapState('login', ['loggedInUser']),
+	},
+	async beforeMount() {
+		await this.getBoutiqueCategoriesSellsStats();
+		await this.getBoutiqueStats();
+		await this.getBoutiqueChiffreAffaireSerie();
+		await this.getBoutiqueArticleSellsStats();
+	},
+	methods: {
+		async getBoutiqueChiffreAffaireSerie() {
+			let res = await BoutiqueService.getBoutiqueChiffreAffaireSerie(this.loggedInUser?.id);
 
+			if (!res.error) {
+				this.gains_chart_infos.series[0].data = res.data.serie;
+			} else {
+				console.error(res.data);
 			}
-		})
+		},
+		async getBoutiqueStats() {
+			let res = await BoutiqueService.getBoutiqueStats(this.loggedInUser?.id);
+
+			if (!res.error) {
+				this.clients_count = res.data.clients;
+				this.commands = res.data.commands;
+				this.total_gains = res.data.total_gains;
+			} else {
+				console.error(res.data);
+			}
+		},
+		async getBoutiqueCategoriesSellsStats() {
+			let res = await BoutiqueService.getBoutiqueCategoriesSellsStats(this.loggedInUser?.id);
+
+			if (!res.error) {
+				this.categories_chart.series = res.data.series;
+				this.categories_chart.chartOptions.labels = res.data.labels;
+
+				console.log(JSON.stringify(res.data));
+
+				ApexCharts.exec('shop_categories', 'updateOptions', {
+					labels: res.data.labels,
+					series: res.data.series
+				})
+			}
+		},
+		async getBoutiqueArticleSellsStats() {
+			let res = await BoutiqueService.getBoutiqueArticleSellsStats(this.loggedInUser?.id);
+
+			if (!res.error) {
+				this.articles_chart.series = res.data;
+
+				ApexCharts.exec('shop_articles', 'updateOptions', {
+					series: res.data
+				})
+			}
+		}
 	}
 }
 </script>

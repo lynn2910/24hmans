@@ -30,6 +30,7 @@ export const user_orders = [
                 article_id: 1,
                 article: {
                     item_id: 1,
+                    shop_id: "5bc1bcf2-0d5e-4adf-9402-5dafa3777413",
                     name: "Porte-clé frein",
                     image: null,
                     category_id: "be2cff03-7d12-4369-acff-037d12a36993",
@@ -44,6 +45,7 @@ export const user_orders = [
                 article_id: 3,
                 article: {
                     item_id: 3,
+                    shop_id: "5bc1bcf2-0d5e-4adf-9402-5dafa3777413",
                     name: "Écusson Porsche",
                     image: null,
                     category_id: "9af710a9-9c13-43d7-b710-a99c1323d77d",

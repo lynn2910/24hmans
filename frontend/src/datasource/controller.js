@@ -380,6 +380,87 @@ function newOrder(order) {
     return {error: 0, status: 200, data: preparedOrder}
 }
 
+function getBoutiqueChiffreAffaireSerie(presta_id) {
+    let boutique = boutiques.find(b => b.prestataire_id === presta_id);
+    if (!boutique) return {error: 1, status: 404, data: "boutique not found"};
+
+    let serie = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+
+    user_orders
+        .map(order => ({
+                date: order.date,
+                articles: order.articles.filter((a) => a.article.shop_id === boutique.shop_id)
+            })
+        )
+        .filter(o => o.articles.length > 0)
+        .forEach((order) => {
+            let month = order.date.getMonth();
+            let sum = 0;
+            order.articles.forEach((a) => sum += a.unit_price * a.amount);
+
+            serie[month] += sum;
+        });
+
+    return {error: 0, status: 200, data: {serie, categories}};
+}
+
+function getBoutiqueStats(presta_id) {
+    let boutique = boutiques.find(b => b.prestataire_id === presta_id);
+    if (!boutique) return {error: 0, status: 404, data: "boutique not found"};
+
+    let orders = user_orders
+        .filter(o => o.articles.some(a => a.article.shop_id === boutique.shop_id));
+
+    // Select distinct
+    let clients = [...new Set(orders)].length;
+
+    let total_amount = orders.map(o => o.total_price)
+        .reduce((a, b) => a += b, 0);
+
+    return {error: 0, status: 200, data: {clients, commands: orders.length, total_gains: total_amount}}
+}
+
+function getBoutiqueCategoriesSellsStats(presta_id) {
+    let boutique = boutiques.find(b => b.prestataire_id === presta_id);
+    if (!boutique) return {error: 0, status: 404, data: "boutique not found"};
+
+    let series = []
+    let labels = boutique.categories.map(c => c.category_label);
+    for (let i = 0; i < labels.length; i++) {
+        series[i] = 0;
+    }
+
+    user_orders.map(o => o.articles.filter(a => a.article.shop_id === boutique.shop_id))
+        .flat()
+        .forEach((article) => {
+            let ctg_index = boutique.categories.findIndex(c => c.category_id === article.article.category_id);
+            series[ctg_index] = article.amount;
+        });
+
+    console.log(JSON.stringify({labels, series}, null, 2));
+
+    return {error: 0, status: 200, data: {labels, series}}
+}
+
+function getBoutiqueArticleSellsStats(presta_id) {
+    let boutique = boutiques.find(b => b.prestataire_id === presta_id);
+    if (!boutique) return {error: 1, status: 404, data: "boutique not found"};
+
+    let series = {};
+    boutique.items.forEach(({name, item_id}) => {
+        series[item_id] = {x: name, y: 0}
+    });
+
+    user_orders.map(o => o.articles.filter(a => a.article.shop_id === boutique.shop_id))
+        .flat()
+        .forEach((article) => {
+            series[article.article_id].y += article.amount;
+        });
+
+    return {error: 0, status: 200, data: [{data: Object.values(series)}]}
+}
+
 export default {
     addArticleToBoutique, removeItemFromBoutique,
     getPrestataire,
@@ -409,5 +490,6 @@ export default {
     getShopItems,
     enableOrDisableShop,
     getUserOrders,
-    newOrder
+    newOrder,
+    getBoutiqueChiffreAffaireSerie, getBoutiqueStats, getBoutiqueCategoriesSellsStats, getBoutiqueArticleSellsStats
 };
