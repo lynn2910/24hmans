@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-7 grid-rows-4 gap-2 mr-2">
+	<div class="grid grid-cols-6 grid-rows-5 gap-2 mr-2 h-full">
 		<!-- Pie (ventes par catégories) -->
 		<!-- TreeMap (ventes par catégorie/articles) -->
 
@@ -8,7 +8,7 @@
 			<h2><strong>{{ clients_count }}</strong> clients</h2>
 		</InfoCard>
 
-		<InfoCard classes="col-span-2">
+		<InfoCard classes="col-span-1">
 			<h2 class="text-xl font-extrabold">{{ Intl.NumberFormat('fr-FR').format(total_gains) }} €</h2>
 			<p class="text-gray-300 text-sm font-medium">de bénéfices</p>
 		</InfoCard>
@@ -22,7 +22,11 @@
 			<h2><strong>{{ commands }}</strong> commandes</h2>
 		</InfoCard>
 
+		<div></div>
+
 		<!-- TreeMap + Pie -->
+		<InfoCard classes="col-span-3 row-span-3"></InfoCard>
+		<InfoCard classes="col-span-3 row-span-3"></InfoCard>
 
 	</div>
 </template>
