@@ -1,6 +1,6 @@
 <template>
 	<div class="mt-36">
-		<h1 class="font-bold text-3xl text-center">Mentions légales</h1>
+		<h1 class="font-bold text-3xl text-center">Politique de confidentialité</h1>
 
 		<div class="mx-40">
 			<h2 class="text-xl font-bold my-5">1. Introduction</h2>
