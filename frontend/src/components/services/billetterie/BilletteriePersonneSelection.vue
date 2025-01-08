@@ -5,11 +5,7 @@
             <div v-for="(personne, index) in personnes" :key="index" class="mb-3">
                 <span
                     class="text-white text-lg font-bold cursor-pointer hover:underline" :class="{ 'underline': selectedPersonne.includes(personne) }" @click="togglePersonne(personne)">{{ personne.personne_label }}</span>
-                <input
-                    v-model="personneInputs[index]"
-                    class="text-black ml-3 p-1 border border-gray-300 rounded"
-                    placeholder="Entrez une valeur"
-                >
+                <input v-model="personneInputs[index]" class="text-black ml-3 p-1 border border-gray-300 rounded" placeholder="Entrez une valeur">
             </div>
         </div>
         <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" :disabled="selectedPersonne.length === 0 && personneInputs.length === 0" @click="submitSelection">Suivant</button>

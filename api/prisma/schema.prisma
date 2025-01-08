@@ -118,3 +118,47 @@ model Sessions {
   userId    String   @unique @db.Char(36)
   createdAt DateTime @default(now())
 }
+
+// BILLETTERIE
+
+model Billetteries {
+  billetterie_label String @db.VarChar(50)
+  billetterie_id    String @id @db.Char(36)
+}
+
+model Categories {
+  category_label String @db.VarChar(50)
+  category_id    Int    @id
+}
+
+model Forfaits {
+  forfait_label String @db.VarChar(50)
+  forfait_id    Int    @id
+}
+
+model Personnes {
+  personne_label String @db.VarChar(50)
+  personne_id    Int    @id
+}
+
+model Tickets {
+  user_id        String @db.VarChar(36)
+  ticket_id      Int    @id
+  billetterie_id String @db.VarChar(36)
+  category_id    Int
+}
+
+model TicketForfaits {
+  forfait_id Int
+  ticket_id  Int
+
+  @@id([forfait_id, ticket_id])
+}
+
+model TicketPersonnes {
+  ticket_id        Int
+  personne_type_id Int
+  quantity         Int
+
+  @@id([ticket_id, personne_type_id])
+}

@@ -56,3 +56,32 @@ VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
         '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
         34.99, 'écusson-porsche');
+
+-- Billetterie
+
+INSERT INTO Billetteries(billetterie_label, billetterie_id)
+    VALUES ('Tribunes', 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
+
+INSERT INTO Categories (category_label, category_id)
+    VALUES ('Tribune', 1), ('Tribune personne à mobilité réduite', 2), ('Tribune VIP', 3);
+
+INSERT INTO Forfaits (forfait_label, forfait_id)
+    VALUES ('Mercredi 11 juin 2025',1),
+           ('Jeudi 12 juin 2025', 2),
+           ('Vendredi 13 juin 2025', 3),
+           ('Samedi 14 juin 2025', 4),
+           ('Dimanche 15 juin 2025', 5);
+
+INSERT INTO Personnes(personne_label, personne_id)
+    VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1),
+           ('Étudiant nombre de places : ', 2),
+           ('Sénior nombre de places : ', 3);
+
+#INSERT INTO Tickets(user_id, ticket_id, billetterie_id, category_id)
+#   VALUES
+#
+#INSERT INTO TicketForfaits(forfait_id, ticket_id)
+#   VALUES
+#
+#INSERT INTO TicketPersonnes(ticket_id, personne_type_id, quantity)
+#   VALUES

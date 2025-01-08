@@ -267,24 +267,21 @@ let billetteries = [
     {
         prestataire_id: "af3a0f62-5b13-4b19-9d42-736870b268a0",
         categories: [
-            {category_label: "Tribune", category_id: "baf910a9-9l13-43c9-b780-a77c1323d87d"},
-            {
-                category_label: "Tribune personne à mobilité réduite",
-                category_id: "qzj58df9-t027-tzhq-ta5p-hst28sh94zqm"
-            },
-            {category_label: "Tribune VIP", category_id: "qzj58df9-t027-tzhq-ta5d-hst28sh94zqm"}
+            {category_label: "Tribune", category_id: 1},
+            {category_label: "Tribune personne à mobilité réduite", category_id: 2},
+            {category_label: "Tribune VIP", category_id: 3}
         ],
         forfaits: [
-            {forfait_label: "Mercredi 11 juin 2025", forfait_id: "tjz859s2-8g34-43t5-h845-z87g1589t15h"},
-            {forfait_label: "Jeudi 12 juin 2025", forfait_id: "tjz859s2-8g36-43t5-h845-z87g1589t15h"},
-            {forfait_label: "Vendredi 13 juin 2025", forfait_id: "tjz859s2-8g38-43t5-h845-z87g1589t15h"},
-            {forfait_label: "Samedi 14 juin 2025", forfait_id: "tjz859s2-8g40-43t5-h845-z87g1589t15h"},
-            {forfait_label: "Dimanche 15 juin 2025", forfait_id: "tjz859s2-8g42-43t5-h845-z87g1589t15h"}
+            {forfait_label: "Mercredi 11 juin 2025", forfait_id: 1},
+            {forfait_label: "Jeudi 12 juin 2025", forfait_id: 2},
+            {forfait_label: "Vendredi 13 juin 2025", forfait_id: 3},
+            {forfait_label: "Samedi 14 juin 2025", forfait_id: 4},
+            {forfait_label: "Dimanche 15 juin 2025", forfait_id: 5}
         ],
         personnes: [
-            {personne_label: "Famille (x2 adulte) nombre d'enfants :", personne_id: "hrs561r5-4f65-24f5-y45v1556f25g"},
-            {personne_label: "Étudiant nombre de places : ", personne_id: "hrs561r5-4f67-24f5-y45v1556f25g"},
-            {personne_label: "Sénior nombre de places : ", personne_id: "hrs561r5-4f69-24f5-y45v1556f25g"}
+            {personne_label: "Famille (x2 adulte) nombre d'enfants :", personne_id: 1},
+            {personne_label: "Étudiant nombre de places : ", personne_id: 2},
+            {personne_label: "Sénior nombre de places : ", personne_id: 3}
         ]
     }
 ]
