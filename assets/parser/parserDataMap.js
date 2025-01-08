@@ -21,13 +21,13 @@ async function parseJsonAndGenerateSQL() {
             const logistics = escapeSingleQuotes(item.logistics || "");
             const surface = escapeSingleQuotes(item.surface || "");
             const description = escapeSingleQuotes(item.description || "");
-            const provider = escapeSingleQuotes(item.provider || "");
+            const provider = item.provider ? `'${escapeSingleQuotes(item.provider)}'` : "NULL";
             const service = escapeSingleQuotes(item.service || "");
             const category = escapeSingleQuotes(item.category || "");
 
             // Générer la requête INSERT INTO pour Shape
             shapeInsertSQL += `INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
-                               VALUES ('${name}', '${logistics}', '${surface}', '${description}', '${provider}',
+                               VALUES ('${name}', '${logistics}', '${surface}', '${description}', ${provider},
                                        '${service}', '${category}');  `;
 
 
