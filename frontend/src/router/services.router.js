@@ -18,5 +18,10 @@ export default [
         path: "/boutique/:prestataire_name/item/:item_name",
         name: "shop_item_view",
         component: () => import( '../views/services/shop/ShopItemView.vue')
+    },
+    {
+        path: "/boutiques",
+        name: "shop",
+        component: () => import('../views/services/shop/BoutiqueListView.vue')
     }
 ]
