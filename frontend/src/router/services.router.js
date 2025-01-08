@@ -5,6 +5,12 @@ export default [
         component: () => import('../views/services/BilletterieView.vue'),
     },
     {
+        path: '/billetteries',
+        name: "billeterie_list",
+        component: () => import('../views/services/BilleterieListView.vue')
+
+    },
+    {
         path: "/ecurie/:prestataire_name",
         name: "visite_ecuries",
         component: () => import('../views/services/VisiteEcurie.vue')
@@ -21,7 +27,7 @@ export default [
     },
     {
         path: "/boutiques",
-        name: "shop",
+        name: "shop_list",
         component: () => import('../views/services/shop/BoutiqueListView.vue')
     }
 ]
