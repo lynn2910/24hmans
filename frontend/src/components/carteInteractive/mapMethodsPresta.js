@@ -5,8 +5,8 @@ import 'leaflet-draw';
 
 export default {
     initMap(onPopupOpen, getPrestataire) {
-        const southWest = L.latLng(47.962299, 0.186179);
-        const northEast = L.latLng(47.935713, 0.238761);
+        const southWest = L.latLng(47.972299, 0.186179);
+        const northEast = L.latLng(47.935713, 0.234561);
         const bounds = L.latLngBounds(southWest, northEast);
 
         const map = L.map('map', {
