@@ -119,7 +119,7 @@
             meilleures
             places</strong> et
           services pour profiter pleinement des 24 Heures du Mans.</p>
-        <router-link to="/billeterie">
+        <router-link to="/billetterie/24h-du-mans">
           <div class="mx-auto mt-10 content-center contain-content relative group">
             <!-- L'image avec transition pour l'opacité au hover -->
             <img
