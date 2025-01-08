@@ -77,7 +77,9 @@ INSERT INTO BilletterieForfaits (forfait_label, forfait_id, billetterie_id)
 INSERT INTO BilletteriePersonnes(personne_label, personne_id, billetterie_id)
     VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
            ('Étudiant nombre de places : ', 2, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
-           ('Sénior nombre de places : ', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
+           ('Sénior nombre de places : ', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Adulte nombre de places : ', 4, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
+           ('Mineur nombre de places : ', 5, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
 
 #INSERT INTO Tickets(user_id, ticket_id, billetterie_id, category_id)
 #   VALUES

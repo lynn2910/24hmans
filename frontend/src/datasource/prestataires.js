@@ -345,7 +345,9 @@ let billetteries = [
         personnes: [
             {personne_label: "Famille (x2 adulte) nombre d'enfants :", personne_id: 1},
             {personne_label: "Étudiant nombre de places : ", personne_id: 2},
-            {personne_label: "Sénior nombre de places : ", personne_id: 3}
+            {personne_label: "Sénior nombre de places : ", personne_id: 3},
+            {personne_label: "Adulte nombre de places : ", personne_id: 4},
+            {personne_label: "Mineur nombre de places : ", personne_id: 5}
         ]
     }
 ]
