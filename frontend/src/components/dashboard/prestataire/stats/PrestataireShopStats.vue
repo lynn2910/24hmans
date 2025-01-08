@@ -25,8 +25,15 @@
 		<div></div>
 
 		<!-- TreeMap + Pie -->
-		<InfoCard classes="col-span-3 row-span-3"></InfoCard>
-		<InfoCard classes="col-span-3 row-span-3"></InfoCard>
+		<InfoCard classes="col-span-3 row-span-3">
+			<apexchart type="pie" :options="categories_chart.chartOptions" :series="categories_chart.series"
+								 width="400px"></apexchart>
+		</InfoCard>
+
+		<InfoCard classes="col-span-3 row-span-3">
+			<apexchart type="treemap" :options="articles_chart.chartOptions" :series="articles_chart.series"
+								 width="400px"></apexchart>
+		</InfoCard>
 
 	</div>
 </template>
@@ -77,6 +84,65 @@ export default {
 						}
 					}
 				},
+			},
+			categories_chart: {
+				series: [44, 87],
+				chartOptions: {
+					chart: {
+						width: 380,
+						type: 'pie',
+					},
+					legend: {
+						show: false
+					},
+					labels: ['Écussons', 'Porte-clé'],
+					title: {
+						text: 'Répartition des ventes par catégorie de produit',
+					},
+					dataLabels: {
+						enabled: true,
+						// formatter: function (val, {seriesIndex, w}) {
+						// 	return Math.floor(val) + "% - " + w.config.series[seriesIndex] + " achats";
+						// }
+					},
+				},
+			},
+			articles_chart: {
+				series: [
+					{
+						data: [
+							{
+								x: 'Porte-clé frein',
+								y: 218
+							},
+							{
+								x: 'Écusson porsche',
+								y: 149
+							},
+							{
+								x: 'Porte-clé porsche',
+								y: 184
+							},
+							{
+								x: 'Porte-clé 911',
+								y: 58
+							},
+						]
+					}
+				],
+				chartOptions: {
+					legend: {
+						show: false
+					},
+					chart: {
+						width: 380,
+						type: 'treemap'
+					},
+					title: {
+						text: 'Répartition des ventes par article'
+					}
+				},
+
 			}
 		})
 	}

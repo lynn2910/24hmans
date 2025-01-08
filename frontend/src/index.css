@@ -17,7 +17,7 @@ body {
 }
 
 
-.apexcharts-text {
+.apexcharts-text, .apexcharts-title-text {
     fill: #fff !important;
 }
 
