@@ -13,7 +13,7 @@
     </div>
 
     <img src="../assets/images/monument_prefere_francais.png" alt="Monument préféré des français"
-         class="w-72 h-auto absolute top-[65%] left-10 z-50 drop-shadow-all-white-700">
+         class="w-72 h-auto absolute top-[65%] left-10 z-10 drop-shadow-all-white-700">
 
     <div class="absolute top-[92%] bottom-0 left-0 right-0 rounded-t-3xl h-lvh bg-dark"></div>
 
