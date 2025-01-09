@@ -27,7 +27,6 @@ const routerBilletterie = new Router();
  *               type: integer
  *           billetterie_id:
  *               type: string
- *
  *        BilletterieCategories:
  *          type: Object
  *          properties:
@@ -37,7 +36,6 @@ const routerBilletterie = new Router();
  *               type: integer
  *           billetterie_id:
  *               type: string
- *
  *        Billetterie:
  *          type: object
  *          properties:
@@ -80,9 +78,7 @@ const routerBilletterie = new Router();
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 $ref: '#/components/schemas/Billetterie'
+ *               $ref: '#/components/schemas/Billetterie'
  *       404:
  *         description: La billetterie n'a pas été trouvée.
  *         content:
@@ -93,7 +89,7 @@ const routerBilletterie = new Router();
  *                 message:
  *                   type: string
  *                   example: billetterie not found*/
-routerBilletterie.get("/:billetterie_name", async (req, res) => {
+routerBilletterie.get("/:prestataire_name", async (req, res) => {
     let billetterie = await getBilletterieFromName(req.params.billetterie_label);
     if(!billetterie) billetterie = await getBilletterie(req.params.billetterie_label);
 
