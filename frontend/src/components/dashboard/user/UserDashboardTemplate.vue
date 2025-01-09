@@ -19,8 +19,19 @@
 
 			<!-- liens -->
 			<div class="mt-8 w-2/3 ml-5 mr-auto">
+				<router-link to="/client/panel" class="mt-3 flex flex-row items-center content-center justify-start">
+					<svg class="fill-white mr-3 my-auto" xmlns="http://www.w3.org/2000/svg" width="24"
+							 height="24"
+							 viewBox="0 0 24 24">
+						<path
+								d="m21.743 12.331-9-10c-.379-.422-1.107-.422-1.486 0l-9 10a.998.998 0 0 0-.17 1.076c.16.361.518.593.913.593h2v7a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4h4v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-7h2a.998.998 0 0 0 .743-1.669z"></path>
+					</svg>
+					<h2 class="font-bold text-xl">Page d'accueil</h2>
+				</router-link>
+
 				<!-- Billets -->
-				<router-link to="/client/panel/tickets" class="mt-3 flex flex-row items-center content-center justify-start">
+				<!--  to="/client/panel/tickets" -->
+				<div class="cursor-not-allowed opacity-50 mt-3 flex flex-row items-center content-center justify-start">
 					<svg class="fill-white mr-3 my-auto" xmlns="http://www.w3.org/2000/svg" width="24"
 							 height="24"
 							 viewBox="0 0 24 24">
@@ -29,9 +40,10 @@
 								d="M20 3H5C3.346 3 2 4.346 2 6v12c0 1.654 1.346 3 3 3h15c1.103 0 2-.897 2-2v-2h-8c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h8V5c0-1.103-.897-2-2-2z"></path>
 					</svg>
 					<h2 class="font-bold text-xl">Mes billets</h2>
-				</router-link>
+				</div>
 				<!-- Courses -->
-				<router-link to="/client/panel/races" class="mt-3 flex flex-row items-center content-center justify-start">
+				<!-- to="/client/panel/races" -->
+				<div class="cursor-not-allowed opacity-50 mt-3 flex flex-row items-center content-center justify-start">
 					<svg class="fill-white mr-3 my-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 							 viewBox="0 0 24 24">
 						<path
@@ -39,7 +51,7 @@
 						<path d="m8 16 5.991-2L16 8l-6 2z"></path>
 					</svg>
 					<h2 class="font-bold text-xl">Mes courses</h2>
-				</router-link>
+				</div>
 				<!-- Boutique -->
 				<router-link :to="{ name: 'client_panel_orders'}"
 										 class="mt-3 flex flex-row items-center content-center justify-start">
