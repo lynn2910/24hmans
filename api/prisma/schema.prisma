@@ -129,7 +129,7 @@ model BoutiqueArticles {
 model UserOrder {
   user_id     String             @db.VarChar(36)
   order_id    String             @id @db.VarChar(36)
-  total_price Int
+  total_price Decimal
   date        DateTime           @default(now())
   articles    UserOrderArticle[]
 
