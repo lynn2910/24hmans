@@ -53,10 +53,12 @@ createRule("/hello/:name", Method.All, User.Prestataire, [Permission.Prestataire
 
 
 app.use("/boutique", require("./routes/boutique.router"));
+app.use("/billetterie", require("./routes/billetterie.router"));
 app.use("/prestataire", require("./routes/prestataire.router"));
 app.use("/users", require("./routes/user.router"));
 app.use("/auth", require("./routes/auth.router"));
 app.use("/carte", require("./routes/carte.router"));
+
 
 
 //
