@@ -13,10 +13,13 @@
 			<div class="flex flex-row items-center justify-center mr-auto w-3/4 gap-8">
 				<!--				<router-link to="/billetteries"><p>Billetterie</p></router-link>-->
 				<!--				<router-link to="/boutiques"><p>Boutique</p></router-link>-->
-				<router-link to="/carte"><p>Carte</p></router-link>
-				<router-link to="/ecurie/porsche"><p>Ecurie Porsche</p></router-link>
+				<router-link class="hover:underline" to="/carte"><p>Carte</p></router-link>
+				<router-link class="hover:underline" to="/ecurie/porsche"><p>Ecurie Porsche</p></router-link>
+				<router-link class="hover:underline" to="/billetterie/24h-du-mans">
+					<p>Billetterie des 24h du Mans</p>
+				</router-link>
+				<a class="hover:underline" href="/#service">Prestataires</a>
 				<!-- L'utilisation de mode: hash est trop complexe-->
-				<a href="/#service">Prestataires</a>
 				<!--				<router-link to="/karting">Karting</router-link>-->
 				<!--				<router-link to="/montgolfiere">Montgolfière</router-link>-->
 			</div>
