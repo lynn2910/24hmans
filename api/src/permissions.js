@@ -173,13 +173,13 @@ async function checkPermissions(rule, sessionId, user_type) {
             return true;
 
         if (!sessionInformations) {
-            sessionInformations = await getSessionInformations(sessionId, user_type);
+            sessionInformations = await getSessionInformations(sessionId);
             // Si c'est toujours null, alors ça veut dire que la session n'existe pas
             // Comme les permissions vérifiées après cette ligne nécessitent les informations de session,
             // on refuse l'accès, car l'utilisateur n'est pas login (ou sa session a expiré)
             if (!sessionInformations) return false;
         }
-        
+
         switch (permission) {
             case Permission.Prestataire: {
                 allowedUsers.push(User.Prestataire);
@@ -205,12 +205,11 @@ async function checkPermissions(rule, sessionId, user_type) {
     };
 }
 
-async function getSessionInformations(sessionId, userType) {
+async function getSessionInformations(sessionId) {
     try {
         return await prisma.sessions.findUnique({
             where: {
-                sessionId,
-                userType
+                sessionId
             }
         })
     } catch (e) {
