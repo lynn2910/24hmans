@@ -1,35 +1,21 @@
 const prisma = require("../db")
 
 
-
-function getBilletterie(billetterie_id){
-    return prisma.billetteries.findUnique({
-        where: {billetterie_id: billetterie_id},
-        include: {
-            BilletterieCategories: true,
-            BilletterieForfaits: true,
-            BilletteriePersonnes: true
-        },
-    });
-}
-
-function getBilletterieFromName(billetterie_name){
+function getBilletterie(prestataire_id){
     return prisma.billetteries.findFirst({
-        where: {
-            billetterie_label: {
-                equals: billetterie_name
-            }
-        },
+        where: {prestataire_id: prestataire_id},
         include: {
             BilletterieCategories: true,
             BilletterieForfaits: true,
-            BilletteriePersonnes: true
+            BilletteriePersonnes: true,
+            prestataire: true,
         },
     });
 }
+
+
 
 
 module.exports = {
     getBilletterie,
-    getBilletterieFromName
 };

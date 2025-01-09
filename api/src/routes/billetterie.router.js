@@ -17,7 +17,6 @@ const routerBilletterie = new Router();
  *               type: integer
  *           billetterie_id:
  *               type: string
- *
  *        BilletterieForfaits:
  *          type: Object
  *          properties:
@@ -59,7 +58,7 @@ const routerBilletterie = new Router();
 
 /**
  * @swagger
- * billetterie/:billetterie_name:
+ * /billetterie/:billetterie_name:
  *   get:
  *     tags:
  *          - Billetterie
@@ -90,8 +89,8 @@ const routerBilletterie = new Router();
  *                   type: string
  *                   example: billetterie not found*/
 routerBilletterie.get("/:prestataire_name", async (req, res) => {
-    let billetterie = await getBilletterieFromName(req.params.billetterie_label);
-    if(!billetterie) billetterie = await getBilletterie(req.params.billetterie_label);
+    let billetterie = await getBilletterie(req.params.prestataire_id);
+    if(!billetterie) billetterie = await getBilletterie(req.params.prestataire_id);
 
     if (billetterie) {
         res.status(200).json(billetterie);

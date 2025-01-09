@@ -5,33 +5,25 @@
 #
 
 DELETE
-FROM prestataire;
+FROM Prestataire;
 DELETE
-FROM user;
+FROM User;
 DELETE
-FROM shape;
+FROM Shape;
 DELETE
-FROM billetteries;
+FROM Billetteries;
 DELETE
-FROM billetteriecategories;
+FROM Tickets;
 DELETE
-FROM billetterieforfaits;
+FROM Point;
 DELETE
-FROM billetteriepersonnes;
-DELETE
-FROM ticketbilletterieforfaits;
-DELETE
-FROM ticketbilletteriepersonnes;
-DELETE
-FROM point;
-DELETE
-FROM shape;
+FROM Shape;
 DELETE
 FROM Ecurie;
 DELETE
 FROM FormulaireEcurie;
 DELETE
-FROM sessions;
+FROM Sessions;
 
 INSERT INTO Admin (name, password)
 VALUES ('max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
@@ -64,7 +56,7 @@ VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Carla', 'Wilson');
 
 
-INSERT INTO sessions (sessionId, userType, userId)
+INSERT INTO Sessions (sessionId, userType, userId)
 VALUES ('sdkhd4Kcr8', 1, 'e052f135-13db-4a0d-aa15-f9bffac00359');
 
 # -- Pour générer des personnes : https://www.name-generator.org.uk/last/
@@ -113,7 +105,7 @@ VALUES (1, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
 #
 #
 
-INSERT INTO Billetteries(billetterie_label, billetterie_id, perstataire_id)
+INSERT INTO Billetteries(billetterie_label, billetterie_id, prestataire_id)
 VALUES ('Tribunes', 'dab91561-09f1-47cb-8d91-e21e873d6b4e', 'af3a0f62-5b13-4b19-9d42-736870b268a0');
 
 INSERT INTO BilletterieCategories (category_label, category_id, billetterie_id)
