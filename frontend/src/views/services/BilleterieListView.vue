@@ -36,25 +36,32 @@ export default {
 
 <template>
     <div class="w-full mt-36 bg-dark">
-        <h1 class="font-extrabold text-4xl text-center py-8">Liste des Billetteries</h1>
+        <h1 class="font-extrabold text-4xl text-center py-5 mx-auto my-16">Liste des billetteries</h1>
 
-        <!-- Affichage des billetteries -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 ">
-            <div
-                v-for="prestataire in billetteries"
-                :key="prestataire.id"
-                class="flex flex-col items-center text-center p-6 border border-gray-600 rounded shadow-lg
-                       transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white] ">
-                <img
-                    :src="`${publicPath}${prestataire.icon}`"
-                    alt="Logo du prestataire"
-                    class="w-24 h-24 rounded-full mb-4"
-                />
-                <h2 class="text-2xl font-bold mb-2">{{ prestataire.name }}</h2>
+        <!-- Affichage des billeteries-->
+        <div class="flex justify-center">
+            <div class="grid gap-12 px-8" :class="billetteries.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'">
                 <router-link
+                    v-for="prestataire in billetteries"
+                    :key="prestataire.id"
                     :to="`/billetterie/${prestataire.name.toLowerCase()}`"
-                    class="py-2 px-5 bg-gray-700 rounded-3xl hover:bg-gray-500 text-white">
-                    Voir la Billetterie
+                    class="relative group flex flex-col items-center text-center w-96 h-[40rem] p-8 bg-red-950-800 border border-red-950 rounded-lg shadow-lg overflow-hidden
+                   transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_40px_2px_black]">
+                    <!-- Bordures -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-950 to-red-500 opacity-30 blur-md transition-opacity duration-300 group-hover:opacity-50"></div>
+
+                    <!-- Informations prestataires -->
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <img
+                            :src="`${publicPath}${prestataire.icon}`"
+                            alt="Logo du prestataire"
+                            class="flex-wrap drop-shadow-all-white-700 w-60 h-60 rounded-full mb-6 border-4 border-white shadow-md"
+                        />
+                        <h2 class="text-4xl font-bold text-white mb-4">{{ prestataire.name }}</h2>
+                        <p class="text-gray-400 text-base">
+                            Cliquez pour accéder à la billetterie
+                        </p>
+                    </div>
                 </router-link>
             </div>
         </div>
@@ -65,3 +72,9 @@ export default {
         </p>
     </div>
 </template>
+
+<style scoped>
+.group:hover .blur-md {
+    filter: blur(12px);
+}
+</style>
