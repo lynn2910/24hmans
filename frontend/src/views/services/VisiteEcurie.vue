@@ -36,6 +36,12 @@
 				</div>
 
 				<div>
+					<label for="tel">Téléphone :</label>
+					<input type="tel" id="tel" v-model="form.tel" required class="text-black"/>
+				</div>
+
+
+				<div>
 					<label for="billet">Numéro de billet :</label>
 					<input type="text" id="billet" v-model="form.billet" required class="text-black"/>
 				</div>
@@ -65,6 +71,7 @@ export default {
 			form: {
 				nom: '',
 				prenom: '',
+				tel:'',
 				email: '',
 				billet: ''
 			},
