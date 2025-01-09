@@ -6,6 +6,16 @@ function getUser(user_id) {
     })
 }
 
+function getUserOrders(user_id) {
+    return prisma.userOrder.findMany({
+        where: {user_id},
+        include: {
+            articles: true
+        }
+    })
+}
+
 module.exports = {
-    getUser
+    getUser,
+    getUserOrders
 }
