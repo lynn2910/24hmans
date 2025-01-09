@@ -247,10 +247,11 @@ model Tickets {
   billetterie_id String       @db.VarChar(36)
   billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
 
-  category_id                Int
-  category                   BilletterieCategories        @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
-  TicketBilletterieForfaits  TicketBilletterieForfaits[]
-  TicketBilletteriePersonnes TicketBilletteriePersonnes[]
+  category_id Int
+  category    BilletterieCategories @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
+
+  forfait   TicketBilletterieForfaits[]
+  personnes TicketBilletteriePersonnes[]
 }
 
 model TicketBilletterieForfaits {
