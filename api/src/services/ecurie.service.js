@@ -18,7 +18,20 @@ function getParticipants(ecurie_id) {
         },
     });
 }
-
+// Fonction pour supprimer tous les participants d'une écurie
+async function deleteParticipants(ecurie_id) {
+    try {
+        await prisma.formulaireEcurie.deleteMany({
+            where: {
+                ecurie_id: ecurie_id, // Filtre basé sur l'ID de l'écurie
+            },
+        });
+    } catch (error) {
+        console.error("Erreur lors de la suppression des participants :", error);
+        throw new Error("Impossible de supprimer les participants.");
+    }
+}
 module.exports = {
-   getParticipants
+   getParticipants,
+    deleteParticipants
 }
