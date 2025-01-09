@@ -21,11 +21,12 @@ datasource db {
 //
 
 model User {
-  id         String      @id @db.VarChar(36)
-  email      String      @unique
+  id         String    @id @db.VarChar(36)
+  email      String    @unique
   first_name String
   last_name  String
   password   String
+  Tickets    Tickets[]
   UserOrder  UserOrder[]
 }
 
@@ -118,22 +119,14 @@ model BoutiqueArticles {
   description String? @db.Text
 
   category_id String
-  category    BoutiqueCategory @relation(fields: [category_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
+  category    BoutiqueCategory @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
 
-  deleted     Boolean            @default(false)
-  user_orders UserOrderArticle[]
+  deleted          Boolean            @default(false)
+  UserOrderArticle UserOrderArticle[]
 }
 
-//
-//
-//    ACHAT (boutiques)
-//
-//
-
 model UserOrder {
-  user_id String @db.VarChar(36)
-  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+  user_id     String             @db.VarChar(36)
   order_id    String             @id @db.VarChar(36)
   total_price Int
   date        DateTime           @default(now())
@@ -142,9 +135,9 @@ model UserOrder {
 
 model UserOrderArticle {
   order_id   String           @db.VarChar(36)
-  order      UserOrder        @relation(fields: [order_id], references: [order_id], onDelete: Cascade, onUpdate: Cascade)
+  order      UserOrder        @relation(fields: [order_id], references: [order_id], onDelete: Cascade)
   article_id Int
-  article    BoutiqueArticles @relation(fields: [article_id], references: [item_id], onDelete: Cascade, onUpdate: Cascade)
+  article    BoutiqueArticles @relation(fields: [article_id], references: [item_id], onDelete: Cascade)
 
   // Price at the moment of the order
   unit_price Decimal @db.Decimal(5, 2)
