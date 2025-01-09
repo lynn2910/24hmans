@@ -36,7 +36,7 @@ export default {
 
 <template>
     <div class="w-full mt-36 bg-dark">
-        <h1 class="font-extrabold text-4xl text-center py-8">Liste des Boutiques</h1>
+        <h1 class="font-extrabold text-4xl text-center py-5 mx-auto my-16">Liste des boutiques</h1>
 
         <!-- Affichage des boutiques -->
         <div class="flex justify-center">
