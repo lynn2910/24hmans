@@ -102,7 +102,7 @@ routerBoutique.get("/available_shops", (req, res) => {
  * /boutique/{shop_id}/categories:
  *   get:
  *      tags:
- *          - Boutique
+ *         - Boutique
  *      summary: Récupère la liste des catégories d'une boutique
  *      parameters:
  *         - in: path
@@ -112,23 +112,23 @@ routerBoutique.get("/available_shops", (req, res) => {
  *           schema:
  *             type: string
  *      responses:
- *          200:
- *              description: "La liste des catégories de la boutique choisie"
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#/components/schemas/ShopCategory'
- *          404:
- *              description: "Si la boutique n'existe pas ou n'est pas accessible"
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: object
- *                          properties:
- *                              message:
- *                                  type: string
+ *         200:
+ *             description: "La liste des catégories de la boutique choisie"
+ *             content:
+ *                 application/json:
+ *                     schema:
+ *                         type: array
+ *                         items:
+ *                             $ref: '#/components/schemas/ShopCategory'
+ *         404:
+ *             description: "Si la boutique n'existe pas ou n'est pas accessible"
+ *             content:
+ *                 application/json:
+ *                     schema:
+ *                         type: object
+ *                         properties:
+ *                             message:
+ *                                 type: string
  */
 routerBoutique.get("/:shop_id/categories", (req, res) => {
     BoutiqueService.getShopCategories(req.params.shop_id).then(
@@ -177,22 +177,22 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
  *                 required: true
  *     responses:
  *       200:
- *          description: "Category successfully created"
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          message:
- *                              type: string
- *                          category:
- *                              $ref: '#/components/schemas/ShopCategory'
+ *         description: "Category successfully created"
+ *         content:
+ *             application/json:
+ *                 schema:
+ *                     type: object
+ *                     properties:
+ *                         message:
+ *                             type: string
+ *                         category:
+ *                             $ref: '#/components/schemas/ShopCategory'
  *       400:
- *          description: "Unauthorized - Missing or invalid authentication credentials"
+ *         description: "Unauthorized - Missing or invalid authentication credentials"
  *       403:
- *          description: "Forbidden - Shop owner authorization required"
+ *         description: "Forbidden - Shop owner authorization required"
  *       500:
- *          description: "Internal Server Error - Unexpected error during category creation"
+ *         description: "Internal Server Error - Unexpected error during category creation"
  */
 routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) => {
     BoutiqueService.addCategory(

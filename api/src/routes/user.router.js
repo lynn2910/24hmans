@@ -1,6 +1,59 @@
 const express = require('express');
 const router = express.Router();
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Order:
+ *       type: object
+ *       properties:
+ *         user_id:
+ *           type: string
+ *           description: The ID of the user who placed the order.
+ *           example: e052f135-13db-4a0d-aa15-f9bffac00359
+ *         order_id:
+ *           type: string
+ *           description: The unique ID of the order.
+ *           example: 665cbf43-6f55-4679-ad4c-d6be8d9a9551
+ *         total_price:
+ *           type: string
+ *           format: decimal
+ *           description: The total price of the order.
+ *           example: 118.93
+ *         date:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time the order was placed.
+ *           example: 2025-01-09T13:18:30.884Z
+ *         articles:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               order_id:
+ *                 type: string
+ *                 description: The ID of the order to which this article belongs.
+ *               article_id:
+ *                 type: integer
+ *                 description: The ID of the article.
+ *               unit_price:
+ *                 type: string
+ *                 format: decimal
+ *                 description: The unit price of the article.
+ *               amount:
+ *                 type: integer
+ *                 description: The quantity of the article.
+ *               article:
+ *                 $ref: '#/components/schemas/ShopItem'
+ *       required:
+ *         - user_id
+ *         - order_id
+ *         - total_price
+ *         - date
+ *         - articles
+ */
+
 const userMiddleware = require("../middlewares/user.middleware");
 const {createRule, Method, User, Permission} = require("../permissions");
 const {getUser, getUserOrders, createNewOrder} = require("../services/user.service");
@@ -135,8 +188,6 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *           type: string
  *         required: true
  *         description: The session ID of the authenticated user.
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
