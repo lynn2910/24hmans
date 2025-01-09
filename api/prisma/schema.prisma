@@ -21,11 +21,12 @@ datasource db {
 //
 
 model User {
-  id         String @id @db.VarChar(36)
-  email      String @unique
+  id         String    @id @db.VarChar(36)
+  email      String    @unique
   first_name String
   last_name  String
   password   String
+  Tickets    Tickets[]
 }
 
 //
@@ -201,8 +202,12 @@ model Billetteries {
   billetterie_label String @db.VarChar(256)
   billetterie_id    String @id @db.Char(36)
 
-  prestataire_id String      @unique @db.VarChar(36)
-  prestataire    Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+  prestataire_id        String                  @unique @db.VarChar(36)
+  prestataire           Prestataire             @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+  BilletterieCategories BilletterieCategories[]
+  BilletterieForfaits   BilletterieForfaits[]
+  BilletteriePersonnes  BilletteriePersonnes[]
+  Tickets               Tickets[]
 }
 
 model BilletterieCategories {
@@ -211,22 +216,25 @@ model BilletterieCategories {
 
   billetterie_id String       @db.Char(36)
   billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  Tickets        Tickets[]
 }
 
 model BilletterieForfaits {
   forfait_label String @db.VarChar(50)
   forfait_id    Int    @id
 
-  billetterie_id String       @db.Char(36)
-  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  billetterie_id            String                      @db.Char(36)
+  billetterie               Billetteries                @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  TicketBilletterieForfaits TicketBilletterieForfaits[]
 }
 
 model BilletteriePersonnes {
   personne_label String @db.VarChar(50)
   personne_id    Int    @id
 
-  billetterie_id String       @db.Char(36)
-  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  billetterie_id             String                       @db.Char(36)
+  billetterie                Billetteries                 @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  TicketBilletteriePersonnes TicketBilletteriePersonnes[]
 }
 
 model Tickets {
@@ -238,8 +246,10 @@ model Tickets {
   billetterie_id String       @db.VarChar(36)
   billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
 
-  category_id Int
-  category    BilletterieCategories @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
+  category_id                Int
+  category                   BilletterieCategories        @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
+  TicketBilletterieForfaits  TicketBilletterieForfaits[]
+  TicketBilletteriePersonnes TicketBilletteriePersonnes[]
 }
 
 model TicketBilletterieForfaits {
