@@ -30,6 +30,18 @@ model User {
 
 //
 //
+//    ADMIN
+//
+//
+
+model Admin {
+  admin_id Int    @id @default(autoincrement())
+  name     String
+  password String
+}
+
+//
+//
 //    PRESTATAIRE
 //
 //
