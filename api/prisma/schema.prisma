@@ -21,13 +21,14 @@ datasource db {
 //
 
 model User {
-  id         String    @id @db.VarChar(36)
-  email      String    @unique
+  id         String @id @db.VarChar(36)
+  email      String @unique
   first_name String
   last_name  String
   password   String
-  Tickets    Tickets[]
-  UserOrder  UserOrder[]
+
+  tickets Tickets[]
+  orders  UserOrder[]
 }
 
 //
@@ -131,6 +132,8 @@ model UserOrder {
   total_price Int
   date        DateTime           @default(now())
   articles    UserOrderArticle[]
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model UserOrderArticle {
@@ -220,10 +223,12 @@ model BilletteriePersonnes {
 }
 
 model Tickets {
-  user_id        String @db.VarChar(36)
-  ticket_id      Int    @id
-  billetterie_id String @db.VarChar(36)
+  user_id        String  @db.VarChar(36)
+  ticket_id      Int     @id
+  billetterie_id String  @db.VarChar(36)
   category_id    Int
+  User           User?   @relation(fields: [userId], references: [id])
+  userId         String? @db.VarChar(36)
 }
 
 model TicketBilletterieForfaits {
