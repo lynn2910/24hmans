@@ -131,6 +131,12 @@ model UserOrderArticle {
   @@id([order_id, article_id])
 }
 
+//
+//
+//    SESSIONS (système d'authentification)
+//
+//
+
 model Sessions {
   sessionId String   @id @db.Char(10)
   userType  Int // Either 'user', 'presta' or 'admin'
