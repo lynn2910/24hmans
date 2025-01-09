@@ -62,10 +62,11 @@ model Prestataire {
   accentColor String?
   banner      String?
 
-  links    PrestataireLink[]
-  boutique Boutique?
-  Shape    Shape[]
-  Ecurie   Ecurie?
+  links        PrestataireLink[]
+  boutique     Boutique?
+  Shape        Shape[]
+  Ecurie       Ecurie?
+  Billetteries Billetteries[]
 
   @@index([name])
 }
@@ -223,16 +224,18 @@ model BilletterieForfaits {
   forfait_label String @db.VarChar(50)
   forfait_id    Int    @id
 
-  billetterie_id String       @db.Char(36)
-  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  billetterie_id            String                      @db.Char(36)
+  billetterie               Billetteries                @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  TicketBilletterieForfaits TicketBilletterieForfaits[]
 }
 
 model BilletteriePersonnes {
   personne_label String @db.VarChar(50)
   personne_id    Int    @id
 
-  billetterie_id String       @db.Char(36)
-  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  billetterie_id             String                       @db.Char(36)
+  billetterie                Billetteries                 @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  TicketBilletteriePersonnes TicketBilletteriePersonnes[]
 }
 
 model Tickets {
@@ -246,6 +249,9 @@ model Tickets {
 
   category_id Int
   category    BilletterieCategories @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
+
+  forfait   TicketBilletterieForfaits[]
+  personnes TicketBilletteriePersonnes[]
 }
 
 model TicketBilletterieForfaits {
