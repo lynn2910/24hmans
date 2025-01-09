@@ -8,6 +8,8 @@ router.get('/@me', userMiddleware, async (req, res) => {
     let user = req.session;
 
     console.log(user);
+
+    res.status(500).send("FUck")
 })
 createRule("/users/@me", Method.All, User.User, [Permission.User])
 

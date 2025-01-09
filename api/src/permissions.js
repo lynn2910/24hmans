@@ -93,11 +93,19 @@ const RULES = []
  * @param {Permission[]} permissions The permissions given
  */
 function createRule(match, methods, user_type, permissions) {
+    let internalMethods = Array.isArray(methods) ? methods : [methods];
+    if (internalMethods.includes(Method.ALL)) {
+        for (const p of [Method.GET, Method.POST, Method.PUT, Method.DELETE, Method.PATCH]) {
+            if (!internalMethods.includes(p))
+                internalMethods.push(p);
+        }
+    }
+
     RULES.push({
         match,
         user_type,
         permissions,
-        methods: Array.isArray(methods) ? methods : [methods],
+        methods: internalMethods,
         preparation: cookUrl(match),
     })
 }
@@ -171,9 +179,7 @@ async function checkPermissions(rule, sessionId, user_type) {
             // on refuse l'accès, car l'utilisateur n'est pas login (ou sa session a expiré)
             if (!sessionInformations) return false;
         }
-
-        console.log(sessionInformations)
-
+        
         switch (permission) {
             case Permission.Prestataire: {
                 allowedUsers.push(User.Prestataire);
