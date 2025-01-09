@@ -178,7 +178,6 @@ model Shape {
   service     String?
   category    String?
 
-  // Un Shape peut avoir plusieurs Points
   point       Point[]
   prestataire Prestataire? @relation(fields: [provider], references: [id], onDelete: SetNull)
 }

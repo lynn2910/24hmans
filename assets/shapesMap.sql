@@ -81,6 +81,86 @@ VALUES ('Parking Nord-Est', 'Places, Bornes de recharge', '750',
         '0b7956e6-1262-49f7-aaab-c5ab60d16cba',
         '', 'parkingsVip');
 INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 22', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 21', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 20', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 19', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 18', 'Sièges, Personnel', '125', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 17', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 16', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 15', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 14', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 13', 'Sièges, Personnel', '85', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 12', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 11', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 5', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 34', 'Sièges, Personnel', '780', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Tribune 23', 'Sièges, Personnel', '200', 'Tribune accueillant les spectateurs des 24H du Mans.',
+        'af3a0f62-5b13-4b19-9d42-736870b268a0',
+        'Billetterie', 'tribunes');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Parking Nord-Ouest', 'Places, Bornes de recharge', '500',
+        'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
+        '0b7956e6-1262-49f7-aaab-c5ab60d16cba',
+        '', 'parkingsRouge');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Parking Nord-Ouest', 'Places, Bornes de recharge', '1100',
+        'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
+        '0b7956e6-1262-49f7-aaab-c5ab60d16cba',
+        '', 'parkingsRouge');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Parking Nord-Est', 'Places, Bornes de recharge', '785',
+        'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
+        '0b7956e6-1262-49f7-aaab-c5ab60d16cba',
+        '', 'parkingsVip');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
+VALUES ('Parking Nord-Est', 'Places, Bornes de recharge', '750',
+        'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
+        '0b7956e6-1262-49f7-aaab-c5ab60d16cba',
+        '', 'parkingsVip');
+INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
 VALUES ('Parking Sud-Ouest', 'Places, Bornes de recharge', '850',
         'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
         '0b7956e6-1262-49f7-aaab-c5ab60d16cba',
