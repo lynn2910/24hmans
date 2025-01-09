@@ -201,46 +201,71 @@ model Point {
 model Billetteries {
   billetterie_label String @db.VarChar(50)
   billetterie_id    String @id @db.Char(36)
+
+  prestataire_id        String                  @db.Char(36)
+  prestataire           Prestataire             @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+  BilletterieCategories BilletterieCategories[]
+  BilletterieForfaits   BilletterieForfaits[]
+  BilletteriePersonnes  BilletteriePersonnes[]
+  Tickets               Tickets[]
 }
 
 model BilletterieCategories {
   category_label String @db.VarChar(50)
   category_id    Int    @id
-  billetterie_id String @db.Char(36)
+
+  billetterie_id String       @db.Char(36)
+  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+  Tickets        Tickets[]
 }
 
 model BilletterieForfaits {
-  forfait_label  String @db.VarChar(50)
-  forfait_id     Int    @id
-  billetterie_id String @db.Char(36)
+  forfait_label String @db.VarChar(50)
+  forfait_id    Int    @id
+
+  billetterie_id String       @db.Char(36)
+  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
 }
 
 model BilletteriePersonnes {
   personne_label String @db.VarChar(50)
   personne_id    Int    @id
-  billetterie_id String @db.Char(36)
+
+  billetterie_id String       @db.Char(36)
+  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
 }
 
 model Tickets {
-  user_id        String  @db.VarChar(36)
-  ticket_id      Int     @id
-  billetterie_id String  @db.VarChar(36)
-  category_id    Int
-  User           User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId         String? @db.VarChar(36)
+  user_id String @db.VarChar(36)
+  User    User?  @relation(fields: [user_id], references: [id])
+
+  ticket_id Int @id
+
+  billetterie_id String       @db.VarChar(36)
+  billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
+
+  category_id Int
+  category    BilletterieCategories @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
 }
 
 model TicketBilletterieForfaits {
   forfait_id Int
-  ticket_id  Int
+  forfait    BilletterieForfaits @relation(fields: [forfait_id], references: [forfait_id], onDelete: Cascade)
+
+  ticket_id Int
+  ticket    Tickets @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
 
   @@id([forfait_id, ticket_id])
 }
 
 model TicketBilletteriePersonnes {
-  ticket_id        Int
+  ticket_id Int
+  ticket    Tickets @relation(fields: [ticket_id], references: [ticket_id], onDelete: Cascade)
+
   personne_type_id Int
-  quantity         Int
+  personne         BilletteriePersonnes @relation(fields: [personne_type_id], references: [personne_id], onDelete: Cascade)
+
+  quantity Int
 
   @@id([ticket_id, personne_type_id])
 }
