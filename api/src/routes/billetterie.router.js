@@ -8,6 +8,26 @@ const routerBilletterie = new Router();
  * @swagger
  * components:
  *      schemas:
+ *        BilletteriePersonnes:
+ *          type: Object
+ *          properties:
+ *           personnet_label:
+ *               type: string
+ *           personne_id:
+ *               type: integer
+ *           billetterie_id:
+ *               type: string
+ *
+ *        BilletterieForfaits:
+ *          type: Object
+ *          properties:
+ *           forfait_label:
+ *               type: string
+ *           forfait_id:
+ *               type: integer
+ *           billetterie_id:
+ *               type: string
+ *
  *        BilletterieCategories:
  *          type: Object
  *          properties:
@@ -18,7 +38,7 @@ const routerBilletterie = new Router();
  *           billetterie_id:
  *               type: string
  *
- *        Prestataire:
+ *        Billetterie:
  *          type: object
  *          properties:
  *            billetterie_label:
@@ -29,6 +49,14 @@ const routerBilletterie = new Router();
  *               type: array
  *               items:
  *                  $ref: '#/components/schemas/BilletterieCategories'
+ *            BilletterieForfaits:
+ *               type: array
+ *               items:
+ *                  $ref: '#/components/schemas/BilletterieForfaits'
+ *            BilletteriePersonnes:
+ *               type: array
+ *               items:
+ *                  $ref: '#/components/schemas/BilletteriePersonnes'
  */
 
 /**
