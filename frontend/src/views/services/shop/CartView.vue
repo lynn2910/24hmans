@@ -24,6 +24,11 @@
 					<h2 class="font-bold text-2xl mb-5">Résumé</h2>
 					<p class="text-2xl font-bold">Total: <span class="text-blue-500">{{ totalPrice.toFixed(2) }}€</span><span
 							class="text-sm ml-1">TTC</span></p>
+
+					<p class="italic col-span-2 mt-5 text-gray-400">
+						Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni
+						enregistrée.
+					</p>
 				</div>
 
 				<div class="col-span-2">
@@ -31,9 +36,7 @@
 				</div>
 			</div>
 
-			<!-- TODO Force to be logged in -->
 			<div class="flex flex-row items-center mt-auto gap-3">
-				<!-- TODO clearCart(user_id) -->
 				<div class="bg-gray-500 hover:bg-red-500 cursor-pointer p-2 rounded-xl" @click="clearUserCart">
 					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 							 viewBox="0 0 24 24">
