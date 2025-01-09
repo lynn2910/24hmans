@@ -250,7 +250,7 @@ model Ecurie {
 }
 
 model FormulaireEcurie {
-  id           String   @id @db.VarChar(36)
+  id           Int      @id @default(autoincrement())
   ecurie_id    String   @db.VarChar(36)
   prenom       String
   nom          String
