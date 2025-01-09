@@ -28,14 +28,14 @@
 						<router-link :to="{name: 'donnees_personnelles'}"><p>DONNEES PERSONNELLES</p></router-link>
 						<router-link :to="{name: 'cgv_billeterie'}"><p>CGV BILLETERIE</p></router-link>
 					</div>
-					<div class="flex flex-col m-5 max-w-44 text-center mr-14 mt-auto">
-						<p class="text-2xl font-bold italic">SERVICES</p>
-						<router-link to="/billetteries"><p>BILLETERIE</p></router-link>
-						<router-link to="/ecuries"><p>VISITE GARAGE</p></router-link>
-						<router-link to="/kartings"><p>KARTING</p></router-link>
-						<router-link to="/montgolfieres"><p>MONTGOLFIERE</p></router-link>
-						<router-link to="/boutiques"><p>BOUTIQUE</p></router-link>
-					</div>
+					<!--					<div class="flex flex-col m-5 max-w-44 text-center mr-14 mt-auto">-->
+					<!--						<p class="text-2xl font-bold italic">SERVICES</p>-->
+					<!--						<router-link to="/billetteries"><p>BILLETERIE</p></router-link>-->
+					<!--						<router-link to="/ecuries"><p>VISITE GARAGE</p></router-link>-->
+					<!--						<router-link to="/kartings"><p>KARTING</p></router-link>-->
+					<!--						<router-link to="/montgolfieres"><p>MONTGOLFIERE</p></router-link>-->
+					<!--						<router-link to="/boutiques"><p>BOUTIQUE</p></router-link>-->
+					<!--					</div>-->
 					<div class="flex flex-col m-5 max-w-44 text-center mt-auto mr-auto">
 						<p class="text-2xl font-bold italic">RESEAUX</p>
 						<a target="_blank" href="https://www.instagram.com/24heuresdumans/"><p>INSTAGRAM</p></a>
