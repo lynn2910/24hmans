@@ -5,7 +5,7 @@ module.exports = async function (req, res, next) {
 
     if (!sessionId) return res.status(401).json({message: "Access denied"});
 
-    const accessRule = checkAccess(req.url, Method.fromRequest(req.method), User.User, sessionId);
+    const accessRule = checkAccess(req.originalUrl, Method.fromRequest(req.method), User.User, sessionId);
     if (!accessRule) {
         return next()
         // return res.status(500).json({message: "Internal Server Error", error: "No rule have been found"});
@@ -14,7 +14,7 @@ module.exports = async function (req, res, next) {
     const access = await checkPermissions(accessRule, sessionId, User.User);
 
     if (access) {
-        req.session = access;
+        req.session = access.infos;
         next()
     } else {
         res.status(401).json({message: "Access denied"});

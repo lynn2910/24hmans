@@ -20,7 +20,7 @@ function login(login, password, userType) {
             // User
             case 1: {
                 await prisma.user.findUnique({
-                    select: {password: true, first_name: true, last_name: true, email: true, id: true},
+                    omit: {password: false},
                     where: {email: login}
                 }).then((user) => {
                     isLoginValid = true;
@@ -32,17 +32,7 @@ function login(login, password, userType) {
             // Prestataire
             case 2: {
                 await prisma.prestataire.findUnique({
-                    select: {
-                        password: true,
-                        referencer: true,
-                        id: true,
-                        email: true,
-                        name: true,
-                        links: true,
-                        icon: true,
-                        banner: true,
-                        accentColor: true
-                    },
+                    omit: {password: false},
                     include: {links: true},
                     where: {referencer: login}
                 }).then((presta) => {
@@ -55,7 +45,7 @@ function login(login, password, userType) {
             // Admin
             case 3: {
                 await prisma.admin.findUnique({
-                    select: {password: true, name: true, admin_id: true},
+                    omit: {password: false},
                     where: {login}
                 }).then((admin) => {
                     isLoginValid = true;
@@ -66,7 +56,6 @@ function login(login, password, userType) {
             }
         }
 
-        console.log("Informations: ", infos);
         if (!isLoginValid || !fetchedPassword) return reject({reject: 1, error: 0, data: "Login invalid"});
 
         bcrypt.compare(password, fetchedPassword)
@@ -97,8 +86,44 @@ function login(login, password, userType) {
     })
 }
 
+function logout(sessionId) {
+    return new Promise(async (resolve, reject) => {
+        prisma.sessions.deleteMany({
+            where: {sessionId}
+        }).then(resolve, reject)
+    })
+}
+
+function autoClearer(intervalInMinutes = 60, maxSessionAgeInHours = 24) {
+    try {
+        async function clear() {
+            const dateLimit = new Date();
+            dateLimit.setHours(dateLimit.getHours() - maxSessionAgeInHours);
+
+            const result = await prisma.sessions.deleteMany({
+                where: {
+                    createdAt: {
+                        lte: dateLimit,
+                    },
+                },
+            });
+
+            if (result.count > 0) {
+                console.log(`Deleted ${result.count} sessions.`);
+            }
+        }
+
+        clear();
+        setInterval(clear, intervalInMinutes * 60 * 1000);
+    } catch (error) {
+        console.error('Error during session cleanup:', error);
+    }
+}
+
 module.exports = {
-    login
+    login,
+    logout,
+    autoClearer
 }
 
 // Note: Pour y avoir accès, il faut avoir en query `?sessionId=<session_code>`

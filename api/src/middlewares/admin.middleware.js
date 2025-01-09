@@ -14,7 +14,7 @@ module.exports = async function (req, res, next) {
     const access = await checkPermissions(accessRule, sessionId, User.Admin);
 
     if (access) {
-        req.session = access;
+        req.session = access.infos;
         next()
     } else {
         res.status(401).json({message: "Access denied"});

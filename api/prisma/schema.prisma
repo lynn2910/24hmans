@@ -153,7 +153,7 @@ model UserOrderArticle {
 model Sessions {
   sessionId String   @id @db.Char(10)
   userType  Int // Either 'user', 'presta' or 'admin'
-  userId    String   @unique @db.Char(36)
+  userId    String   @db.Char(36)
   createdAt DateTime @default(now())
 }
 
