@@ -5,6 +5,7 @@ const cors = require("cors");
 // Initialize the database
 require("./db");
 const {createRule, User, Permission, Method} = require("./permissions");
+const {autoClearer} = require("./services/auth.service");
 
 const app = express();
 require("dotenv").config();
@@ -83,6 +84,8 @@ app.use(errorHandler);
 app.listen(process.env.API_PORT, "0.0.0.0", () => {
     console.log(`Server running on http://127.0.0.1:${process.env.API_PORT}`);
     console.log(`Swagger running on http://127.0.0.1:${process.env.API_PORT}/api-docs/`);
+
+    autoClearer()
 });
 
 

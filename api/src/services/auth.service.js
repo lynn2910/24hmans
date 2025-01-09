@@ -94,9 +94,36 @@ function logout(sessionId) {
     })
 }
 
+function autoClearer(intervalInMinutes = 60, maxSessionAgeInHours = 24) {
+    try {
+        async function clear() {
+            const dateLimit = new Date();
+            dateLimit.setHours(dateLimit.getHours() - maxSessionAgeInHours);
+
+            const result = await prisma.sessions.deleteMany({
+                where: {
+                    createdAt: {
+                        lte: dateLimit,
+                    },
+                },
+            });
+
+            if (result.count > 0) {
+                console.log(`Deleted ${result.count} sessions.`);
+            }
+        }
+
+        clear();
+        setInterval(clear, intervalInMinutes * 60 * 1000);
+    } catch (error) {
+        console.error('Error during session cleanup:', error);
+    }
+}
+
 module.exports = {
     login,
-    logout
+    logout,
+    autoClearer
 }
 
 // Note: Pour y avoir accès, il faut avoir en query `?sessionId=<session_code>`
