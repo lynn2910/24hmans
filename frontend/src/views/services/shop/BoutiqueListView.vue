@@ -1,8 +1,14 @@
 <script>
 import PrestataireService from "@/services/prestataire.service";
+import billeterieListView from "@/views/services/BilleterieListView.vue";
 
 export default {
 	name: "Boutiques",
+	computed: {
+		billeterieListView() {
+			return billeterieListView
+		}
+	},
 	async beforeMount() {
 		try {
 			const prestatairesRes = await PrestataireService.getAllPrestataires();
@@ -40,7 +46,14 @@ export default {
 
 		<!-- Affichage des boutiques -->
 		<div class="flex justify-center">
-			<div class="grid gap-12 px-8" :class="boutiques.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'">
+			<div
+					class="grid gap-12 px-8"
+					:class="{
+                    'grid-cols-1': boutiques.length === 1,
+                    'grid-cols-2 justify-center': boutiques.length === 2,
+                    'sm:grid-cols-2 lg:grid-cols-3': boutiques.length > 2
+                }"
+			>
 				<router-link
 						v-for="prestataire in boutiques"
 						:key="prestataire.id"

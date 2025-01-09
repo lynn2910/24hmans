@@ -12,7 +12,7 @@ export default {
 				for (const prestataire of allPrestataires) {
 					const servicesRes = await PrestataireService.getPrestataireServices(prestataire.id);
 					if (!servicesRes.error) {
-						const services = servicesRes.data;
+						const services =     servicesRes.data;
 						if (services.some(service => service.toLowerCase() === "billetterie")) {
 							this.billetteries.push(prestataire);
 						}
@@ -39,9 +39,15 @@ export default {
 		<h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-8 mb-6">Liste des billetteries</h1>
 
 		<!-- Affichage des billeteries-->
-		<div class="flex justify-center">
-			<div class="grid gap-12 px-8"
-					 :class="billetteries.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'">
+      <div class="flex justify-center">
+          <div
+              class="grid gap-12 px-8"
+              :class="{
+                    'grid-cols-1': billetteries.length === 1,
+                    'grid-cols-2 justify-center': billetteries.length === 2,
+                    'sm:grid-cols-2 lg:grid-cols-3': billetteries.length > 2
+                }"
+          >
 				<router-link
 						v-for="prestataire in billetteries"
 						:key="prestataire.id"
