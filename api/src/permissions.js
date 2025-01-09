@@ -87,10 +87,10 @@ const RULES = []
 
 /**
  *
- * @param {string} match
- * @param {Method[]|Method} methods
- * @param {User} user_type
- * @param {Permission[]} permissions
+ * @param {string} match The URL at which the rule will be created
+ * @param {Method[]|Method} methods The method(s) allowed
+ * @param {User} user_type The type of middleware - aka the scope
+ * @param {Permission[]} permissions The permissions given
  */
 function createRule(match, methods, user_type, permissions) {
     RULES.push({

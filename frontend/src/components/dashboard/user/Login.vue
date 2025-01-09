@@ -311,7 +311,7 @@ export default {
 		async loginUser() {
 			console.log("Connexion");
 
-			await this.login({id: transformPrestataireName(this.login_id), password: this.password, type: this.selected});
+			await this.login({id: this.login_id, password: this.password, type: this.selected});
 
 			if (!this.loggedInUser) {
 				this.box_message = "Identifiant ou mot de passe invalide"

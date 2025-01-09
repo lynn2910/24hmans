@@ -16,7 +16,7 @@ app.use(express.json());
 //     optionsSuccessStatus: 200,
 // }));
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://api.24h.chamallow.fr");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -51,9 +51,10 @@ createRule("/hello/:name", Method.All, User.Prestataire, [Permission.Prestataire
 //
 
 
-// Boutique
 app.use("/boutique", require("./routes/boutique.router"));
 app.use("/prestataire", require("./routes/prestataire.router"));
+app.use("/users", require("./routes/user.router"));
+app.use("/auth", require("./routes/auth.router"));
 
 
 //
@@ -81,6 +82,7 @@ app.use(errorHandler);
 // et n'impacte pas l'environnement de développement.
 app.listen(process.env.API_PORT, "0.0.0.0", () => {
     console.log(`Server running on http://127.0.0.1:${process.env.API_PORT}`);
+    console.log(`Swagger running on http://127.0.0.1:${process.env.API_PORT}/api-docs/`);
 });
 
 
