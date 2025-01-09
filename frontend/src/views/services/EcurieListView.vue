@@ -67,7 +67,7 @@ export default {
                         />
                         <h2 class="text-4xl font-bold text-white mb-4">{{ prestataire.name }}</h2>
                         <p class="text-gray-400 text-base">
-                            Cliquez pour accéder à la billetterie
+                            Cliquez pour accéder à l'écurie
                         </p>
                     </div>
                 </router-link>
