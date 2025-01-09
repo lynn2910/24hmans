@@ -104,8 +104,8 @@ VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
 
 -- Billetterie
 
-INSERT INTO Billetteries(billetterie_label, billetterie_id)
-VALUES ('Tribunes', 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
+INSERT INTO Billetteries(billetterie_label, billetterie_id, perstataire_id)
+VALUES ('Tribunes', 'dab91561-09f1-47cb-8d91-e21e873d6b4e', 'af3a0f62-5b13-4b19-9d42-736870b268a0');
 
 INSERT INTO BilletterieCategories (category_label, category_id, billetterie_id)
 VALUES ('Tribune', 1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),
