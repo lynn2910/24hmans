@@ -53,15 +53,21 @@ export default {
         <div v-if="services.length" class="flex justify-center mt-6 my-14">
             <div class="w-full max-w-2xl">
                 <router-link
-                        v-for="service in services"
-                        :key="service"
-                        :to="service.toLowerCase() === 'garage' ? '/ecuries' : `/${service.toLowerCase()}/${prestataire?.name.toLowerCase()}`"
-                        class="flex flex-col items-center text-center p-4 border border-gray-600 rounded shadow-lg
-                               transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white]">
-                    <div class="flex items-center justify-center w-16 h-16 bg-gray-300 rounded-full">
-                        <span class="text-white text-lg font-bold">{{ service.charAt(0).toUpperCase() }}</span>
+                    v-for="service in services"
+                    :key="service"
+                    :to="service.toLowerCase() === 'garage' ? '/ecuries' : `/${service.toLowerCase()}/${prestataire?.name.toLowerCase()}`"
+                    class="relative flex flex-col items-center text-center p-4 border border-gray-600 rounded shadow-lg
+                   transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white]"
+                >
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-red-700 to-indigo-500 opacity-30 blur-md transition-opacity duration-300 group-hover:opacity-50"
+                    ></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-center bg-indigo-300 bg-opacity-75 drop-shadow-all-white-700 w-20 h-20 rounded-full border-2 border-indigo-400 shadow-md">
+                            <span class="text-red-950 text-lg font-bold">{{ service.charAt(0).toUpperCase() }}</span>
+                        </div>
+                        <h2 class="text-xl font-bold mt-3">{{ service }}</h2>
                     </div>
-                    <h2 class="text-xl font-bold mt-3">{{ service }}</h2>
                 </router-link>
             </div>
         </div>
