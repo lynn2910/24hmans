@@ -252,7 +252,11 @@ model Ecurie {
 model FormulaireEcurie {
   id           String   @id @db.VarChar(36)
   ecurie_id    String   @db.VarChar(36)
-  status       String
+  prenom       String
+  nom          String
+  email        String
+  tel          String   @db.VarChar(20)
+  num_billet   String   @db.VarChar(36)
   submitted_at DateTime @default(now())
 
   ecurie Ecurie @relation(fields: [ecurie_id], references: [id])
