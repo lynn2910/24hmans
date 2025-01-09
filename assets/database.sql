@@ -30,6 +30,8 @@ DELETE
 FROM Ecurie;
 DELETE
 FROM FormulaireEcurie;
+DELETE
+FROM sessions;
 
 INSERT INTO Admin (name, password)
 VALUES ('max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
@@ -62,6 +64,9 @@ VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Carla', 'Wilson');
 
 
+INSERT INTO sessions (sessionId, userType, userId)
+VALUES ('sdkhd4Kcr8', 1, 'e052f135-13db-4a0d-aa15-f9bffac00359');
+
 # -- Pour générer des personnes : https://www.name-generator.org.uk/last/
 #
 # INSERT INTO admin (admin_id, name, password)
@@ -81,14 +86,14 @@ INSERT INTO BoutiqueCategory (shop_id, category_id, category_label)
 VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'be2cff03-7d12-4369-acff-037d12a36993', 'Porte-clé'),
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9af710a9-9c13-43d7-b710-a99c1323d77d', 'Écusson');
 
-INSERT INTO BoutiqueArticles (shop_id, name, category_id, stock, price, referencer)
-VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
+INSERT INTO BoutiqueArticles (item_id, shop_id, name, category_id, stock, price, referencer)
+VALUES (1, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
         'be2cff03-7d12-4369-acff-037d12a36993', 79,
         16.99, 'porte-clé-frein'),
-       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé porsche',
+       (2, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé porsche',
         'be2cff03-7d12-4369-acff-037d12a36993', 146,
         24.99, 'porte-clé-porsche'),
-       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
+       (3, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
         '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
         34.99, 'écusson-porsche');
 
