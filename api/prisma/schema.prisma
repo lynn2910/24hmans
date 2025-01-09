@@ -50,6 +50,7 @@ model Prestataire {
   links    PrestataireLink[]
   boutique Boutique?
   Shape    Shape[]
+  Ecurie   Ecurie?
 
   @@index([name])
 }
@@ -218,4 +219,23 @@ model TicketBilletteriePersonnes {
   quantity         Int
 
   @@id([ticket_id, personne_type_id])
+}
+
+model Ecurie {
+  id   String @id @db.VarChar(36)
+  name String
+
+  prestataire_id String      @unique @db.VarChar(36)
+  prestataire    Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+
+  formulaires FormulaireEcurie[]
+}
+
+model FormulaireEcurie {
+  id           String   @id @db.VarChar(36)
+  ecurie_id    String   @db.VarChar(36)
+  status       String
+  submitted_at DateTime @default(now())
+
+  ecurie Ecurie @relation(fields: [ecurie_id], references: [id])
 }
