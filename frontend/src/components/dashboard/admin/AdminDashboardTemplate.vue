@@ -1,9 +1,9 @@
 <template>
 	<div class="flex flex-row w-screen h-screen">
 		<div class="bg-dark h-screen text-white w-56 flex flex-col">
-			<div class="w-full py-3">
+			<router-link :to="'/'" class="w-full py-3">
 				<IconEvent class="m-auto" width="76" height="50"></IconEvent>
-			</div>
+			</router-link>
 
 			<div class="w-max ml-2 mt-5">
 				<!-- Dashboard (home) + statistiques-->
@@ -31,8 +31,9 @@
 
 					<div v-if="currentPage === 'map'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
-				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-										 :to="`/admin/panel/users`">
+				<!-- :to="`/admin/panel/users`" -->
+				<!-- hover:bg-white hover:bg-opacity-10 hover:rounded -->
+				<div class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle py-3 px-3">
 					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24">
 						<path
 								d="M15 11h7v2h-7zm1 4h6v2h-6zm-2-8h8v2h-8zM4 19h10v-1c0-2.757-2.243-5-5-5H7c-2.757 0-5 2.243-5 5v1h2zm4-7c1.995 0 3.5-1.505 3.5-3.5S9.995 5 8 5 4.5 6.505 4.5 8.5 6.005 12 8 12z"></path>
@@ -40,7 +41,7 @@
 					<h2 class="my-auto pl-3 text-lg font-semibold">Utilisateurs</h2>
 
 					<div v-if="currentPage === 'users'" class="ml-auto w-2 bg-white rounded-2xl"></div>
-				</router-link>
+				</div>
 
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
 										 :to="`/admin/panel/prestataires`">
@@ -57,9 +58,11 @@
 				<h1 class="uppercase font-bold mt-5 mb-5 text-lg">Statistiques</h1>
 
 				<!-- Liste des services -->
-				<router-link
-						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/admin/panel/service/boutique`">
+				<!-- hover:bg-white hover:bg-opacity-10 hover:rounded -->
+
+				<!-- :to="`/admin/panel/service/boutique`" -->
+				<div
+						class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3">
 					<svg class="my-auto" width="37" height="38" viewBox="0 0 37 38" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -103,10 +106,10 @@
 						</g>
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Boutique</h2>
-				</router-link>
-				<router-link
-						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/admin/panel/panel/service/karting`">
+				</div>
+				<!-- :to="`/admin/panel/panel/service/karting`" -->
+				<div
+						class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3">
 					<svg class="my-auto" width="36" height="17" viewBox="0 0 36 17" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -152,10 +155,10 @@
 						</g>
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Karting</h2>
-				</router-link>
-				<router-link
-						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/admin/panel/panel/service/billeterie`">
+				</div>
+				<!-- :to="`/admin/panel/panel/service/billeterie`" -->
+				<div
+						class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3">
 					<svg class="my-auto" width="27" height="38" viewBox="0 0 27 38" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -186,10 +189,10 @@
 						</g>
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Billeterie</h2>
-				</router-link>
-				<router-link
-						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/admin/panel/panel/service/ecuries`">
+				</div>
+				<!-- :to="`/admin/panel/panel/service/ecuries`" -->
+				<div
+						class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3 ">
 					<svg class="my-auto" width="38" height="14" viewBox="0 0 38 14" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<g style="mix-blend-mode:luminosity">
@@ -253,10 +256,10 @@
 						</g>
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Visites des écuries</h2>
-				</router-link>
-				<router-link
-						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-						:to="`/admin/panel/panel/service/montgolfieres`">
+				</div>
+				<!-- :to="`/admin/panel/panel/service/montgolfieres`" -->
+				<div
+						class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3">
 					<svg class="my-auto" width="37" height="39" viewBox="0 0 37 39" fill="none"
 							 xmlns="http://www.w3.org/2000/svg">
 						<path
@@ -300,7 +303,7 @@
 								style="fill: #141515"/>
 					</svg>
 					<h2 class="my-auto pl-3 text-lg font-semibold">Montgolfières</h2>
-				</router-link>
+				</div>
 			</div>
 
 			<!-- Compte de l'admin -->
