@@ -16,7 +16,7 @@ app.use(express.json());
 //     optionsSuccessStatus: 200,
 // }));
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://api.24h.chamallow.fr");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();

@@ -27,6 +27,9 @@ FROM point;
 DELETE
 FROM shape;
 
+INSERT INTO Admin (name, password)
+VALUES ('max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
+
 INSERT INTO Prestataire (name, id, icon, password, email, referencer)
 VALUES ('Porsche', '45309281-fc24-4e02-ad47-a275c64f5327', 'prestataires_icons/porsche_presta.jpg',
         '$2a$10$Jfw2HzNUl/FQk.30LkQJhOa1W3rr1RDT7KUOmTVbN.ucf44w3PlEK', 'porsche@gmail.com',
