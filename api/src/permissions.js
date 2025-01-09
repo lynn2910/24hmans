@@ -151,7 +151,7 @@ function checkAccess(route, method, wanted_user_type, sessionId) {
  * @param rule
  * @param {string} sessionId
  * @param {User} user_type
- * @returns {Promise<boolean>}
+ * @returns {Promise<{infos: object, ok: boolean}|boolean>}
  */
 async function checkPermissions(rule, sessionId, user_type) {
     let sessionInformations = null;
@@ -193,7 +193,10 @@ async function checkPermissions(rule, sessionId, user_type) {
         }
     }
 
-    return sessionInformations && allowedUsers.some(type => type === sessionInformations.userType);
+    return {
+        infos: sessionInformations,
+        ok: allowedUsers.some(type => type === sessionInformations.userType)
+    };
 }
 
 async function getSessionInformations(sessionId, userType) {
