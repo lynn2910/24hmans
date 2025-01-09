@@ -44,10 +44,10 @@
 					<p>Mon profil</p>
 				</router-link>
 				<router-link to="/prestataire/panel" v-else-if="loggedInUser && userType === Selected.Prestataire">
-					<p>Dashboard</p>
+					<p>Tableau de bord</p>
 				</router-link>
 				<router-link to="/admin/panel" v-else-if="loggedInUser && userType === Selected.Admin">
-					<p>Dashboard</p>
+					<p>Tableau de bord</p>
 				</router-link>
 				<svg class="min-w-4 max-w-5 h-auto ml-1.5 mr-8" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 						 viewBox="0 0 30 30" fill="none">
