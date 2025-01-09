@@ -227,7 +227,7 @@ model Tickets {
   ticket_id      Int     @id
   billetterie_id String  @db.VarChar(36)
   category_id    Int
-  User           User?   @relation(fields: [userId], references: [id])
+  User           User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String? @db.VarChar(36)
 }
 
@@ -266,5 +266,5 @@ model FormulaireEcurie {
   num_billet   String   @db.VarChar(36)
   submitted_at DateTime @default(now())
 
-  ecurie Ecurie @relation(fields: [ecurie_id], references: [id])
+  ecurie Ecurie @relation(fields: [ecurie_id], references: [id], onDelete: Cascade)
 }

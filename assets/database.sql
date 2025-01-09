@@ -30,6 +30,8 @@ DELETE
 FROM Ecurie;
 DELETE
 FROM FormulaireEcurie;
+DELETE
+FROM sessions;
 
 INSERT INTO Admin (name, password)
 VALUES ('max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
@@ -62,6 +64,9 @@ VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO', 'Carla', 'Wilson');
 
 
+INSERT INTO sessions (sessionId, userType, userId)
+VALUES ('sdkhd4Kcr8', 1, 'e052f135-13db-4a0d-aa15-f9bffac00359');
+
 # -- Pour générer des personnes : https://www.name-generator.org.uk/last/
 #
 # INSERT INTO admin (admin_id, name, password)
@@ -81,14 +86,14 @@ INSERT INTO BoutiqueCategory (shop_id, category_id, category_label)
 VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'be2cff03-7d12-4369-acff-037d12a36993', 'Porte-clé'),
        ('867fb638-7cb1-4228-a643-5c4f352f44b1', '9af710a9-9c13-43d7-b710-a99c1323d77d', 'Écusson');
 
-INSERT INTO BoutiqueArticles (shop_id, name, category_id, stock, price, referencer)
-VALUES ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
+INSERT INTO BoutiqueArticles (item_id, shop_id, name, category_id, stock, price, referencer)
+VALUES (1, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
         'be2cff03-7d12-4369-acff-037d12a36993', 79,
         16.99, 'porte-clé-frein'),
-       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé porsche',
+       (2, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé porsche',
         'be2cff03-7d12-4369-acff-037d12a36993', 146,
         24.99, 'porte-clé-porsche'),
-       ('867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
+       (3, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Écusson Porsche',
         '9af710a9-9c13-43d7-b710-a99c1323d77d', 14,
         34.99, 'écusson-porsche');
 
@@ -137,23 +142,38 @@ VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-
 
 #ECURIE
 INSERT INTO Ecurie(id, name, prestataire_id)
-VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06','Porsche','45309281-fc24-4e02-ad47-a275c64f5327');
+    VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
 
 INSERT INTO FormulaireEcurie(ecurie_id, email, nom, num_billet, prenom, tel, submitted_at)
-VALUES
-    ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Yanis", "Blanc", "Yanis@gmail.com", "07 72 50 20 32", '01', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Juliette", "Richard", "Juliette.Richard@gmail.com", "+07 88 55 02 07", '02', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Ethan", "Durand", "DurandEthan@gmail.com", "07 15 10 20 00", '03', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Sasha", "LeFevre", "Sasha.Lefevre@gmail.com", "08 53 69 85 65", '04', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Sarah", "Henry", "sarah.Henry@gmail.com", "09 98 56 25 46", '05', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Mary", "Guerin", "mary@gmail.com", "07 10 12 15 14", '06', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Loris", "Michel", "loris@gmail.com", "07 20 12 23 50", '07', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Felix", "Mercier", "felix@gmail.com", "03 42 15 78 89", '08', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Lea", "Andre", "Lea.Andre@gmail.com", "08 45 95 86 54", '09', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Camille", "Rousseau", "camille.Rousseau@gmail.com", "05 15 50 00 15", '10', "2024-11-28 12:40:24"),
-    ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sebastien", "Mcdowell", "sebastien@gmail.com", "06 66 66 66 66", '11', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Martin", "Fournier", "martin.Fournier@gmail.com", "08 58 65 53 65", '12', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Marie", "Jean", "Marie@gmail.com", "07 82 53 33 33", '13', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Adrien", "Bonnet", "AdrienBonnet@gmail.com", "07 78 95 86 85", '14', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Quentin", "Masson", "Quentin@gmail.com", "08 89 56 87 55", '15', "2024-11-28 12:40:24"),
-    ( "d8d755cb-9aba-43f5-9546-14db654a1f06", "Gabriel", "Morin", "gabriel.morin@gmail.com", "09 65 85 96 85", '16', "2024-11-28 12:40:24");
+VALUES ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Yanis", "Blanc", "Yanis@gmail.com", "07 72 50 20 32", '01',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Juliette", "Richard", "Juliette.Richard@gmail.com", "+07 88 55 02 07",
+        '02', "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Ethan", "Durand", "DurandEthan@gmail.com", "07 15 10 20 00", '03',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sasha", "LeFevre", "Sasha.Lefevre@gmail.com", "08 53 69 85 65", '04',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sarah", "Henry", "sarah.Henry@gmail.com", "09 98 56 25 46", '05',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Mary", "Guerin", "mary@gmail.com", "07 10 12 15 14", '06',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Loris", "Michel", "loris@gmail.com", "07 20 12 23 50", '07',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Felix", "Mercier", "felix@gmail.com", "03 42 15 78 89", '08',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Lea", "Andre", "Lea.Andre@gmail.com", "08 45 95 86 54", '09',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Camille", "Rousseau", "camille.Rousseau@gmail.com", "05 15 50 00 15",
+        '10', "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sebastien", "Mcdowell", "sebastien@gmail.com", "06 66 66 66 66", '11',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Martin", "Fournier", "martin.Fournier@gmail.com", "08 58 65 53 65",
+        '12', "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Marie", "Jean", "Marie@gmail.com", "07 82 53 33 33", '13',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Adrien", "Bonnet", "AdrienBonnet@gmail.com", "07 78 95 86 85", '14',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Quentin", "Masson", "Quentin@gmail.com", "08 89 56 87 55", '15',
+        "2024-11-28 12:40:24"),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Gabriel", "Morin", "gabriel.morin@gmail.com", "09 65 85 96 85", '16',
+        "2024-11-28 12:40:24");

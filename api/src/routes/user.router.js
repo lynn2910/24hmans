@@ -143,6 +143,17 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *         application/json:
  *           schema:
  *             type: object
+ *             example:
+ *               {
+ *                 "user_id": "e052f135-13db-4a0d-aa15-f9bffac00359",
+ *                 "date": "2025-01-09T13:18:30.884Z",
+ *                 "articles": [
+ *                   {
+ *                     "article_id": 1,
+ *                     "amount": 7
+ *                   }
+ *                 ]
+ *               }
  *             properties:
  *               user_id:
  *                 type: string

@@ -38,9 +38,13 @@ function createNewOrder(user_id, raw_order) {
         for (const article of raw_order.articles) {
             let dbArticle = articles.find(a => a.item_id === article.article_id);
 
+            if (!dbArticle) {
+                return reject({message: 'Invalid article provided', status: 406})
+            }
+
             // Vérifier qu'on a les stocks
             if (dbArticle.stock < article.amount) {
-                return resolve({message: "Not enough stock for an article", status: 406})
+                return reject({message: "Not enough stock for an article", status: 406})
             }
 
             total_price += dbArticle.price * article.amount;
