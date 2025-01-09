@@ -107,7 +107,11 @@ VALUES (1, '867fb638-7cb1-4228-a643-5c4f352f44b1', 'Porte-clé frein',
 
 # Voir parserDataMap.js
 
--- Billetterie
+#
+#
+#   BILLETTERIE
+#
+#
 
 INSERT INTO Billetteries(billetterie_label, billetterie_id)
 VALUES ('Tribunes', 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
@@ -140,7 +144,12 @@ VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-
 #INSERT INTO TicketBilletteriePersonnes(ticket_id, personne_type_id, quantity)
 #   VALUES
 
-#ECURIE
+#
+#
+#     ECURIE
+#
+#
+
 INSERT INTO Ecurie(id, name, prestataire_id)
     VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
 
