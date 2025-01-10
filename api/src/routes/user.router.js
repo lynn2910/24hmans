@@ -52,6 +52,52 @@ const router = express.Router();
  *         - total_price
  *         - date
  *         - articles
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *           description: Unique identifier for the user.
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: User's email address.
+ *           unique: true
+ *         first_name:
+ *           type: string
+ *           description: User's first name.
+ *         last_name:
+ *           type: string
+ *           description: User's last name.
+ *         password:
+ *           type: string
+ *           format: password
+ *           description: User's password.
+ *       required:
+ *         - id
+ *         - email
+ *         - first_name
+ *         - last_name
+ *         - password
+ *     Admin:
+ *       type: object
+ *       properties:
+ *         admin_id:
+ *           type: integer
+ *           format: int64
+ *           description: Unique identifier for the admin.
+ *         name:
+ *           type: string
+ *           description: Admin's name.
+ *         password:
+ *           type: string
+ *           format: password
+ *           description: Admin's password.
+ *       required:
+ *         - admin_id
+ *         - name
+ *         - password
  */
 
 const userMiddleware = require("../middlewares/user.middleware");
@@ -72,6 +118,7 @@ const {getAdmin} = require("../services/admin.service");
  *       - in: query
  *         name: sessionId
  *         schema:
+ *           example: "sdkhd4Kcr8"
  *           type: string
  *         required: true
  *         description: The session ID of the authenticated user.
@@ -137,6 +184,7 @@ createRule("/users/@me", Method.All, User.User, [Permission.User, Permission.Pre
  *     parameters:
  *       - in: query
  *         name: sessionId
+ *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
  *         required: true
@@ -184,6 +232,7 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *     parameters:
  *       - in: query
  *         name: sessionId
+ *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
  *         required: true
@@ -270,6 +319,11 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
     //         }
     //     ]
     // }
+
+    if (req.session?.userType !== User.User) {
+        res.status(401).json({message: "You are not a user"});
+        return;
+    }
 
     let raw_order = req.body;
 

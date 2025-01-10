@@ -25,12 +25,15 @@ const prestataireMiddleware = require("../middlewares/prestataire.middleware");
  *               properties:
  *                   category_label:
  *                       type: string
+ *                       example: "Porte-clé"
  *                   category_id:
  *                       type: string
  *                       format: uuid
+ *                       example: "be2cff03-7d12-4369-acff-037d12a36993"
  *                   shop_id:
  *                       type: string
  *                       format: uuid
+ *                       example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *           ShopItem:
  *               type: object
  *               required:
@@ -44,24 +47,33 @@ const prestataireMiddleware = require("../middlewares/prestataire.middleware");
  *               properties:
  *                   shop_id:
  *                       type: string
+ *                       example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *                       format: uuid
  *                   item_id:
  *                       type: integer
+ *                       example: 1
  *                   name:
  *                       type: string
+ *                       example: "Porte-clé frein"
  *                   referencer:
  *                       type: string
+ *                       example: "porte-clé-frein"
  *                   image:
  *                       type: string
  *                       nullable: true
  *                       format: uri
  *                   price:
  *                       type: number
+ *                       example: "16.99"
  *                   stock:
  *                       type: integer
+ *                       example: 58
  *                   description:
  *                       type: string
  *                       nullable: true
+ *                   category_id:
+ *                      type: string
+ *                      example: "be2cff03-7d12-4369-acff-037d12a36993"
  *                   category:
  *                       $ref: '#/components/schemas/ShopCategory'
  */

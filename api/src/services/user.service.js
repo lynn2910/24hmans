@@ -72,7 +72,7 @@ function createNewOrder(user_id, raw_order) {
                 }
             },
             include: {
-                articles: true
+                articles: true,
             }
         })
 
@@ -94,7 +94,11 @@ function createNewOrder(user_id, raw_order) {
             const a = await prisma.userOrderArticle.create({
                 data: article,
                 include: {
-                    article: true
+                    article: {
+                        include: {
+                            category: true
+                        }
+                    }
                 }
             })
             final_articles.push(a)
