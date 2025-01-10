@@ -36,4 +36,21 @@ routerEcurie.delete('/:ecurie_id/supprParticipants', async (req, res) => {
     }
 });
 
+// Route pour sélectionner les 10 participants
+routerEcurie.get('/Select_Participants', async (req, res) => {
+    try {
+        const participants = await EcurieService.getRandomParticipants();
+
+        if (participants.length === 0) {
+            return res.status(404).json({ message: "Aucun participant trouvé." });
+        }
+
+        res.status(200).json(participants);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des participants aléatoires :", error);
+        res.status(500).json({ message: "Erreur serveur, impossible de récupérer les participants." });
+    }
+});
+
+
 module.exports = routerEcurie;

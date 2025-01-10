@@ -31,7 +31,43 @@ async function deleteParticipants(ecurie_id) {
         throw new Error("Impossible de supprimer les participants.");
     }
 }
+
+// Récupère 10 participants aléatoires
+async function getRandomParticipants() {
+    try {
+        const totalParticipants = await prisma.formulaireEcurie.count();
+        if (totalParticipants === 0) {
+            return [];
+        }
+        const randomOffsets = [];
+        while (randomOffsets.length < Math.min(10, totalParticipants)) {
+            const randomIndex = Math.floor(Math.random() * totalParticipants);
+            if (!randomOffsets.includes(randomIndex)) {
+                randomOffsets.push(randomIndex);
+            }
+        }
+        const participants = await prisma.formulaireEcurie.findMany({
+            skip: Math.min(...randomOffsets),
+            take: 10,
+            select: {
+                id: true,
+                prenom: true,
+                nom: true,
+                email: true,
+                tel: true,
+                num_billet: true,
+                submitted_at: true,
+            },
+        });
+        return participants;
+    } catch (error) {
+        console.error("Erreur lors de la récupération des participants aléatoires :", error);
+        throw new Error("Impossible de récupérer les participants aléatoires.");
+    }
+}
+
 module.exports = {
    getParticipants,
-    deleteParticipants
+    deleteParticipants,
+    getRandomParticipants
 }
