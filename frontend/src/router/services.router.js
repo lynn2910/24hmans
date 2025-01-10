@@ -11,6 +11,11 @@ export default [
 
     },
     {
+        path: "/ecuries",
+        name: "ecurie_list",
+        component: () => import('../views/services/EcurieListView.vue')
+    },
+    {
         path: "/ecurie/:prestataire_name",
         name: "visite_ecuries",
         component: () => import('../views/services/VisiteEcurie.vue')
