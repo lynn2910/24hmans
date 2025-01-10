@@ -63,7 +63,7 @@ async function addCategory(prestataire_id, category_label, shop_id) {
                 where: {shop_id}
             })
 
-            if (!boutique || boutique.prestataire_id !== 'prestataire_id')
+            if (!boutique || boutique.prestataire_id !== prestataire_id)
                 return reject({message: 'You are not the shop owner'})
 
             await prisma.boutiqueCategory.create({
