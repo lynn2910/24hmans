@@ -59,7 +59,7 @@ export default {
 
 			if (this.categories && categoriesToFilter.length > 0) {
 				result = result.filter((item) => {
-					let category_label = this.categories.find((c) => c.category_id === item.category)?.category_label;
+					let category_label = this.categories.find((c) => c.category_id === item.category_id)?.category_label;
 					return categoriesToFilter.includes(category_label.toLowerCase().replace(/\s+/g, ''))
 				});
 			}
