@@ -55,6 +55,8 @@ const UserMiddleware = require("../middlewares/user.middleware");
  */
 
 
+
+
 // Route pour récupérer tous les participants d'une écurie
 routerEcurie.post('/:ecurie_id/participants', async (req, res) => {
     const { ecurie_id } = req.params;
