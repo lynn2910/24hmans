@@ -7,6 +7,7 @@ function getAllShops() {
         select: {
             prestataire_id: true,
             shop_id: true,
+            enabled: true,
         },
         where: {
             enabled: true
@@ -53,21 +54,26 @@ function getShopCategories(shop_id) {
     });
 }
 
-async function addCategory(category_label, shop_id) {
+async function addCategory(prestataire_id, category_label, shop_id) {
     let category_id = uuid();
 
     return new Promise(async (resolve, reject) => {
         try {
+            let boutique = await prisma.boutique.findUnique({
+                where: {shop_id}
+            })
+
+            if (!boutique || boutique.prestataire_id !== 'prestataire_id')
+                return reject({message: 'You are not the shop owner'})
+
             await prisma.boutiqueCategory.create({
                 data: {
                     category_id,
                     category_label,
                     shop: {
-                        connect: {
-                            shop_id: shop_id
-                        },
+                        connect: {shop_id},
                     },
-                }
+                },
             });
 
             resolve({category_id, category_label, shop_id})

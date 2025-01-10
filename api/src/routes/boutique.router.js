@@ -4,6 +4,7 @@ const BoutiqueService = require("../services/boutique.service");
 
 const routerBoutique = new Router();
 const prestataireMiddleware = require("../middlewares/prestataire.middleware");
+const {createRule, Permission, Method, User} = require("../permissions");
 
 /**
  * @swagger
@@ -14,8 +15,13 @@ const prestataireMiddleware = require("../middlewares/prestataire.middleware");
  *               properties:
  *                   shop_id:
  *                       type: string
+ *                       example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *                   prestataire_id:
  *                       type: string
+ *                       example: "45309281-fc24-4e02-ad47-a275c64f5327"
+ *                   enabled:
+ *                       type: boolean
+ *                       example: 1
  *           ShopCategory:
  *               type: object
  *               required:
@@ -120,6 +126,7 @@ routerBoutique.get("/available_shops", (req, res) => {
  *         - in: path
  *           name: shop_id
  *           required: true
+ *           example: "porsche"
  *           description: Identifiant de la boutique ou nom de référence du prestataire
  *           schema:
  *             type: string
@@ -166,11 +173,13 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
  *         name: shop_id
  *         required: true
  *         description: "The ID of the shop"
+ *         example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *         schema:
  *           type: string
  *       - in: query
  *         name: sessionId
  *         required: true
+ *         example: "HVpYuVywN4"
  *         description: Session ID for authentication
  *         schema:
  *           type: string
@@ -208,6 +217,7 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
  */
 routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) => {
     BoutiqueService.addCategory(
+        req.session.userId,
         req.body['category_label'].trim(),
         req.params.shop_id
     ).then(
@@ -220,11 +230,12 @@ routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) =>
         (err) => {
             console.error(`Cannot create category '${req.body['category_label']}' for shop '${req.body['shop_id']}': ` + err.message);
             res.status(500).json({
-                message: `Cannot create category '${req.body['category_label']}' for shop '${req.body['shop_id']}': ` + err.message
+                message: `Cannot create category '${req.body['category_label']}' for shop '${req.params.shop_id}': ` + err.message
             })
         }
     )
 })
+createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method.POST], User.Prestataire, [Permission.Prestataire])
 
 /**
  * @swagger
@@ -232,6 +243,7 @@ routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) =>
  *      parameters:
  *          - in: query
  *            name: sessionId
+ *            example: "HVpYuVywN4"
  *            required: true
  *            description: Session ID for authentication
  *            schema:
@@ -245,11 +257,13 @@ routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) =>
  *                name: shop_id
  *                required: true
  *                description: "The ID of the shop"
+ *                example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *                schema:
  *                  type: string
  *              - in: path
  *                name: category_id
  *                required: true
+ *                example: "9af710a9-9c13-43d7-b710-a99c1323d77d"
  *                description: "The ID of the category to delete"
  *                schema:
  *                  type: string
@@ -291,12 +305,14 @@ routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) =>
  *                name: shop_id
  *                required: true
  *                description: "The ID of the shop"
+ *                example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *                schema:
  *                  type: string
  *              - in: path
  *                name: category_id
  *                required: true
  *                description: "The ID of the category to delete"
+ *                example: "9af710a9-9c13-43d7-b710-a99c1323d77d"
  *                schema:
  *                  type: string
  *          responses:
