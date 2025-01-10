@@ -17,7 +17,7 @@
 		<!-- body -->
 		<div v-if="showBody" class="flex flex-row items-start justify-start p-5 pt-1">
 			<div class="w-1/5">
-				<p class="text-blue-500 font-bold text-2xl">{{ order.total_price.toFixed(2) }}€</p>
+				<p class="text-blue-500 font-bold text-2xl">{{ Intl.NumberFormat('fr-FR').format(order.total_price) }}€</p>
 				<p class="mt-2 font-bold">Commandé le:</p>
 				<p>{{ order.date.toLocaleString("fr-FR") }}</p>
 			</div>
@@ -30,13 +30,13 @@
 						<!-- Informations de l'article-->
 						<div class="w-1/2">
 							<p><strong>Nom:</strong> {{ item.article.name }}</p>
-							<p><strong>Prix unitaire:</strong> {{ item.unit_price }}</p>
-							<p><strong>Quantité achetée:</strong> {{ item.amount }}</p>
+							<p><strong>Prix unitaire:</strong> {{ Intl.NumberFormat('fr-FR').format(item.unit_price) }}</p>
+							<p><strong>Quantité achetée:</strong> {{ Intl.NumberFormat('fr-FR').format(item.amount) }}</p>
 						</div>
 						<div class="ml-auto w-1/5 pr-10">
 							<p>Total:</p>
 							<p class="text-left font-bold">
-								{{ (item.unit_price * item.amount).toFixed(2) }}€
+								{{ Intl.NumberFormat('fr-FR').format(item.unit_price * item.amount) }}€
 							</p>
 						</div>
 					</div>

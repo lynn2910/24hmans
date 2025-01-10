@@ -56,7 +56,7 @@ export default {
 	},
 	computed: {
 		...mapState('login', ['loggedInUser']),
-		...mapState('prestataire/boutique', ['items', 'categories', 'prestataire', 'shopId'])
+		...mapState('prestataire/boutique', ['items', 'categories', 'prestataire', 'shopId', "shopEnabled"])
 	},
 	methods: {
 		changeTab(newTab) {
@@ -91,6 +91,7 @@ export default {
 				categories: this.categories,
 				prestataire_id: this.prestataire.id,
 				shop_id: this.shopId,
+				enabled: this.shopEnabled
 			});
 			navigator.clipboard.writeText(jsonBoutique)
 					.then(() => {

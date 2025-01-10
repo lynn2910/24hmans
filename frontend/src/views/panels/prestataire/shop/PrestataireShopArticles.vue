@@ -48,7 +48,7 @@
 					</td>
 					<td class="p-4 py-2">
 						<p class="block font-sans text-sm antialiasing font-normal leading-normal text-blue-gray-900">
-							{{ article.price.toFixed && article.price > 0 ? article.price?.toFixed(2) || 0 : 0 }}€
+							{{ article.price ? Intl.NumberFormat('fr-FR').format(article.price) : 'ERROR' }}€
 						</p>
 					</td>
 					<td class="p-4 py-2 max-w-56 truncate">
@@ -59,7 +59,7 @@
 					<td class="p-4 py-2 max-w-56 flex flex-row items-center content-center justify-end h-full">
 						<!-- voir -->
 						<router-link
-								:to="`/boutique/${transformPrestataireName(prestataire.name)}/item/${transformPrestataireName(article.name)}`"
+								:to="`/boutique/${prestataire?.referencer || transformPrestataireName(prestataire.name)}/item/${transformPrestataireName(article?.name)}`"
 								target="_blank"
 								class="py-2 px-3 bg-dark rounded hover:bg-opacity-50 cursor-pointer text-base my-auto">
 							<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" width="24" height="24" viewBox="0 0 24 24">
@@ -221,7 +221,7 @@ export default {
 			if (this.isItemCreationValid) {
 				this.$emit('createArticle', {
 					...this.creationForm,
-					category: this.creationForm.category?.category_id,
+					category_id: this.creationForm.category?.category_id,
 					price: Number.parseFloat(this.creationForm.price)
 				});
 			}
