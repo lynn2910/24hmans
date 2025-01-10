@@ -29,6 +29,110 @@ DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
 
 _Le port `4629` est recommandé pour le développement, car c'est celui-ci qui est utilisé dans Swagger_
 
+## Installation
+
+Afin d'installer et mettre en place le projet, suivez les étapes suivantes :
+
+**Télécharger le dépôt :**
+
+```shell
+git clone https://github.com/lynn2910/24hmans.git
+```
+
+Vous pouvez naviguer vers le dossier `24hmans` créé.
+
+### Mettre en place le frontend
+
+```shell
+cd frontend && npm i
+```
+
+### Mettre en place l'API
+
+> ⚠️ Vous devez avoir une base de donnée **MariaDB** avec une base de donnée fonctionnelle et un accès (login +
+> password)
+
+```shell
+cd frontend && npm i
+```
+
+Une fois les paquets installés, vous allez devoir configurer **Prisma** (ORM) afin de générer les schémas.
+
+*Toujours dans le dossier `api`*
+
+Créez un fichier `.env` suivant la structure définie au-dessus et remplissez les valeurs de `DATABASE_URL`.
+
+```shell
+npm i @prisma/client && npx run db
+```
+
+_Si vous obtenez des erreurs, suivez les instructions ci-dessous_
+
+Une fois le script exécuté, l'API sera alors prête.
+Vous pouvez la lancer avec la commande suivante :
+
+```shell
+npm run api
+```
+
+### Si Prisma a échoué
+
+1. Vérifiez que votre version de **NodeJS** est assez **récente**
+2. Mettez à jour votre système
+
+Si l'erreur est qu'une ou plusieurs tables sont corrompues, cela signifie que vous devez mettre à jour MariaDB, ou
+exécuter le script de mises à jour de MariaDB.
+
+Tentez :
+
+```shell
+mysql_upgrade -u <user> -p
+```
+
+Et réessayez.
+Si l'erreur ne disparaît pas, vous avez une version obsolète de MariaDB et devez mettre à jour le serveur (ex. avec
+_apt_ sur Linux).
+
+> **Si vous n'arrivez pas à faire fonctionner l'API ou ne voulez/ne pouvez pas mettre à jour MariaDB :**
+>
+> Nous avons déployé l'API et le frontend respectivement aux adresses suivantes :
+> - [24h.chamallow.fr](https://24h.chamallow.fr)
+> - [api.24h.chamallow.fr](https://api.24h.chamallow.fr)
+>
+> Documentation Swagger:
+> - [Swagger - api.24h.chamallow.fr](https://api.24h.chamallow.fr/api-docs)
+
+### Ajouter les jeux de tests
+
+> ⚠️ Vous devez avoir lancé l'API ou le script `db` au moins une fois.
+> Sinon Prisma ne peut pas avoir créé les tables et relations.
+
+#### Solution 1 : Depuis le terminal
+
+Ouvrez un terminal dans la route du projet, et exécutez :
+
+```shell
+cd assets/parser
+node .\parserDataMap.js
+cd ..
+```
+
+_Ce script génère les données pour la carte._
+
+Puis, pour envoyer toutes les données à MariaDB :
+
+_Toujours dans le dossier `assets`_
+
+```shell
+mysql -u <user> -p < ./database.sql
+mysql -u <user> -p < ./pointsMap.sql
+mysql -u <user> -p < ./shapesMap.sql
+```
+
+Vous avez maintenant une API prête à fonctionner.
+
+---
+
 ## Ressources
 
 Script SQL: `assets/database.sql`
