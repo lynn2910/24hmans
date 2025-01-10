@@ -121,12 +121,13 @@ let boutiques = [
             "price": 34.99,
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         }, {
+            "item_id": 4,
             "name": "911 Carrera RS",
-            "category": {"category_id": "0ce99bfb-adaa-4c9c-a423-8ea2c700c3c5", "category_label": "Voitures"},
-            "stock": "5",
-            "price": 310000,
+            "image": null,
             "category_id": "0ce99bfb-adaa-4c9c-a423-8ea2c700c3c5",
-            "id": 3
+            "stock": 5,
+            "price": 310000,
+            "description": "Une magnifique voiture"
         }]
     },
     // 24h du Mans
