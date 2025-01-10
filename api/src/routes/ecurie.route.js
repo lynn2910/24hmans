@@ -23,7 +23,7 @@ routerEcurie.post('/:ecurie_id/participants', async (req, res) => {
 
 
 // Route pour supprimer tous les participants d'une écurie
-routerEcurie.delete('/:ecurie_id/supprParticipants', async (req, res) => {
+routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
     const { ecurie_id } = req.params;
 
     try {
@@ -37,12 +37,14 @@ routerEcurie.delete('/:ecurie_id/supprParticipants', async (req, res) => {
 });
 
 // Route pour sélectionner les 10 participants
-routerEcurie.get('/Select_Participants', async (req, res) => {
+routerEcurie.get('/:ecurie_id/participants', async (req, res) => {
+    const { ecurie_id } = req.params;
+
     try {
-        const participants = await EcurieService.getRandomParticipants();
+        const participants = await EcurieService.getRandomParticipants(ecurie_id);
 
         if (participants.length === 0) {
-            return res.status(404).json({ message: "Aucun participant trouvé." });
+            return res.status(404).json({ message: "Aucun participant trouvé pour cette écurie." });
         }
 
         res.status(200).json(participants);

@@ -32,12 +32,13 @@ async function deleteParticipants(ecurie_id) {
     }
 }
 
-// Récupère 10 participants aléatoires
-async function getRandomParticipants() {
+async function getRandomParticipants(ecurie_id) {
     try {
-        const totalParticipants = await prisma.formulaireEcurie.count();
+        const totalParticipants = await prisma.formulaireEcurie.count({
+            where: { ecurie_id: ecurie_id }, // Filtre par écurie
+        });
         if (totalParticipants === 0) {
-            return [];
+            return []; // Aucun participant pour cette écurie
         }
         const randomOffsets = [];
         while (randomOffsets.length < Math.min(10, totalParticipants)) {
@@ -47,8 +48,9 @@ async function getRandomParticipants() {
             }
         }
         const participants = await prisma.formulaireEcurie.findMany({
-            skip: Math.min(...randomOffsets),
+            where: { ecurie_id: ecurie_id }, // Filtre par écurie
             take: 10,
+            skip: Math.min(...randomOffsets), // Commence à l'indice le plus petit
             select: {
                 id: true,
                 prenom: true,
@@ -59,6 +61,7 @@ async function getRandomParticipants() {
                 submitted_at: true,
             },
         });
+
         return participants;
     } catch (error) {
         console.error("Erreur lors de la récupération des participants aléatoires :", error);
