@@ -372,6 +372,7 @@ routerBoutique.patch("/:shop_id/categories/:category_id", prestataireMiddleware,
  *      parameters:
  *          - in: path
  *            name: shop_id
+ *            example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *            required: true
  *            description: "L'ID de la boutique"
  *            schema:
@@ -428,10 +429,12 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *            name: shop_id
  *            required: true
  *            description: "L'ID de la boutique"
+ *            example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *            schema:
  *              type: string
  *          - in: path
  *            name: item_id
+ *            example: 2
  *            required: true
  *            description: "L'ID de l'article ou son identifiant de référencement"
  *            schema:
@@ -463,6 +466,7 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          parameters:
  *              - in: query
  *                name: sessionId
+ *                example: "HVpYuVywN4"
  *                required: true
  *                description: Session ID for authentication
  *                schema:
@@ -473,6 +477,15 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *              application/json:
  *                schema:
  *                  type: object
+ *                  example:
+ *                      {
+ *                          "name": "Porte-clé licorne",
+ *                          "image": null,
+ *                          "price": 1024.32,
+ *                          "stock": 1,
+ *                          "description": "Lorem ipsum",
+ *                          "category_id": "be2cff03-7d12-4369-acff-037d12a36993"
+ *                      }
  *                  properties:
  *                    name:
  *                      type: string
@@ -525,6 +538,7 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          parameters:
  *              - in: query
  *                name: sessionId
+ *                example: "HVpYuVywN4"
  *                required: true
  *                description: Session ID for authentication
  *                schema:
