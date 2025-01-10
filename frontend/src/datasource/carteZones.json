@@ -1,5 +1,6 @@
 [
   {
+    "shape_id": 1,
     "type": "shape",
     "coordinates": [
       [
@@ -30,6 +31,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 2,
     "type": "shape",
     "coordinates": [
       [
@@ -60,6 +62,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 3,
     "type": "shape",
     "coordinates": [
       [
@@ -90,6 +93,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 4,
     "type": "shape",
     "coordinates": [
       [
@@ -120,6 +124,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 5,
     "type": "shape",
     "coordinates": [
       [
@@ -166,6 +171,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 6,
     "type": "shape",
     "coordinates": [
       [
@@ -200,6 +206,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 7,
     "type": "shape",
     "coordinates": [
       [
@@ -230,6 +237,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 8,
     "type": "shape",
     "coordinates": [
       [
@@ -260,6 +268,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 9,
     "type": "shape",
     "coordinates": [
       [
@@ -290,6 +299,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 10,
     "type": "shape",
     "coordinates": [
       [
@@ -320,6 +330,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 11,
     "type": "shape",
     "coordinates": [
       [
@@ -350,6 +361,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 12,
     "type": "shape",
     "coordinates": [
       [
@@ -380,6 +392,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 13,
     "type": "shape",
     "coordinates": [
       [
@@ -410,6 +423,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 14,
     "type": "shape",
     "coordinates": [
       [
@@ -504,6 +518,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 15,
     "type": "shape",
     "coordinates": [
       [
@@ -534,6 +549,7 @@
     "category": "tribunes"
   },
   {
+    "shape_id": 16,
     "type": "shape",
     "coordinates": [
       [
@@ -580,6 +596,7 @@
     "category": "parkingsRouge"
   },
   {
+    "shape_id": 17,
     "type": "shape",
     "coordinates": [
       [
@@ -702,6 +719,7 @@
     "category": "parkingsRouge"
   },
   {
+    "shape_id": 18,
     "type": "shape",
     "coordinates": [
       [
@@ -784,6 +802,7 @@
     "category": "parkingsVip"
   },
   {
+    "shape_id": 19,
     "type": "shape",
     "coordinates": [
       [
@@ -826,6 +845,7 @@
     "category": "parkingsVip"
   },
   {
+    "shape_id": 20,
     "type": "shape",
     "coordinates": [
       [
@@ -872,6 +892,7 @@
     "category": "parkingsBleu"
   },
   {
+    "shape_id": 21,
     "type": "shape",
     "coordinates": [
       [
@@ -930,6 +951,7 @@
     "category": "parkingsBleu"
   },
   {
+    "shape_id": 22,
     "type": "shape",
     "coordinates": [
       [
@@ -976,6 +998,7 @@
     "category": "parkingsBleu"
   },
   {
+    "shape_id": 23,
     "type": "shape",
     "coordinates": [
       [
@@ -1014,6 +1037,7 @@
     "category": "emplacements"
   },
   {
+    "shape_id": 24,
     "type": "shape",
     "coordinates": [
       [
@@ -1064,6 +1088,7 @@
     "category": "emplacements"
   },
   {
+    "shape_id": 25,
     "type": "shape",
     "coordinates": [
       [
@@ -1146,6 +1171,7 @@
     "category": "emplacements"
   },
   {
+    "shape_id": 26,
     "type": "shape",
     "coordinates": [
       [
@@ -1204,6 +1230,7 @@
     "category": "emplacements"
   },
   {
+    "shape_id": 27,
     "type": "shape",
     "coordinates": [
       [
@@ -1242,6 +1269,7 @@
     "category": "emplacements"
   },
   {
+    "shape_id": 28,
     "type": "shape",
     "coordinates": [
       [
@@ -1300,6 +1328,7 @@
     "category": "garages"
   },
   {
+    "shape_id": 29,
     "type": "shape",
     "coordinates": [
       [
@@ -1324,11 +1353,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 30,
     "type": "shape",
     "coordinates": [
       [
@@ -1358,11 +1389,12 @@
     "logistics": "",
     "surface": "",
     "description": "",
-    "provider": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 31,
     "type": "shape",
     "coordinates": [
       [
@@ -1407,11 +1439,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 32,
     "type": "shape",
     "coordinates": [
       [
@@ -1462,6 +1496,7 @@
     "category": "garages"
   },
   {
+    "shape_id": 33,
     "type": "shape",
     "coordinates": [
       [
@@ -1486,11 +1521,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 34,
     "type": "shape",
     "coordinates": [
       [
@@ -1515,11 +1552,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 35,
     "type": "shape",
     "coordinates": [
       [
@@ -1544,11 +1583,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 36,
     "type": "shape",
     "coordinates": [
       [
@@ -1573,11 +1614,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 37,
     "type": "shape",
     "coordinates": [
       [
@@ -1682,11 +1725,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 38,
     "type": "shape",
     "coordinates": [
       [
@@ -1719,11 +1764,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 39,
     "type": "shape",
     "coordinates": [
       [
@@ -1748,11 +1795,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 40,
     "type": "shape",
     "coordinates": [
       [
@@ -1801,11 +1850,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 41,
     "type": "shape",
     "coordinates": [
       [
@@ -1834,11 +1885,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 42,
     "type": "shape",
     "coordinates": [
       [
@@ -1867,11 +1920,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 43,
     "type": "shape",
     "coordinates": [
       [
@@ -1900,11 +1955,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 44,
     "type": "shape",
     "coordinates": [
       [
@@ -1941,11 +1998,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 45,
     "type": "shape",
     "coordinates": [
       [
@@ -2006,11 +2065,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 46,
     "type": "shape",
     "coordinates": [
       [
@@ -2057,6 +2118,7 @@
     "category": "garages"
   },
   {
+    "shape_id": 47,
     "type": "shape",
     "coordinates": [
       [
@@ -2131,6 +2193,7 @@
     "category": "emplacements"
   },
   {
+    "shape_id": 48,
     "type": "shape",
     "coordinates": [
       [
@@ -2187,11 +2250,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 49,
     "type": "shape",
     "coordinates": [
       [
@@ -2228,11 +2293,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 50,
     "type": "shape",
     "coordinates": [
       [
@@ -2257,11 +2324,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 51,
     "type": "shape",
     "coordinates": [
       [
@@ -2308,6 +2377,7 @@
     "category": "parkingsVip"
   },
   {
+    "shape_id": 52,
     "type": "shape",
     "coordinates": [
       [
@@ -2394,6 +2464,7 @@
     "category": "parkingsVip"
   },
   {
+    "shape_id": 53,
     "type": "shape",
     "coordinates": [
       [
@@ -2448,6 +2519,7 @@
     "category": "boutique"
   },
   {
+    "shape_id": 54,
     "type": "shape",
     "coordinates": [
       [
@@ -2494,6 +2566,7 @@
     "category": "boutique"
   },
   {
+    "shape_id": 55,
     "type": "shape",
     "coordinates": [
       [
@@ -2540,6 +2613,7 @@
     "category": "boutique"
   },
   {
+    "shape_id": 56,
     "type": "shape",
     "coordinates": [
       [
@@ -2584,11 +2658,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "boutique"
   },
   {
+    "shape_id": 57,
     "type": "shape",
     "coordinates": [
       [
@@ -2635,6 +2711,7 @@
     "category": "boutique"
   },
   {
+    "shape_id": 58,
     "type": "shape",
     "coordinates": [
       [
@@ -2655,11 +2732,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 59,
     "type": "shape",
     "coordinates": [
       [
@@ -2708,11 +2787,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "garages"
   },
   {
+    "shape_id": 60,
     "type": "shape",
     "coordinates": [
       [
@@ -2745,11 +2826,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "boutique"
   },
   {
+    "shape_id": 61,
     "type": "shape",
     "coordinates": [
       [
@@ -2774,11 +2857,13 @@
     "name": "",
     "logistics": "",
     "surface": "",
-    "provider": "",
+    "description": "",
+    "provider": null,
     "service": "",
     "category": "boutique"
   },
   {
+    "shape_id": 62,
     "type": "shape",
     "coordinates": [
       [
@@ -2817,6 +2902,7 @@
     "category": "boutique"
   },
   {
+    "shape_id": 63,
     "type": "shape",
     "coordinates": [
       [
@@ -2943,6 +3029,7 @@
     "category": "parkingsRouge"
   },
   {
+    "shape_id": 64,
     "type": "shape",
     "coordinates": [
       [
@@ -2997,6 +3084,7 @@
     "category": "parkingsRouge"
   },
   {
+    "shape_id": 65,
     "type": "shape",
     "coordinates": [
       [
@@ -3115,6 +3203,7 @@
     "category": "montgolfieres"
   },
   {
+    "shape_id": 66,
     "type": "shape",
     "coordinates": [
       [
@@ -3145,6 +3234,7 @@
     "category": "montgolfieres"
   },
   {
+    "shape_id": 67,
     "type": "shape",
     "coordinates": [
       [
@@ -3471,6 +3561,7 @@
     "category": "pistes"
   },
   {
+    "shape_id": 68,
     "type": "shape",
     "coordinates": [
       [
@@ -3717,6 +3808,7 @@
     "category": "pistes"
   },
   {
+    "shape_id": 69,
     "type": "shape",
     "coordinates": [
       [

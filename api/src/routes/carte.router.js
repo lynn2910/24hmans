@@ -122,10 +122,12 @@ const routerCarte = new Router();
  *                         type: object
  *                         properties:
  *                           lat:
- *                             type: string
+ *                             type: number
+ *                             format: float
  *                             description: "Latitude du point"
  *                           lng:
- *                             type: string
+ *                             type: number
+ *                             format: float
  *                             description: "Longitude du point"
  *                   name:
  *                     type: string
@@ -228,22 +230,20 @@ routerCarte.get("/shapes", async (req, res) => {
  *                 type: string
  *                 description: "Catégorie de la zone"
  *           examples:
- *             example2:
+ *             example1:
  *               summary: "Exemple de JSON"
  *               value:
  *                 coordinates:
- *                   - lat: 47.94976405693712
- *                     lng: 0.2070558071136475
- *                   - lat: 47.949426314751214
- *                     lng: 0.20706117153167725
- *                   - lat: 47.94942990776481
- *                     lng: 0.2071630954742432
- *                   - lat: 47.94977124291711
- *                     lng: 0.2071577310562134
- *                 name: "Nouvelle Zone"
- *                 logistics: "Matériel1, Matériel2, Matériel3"
+ *                   - [
+ *                       { "lat": 47.94976405693712, "lng": 0.2070558071136475 },
+ *                       { "lat": 47.949426314751214, "lng": 0.20706117153167725 },
+ *                       { "lat": 47.94942990776481, "lng": 0.2071630954742432 },
+ *                       { "lat": 47.94977124291711, "lng": 0.2071577310562134 }
+ *                     ]
+ *                 name: "Zone ajoutée"
+ *                 logistics: "Pas encore défini"
  *                 surface: "X m2"
- *                 description: "Ma description."
+ *                 description: "Description initialisé."
  *                 provider: null
  *                 service: ""
  *                 category: "default"
@@ -297,18 +297,14 @@ routerCarte.get("/shapes", async (req, res) => {
  *             value:
  *               shape_id: 1
  *               coordinates:
- *                 - lat: 47.94976405693712
- *                   lng: 0.2070558071136475
- *                 - lat: 47.949426314751214
- *                   lng: 0.20706117153167725
- *                 - lat: 47.94942990776481
- *                   lng: 0.2071630954742432
- *                 - lat: 47.94977124291711
- *                   lng: 0.2071577310562134
- *               name: "Nouvelle Zone"
- *               logistics: "Matériel1, Matériel2, Matériel3"
+ *                 - { "lat": 47.94976405693712, "lng": 0.2070558071136475 }
+ *                 - { "lat": 47.949426314751214, "lng": 0.20706117153167725 }
+ *                 - { "lat": 47.94942990776481, "lng": 0.2071630954742432 }
+ *                 - { "lat": 47.94977124291711, "lng": 0.2071577310562134 }
+ *               name: "Zone ajoutée"
+ *               logistics: "Pas encore défini"
  *               surface: "X m2"
- *               description: "Ma description."
+ *               description: "Description initialisé."
  *               provider: null
  *               service: ""
  *               category: "default"
@@ -333,35 +329,29 @@ routerCarte.post("/shapes", async (req, res) => {
         } = req.body;
 
         if (!coordinates || !Array.isArray(coordinates) || coordinates.length === 0 ||
+            !coordinates.every(coordGroup => Array.isArray(coordGroup) && coordGroup.every(point =>
+                point.lat && point.lng && typeof point.lat === "number" && typeof point.lng === "number"
+            )) ||
             !name || !logistics || !surface || !description || !category) {
             return res.status(400).json({
-                message: "Données manquantes ou incorrectes. Assurez-vous que tous les champs requis sont remplis."
+                message: "Données manquantes ou incorrectes. Assurez-vous que tous les champs requis sont remplis et que les coordonnées sont correctement formatées."
             });
         }
 
-        const invalidPoint = coordinates.find(point => !point.lat || !point.lng || typeof point.lat !== "number" || typeof point.lng !== "number");
-        if (invalidPoint) {
-            return res.status(400).json({
-                message: "Les coordonnées contiennent des points invalides. Chaque point doit avoir des latitudes et longitudes valides (numériques)."
-            });
-        }
+        const flattenedCoordinates = coordinates.flat();
 
-        const newArea = await CarteService.addArea(coordinates, name, logistics, surface, description, provider, service, category);
+        const newArea = await CarteService.addArea(flattenedCoordinates, name, logistics, surface, description, provider, service, category);
 
         if (!newArea) {
             return res.status(404).json({
                 message: "Impossible de créer la zone. Veuillez vérifier vos données."
             });
         }
-
-        res.status(200).json({
-            message: "Area successfully added",
-            deletedArea: newArea,
-        });
+        res.status(200).json(newArea);
     } catch (err) {
-        res.status(500).json({message: "Error while adding area: " + err.message});
+        res.status(500).json({message: "Erreur lors de l'ajout de la zone : " + err.message});
     }
-})
+});
 
 /**
  * @swagger
@@ -399,14 +389,13 @@ routerCarte.post("/shapes", async (req, res) => {
  *                   items:
  *                     type: object
  *                     properties:
- *                       point_id:
- *                         type: integer
- *                         description: "Identifiant unique du point"
  *                       lat:
- *                         type: string
+ *                         type: number
+ *                         format: float
  *                         description: "Latitude du point"
  *                       lng:
- *                         type: string
+ *                         type: number
+ *                         format : float
  *                         description: "Longitude du point"
  *                 name:
  *                   type: string
@@ -614,28 +603,39 @@ routerCarte.delete("/shapes/:id", async (req, res) => {
  *                 type: string
  *               coordinates:
  *                 type: array
+ *                 description: "Liste des ensembles de points définissant la zone"
  *                 items:
- *                   type: object
- *                   properties:
- *                     lat:
- *                       type: number
- *                       format: float
- *                     lng:
- *                       type: number
- *                       format: float
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       lat:
+ *                         type: number
+ *                         format: float
+ *                       lng:
+ *                         type: number
+ *                         format: float
  *           examples:
  *             example1:
- *               summary: "Exemple de mise à jour"
+ *               summary: "Exemple de mise à jour avec coordonnées"
  *               value:
  *                 coordinates:
- *                   - lat: 47.94986405693712
- *                     lng: 0.2070558071136475
- *                   - lat: 47.949456314751214
- *                     lng: 0.20706117153167725
- *                   - lat: 47.94945990776481
- *                     lng: 0.2071630954742432
- *                   - lat: 47.94987124291711
- *                     lng: 0.2071577310562134
+ *                  - [
+ *                       { "lat": 47.94976405693712, "lng": 0.2070558071136475 },
+ *                       { "lat": 47.949426314751214, "lng": 0.20706117153167725 },
+ *                       { "lat": 47.94942990776481, "lng": 0.2071630954742432 },
+ *                       { "lat": 47.94977124291711, "lng": 0.2071577310562134 }
+ *                     ]
+ *                 name: "Mise à jour de la Zone"
+ *                 logistics: "Matériel1, Matériel2"
+ *                 surface: "X m3"
+ *                 description: "Ma nouvelle description."
+ *                 provider: null
+ *                 service: ""
+ *                 category: "default"
+ *             example2:
+ *               summary: "Exemple de mise à jour sans coordonnées"
+ *               value:
  *                 name: "Mise à jour de la Zone"
  *                 logistics: "Matériel1, Matériel2"
  *                 surface: "X m3"
@@ -660,6 +660,20 @@ routerCarte.delete("/shapes/:id", async (req, res) => {
  *                       type: integer
  *                     name:
  *                       type: string
+ *                     coordinates:
+ *                       type: array
+ *                       description: "Liste des ensembles de points définissant la zone"
+ *                       items:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             lat:
+ *                               type: number
+ *                               format: float
+ *                             lng:
+ *                               type: number
+ *                               format: float
  *                     logistics:
  *                       type: string
  *                     surface:
@@ -672,21 +686,10 @@ routerCarte.delete("/shapes/:id", async (req, res) => {
  *                       type: string
  *                     category:
  *                       type: string
- *                     coordinates:
- *                       type: array
- *                       items:
- *                         type: object
- *                         properties:
- *                           lat:
- *                             type: number
- *                             format: float
- *                           lng:
- *                             type: number
- *                             format: float
  *       400:
  *         description: "Données manquantes ou incorrectes"
  *       404:
- *          description: "Aucune zone trouvée avec l'identifiant donné."
+ *         description: "Aucune zone trouvée avec l'identifiant donné."
  *       500:
  *         description: "Erreur interne du serveur"
  */
@@ -709,6 +712,18 @@ routerCarte.put("/shapes/:id", async (req, res) => {
         });
     }
 
+    if (coordinates) {
+        try {
+            const transformedCoordinates = coordinates.flat();
+            req.body.coordinates = transformedCoordinates;
+
+        } catch (err) {
+            return res.status(400).json({
+                message: "Erreur dans le format des coordonnées: " + err.message
+            });
+        }
+    }
+
     try {
         // Construction des données de mise à jour
         const updatedData = {
@@ -718,13 +733,9 @@ routerCarte.put("/shapes/:id", async (req, res) => {
             description,
             provider,
             service,
-            category
+            category,
+            coordinates: req.body.coordinates,
         };
-
-        // Si des coordonnées sont fournies, on les ajoute aux données de mise à jour
-        if (coordinates) {
-            updatedData.coordinates = coordinates;
-        }
 
         // Tentative de mise à jour de la zone
         const updatedArea = await CarteService.updateArea(parseInt(req.params.id), updatedData);
@@ -737,10 +748,8 @@ routerCarte.put("/shapes/:id", async (req, res) => {
         }
 
         // Retour de la réponse avec la zone mise à jour
-        res.status(200).json({
-            message: "Area successfully updated",
-            updatedArea: updatedArea,
-        });
+        res.status(200).json(updatedArea);
+
     } catch (err) {
         // Gestion des erreurs serveur
         console.error("Error while updating area:", err);

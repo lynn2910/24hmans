@@ -14,10 +14,13 @@ async function getAllAreas() {
         return shapes.map(shape => ({
                 shape_id: shape.shape_id,
                 type: "shape",
-                coordinates: shape.point.map(p => ({
-                    lat: parseFloat(p.lat.toString()),
-                    lng: parseFloat(p.lng.toString())
-                })),
+                // tab de tab car c'est un polygone, sinon on dessine des polyline avec un simple tab
+                coordinates: [
+                    shape.point.map(p => ({
+                        lat: parseFloat(p.lat.toString()),
+                        lng: parseFloat(p.lng.toString())
+                    }))
+                ],
                 name: shape.name,
                 logistics: shape.logistics,
                 surface: shape.surface,
@@ -27,49 +30,6 @@ async function getAllAreas() {
                 category: shape.category,
             })
         )
-    } catch (err) {
-        // Code d'erreur Prisma pour "record not found"
-        if (err.code === 'P2025') {
-            // Si aucun enregistrement n'est trouvé, retourne null
-            return null;
-        }
-        // Lève une erreur pour tout autre problème
-        throw new Error("Error while updating area: " + err.message);
-    }
-}
-
-async function getAreaFromId(id) {
-    try {
-        const shape = await prisma.shape.findUnique({
-            where: {
-                shape_id: id,
-            },
-            include: {
-                point: true,
-            },
-        });
-
-        if (!shape) {
-            throw new Error(`Aucune zone trouvée avec l'ID : ${id}`);
-        }
-
-        console.log(shape)
-
-        return {
-            shape_id: shape.shape_id,
-            type: "shape",
-            coordinates: shape.point.map(p => ({
-                lat: parseFloat(p.lat.toString()),
-                lng: parseFloat(p.lng.toString())
-            })),
-            name: shape.name,
-            logistics: shape.logistics,
-            surface: shape.surface,
-            description: shape.description,
-            provider: shape.provider,
-            service: shape.service,
-            category: shape.category,
-        };
     } catch (err) {
         // Code d'erreur Prisma pour "record not found"
         if (err.code === 'P2025') {
@@ -119,14 +79,65 @@ async function addArea(coordinates, name, logistics, surface, description, provi
 
         const formattedNewArea = {
             ...newArea,
-            point: newArea.point.map(p => ({
-                lat: parseFloat(p.lat),
-                lng: parseFloat(p.lng),
-            }))
+            // Encapsulation dans un tableau car polygone
+            coordinates: [
+                newArea.point.map(p => ({
+                    lat: parseFloat(p.lat),
+                    lng: parseFloat(p.lng),
+                }))
+            ]
         };
+
+        delete formattedNewArea.point;
 
         return formattedNewArea;
 
+    } catch (err) {
+        // Code d'erreur Prisma pour "record not found"
+        if (err.code === 'P2025') {
+            // Si aucun enregistrement n'est trouvé, retourne null
+            return null;
+        }
+        // Lève une erreur pour tout autre problème
+        throw new Error("Error while updating area: " + err.message);
+    }
+}
+
+async function getAreaFromId(id) {
+    try {
+        const shape = await prisma.shape.findUnique({
+            where: {
+                shape_id: id,
+            },
+            include: {
+                point: true,
+            },
+        });
+
+        if (!shape) {
+            throw new Error(`Aucune zone trouvée avec l'ID : ${id}`);
+        }
+
+        console.log(shape)
+
+        return {
+            shape_id: shape.shape_id,
+            type: "shape",
+            // tab de tab car c'est un polygone, sinon on dessine des polyline avec un simple tab
+            coordinates: [
+                shape.point.map(p => ({
+                    lat: parseFloat(p.lat.toString()),
+                    lng: parseFloat(p.lng.toString())
+                }))
+            ],
+            name: shape.name,
+            logistics: shape.logistics,
+            surface: shape.surface,
+            description: shape.description,
+            provider: shape.provider,
+            service: shape.service,
+            category: shape.category,
+        };
     } catch (err) {
         // Code d'erreur Prisma pour "record not found"
         if (err.code === 'P2025') {
@@ -160,20 +171,6 @@ async function deleteArea(id) {
 
 async function updateArea(id, updatedData) {
     try {
-        // Vérifie si des coordonnées sont fournies et les formate
-        if (updatedData.coordinates) {
-            updatedData.coordinates = updatedData.coordinates.map(coord => {
-                if (!coord.lat || !coord.lng || isNaN(coord.lat) || isNaN(coord.lng)) {
-                    throw new Error("Invalid coordinates format");
-                }
-                return {
-                    lat: parseFloat(coord.lat),
-                    lng: parseFloat(coord.lng)
-                };
-            });
-        }
-
-        // Mise à jour dans Prisma
         const updatedArea = await prisma.shape.update({
             where: {
                 shape_id: id,
@@ -186,7 +183,7 @@ async function updateArea(id, updatedData) {
                 provider: updatedData.provider,
                 service: updatedData.service,
                 category: updatedData.category,
-                point: updatedData.coordinates ? {
+                point: updatedData.coordinates && updatedData.coordinates.length > 0 ? {
                     deleteMany: {}, // Supprime les anciens points
                     create: updatedData.coordinates, // Crée les nouveaux points
                 } : undefined,
@@ -211,11 +208,15 @@ async function updateArea(id, updatedData) {
 
         const formattedUpdatedArea = {
             ...updatedArea,
-            point: updatedArea.point.map(p => ({
-                lat: parseFloat(p.lat),
-                lng: parseFloat(p.lng),
-            }))
+            coordinates: updatedArea.point.length > 0 ? [
+                updatedArea.point.map(p => ({
+                    lat: parseFloat(p.lat.toString()),
+                    lng: parseFloat(p.lng.toString()),
+                }))
+            ] : [] // Si aucune coordonnée n'est présente
         };
+
+        delete formattedUpdatedArea.point;
 
         return formattedUpdatedArea;
 
