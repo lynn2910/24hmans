@@ -11,8 +11,12 @@ async function parseJsonAndGenerateSQL() {
     };
 
     // Initialisation des requêtes SQL
-    let shapeInsertSQL = "";
-    let pointInsertSQL = "";
+    let shapeInsertSQL = "DELETE\n" +
+        "FROM shape;\n\n";
+    let pointInsertSQL = "DELETE\n" +
+        "FROM point;\n\n";
+    let shapeId = 0;
+    let pointId = 0;
 
     // Parcourir les objets dans le JSON
     jsonData.forEach((item, shapeIndex) => {
@@ -25,14 +29,14 @@ async function parseJsonAndGenerateSQL() {
             const service = escapeSingleQuotes(item.service || "");
             const category = escapeSingleQuotes(item.category || "");
 
+            shapeId = shapeIndex + 1;
+            
             // Générer la requête INSERT INTO pour Shape
-            shapeInsertSQL += `INSERT INTO Shape (name, logistics, surface, description, provider, service, category)
-                               VALUES ('${name}', '${logistics}', '${surface}', '${description}', ${provider},
-                                       '${service}', '${category}');  `;
+            shapeInsertSQL += `INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
+                                                  category)
+                               VALUES (${shapeId}, '${name}', '${logistics}', '${surface}', '${description}',
+                                       ${provider}, '${service}', '${category}');  `;
 
-
-            // Parcourir les polygones pour la Shape courante
-            const shapeId = shapeIndex + 1;
 
             // Vérifier si `coordinates` est un tableau de tableaux (polygones)
             if (Array.isArray(item.coordinates)) {
@@ -44,9 +48,11 @@ async function parseJsonAndGenerateSQL() {
                             const lat = coord.lat;
                             const lng = coord.lng;
 
+                            pointId = pointId + 1;
+
                             // Générer la requête INSERT INTO pour chaque Point
-                            pointInsertSQL += `INSERT INTO Point (lat, lng, shape_id)
-                                               VALUES (${lat}, ${lng}, ${shapeId});  `;
+                            pointInsertSQL += `INSERT INTO Point (point_id, lat, lng, shape_id)
+                                               VALUES (${pointId}, ${lat}, ${lng}, ${shapeId});  `;
                         });
                     } else {
                         console.error(`Le polygone à l'index ${polygonIndex} pour shape_id ${shapeId} n'est pas valide.`);
