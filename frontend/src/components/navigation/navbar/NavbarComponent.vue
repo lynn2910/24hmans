@@ -5,7 +5,7 @@
 		<!--      -->
 		<!--    </div>-->
 		<div
-				class="w-[95%] bg-dark m-auto rounded-full text-white flex flex-row font-semibold space-x-8 px-4 py-1 items-center content-center shadow-xl shadow-white">
+				class="w-[95%] bg-dark m-auto rounded-full text-white flex flex-row font-semibold space-x-8 px-4 py-1 items-center content-center shadow shadow-white">
 			<router-link to="/" class="w-1/4">
 				<IconEvent height="30"></IconEvent>
 			</router-link>
