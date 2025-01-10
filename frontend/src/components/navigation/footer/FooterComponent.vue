@@ -30,7 +30,7 @@
 					</div>
 					<div class="flex flex-col m-5 max-w-44 text-center mr-14 mt-auto">
 						<p class="text-2xl font-bold italic">SERVICES</p>
-						<router-link to="/billetteries"><p>BILLETERIES</p></router-link>
+						<router-link to="/billetteries"><p>BILLETTERIES</p></router-link>
 						<router-link to="/ecuries"><p>VISITES ECURIES</p></router-link>
 						<!--											<router-link to="/kartings"><p>KARTING</p></router-link>-->
 						<!--											<router-link to="/montgolfieres"><p>MONTGOLFIERE</p></router-link>-->
