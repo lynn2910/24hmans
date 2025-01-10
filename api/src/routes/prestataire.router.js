@@ -1,5 +1,12 @@
 const {Router} = require("express");
-const {getPrestataireFromName, getPrestataire, getPrestataireLink, createPrestataireLink, updatePrestataireLink, deletePrestataireLink} = require("../services/prestataire.service");
+const {
+    getPrestataireFromName,
+    getPrestataire,
+    getPrestataireLink,
+    createPrestataireLink,
+    updatePrestataireLink,
+    deletePrestataireLink
+} = require("../services/prestataire.service");
 
 const routerPresta = new Router();
 
@@ -12,24 +19,40 @@ const routerPresta = new Router();
  *          properties:
  *           id:
  *               type: integer
+ *               example: 1
  *           name:
  *               type: string
+ *               example: "Site officiel"
  *           url:
  *               type: string
- *
+ *               name: "https://www.porsche.com"
  *        Prestataire:
  *          type: object
  *          properties:
  *            id:
  *              type: integer
+ *              example: "0b7956e6-1262-49f7-aaab-c5ab60d16cba"
  *            name:
  *              type: string
+ *              example: "Porsche"
+ *            referencer:
+ *              type: string
+ *              example: "porsche"
+ *            icon:
+ *              type: string
+ *              nullable: true
+ *              example: "prestataires_icons/codeky_presta.jpg"
  *            email:
  *              type: string
+ *              example: "porsche@gmail.com"
  *            accentColor:
  *               type: string
+ *               nullable: true
+ *               example: "#fff"
  *            banner:
  *               type: string
+ *               nullable: true
+ *               example: null
  *            links:
  *               type: array
  *               items:
@@ -46,6 +69,7 @@ const routerPresta = new Router();
  *         parameters:
  *           - in: path
  *             name: prestataire
+ *             example: "porsche"
  *             required: true
  *             description: Nom ou identifiant du prestataire
  *             schema:
@@ -67,7 +91,6 @@ const routerPresta = new Router();
  *                                  message:
  *                                      type: string
  */
-
 routerPresta.get(
     "/:prestataire_name",
     async (req, res) => {
@@ -99,20 +122,16 @@ routerPresta.get(
  *         name: prestataire_name
  *         required: true
  *         description: Nom du prestataire
+ *         example: "porsche"
  *         schema:
  *           type: string
  *       - in: path
  *         name: link_id
+ *         example: 1
  *         required: true
  *         description: ID du lien à récupérer
  *         schema:
  *           type: integer
- *       - in: query
- *         name: sessionId
- *         required: true
- *         description: Session ID for authentication
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         description: Lien récupéré avec succès
@@ -141,13 +160,8 @@ routerPresta.get(
 routerPresta.get(
     "/:prestataire_name/link/:link_id",
     async (req, res) => {
-        const { prestataire_name, link_id } = req.params;
-        const { sessionId } = req.query;
-        if (!sessionId) {
-            return res.status(400).json({
-                message: "Session ID is required."
-            });
-        }
+        const {prestataire_name, link_id} = req.params;
+
         let presta = await getPrestataireFromName(prestataire_name);
         if (!presta) {
             return res.status(404).json({
@@ -178,12 +192,14 @@ routerPresta.get(
  *         name: prestataire_name
  *         required: true
  *         description: Nom du prestataire
+ *         example: "porsche"
  *         schema:
  *           type: string
  *       - in: query
  *         name: sessionId
  *         required: true
  *         description: Session ID for authentication
+ *         example: "HVpYuVywN4"
  *         schema:
  *           type: string
  *     requestBody:
@@ -195,8 +211,10 @@ routerPresta.get(
  *             properties:
  *               name:
  *                 type: string
+ *                 example: "Site officiel"
  *               url:
  *                 type: string
+ *                 example: "https://www.porsche.com"
  *     responses:
  *       201:
  *         description: Lien créé avec succès
@@ -225,9 +243,9 @@ routerPresta.get(
 routerPresta.post(
     "/:prestataire_name/link",
     async (req, res) => {
-        const { prestataire_name } = req.params;
-        const { sessionId } = req.query;
-        const { name, url } = req.body;
+        const {prestataire_name} = req.params;
+        const {sessionId} = req.query;
+        const {name, url} = req.body;
 
         if (!sessionId) {
             return res.status(400).json({
@@ -242,7 +260,7 @@ routerPresta.post(
             });
         }
 
-        const newLink = await createPrestataireLink(presta.id, { name, url });
+        const newLink = await createPrestataireLink(presta.id, {name, url});
         return res.status(201).json(newLink);
     }
 );
@@ -260,18 +278,21 @@ routerPresta.post(
  *         name: prestataire_name
  *         required: true
  *         description: Nom du prestataire
+ *         example: "porsche"
  *         schema:
  *           type: string
  *       - in: path
  *         name: link_id
  *         required: true
  *         description: ID du lien à mettre à jour
+ *         example: 1
  *         schema:
  *           type: integer
  *       - in: query
  *         name: sessionId
  *         required: true
  *         description: Session ID for authentication
+ *         example: "HVpYuVywN4"
  *         schema:
  *           type: string
  *     requestBody:
@@ -283,8 +304,10 @@ routerPresta.post(
  *             properties:
  *               name:
  *                 type: string
+ *                 example: "Site officiel modifié"
  *               url:
  *                 type: string
+ *                 example: "https://www.porsche.com"
  *     responses:
  *       200:
  *         description: Lien mis à jour avec succès
@@ -295,10 +318,13 @@ routerPresta.post(
  *               properties:
  *                 id:
  *                   type: integer
+ *                   example: 1
  *                 name:
  *                   type: string
+ *                   example: "Site officiel modifié"
  *                 url:
  *                   type: string
+ *                   example: "https://www.porsche.com"
  *       400:
  *         description: Session ID manquant
  *         content:
@@ -323,9 +349,9 @@ routerPresta.post(
 routerPresta.patch(
     "/:prestataire_name/link/:link_id",
     async (req, res) => {
-        const { prestataire_name, link_id } = req.params;
-        const { sessionId } = req.query;
-        const { name, url } = req.body;
+        const {prestataire_name, link_id} = req.params;
+        const {sessionId} = req.query;
+        const {name, url} = req.body;
 
         if (!sessionId) {
             return res.status(400).json({
@@ -340,7 +366,7 @@ routerPresta.patch(
                     message: "Prestataire not found.",
                 });
             }
-            const updatedLink = await updatePrestataireLink(prestataire.id, link_id, { name, url });
+            const updatedLink = await updatePrestataireLink(prestataire.id, link_id, {name, url});
             if (!updatedLink) {
                 return res.status(404).json({
                     message: "Link not found.",
@@ -368,6 +394,7 @@ routerPresta.patch(
  *     parameters:
  *       - name: prestataire_name
  *         in: path
+ *         example: "porsche"
  *         required: true
  *         description: Nom du prestataire
  *         schema:
@@ -376,11 +403,13 @@ routerPresta.patch(
  *         in: path
  *         required: true
  *         description: ID du lien à supprimer
+ *         example: 1
  *         schema:
  *           type: integer
  *       - in: query
  *         name: sessionId
  *         required: true
+ *         example: "HVpYuVywN4"
  *         description: Session ID for authentication
  *         schema:
  *           type: string
@@ -415,11 +444,10 @@ routerPresta.patch(
  *                   type: string
  *                   example: "Prestataire or link not found."
  */
-
 routerPresta.delete(
     "/:prestataire_name/link/:link_id",
     async (req, res) => {
-        const { prestataire_name, link_id } = req.params;
+        const {prestataire_name, link_id} = req.params;
         let presta = await getPrestataireFromName(prestataire_name);
         if (!presta) {
             return res.status(404).json({
@@ -438,8 +466,6 @@ routerPresta.delete(
         });
     }
 );
-
-
 
 
 module.exports = routerPresta;
