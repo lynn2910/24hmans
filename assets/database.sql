@@ -145,7 +145,7 @@ VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-
 INSERT INTO Ecurie(id, name, prestataire_id)
     VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
 
-INSERT INTO FormulaireEcurie(ecurie_id, email, nom, num_billet, prenom, tel, submitted_at)
+INSERT INTO FormulaireEcurie(ecurie_id, prenom, nom, email, tel, num_billet, submitted_at)
 VALUES ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Yanis", "Blanc", "Yanis@gmail.com", "07 72 50 20 32", '01',
         "2024-11-28 12:40:24"),
        ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Juliette", "Richard", "Juliette.Richard@gmail.com", "+07 88 55 02 07",
@@ -178,3 +178,5 @@ VALUES ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Yanis", "Blanc", "Yanis@gmail.c
         "2024-11-28 12:40:24"),
        ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Gabriel", "Morin", "gabriel.morin@gmail.com", "09 65 85 96 85", '16',
         "2024-11-28 12:40:24");
+
+#SELECT * FROM FormulaireEcurie ;
