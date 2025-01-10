@@ -377,7 +377,8 @@ routerCarte.post("/shapes", async (req, res) => {
  *         required: true
  *         description: "Identifiant unique de la zone (shape_id)"
  *         schema:
- *           type: integer
+ *            type: integer
+ *            example: 42
  *     responses:
  *       200:
  *         description: "Détails de la zone demandée"
@@ -499,7 +500,7 @@ routerCarte.get("/shapes/:id", async (req, res) => {
  *         description: "Identifiant unique de la zone à supprimer"
  *         schema:
  *           type: integer
- *           example: 75
+ *           example: 1
  *     responses:
  *       200:
  *         description: "La zone a été supprimée avec succès."
@@ -549,6 +550,7 @@ routerCarte.get("/shapes/:id", async (req, res) => {
 routerCarte.delete("/shapes/:id", async (req, res) => {
     try {
         const areaId = parseInt(req.params.id);
+
         if (isNaN(areaId)) {
             return res.status(400).json({
                 message: "L'identifiant de la zone est manquant ou incorrect. Veuillez fournir un ID valide."
@@ -588,6 +590,7 @@ routerCarte.delete("/shapes/:id", async (req, res) => {
  *         description: "Identifiant unique de la zone à mettre à jour"
  *         schema:
  *           type: integer
+ *           example: 42
  *     requestBody:
  *       required: true
  *       content:
@@ -699,6 +702,7 @@ routerCarte.put("/shapes/:id", async (req, res) => {
         coordinates
     } = req.body;
 
+    // Vérification de la présence des champs obligatoires
     if (!name || !logistics || !surface || !description || !category) {
         return res.status(400).json({
             message: "Données manquantes ou incorrectes. Assurez-vous que tous les champs requis sont remplis."
@@ -706,6 +710,7 @@ routerCarte.put("/shapes/:id", async (req, res) => {
     }
 
     try {
+        // Construction des données de mise à jour
         const updatedData = {
             name,
             logistics,
@@ -716,24 +721,32 @@ routerCarte.put("/shapes/:id", async (req, res) => {
             category
         };
 
+        // Si des coordonnées sont fournies, on les ajoute aux données de mise à jour
         if (coordinates) {
             updatedData.coordinates = coordinates;
         }
 
+        // Tentative de mise à jour de la zone
         const updatedArea = await CarteService.updateArea(parseInt(req.params.id), updatedData);
 
+        // Vérification si la mise à jour a échoué
         if (!updatedArea) {
             return res.status(404).json({
                 message: "Aucune zone trouvée avec l'identifiant donné."
             });
         }
 
+        // Retour de la réponse avec la zone mise à jour
         res.status(200).json({
             message: "Area successfully updated",
             updatedArea: updatedArea,
         });
     } catch (err) {
-        res.status(500).json({message: "Error while updating area: " + err.message});
+        // Gestion des erreurs serveur
+        console.error("Error while updating area:", err);
+        res.status(500).json({
+            message: "Error while updating area: " + err.message
+        });
     }
 });
 
