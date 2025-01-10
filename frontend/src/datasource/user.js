@@ -70,6 +70,7 @@ export const user_orders = [
                 article_id: 4,
                 article: {
                     "name": "911 Carrera RS",
+                    shop_id: "5bc1bcf2-0d5e-4adf-9402-5dafa3777413",
                     "category": {"category_id": "0ce99bfb-adaa-4c9c-a423-8ea2c700c3c5", "category_label": "Voitures"},
                     "stock": "5",
                     "price": 310000,
