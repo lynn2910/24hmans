@@ -4,6 +4,7 @@
   "main": "src/api.js",
   "scripts": {
     "api": "npx prisma generate --no-hints && npx prisma db push && nodemon src/api.js -i swagger.yaml",
+    "prod": "npx prisma generate --no-hints && npx prisma db push && node src/api.js -i swagger.yaml",
     "db": "npx prisma generate --no-hints && npx prisma db push"
   },
   "author": "",
