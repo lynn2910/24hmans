@@ -35,44 +35,36 @@ async function getPrestataireLink(prestataireId, linkId) {
 }
 
 async function createPrestataireLink(prestataireId, linkData) {
-    const fs = require("fs/promises");
-    const data = require("../data/prestataires.json");
+    return new Promise(async (resolve, reject) => {
+        try {
+            let newLink = await prisma.prestataireLink.create({
+                data: {
+                    name: linkData.name,
+                    url: linkData.url,
+                    prestataire: {
+                        connect: {id: prestataireId},
+                    }
+                }
+            })
 
-    const prestataire = data.find(presta => presta.id === parseInt(prestataireId, 10));
-    if (!prestataire) return null;
-
-    const newLink = {
-        id: prestataire.links?.length
-            ? prestataire.links[prestataire.links.length - 1].id + 1
-            : 1,
-        ...linkData,
-    };
-
-    prestataire.links = [...(prestataire.links || []), newLink];
-
-    await fs.writeFile("./data/prestataires.json", JSON.stringify(data, null, 2));
-    return newLink;
+            return resolve(newLink);
+        } catch (error) {
+            return reject(error);
+        }
+    })
 }
 
 
-
 async function updatePrestataireLink(prestataireId, linkId, updatedData) {
-    const fs = require("fs/promises");
-    const data = require("../data/prestataires.json");
-
-    const prestataire = data.find(presta => presta.id === parseInt(prestataireId, 10));
-    if (!prestataire || !prestataire.links) return null;
-
-    const linkIndex = prestataire.links.findIndex(link => link.id === parseInt(linkId, 10));
-    if (linkIndex === -1) return null;
-
-    prestataire.links[linkIndex] = {
-        ...prestataire.links[linkIndex],
-        ...updatedData,
-    };
-
-    await fs.writeFile("./data/prestataires.json", JSON.stringify(data, null, 2));
-    return prestataire.links[linkIndex];
+    return prisma.prestataireLink.update({
+        data: {
+            name: updatedData?.name,
+            url: updatedData?.url,
+        },
+        where: {
+            id: Number.parseInt(linkId),
+        }
+    })
 }
 
 async function deletePrestataireLink(presta_id, link_id) {
@@ -80,35 +72,36 @@ async function deletePrestataireLink(presta_id, link_id) {
         // Chercher le lien à supprimer
         const existingLink = await prisma.prestataireLink.findUnique({
             where: {
-                prestataire_id_id: {
-                    prestataire_id: presta_id,
-                    id: link_id
-                }
+                id: Number.parseInt(link_id),
             }
         });
 
         // Si le lien n'existe pas
         if (!existingLink) {
-            return { error: 1, status: 404, data: "Link not found." };
+            return {error: 1, status: 404, data: "Link not found."};
         }
 
         // Supprimer le lien
         const deletedLink = await prisma.prestataireLink.delete({
             where: {
-                prestataire_id_id: {
-                    prestataire_id: presta_id,
-                    id: link_id
-                }
+                id: Number.parseInt(link_id),
             }
         });
 
-        return { error: 0, status: 200, data: deletedLink };
+        return {error: 0, status: 200, data: deletedLink};
 
     } catch (error) {
         console.error("Error deleting link:", error);
-        return { error: 1, status: 500, data: "Internal server error." };
+        return {error: 1, status: 500, data: "Internal server error."};
     }
 }
 
 
-module.exports = {getPrestataire, getPrestataireFromName, getPrestataireLink, createPrestataireLink, updatePrestataireLink, deletePrestataireLink};
+module.exports = {
+    getPrestataire,
+    getPrestataireFromName,
+    getPrestataireLink,
+    createPrestataireLink,
+    updatePrestataireLink,
+    deletePrestataireLink
+};
