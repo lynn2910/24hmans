@@ -57,7 +57,8 @@ VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359 ', 'test@gmail.com',
 
 
 INSERT INTO Sessions (sessionId, userType, userId)
-VALUES ('sdkhd4Kcr8', 1, 'e052f135-13db-4a0d-aa15-f9bffac00359');
+VALUES ('sdkhd4Kcr8', 1, 'e052f135-13db-4a0d-aa15-f9bffac00359'),
+       ('HVpYuVywN4', 2, '45309281-fc24-4e02-ad47-a275c64f5327');
 
 # -- Pour générer des personnes : https://www.name-generator.org.uk/last/
 #
