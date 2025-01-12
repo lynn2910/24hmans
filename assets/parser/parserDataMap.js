@@ -12,9 +12,9 @@ async function parseJsonAndGenerateSQL() {
 
     // Initialisation des requêtes SQL
     let shapeInsertSQL = "DELETE\n" +
-        "FROM shape;\n\n";
+        "FROM Shape;\n\n";
     let pointInsertSQL = "DELETE\n" +
-        "FROM point;\n\n";
+        "FROM Point;\n\n";
     let shapeId = 0;
     let pointId = 0;
 
@@ -30,7 +30,7 @@ async function parseJsonAndGenerateSQL() {
             const category = escapeSingleQuotes(item.category || "");
 
             shapeId = shapeIndex + 1;
-            
+
             // Générer la requête INSERT INTO pour Shape
             shapeInsertSQL += `INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
                                                   category)
