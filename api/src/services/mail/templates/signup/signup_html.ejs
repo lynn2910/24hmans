@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//FR"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 <head>
@@ -449,19 +449,22 @@
         .f-fallback {
             font-family: Arial, sans-serif;
         }
+
+        .ii a[href] {
+            color: #fff !important;
+        }
     </style>
     <![endif]-->
 </head>
 <body>
-<span class="preheader">Thanks for trying out [Product Name]. We’ve pulled together some information and resources to help you get started.</span>
 <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
         <td align="center">
             <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                 <tr>
                     <td class="email-masthead">
-                        <a href="https://example.com" class="f-fallback email-masthead_name">
-                            [Product Name]
+                        <a href="<%= host %>" class="f-fallback email-masthead_name">
+                            24h du Mans
                         </a>
                     </td>
                 </tr>
@@ -474,29 +477,75 @@
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1>Welcome, {{name}}!</h1>
-                                        <p>Thanks for trying [Product Name]. We’re thrilled to have you on board. To get
-                                            the most out of [Product Name], do this primary next step:</p>
+                                        <h1>Bienvenue, <%= user.first_name %> <%= user.last_name?.toUpperCase() %>!</h1>
+
+                                        <p>
+                                            Prêt à prendre le volant ?
+                                            Votre inscription est un succès !
+                                            Vous êtes sur la bonne voie pour les 24 Heures du Mans.
+                                            Toutes les informations pratiques vous attendent.
+                                        </p>
+                                        <br>
+                                        <p>Pour une expérience réussie, commencez par :</p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0"
                                                cellspacing="0" role="presentation">
                                             <tr>
                                                 <td align="center">
-                                                    <!-- Border based button
-                                 https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0"
                                                            role="presentation">
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="{{action_url}}" class="f-fallback button"
-                                                                   target="_blank">Do this Next</a>
+                                                                <a href="<%= host %>/carte" class="f-fallback button"
+                                                                   target="_blank" style="color: #FFF !important;">
+                                                                    Découvrir la carte du site
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td><br></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                                           role="presentation">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <a href="<%= host %>/boutiques"
+                                                                   class="f-fallback button"
+                                                                   style="color: #FFF !important;"
+                                                                   target="_blank">Visiter les boutiques</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><br></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                                           role="presentation">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <a href="<%= host %>/ecuries" class="f-fallback button"
+                                                                   style="color: #FFF !important;"
+                                                                   target="_blank">
+                                                                    M'inscrire à la visite d'une écurie
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <!-- TODO ajouter d'autres services -->
                                         </table>
-                                        <p>For reference, here's your login information:</p>
+
+                                        <p>Pour référence, voici vos informations de connexion :</p>
                                         <table class="attributes" width="100%" cellpadding="0" cellspacing="0"
                                                role="presentation">
                                             <tr>
@@ -505,67 +554,32 @@
                                                            role="presentation">
                                                         <tr>
                                                             <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Login Page:</strong> {{login_url}}
-            </span>
+                                                                <span class="f-fallback">
+                                                                  <strong>Login Page:</strong>
+                                                                    <a href="<%= dashboardURL %>"><%= host %>/login</a>
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Username:</strong> {{username}}
-            </span>
+                                                                <span class="f-fallback">
+                                                                  <strong>Email:</strong> <%= user.email %>
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p>You've started a {{trial_length}} day trial. You can upgrade to a paying
-                                            account or cancel any time.</p>
-                                        <table class="attributes" width="100%" cellpadding="0" cellspacing="0"
-                                               role="presentation">
-                                            <tr>
-                                                <td class="attributes_content">
-                                                    <table width="100%" cellpadding="0" cellspacing="0"
-                                                           role="presentation">
-                                                        <tr>
-                                                            <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Trial Start Date:</strong> {{trial_start_date}}
-            </span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="attributes_item">
-                                    <span class="f-fallback">
-              <strong>Trial End Date:</strong> {{trial_end_date}}
-            </span>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <p>If you have any questions, feel free to <a href="mailto:{{support_email}}">email
-                                                our customer success team</a>. (We're lightning quick at replying.) We
-                                            also offer <a href="{{live_chat_url}}">live chat</a> during business hours.
+
+                                        <p>
+                                            Pour toute question sur votre inscription, notre équipe d'assistance est à
+                                            votre disposition à l'adresse <a href="mailto:24hmans.sae@gmail.com">24hmans.sae@gmail.com</a>.
+                                            On répond à vos messages à la vitesse des stands de ravitaillement !
                                         </p>
-                                        <p>Thanks,
-                                            <br>[Sender Name] and the [Product Name] team</p>
-                                        <p><strong>P.S.</strong> Need immediate help getting started? Check out our <a
-                                                    href="{{help_url}}">help documentation</a>. Or, just reply to this
-                                            email, the [Product Name] support team is always ready to help!</p>
-                                        <!-- Sub copy -->
-                                        <table class="body-sub" role="presentation">
-                                            <tr>
-                                                <td>
-                                                    <p class="f-fallback sub">If you’re having trouble with the button
-                                                        above, copy and paste the URL below into your web browser.</p>
-                                                    <p class="f-fallback sub">{{action_url}}</p>
-                                                </td>
-                                            </tr>
-                                        </table>
+
+                                        <p>On a hâte de vous voir,
+                                            <br>L'équipe des 24h du Mans</p>
                                     </div>
                                 </td>
                             </tr>
@@ -579,9 +593,9 @@
                             <tr>
                                 <td class="content-cell" align="center">
                                     <p class="f-fallback sub align-center">
-                                        [Company Name, LLC]
-                                        <br>1234 Street Rd.
-                                        <br>Suite 1234
+                                        24h du Mans
+                                        <br>4EME ETAGE PLACE LUIGI CHINETTI 72100 LE MANS
+                                        <br>MODULE SPORTIF
                                     </p>
                                 </td>
                             </tr>

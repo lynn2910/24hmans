@@ -70,16 +70,11 @@ const router = express.Router();
  *         last_name:
  *           type: string
  *           description: User's last name.
- *         password:
- *           type: string
- *           format: password
- *           description: User's password.
  *       required:
  *         - id
  *         - email
  *         - first_name
  *         - last_name
- *         - password
  *     Admin:
  *       type: object
  *       properties:

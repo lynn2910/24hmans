@@ -256,6 +256,8 @@ export default {
 	},
 	async mounted() {
 		// TODO en réalité c'est très mauvais; ca ne vérifie pas si on a de bons identifiants :o
+
+		// TODO détecter la query 'sessionId' pour pouvoir se login directement avec cet sessionId
 		if (this.loggedInUser && this.userType) {
 			this.redirectUser(this.userType);
 		}
