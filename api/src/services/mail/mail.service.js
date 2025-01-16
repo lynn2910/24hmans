@@ -1,11 +1,12 @@
 const nodemailer = require("nodemailer");
 const ejs = require("ejs");
 const path = require("path");
+const fs = require("fs");
 
 const FROM_ADDRESS = process.env.MAIL_ADDRESS;
 const TRANSPORTER_PASSWORD = process.env.MAIL_PASSWORD;
 
-let smpTransport;
+let smtpTransport;
 let transporterValidity = {valid: false, tried: false};
 
 /**
@@ -41,13 +42,24 @@ function registerMailService() {
  * @property {string?} htmlPath Le chemin vers la template EJS ou le fichier HTML
  * @property {string?} plainPath Le chemin vers la template textuelle EJS (ou un texte pur)
  * @property {string} subject Le sujet du mail
- * @property {function} callback Un callback, exécuté une fois le mail envoyé
+ * @property {function?} callback Un callback, exécuté une fois le mail envoyé*
+ * @property {object} args Arguments donnés aux templates
  * @example
  * const mail_request = {
  *   subject: "Inscription",
  *   sendTo: "test@gmail.com",
  *   htmlPath: "signup/signup_html.ejs",
  *   plainPath: "signup/signup_plain.ejs",
+ *   args: {
+ *      user: {
+ *          first_name: "Stephane",
+ *          last_name: "DOMAS",
+ *          password: "drmad3462@=Bordifier"
+ *          email: "stephane.domas@univ-fcomte.fr"
+ *          // ne pas envoyer le mail à son adresse, on ne va pas l'embêter
+ *      },
+ *      sessionId: "0123456789"
+ *   }
  * }
  *
  * addMailRequest(mail_request)
@@ -97,11 +109,11 @@ async function sendMail(mail_request) {
         from: FROM_ADDRESS,
         to: mail_request.sendTo,
         subject: mail_request.subject,
-        html: mail_request.htmlPath ? await renderFile(mail_request.htmlPath) : null,
-        text: mail_request.plainPath ? await renderFile(mail_request.plainPath) : null,
+        html: mail_request.htmlPath ? await renderFile(mail_request.htmlPath, mail_request.args) : null,
+        text: mail_request.plainPath ? await renderFile(mail_request.plainPath, mail_request.args) : null,
     }
 
-    await smpTransport.sendMail(
+    await smtpTransport.sendMail(
         mailOptions,
         mail_request.callback
     )
@@ -119,7 +131,7 @@ async function renderFile(file_path, args = {}) {
             "utf8"
         );
 
-        return await ejs.render(file_path, args);
+        return await ejs.render(rawFile, args);
     } catch (err) {
         console.error(`[MAIL] Failed to render file '${file_path}': ${err}`);
     }
