@@ -6,7 +6,7 @@ const cors = require("cors");
 require("./db");
 const {createRule, User, Permission, Method} = require("./permissions");
 const {autoClearer} = require("./services/auth.service");
-const {registerMailService} = require("./services/mail.service");
+const {registerMailService} = require("./services/mail/mail.service");
 
 const app = express();
 require("dotenv").config();
