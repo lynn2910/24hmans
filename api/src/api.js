@@ -6,6 +6,7 @@ const cors = require("cors");
 require("./db");
 const {createRule, User, Permission, Method} = require("./permissions");
 const {autoClearer} = require("./services/auth.service");
+const {registerMailService} = require("./services/mail.service");
 
 const app = express();
 require("dotenv").config();
@@ -60,7 +61,6 @@ app.use("/auth", require("./routes/auth.router"));
 app.use("/carte", require("./routes/carte.router"));
 
 
-
 //
 //
 //  GESTION DES ERREURS
@@ -87,6 +87,9 @@ app.use(errorHandler);
 app.listen(process.env.API_PORT, "0.0.0.0", () => {
     console.log(`Server running on http://127.0.0.1:${process.env.API_PORT}`);
     console.log(`Swagger running on http://127.0.0.1:${process.env.API_PORT}/api-docs/`);
+
+    // Configurer le service mail :o
+    registerMailService()
 
     // autoClearer()
 });

@@ -8,4 +8,7 @@ api/package-lock.json
 api/node_modules
 /api/swagger.yaml
 
-.run/*
+.run/
+
+**/.env
+mail_tests
