@@ -298,3 +298,30 @@ model FormulaireEcurie {
 
   ecurie Ecurie @relation(fields: [ecurie_id], references: [id], onDelete: Cascade)
 }
+
+//
+//
+//  Système de réservations
+//
+//
+
+model ReservationApp {
+  app_id String @id @db.VarChar(36)
+
+  reservation_slots ReservationSlot[]
+}
+
+model ReservationSlot {
+  reservation_id String         @id @db.VarChar(36)
+  app_id         String         @db.VarChar(36)
+  app            ReservationApp @relation(fields: [app_id], references: [app_id], onDelete: Cascade)
+
+  from DateTime
+  to   DateTime
+}
+
+//
+//
+//
+//
+//
