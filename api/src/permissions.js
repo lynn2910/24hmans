@@ -162,23 +162,15 @@ function checkAccess(route, method, wanted_user_type, sessionId) {
  * @returns {Promise<{infos: object, ok: boolean}|boolean>}
  */
 async function checkPermissions(rule, sessionId, user_type) {
-    let sessionInformations = null;
+    let sessionInformations = await getSessionInformations(sessionId);
     let allowedUsers = []
 
-    for (const permission of rule.permissions) {
+    for (const permission of rule?.permissions || []) {
         if (permission === Permission.NoAccess)
             return false;
 
         if (permission === Permission.Public)
             return true;
-
-        if (!sessionInformations) {
-            sessionInformations = await getSessionInformations(sessionId);
-            // Si c'est toujours null, alors ça veut dire que la session n'existe pas
-            // Comme les permissions vérifiées après cette ligne nécessitent les informations de session,
-            // on refuse l'accès, car l'utilisateur n'est pas login (ou sa session a expiré)
-            if (!sessionInformations) return false;
-        }
 
         switch (permission) {
             case Permission.Prestataire: {
