@@ -280,6 +280,12 @@ model TicketBilletteriePersonnes {
   @@id([ticket_id, personne_type_id])
 }
 
+//
+//
+//    ECURIE
+//
+//
+
 model Ecurie {
   id   String @id @db.VarChar(36)
   name String
@@ -325,7 +331,7 @@ model ReservationSlot {
   from DateTime
   to   DateTime
 
-  karting_slots KartingSlot[]
+  karting_sessions UserKartingSession[]
 }
 
 //
@@ -348,25 +354,17 @@ model Karting {
 }
 
 model UserKartingSession {
-  session_id Int @id @default(autoincrement())
-
-  pseudo String?
+  session_id Int     @id @default(autoincrement())
+  pseudo     String?
 
   user_id String @db.VarChar(36)
   user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  slot_id String?      @db.VarChar(36)
-  slot    KartingSlot? @relation(fields: [slot_id], references: [reservation_slot_id], onDelete: SetNull)
-}
-
-model KartingSlot {
-  reservation_slot_id String          @id @db.VarChar(36)
+  reservation_slot_id String          @db.VarChar(36)
   reservation_slot    ReservationSlot @relation(fields: [reservation_slot_id], references: [reservation_id], onDelete: Cascade)
 
   circuit_id String?         @db.VarChar(36)
   circuit    KartingCircuit? @relation(fields: [circuit_id], references: [circuit_id], onDelete: SetNull)
-
-  user_sessions UserKartingSession[]
 }
 
 // Chaque circuit possède:
@@ -385,5 +383,5 @@ model KartingCircuit {
   // Exemple: 160 pour "Kart 160 CC" ou 270 pour "Kart 270 CC", ou encore 390 pour "Kart 390 CC"
   kart_power   Int
 
-  reservation_slots KartingSlot[]
+  sessions UserKartingSession[]
 }
