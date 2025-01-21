@@ -37,6 +37,39 @@ function get_available_kartings(prestataire_id = null) {
     }
 }
 
+function get_karting(karting_id, prestataire_id = null) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let karting = await prisma.karting.findUnique({
+                where: {
+                    karting_id,
+                },
+                include: {
+                    circuits: true,
+                    reservations: {
+                        include: {
+                            reservation_slots: true,
+                        }
+                    }
+                }
+            });
+
+            if (
+                !karting
+                || (!karting.enabled && karting.prestataire_id !== prestataire_id)
+            ) {
+                return reject({status: 401, message: "You don't have access to this karting"});
+            }
+
+            return resolve(karting);
+        } catch (err) {
+            console.error(err)
+            return reject({status: 500, message: err.message});
+        }
+    })
+}
+
 module.exports = {
-    get_available_kartings
+    get_available_kartings,
+    get_karting
 }
