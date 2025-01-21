@@ -29,6 +29,8 @@ model User {
 
   tickets Tickets[]
   orders  UserOrder[]
+
+  karting_sessions UserKartingSession[]
 }
 
 //
@@ -322,6 +324,8 @@ model ReservationSlot {
 
   from DateTime
   to   DateTime
+
+  karting_slots KartingSlot[]
 }
 
 //
@@ -331,9 +335,55 @@ model ReservationSlot {
 //
 
 model Karting {
+  karting_id     String      @id @db.VarChar(36)
   prestataire_id String      @unique @db.VarChar(36)
   prestataire    Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
 
+  // Ca sera utile pour récupérer facilement toutes les réservations du karting
   reservation_app_id String         @unique @db.VarChar(36)
   reservations       ReservationApp @relation(fields: [reservation_app_id], references: [app_id], onDelete: Cascade)
+
+  // La liste des circuits
+  circuits KartingCircuit[]
+}
+
+model UserKartingSession {
+  session_id Int @id @default(autoincrement())
+
+  pseudo String?
+
+  user_id String @db.VarChar(36)
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  slot_id String?      @db.VarChar(36)
+  slot    KartingSlot? @relation(fields: [slot_id], references: [reservation_slot_id], onDelete: SetNull)
+}
+
+model KartingSlot {
+  reservation_slot_id String          @id @db.VarChar(36)
+  reservation_slot    ReservationSlot @relation(fields: [reservation_slot_id], references: [reservation_id], onDelete: Cascade)
+
+  circuit_id String?         @db.VarChar(36)
+  circuit    KartingCircuit? @relation(fields: [circuit_id], references: [circuit_id], onDelete: SetNull)
+
+  user_sessions UserKartingSession[]
+}
+
+// Chaque circuit possède:
+// - Un nom
+// - Un age minimal (enfants vs adultes)
+// - La vitesse max des carts
+// - Les réservations
+model KartingCircuit {
+  circuit_id String @id @db.VarChar(36)
+
+  karting_id String  @db.VarChar(36)
+  karting    Karting @relation(fields: [karting_id], references: [karting_id], onDelete: Cascade)
+
+  minAge       Int
+  circuit_name String
+  // Exemple: 160 pour "Kart 160 CC" ou 270 pour "Kart 270 CC", ou encore 390 pour "Kart 390 CC"
+  kart_power   Int
+
+  reservation_slots KartingSlot[]
 }
