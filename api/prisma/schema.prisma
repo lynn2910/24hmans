@@ -62,11 +62,13 @@ model Prestataire {
   accentColor String?
   banner      String?
 
-  links        PrestataireLink[]
-  boutique     Boutique?
-  Shape        Shape[]
-  Ecurie       Ecurie?
-  Billetteries Billetteries[]
+  links PrestataireLink[]
+  Shape Shape[]
+
+  boutique   Boutique?
+  Ecurie     Ecurie?
+  Billeterie Billetteries?
+  karting    Karting?
 
   @@index([name])
 }
@@ -203,7 +205,7 @@ model Billetteries {
   billetterie_label String @db.VarChar(50)
   billetterie_id    String @id @db.Char(36)
 
-  prestataire_id        String                  @db.Char(36)
+  prestataire_id        String                  @unique @db.Char(36)
   prestataire           Prestataire             @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
   BilletterieCategories BilletterieCategories[]
   BilletterieForfaits   BilletterieForfaits[]
@@ -301,7 +303,7 @@ model FormulaireEcurie {
 
 //
 //
-//  Système de réservations
+//    Système de réservations
 //
 //
 
@@ -309,6 +311,8 @@ model ReservationApp {
   app_id String @id @db.VarChar(36)
 
   reservation_slots ReservationSlot[]
+
+  Karting Karting[]
 }
 
 model ReservationSlot {
@@ -322,6 +326,14 @@ model ReservationSlot {
 
 //
 //
+//    Karting
 //
 //
-//
+
+model Karting {
+  prestataire_id String      @unique @db.VarChar(36)
+  prestataire    Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+
+  reservation_app_id String         @unique @db.VarChar(36)
+  reservations       ReservationApp @relation(fields: [reservation_app_id], references: [app_id], onDelete: Cascade)
+}
