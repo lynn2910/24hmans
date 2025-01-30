@@ -4,6 +4,7 @@ import servicesRouter from "@/router/services.router";
 import adminPanelRouter from "@/router/adminPanel.router";
 import clientPanelRouter from "@/router/clientPanel.router";
 import prestatairePanelRouter from "@/router/prestatairePanel.router";
+import i18nActions from "@/translation";
 
 Vue.use(VueRouter)
 
@@ -74,10 +75,18 @@ const routes = [
     }
 ]
 
+routes.forEach(route => {
+    if (route.path !== '*') {
+        route.path = `/:locale${route.path.startsWith('/') ? '' : '/'}${route.path}`
+    }
+})
+
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes
 })
+
+router.beforeEach(i18nActions.routeMiddleware)
 
 export default router

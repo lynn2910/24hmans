@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import VueApexCharts from "vue-apexcharts";
 import './index.css'
+import VueI18n from "@/libs/vue-i18n"
+import i18n from "@/i18n";
 
 Vue.config.productionTip = false
 
@@ -24,8 +26,11 @@ Vue.directive('click-outside', {
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
 
+Vue.use(VueI18n)
+
 new Vue({
     router,
     store,
+    i18n,
     render: h => h(App)
 }).$mount('#app')
