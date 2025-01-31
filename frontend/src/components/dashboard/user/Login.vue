@@ -214,7 +214,7 @@
 			</div>
 
 			<div class="flex flex-row items-center justify-between px-7 w-full my-auto h-20">
-				<router-link to="/" class="mr-5" v-if="!hideHomeIcon">
+				<router-link :to="{name:'home'}" class="mr-5" v-if="!hideHomeIcon">
 					<IconEvent width="50" height="50"></IconEvent>
 				</router-link>
 				<div v-if="box_message && box_message.length > 0"

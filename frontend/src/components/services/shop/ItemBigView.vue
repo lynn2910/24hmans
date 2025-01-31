@@ -15,7 +15,7 @@
 				<div class="flex flex-row content-center w-full">
 					<h1 class="text-3xl font-bold leading-loose mr-5">{{ article.name }}</h1>
 					<!-- Category -->
-					<ShopItemCategory :category="categories.find(c => c.category_id === article.category)?.category_label"
+					<ShopItemCategory :category="categories.find(c => c.category_id === article.category_id)?.category_label"
 														class="w-min-30 w-auto my-auto"></ShopItemCategory>
 				</div>
 
