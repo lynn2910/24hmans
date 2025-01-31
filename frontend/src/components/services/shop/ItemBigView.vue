@@ -43,23 +43,10 @@
 			</div>
 		</div>
 
-		<!--
- {
-                item_id: 2,
-                name: "Porte-clé porsche",
-                image: null,
-                category: "be2cff03-7d12-4369-acff-037d12a36993",
-                stock: 146,
-                price: 24.99,
-                description: null
-            }
-            -->
-
-
 		<!-- Si l'article n'existe pas -->
 		<NotExists v-else title="Cet article n'existe pas"
 							 description="Vous tentez d'accéder à un article qui n'existe pas."
-							 :route-back-u-r-l="`/boutique/${prestataire_name}`" route-back="Retourner à la
+							 :route-back-u-r-l="{name:'shop_view', params:{prestataire_name}}" route-back="Retourner à la
 					boutique"></NotExists>
 	</div>
 </template>

@@ -10,7 +10,13 @@
 		<div>
 			<!-- Nom -->
 			<router-link
-					:to="`/boutique/${transformPrestataireName(article.prestataire?.name || '')}/item/${transformPrestataireName(article.name)}`"
+					:to="{
+						name:'shop_item_view',
+						params: {
+							prestataire_name: $route.params.prestataire_name,
+							item_name: article.referencer || article.name.trim().toLowerCase().replace(/\s+/, '-')
+						}
+					}"
 					class="font-bold text-lg hover:underline flex flex-row items-end justify-start">
 				{{ article.name }}
 				<p class="text-sm font-normal ml-2 text-gray-200">x {{ count }}</p>

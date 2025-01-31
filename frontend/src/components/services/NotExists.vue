@@ -4,7 +4,7 @@ export default {
 	props: {
 		title: String,
 		description: String,
-		routeBackURL: String,
+		routeBackURL: Object,
 		routeBack: String
 	}
 }

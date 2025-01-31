@@ -1,12 +1,12 @@
 <template>
 	<router-link
 			:to="{
-		name:'shop_item_view',
-		params: {
-			prestataire_name: $route.params.prestataire_name,
-			item_name: item.referencer || item.name.trim().toLowerCase().replace(/\s+/, '-')
-		}
-	}"
+				name:'shop_item_view',
+				params: {
+					prestataire_name: $route.params.prestataire_name,
+					item_name: item.referencer || item.name.trim().toLowerCase().replace(/\s+/, '-')
+				}
+			}"
 			class="group bg-white bg-opacity-5 hover:bg-opacity-10 m-4 p-6 rounded-lg h-auto cursor-pointer w-56">
 
 		<img v-if="item.image" class="h-20 w-auto mx-auto text-center mb-2" :src="item.image"

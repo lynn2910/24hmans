@@ -6,7 +6,7 @@
 		<!--    </div>-->
 		<div
 				class="w-[95%] bg-dark m-auto rounded-full text-white flex flex-row font-semibold space-x-8 px-4 py-1 items-center content-center shadow shadow-white">
-			<router-link to="/" class="w-1/4">
+			<router-link :to="{name:'home'}" class="w-1/4">
 				<IconEvent height="30"></IconEvent>
 			</router-link>
 
@@ -32,7 +32,7 @@
 
 				<!-- Panier -->
 				<router-link
-						to="/cart"
+						:to="{name:'cart'}"
 						style="height: 60px"
 						class="cursor-pointer ml-auto text-white font-semibold mr-8 flex flex-row justify-center content-center"
 						:class="{'invisible': $route.meta.hideCart}">
