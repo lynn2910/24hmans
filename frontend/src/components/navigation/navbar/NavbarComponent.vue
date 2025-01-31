@@ -19,7 +19,9 @@
 				</router-link>
 				<router-link class="hover:underline" :to="{ name: 'Carte' }"><p>{{ $t("navbar.map") }}</p></router-link>
 				<!-- TODO rediriger vers '/:locale/#service' -->
-				<router-link class="hover:underline" :to="{ name: 'home', id: 'service' }">Prestataires</router-link>
+				<router-link class="hover:underline" :to="{ name: 'home', id: 'service' }">
+					{{ $t('navbar.prestataires') }}
+				</router-link>
 				<!-- L'utilisation de mode: hash est trop complexe-->
 				<!--				<router-link to="/karting">Karting</router-link>-->
 				<!--				<router-link to="/montgolfiere">Montgolfière</router-link>-->

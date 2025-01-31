@@ -23,32 +23,31 @@
 				</div>
 				<div class="z-50 w-2/3 flex flex-row">
 					<div class="flex flex-col m-5 max-w-44 text-center mr-14 mt-auto ml-auto">
-						<p class="text-2xl font-bold italic">A PROPOS</p>
-						<router-link :to="{name: 'mentions_legales'}"><p>MENTIONS LEGALES</p></router-link>
-						<router-link :to="{name: 'donnees_personnelles'}"><p>DONNEES PERSONNELLES</p></router-link>
-						<router-link :to="{name: 'cgv_billeterie'}"><p>CGV BILLETERIE</p></router-link>
+						<p class="text-2xl font-bold italic">{{ $t('footer.a_propos') }}</p>
+						<router-link :to="{name: 'mentions_legales'}"><p>{{ $t('footer.mentions_legales') }}</p></router-link>
+						<router-link :to="{name: 'donnees_personnelles'}"><p>{{ $t('footer.donnees_personnelles') }}</p>
+						</router-link>
+						<router-link :to="{name: 'cgv_billeterie'}"><p>{{ $t('footer.cgv_billeterie') }}</p></router-link>
 					</div>
 					<div class="flex flex-col m-5 max-w-44 text-center mr-14 mt-auto">
-						<p class="text-2xl font-bold italic">SERVICES</p>
-						<router-link to="/billetteries"><p>BILLETTERIES</p></router-link>
-						<router-link to="/ecuries"><p>VISITES ECURIES</p></router-link>
+						<p class="text-2xl font-bold italic">{{ $t('footer.services') }}</p>
+						<router-link to="/billetteries"><p>{{ $t('footer.billetteries') }}</p></router-link>
+						<router-link to="/ecuries"><p>{{ $t('footer.visites_ecuries') }}</p></router-link>
 						<!--											<router-link to="/kartings"><p>KARTING</p></router-link>-->
 						<!--											<router-link to="/montgolfieres"><p>MONTGOLFIERE</p></router-link>-->
-						<router-link to="/boutiques"><p>BOUTIQUE</p></router-link>
+						<router-link to="/boutiques"><p>{{ $t('footer.boutique') }}</p></router-link>
 					</div>
 					<div class="flex flex-col m-5 max-w-44 text-center mt-auto mr-auto">
-						<p class="text-2xl font-bold italic">RESEAUX</p>
-						<a target="_blank" href="https://www.instagram.com/24heuresdumans/"><p>INSTAGRAM</p></a>
-						<a target="_blank" href="https://www.facebook.com/24heuresdumans/"><p>FACEBOOK</p></a>
-						<a target="_blank" href="https://www.youtube.com/24heuresdumans"><p>YOUTUBE</p></a>
+						<p class="text-2xl font-bold italic">{{ $t('footer.reseaux') }}</p>
+						<a target="_blank" href="https://www.instagram.com/24heuresdumans/"><p>{{ $t('footer.instagram') }}</p></a>
+						<a target="_blank" href="https://www.facebook.com/24heuresdumans/"><p>{{ $t('footer.facebook') }}</p></a>
+						<a target="_blank" href="https://www.youtube.com/24heuresdumans"><p>{{ $t('footer.youtube') }}</p></a>
 					</div>
 				</div>
 			</div>
-			<p class="text-2xl font-semibold italic z-20 text-center mt-10">Réalisé par Cédric COLIN - Marvyn LEVIN - Leslie
-				MERAT -
-				Anna GAIFFE -
-				Sugdenaz
-				EKICI </p>
+			<p class="text-2xl font-semibold italic z-20 text-center mt-10">
+				{{ $t('footer.realise_par') }} {{ $t('footer.developpeurs') }}
+			</p>
 		</div>
 	</footer>
 </template>

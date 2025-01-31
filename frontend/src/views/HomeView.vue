@@ -32,27 +32,22 @@
 					</div>
 					<div class="flex flex-col">
 						<h3 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
-							Une course emblématique</h3>
-						<p class="font-normal text-2xl text-start m-auto ml-6 mr-6 p-5 pt-0">Bienvenue aux 24 Heures du
-							Mans,
-							l'épreuve d'endurance mythique ! Chaque année depuis 1923, les meilleurs pilotes
-							s'affrontent pendant 24
-							heures sur un circuit unique combinant tracé Bugatti et routes publiques. Vitesse, stratégie
-							et
-							performance au rendez-vous !</p>
+							{{ $t('home.tondeuse.h1') }}
+						</h3>
+						<p class="font-normal text-2xl text-start m-auto ml-6 mr-6 p-5 pt-0">
+							{{ $t('home.tondeuse.p1') }}
+						</p>
 					</div>
 				</div>
 
 				<div class="flex flex-row m-auto mt-20">
 					<div class="flex flex-col">
-						<h3 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">Un
-							circuit
-							unique à la Sarthe</h3>
-						<p class="font-normal text-2xl text-end m-auto ml-6 mr-6 p-5">Que vous soyez passionné ou
-							curieux, les 24
-							Heures du Mans sont une des trois courses les plus prestigieuses avec Monaco et
-							Indianapolis. Vivez la
-							passion des fans, la vitesse et la stratégie des bolides en action.</p>
+						<h3 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">
+							{{ $t('home.tondeuse.h2') }}
+						</h3>
+						<p class="font-normal text-2xl text-end m-auto ml-6 mr-6 p-5">
+							{{ $t('home.tondeuse.p2') }}
+						</p>
 					</div>
 					<div class="mx-auto mt-10">
 						<img
@@ -64,7 +59,7 @@
 					</div>
 				</div>
 
-				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">Quelques chiffres</h2>
+				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">{{ $t('home.numbers.title') }}</h2>
 
 				<div class="flex flex-row">
 					<div class="flex flex-row">
@@ -77,26 +72,22 @@
 					</div>
 					<div class="flex flex-col">
 						<h3 class="font-extrabold italic text-3xl text-start ml-6 mr-6 p-5 drop-shadow-all-white-700">
-							Un grand pas</h3>
-						<p class="font-normal text-2xl text-start m-auto ml-6 mr-6 p-5 pt-0">Fréquentation record pour
-							le centenaire
-							des 24 Heures du Mans 2023 ! Rejoignez des centaines de milliers de passionnés et vivez
-							l’ambiance unique
-							de cette course légendaire. Ne manquez pas le prochain rendez-vous et faites partie de
-							l'histoire!</p>
+							{{ $t('home.numbers.h1') }}
+						</h3>
+						<p class="font-normal text-2xl text-start m-auto ml-6 mr-6 p-5 pt-0">
+							{{ $t('home.numbers.p1') }}
+						</p>
 					</div>
 				</div>
 
 				<div class="flex flex-row m-auto mt-20">
 					<div class="flex flex-col">
-						<h3 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">Et
-							un grand
-							merci</h3>
-						<p class="font-normal text-2xl text-end m-auto ml-6 mr-6 p-5">Merci à tous les passionnés venus
-							célébrer les
-							24 Heures du Mans ! Votre présence et votre enthousiasme font de cet événement une
-							expérience inoubliable.
-							Nous avons hâte de vous retrouver pour vibrer ensemble à chaque nouvelle édition!</p>
+						<h3 class="font-extrabold italic text-3xl text-end ml-6 mr-6 p-5 drop-shadow-all-white-700">
+							{{ $t('home.thanks.title') }}
+						</h3>
+						<p class="font-normal text-2xl text-end m-auto ml-6 mr-6 p-5">
+							{{ $t("home.thanks.p") }}
+						</p>
 					</div>
 					<div class="mx-auto mt-10">
 						<img
@@ -108,17 +99,10 @@
 					</div>
 				</div>
 
-				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">Billetterie</h2>
+				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">{{ $t('navbar.billetteries') }}</h2>
 
-				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos <strong>offres
-					de
-					billetterie</strong>,
-					pour garantir votre place lors de cet événement emblématique. Que vous soyez passionné de sport
-					automobile ou
-					simplement curieux de vivre une expérience unique, nos billets vous <strong>donneront accès aux
-						meilleures
-						places</strong> et
-					services pour profiter pleinement des 24 Heures du Mans.</p>
+				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0" v-html="$t('home.services')">
+				</p>
 				<router-link to="/billetterie/24h-du-mans">
 					<div class="mx-auto mt-10 content-center contain-content relative group">
 						<!-- L'image avec transition pour l'opacité au hover -->
@@ -132,25 +116,22 @@
 						<!-- Texte qui apparaît au survol -->
 						<div
 								class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-700 ">
-							<span class="font-bold text-xl">Lien vers la billetterie</span>
+							<span class="font-bold text-xl">{{ $t('home.link_to_billetterie') }}</span>
 						</div>
 					</div>
 				</router-link>
 
 				<div id="service"></div>
 
-				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">Prestataires</h2>
+				<h2 class="font-bold italic text-5xl text-center mt-52 m-14" v-html="$t('navbar.prestataires')"></h2>
 
-				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Découvrez nos prestataires,
-					qui
-					proposent
-					une large gamme de services pour enrichir <strong>votre expérience</strong>. Chacun
-					d’eux est ravi de partager son savoir-faire et de contribuer à faire de votre événement <strong>un moment
-						inoubliable.</strong></p>
+				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0"
+					 v-html="$t('home.prestataires.discover')"></p>
 
 				<div class="flex flex-row content-center">
 					<div class="m-5 w-max">
-						<label for="filternom" class="w-30 text-2xl font-semibold">Rechercher par nom</label>
+						<label for="filternom"
+									 class="w-30 text-2xl font-semibold">{{ $t('home.prestataires.search_by_name') }}</label>
 						<div>
 							<input
 									class="min-w-96 m-auto my-auto h-10 py-1 px-2 bg-dark border-2 border-opacity-50 border-blue-400 blue rounded outline-none focus:border-opacity-100"
@@ -158,7 +139,10 @@
 						</div>
 					</div>
 					<div class="m-5 ml-20 w-max">
-						<label for="categorie" class="w-30 text-2xl font-semibold">Filtrer par catégorie</label>
+						<label for="categorie" class="w-30 text-2xl font-semibold">
+							{{ $t('home.prestataires.filter_by_ctg') }}
+						</label>
+
 						<div class="min-w-96 z-50">
 							<MultipleSelect
 									:items="['Boutique', 'Billetterie', 'Visite des écuries', 'Karting', 'Montgolfière']"
@@ -192,18 +176,14 @@
 				</div>
 
 
-				<p v-else>Aucun prestataire trouvé</p>
+				<p v-else>{{ $t('home.prestataires.no_prestataires') }}</p>
 
 				<!--        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Services</h1>-->
 
 
-				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">Carte Interactive</h2>
+				<h2 class="font-bold italic text-5xl text-center mt-52 m-14">{{ $t('home.map.title') }}</h2>
 
-				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0">Retrouvez toutes les
-					informations
-					sur l'événement <strong>grâce à notre carte interactive</strong>. Explorez facilement les lieux,
-					services et
-					points d'intérêt <strong>pour une expérience optimale</strong> sur place.</p>
+				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0" v-html="$t('home.map.text')"></p>
 
 				<CarteInteractivePublic width="1000px" height="550px" borderRadius="16px"/>
 

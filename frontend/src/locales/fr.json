@@ -1,13 +1,59 @@
 {
   "hello": "Bonjour",
+  "name": "24 Heures du Mans",
   "home": {
-    "title": "24h du Mans, prenez le départ du plus grand évènement automobile de France"
+    "title": "24h du Mans, prenez le départ du plus grand évènement automobile de France",
+    "date": "11 AU 15 JUIN 2025",
+    "tondeuse": {
+      "h1": "Une course emblématique",
+      "p1": "Bienvenue aux 24 Heures du Mans, l'épreuve d'endurance mythique ! Chaque année depuis 1923, les meilleurs pilotes s'affrontent pendant 24 heures sur un circuit unique combinant tracé Bugatti et routes publiques. Vitesse, stratégie performance au rendez-vous !",
+      "h2": "Un circuit unique à la Sarthe",
+      "p2": "Que vous soyez passionné ou curieux, les 24 Heures du Mans sont une des trois courses les plus prestigieuses avec Monaco et Indianapolis. Vivez la passion des fans, la vitesse et la stratégie des bolides en action."
+    },
+    "numbers": {
+      "title": "Quelques chiffres",
+      "h1": "Un grand pas",
+      "p1": "Fréquentation record pour le centenaire des 24 Heures du Mans 2023 ! Rejoignez des centaines de milliers de passionnés et vivez l’ambiance unique de cette course légendaire. Ne manquez pas le prochain rendez-vous et faites partie de l'histoire!"
+    },
+    "thanks": {
+      "title": "Et un grand merci",
+      "p": "Merci à tous les passionnés venus célébrer les 24 Heures du Mans ! Votre présence et votre enthousiasme font de cet événement une expérience inoubliable. Nous avons hâte de vous retrouver pour vibrer ensemble à chaque nouvelle édition!"
+    },
+    "services": "Découvrez nos <strong>offres de billetterie</strong>, pour garantir votre place lors de cet événement emblématique. Que vous soyez passionné de sport automobile ou simplement curieux de vivre une expérience unique, nos billets vous <strong>donneront accès aux meilleures places</strong> et services pour profiter pleinement des 24 Heures du Mans.",
+    "link_to_billetterie": "Lien vers la billetterie",
+    "prestataires": {
+      "discover": "Découvrez nos prestataires, qui proposent une large gamme de services pour enrichir <strong>votre expérience</strong>. Chacun d’eux est ravi de partager son savoir-faire et de contribuer à faire de votre événement <strong>un moment inoubliable.</strong>",
+      "search_by_name": "Rechercher par nom",
+      "filter_by_ctg": "Filtrer par catégorie",
+      "no_prestataires": "Aucun prestataire trouvé"
+    },
+    "map": {
+      "title": "Carte Interactive",
+      "text": "Retrouvez toutes les informations sur l'événement <strong>grâce à notre carte interactive</strong>. Explorez facilement les lieux, services et points d'intérêt <strong>pour une expérience optimale</strong> sur place."
+    }
+  },
+  "footer": {
+    "a_propos": "A PROPOS",
+    "mentions_legales": "MENTIONS LEGALES",
+    "donnees_personnelles": "DONNEES PERSONNELLES",
+    "cgv_billeterie": "CGV BILLETERIE",
+    "services": "SERVICES",
+    "billetteries": "BILLETTERIES",
+    "visites_ecuries": "VISITES ECURIES",
+    "boutique": "BOUTIQUE",
+    "reseaux": "RESEAUX",
+    "instagram": "INSTAGRAM",
+    "facebook": "FACEBOOK",
+    "youtube": "YOUTUBE",
+    "realise_par": "Réalisé par",
+    "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
   },
   "navbar": {
     "billetteries": "Billetteries",
     "boutiques": "Boutiques",
     "ecuries": "Ecuries",
     "map": "Carte",
+    "prestataires": "Prestataire",
     "login": {
       "connect": "Se connecter",
       "profile": "Mon profil",

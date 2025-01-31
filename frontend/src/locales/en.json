@@ -1,13 +1,59 @@
 {
   "hello": "Hello",
+  "name": "24 Hours of Le Mans",
   "home": {
-    "title": "24 Hours of Le Mans, take the start of France's biggest motoring event"
+    "title": "24 Hours of Le Mans, take the start of the greatest automobile event in France",
+    "date": "JUNE 11TH TO 15TH, 2025",
+    "tondeuse": {
+      "h1": "An iconic race",
+      "p1": "Welcome to the 24 Hours of Le Mans, the legendary endurance race! Every year since 1923, the best drivers compete for 24 hours on a unique circuit combining the Bugatti track and public roads. Speed, strategy, and performance await you!",
+      "h2": "A unique circuit in the Sarthe region",
+      "p2": "Whether you are a passionate fan or simply curious, the 24 Hours of Le Mans is one of the three most prestigious races along with Monaco and Indianapolis. Experience the passion of the fans, the speed, and the strategy of the cars in action."
+    },
+    "numbers": {
+      "title": "Some figures",
+      "h1": "A big step",
+      "p1": "Record attendance for the centenary of the 24 Hours of Le Mans 2023! Join hundreds of thousands of enthusiasts and experience the unique atmosphere of this legendary race. Don't miss the next event and be part of history!"
+    },
+    "thanks": {
+      "title": "And a big thank you",
+      "p": "Thank you to all the enthusiasts who came to celebrate the 24 Hours of Le Mans! Your presence and enthusiasm make this event an unforgettable experience. We can't wait to see you again to experience the excitement together at each new edition!"
+    },
+    "services": "Discover our <strong>ticketing offers</strong>, to guarantee your place at this iconic event. Whether you are a motorsport enthusiast or simply curious to have a unique experience, our tickets will <strong>give you access to the best seats</strong> and services to fully enjoy the 24 Hours of Le Mans.",
+    "link_to_billetterie": "Link to ticketing",
+    "prestataires": {
+      "discover": "Discover our service providers, who offer a wide range of services to enrich <strong>your experience</strong>. Each of them is delighted to share their expertise and contribute to making your event <strong>an unforgettable moment</strong>.",
+      "search_by_name": "Search by name",
+      "filter_by_ctg": "Filter by category",
+      "no_prestataires": "No service providers found"
+    },
+    "map": {
+      "title": "Interactive Map",
+      "text": "Find all the information about the event <strong>thanks to our interactive map</strong>. Easily explore the places, services, and points of interest <strong>for an optimal experience</strong> on site."
+    }
+  },
+  "footer": {
+    "a_propos": "ABOUT",
+    "mentions_legales": "LEGAL NOTICES",
+    "donnees_personnelles": "PERSONAL DATA",
+    "cgv_billeterie": "TICKETING TERMS AND CONDITIONS",
+    "services": "SERVICES",
+    "billetteries": "TICKET OFFICES",
+    "visites_ecuries": "TEAM VISITS",
+    "boutique": "SHOP",
+    "reseaux": "SOCIAL MEDIA",
+    "instagram": "INSTAGRAM",
+    "facebook": "FACEBOOK",
+    "youtube": "YOUTUBE",
+    "realise_par": "Developed by",
+    "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
   },
   "navbar": {
     "billetteries": "Ticket",
     "boutiques": "Shops",
     "ecuries": "Teams",
     "map": "Map",
+    "prestataires": "Prestataires",
     "login": {
       "connect": "Login",
       "profile": "My profile",
