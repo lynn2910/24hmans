@@ -11,17 +11,20 @@
 			</router-link>
 
 			<div class="flex flex-row items-center justify-center mr-auto w-3/4 gap-8">
-				<router-link class="hover:underline" to="/billetteries"><p>Billetteries</p></router-link>
-				<router-link class="hover:underline" to="/boutiques"><p>Boutiques</p></router-link>
-				<router-link class="hover:underline" to="/ecuries"><p>Ecuries</p></router-link>
-				<router-link class="hover:underline" to="/carte"><p>Carte</p></router-link>
-				<a class="hover:underline" href="/#service">Prestataires</a>
+				<router-link class="hover:underline" :to="{ name: 'billeterie_list'}"><p>Billetteries</p></router-link>
+				<router-link class="hover:underline" :to="{ name: 'shop_list' }"><p>Boutiques</p></router-link>
+				<router-link class="hover:underline" :to="{ name: 'ecurie_list' }"><p>Ecuries</p></router-link>
+				<router-link class="hover:underline" :to="{ name: 'Carte' }"><p>Carte</p></router-link>
+				<!-- TODO rediriger vers '/:locale/#service' -->
+				<router-link class="hover:underline" :to="{ name: 'home', id: 'service' }">Prestataires</router-link>
 				<!-- L'utilisation de mode: hash est trop complexe-->
 				<!--				<router-link to="/karting">Karting</router-link>-->
 				<!--				<router-link to="/montgolfiere">Montgolfière</router-link>-->
 			</div>
 
 			<div class="flex flex-row items-center w-1/4">
+				<TranslationChanger></TranslationChanger>
+
 				<!-- Panier -->
 				<router-link
 						to="/cart"
@@ -71,10 +74,12 @@
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 import {mapActions, mapGetters, mapState} from "vuex";
 import {Selected} from "@/utils";
+import i18n from "@/i18n";
+import TranslationChanger from "@/components/navigation/TranslationChanger.vue";
 
 export default {
 	name: "NavbarComponent",
-	components: {IconEvent},
+	components: {TranslationChanger, IconEvent},
 	data() {
 		return {
 			Selected
