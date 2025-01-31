@@ -12,7 +12,7 @@ export default {
 				for (const prestataire of allPrestataires) {
 					const servicesRes = await PrestataireService.getPrestataireServices(prestataire.id);
 					if (!servicesRes.error) {
-						const services =     servicesRes.data;
+						const services = servicesRes.data;
 						if (services.some(service => service.toLowerCase() === "billetterie")) {
 							this.billetteries.push(prestataire);
 						}
@@ -36,22 +36,22 @@ export default {
 
 <template>
 	<div class="w-full mt-36 bg-dark">
-		<h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-8 mb-6">Liste des billetteries</h1>
+		<h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-8 mb-6">{{ $t('lists.billetteries') }}</h1>
 
 		<!-- Affichage des billeteries-->
-      <div class="flex justify-center">
-          <div
-              class="grid gap-12 px-8"
-              :class="{
+		<div class="flex justify-center">
+			<div
+					class="grid gap-12 px-8"
+					:class="{
                     'grid-cols-1': billetteries.length === 1,
                     'grid-cols-2 justify-center': billetteries.length === 2,
                     'sm:grid-cols-2 lg:grid-cols-3': billetteries.length > 2
                 }"
-          >
+			>
 				<router-link
 						v-for="prestataire in billetteries"
 						:key="prestataire.id"
-						:to="`/billetterie/${prestataire.name.toLowerCase()}`"
+						:to="{ name: 'billetterie', params: {prestataire_name: prestataire.name.toLowerCase()} }"
 						class="relative group flex flex-col items-center text-center w-96 h-[40rem] p-8 bg-red-950-800 border border-blue-950 rounded-lg shadow-lg overflow-hidden
                    transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_40px_2px_black]">
 					<!-- Bordures -->
@@ -67,7 +67,7 @@ export default {
 						/>
 						<h2 class="text-4xl font-bold text-white mb-4">{{ prestataire.name }}</h2>
 						<p class="text-gray-400 text-base">
-							Cliquez pour accéder à la billetterie
+							{{ $t('lists.bi_click') }}
 						</p>
 					</div>
 				</router-link>
@@ -76,7 +76,7 @@ export default {
 
 		<!-- Message si aucune billetterie n'est disponible -->
 		<p v-if="!billetteries.length" class="text-center text-lg mt-12">
-			Aucun prestataire ne possède de billetterie pour le moment.
+			{{ $t('lists.bi_empty') }}
 		</p>
 	</div>
 </template>

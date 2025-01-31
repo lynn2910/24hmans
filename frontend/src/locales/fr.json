@@ -52,6 +52,17 @@
   "selects": {
     "no_item_selected": "Aucun item sélectionné"
   },
+  "lists": {
+    "billetteries": "Liste des billetteries",
+    "bi_click": "Cliquez pour accéder à la billetterie",
+    "bi_empty": "Aucun prestataire ne possède de billetterie pour le moment.",
+    "ecuries": "Liste des écuries",
+    "ecu_click": "Cliquez pour accéder à l'écurie",
+    "ecu_empty": "Aucune écurie disponible pour le moment...",
+    "boutiques": "Liste des boutiques",
+    "bo_click": "Cliquez pour accéder à la boutique",
+    "bo_empty": "Aucun prestataire ne possède de boutique pour le moment."
+  },
   "navbar": {
     "billetteries": "Billetteries",
     "boutiques": "Boutiques",

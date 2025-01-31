@@ -52,6 +52,17 @@
   "selects": {
     "no_item_selected": "No item selected"
   },
+  "lists": {
+    "billetteries": "List of ticket offices",
+    "bi_click": "Click to access the ticket office",
+    "bi_empty": "No provider has a ticket office at the moment.",
+    "ecuries": "List of stables",
+    "ecu_click": "Click to access the stable",
+    "ecu_empty": "No stable available at the moment...",
+    "boutiques": "List of shops",
+    "bo_click": "Click to access the shop",
+    "bo_empty": "No provider has a shop at the moment."
+  },
   "navbar": {
     "billetteries": "Ticket",
     "boutiques": "Shops",

@@ -42,7 +42,7 @@ export default {
 
 <template>
 	<div class="w-full mt-36 bg-dark">
-		<h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-8 mb-6">Liste des boutiques</h1>
+		<h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-8 mb-6">{{ $t('lists.boutiques') }}</h1>
 
 		<!-- Affichage des boutiques -->
 		<div class="flex justify-center">
@@ -54,10 +54,11 @@ export default {
                     'sm:grid-cols-2 lg:grid-cols-3': boutiques.length > 2
                 }"
 			>
+
 				<router-link
 						v-for="prestataire in boutiques"
 						:key="prestataire.id"
-						:to="`/boutique/${prestataire.name.toLowerCase()}`"
+						:to="{ name: 'shop_view', params: {prestataire_name: prestataire.name.toLowerCase()} }"
 						class="relative group flex flex-col items-center text-center w-96 h-[40rem] p-8 bg-red-950-800 border border-red-950 rounded-lg shadow-lg overflow-hidden
                    transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_40px_2px_black]">
 					<!-- Bordures -->
@@ -73,7 +74,7 @@ export default {
 						/>
 						<h2 class="text-4xl font-bold text-white mb-4">{{ prestataire.name }}</h2>
 						<p class="text-gray-400 text-base">
-							Cliquez pour accéder à la boutique
+							{{ $t('lists.bo_click') }}
 						</p>
 					</div>
 				</router-link>
@@ -83,7 +84,7 @@ export default {
 
 		<!-- Message si aucune boutique n'est disponible -->
 		<p v-if="!boutiques.length" class="text-center text-lg mt-12">
-			Aucun prestataire ne possède de boutique pour le moment.
+			{{ $t('lists.bo_empty') }}
 		</p>
 	</div>
 </template>
