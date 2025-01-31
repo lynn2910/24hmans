@@ -11,10 +11,13 @@
 			</router-link>
 
 			<div class="flex flex-row items-center justify-center mr-auto w-3/4 gap-8">
-				<router-link class="hover:underline" :to="{ name: 'billeterie_list'}"><p>Billetteries</p></router-link>
-				<router-link class="hover:underline" :to="{ name: 'shop_list' }"><p>Boutiques</p></router-link>
-				<router-link class="hover:underline" :to="{ name: 'ecurie_list' }"><p>Ecuries</p></router-link>
-				<router-link class="hover:underline" :to="{ name: 'Carte' }"><p>Carte</p></router-link>
+				<router-link class="hover:underline" :to="{ name: 'billeterie_list'}"><p>{{ $t("navbar.billetteries") }}</p>
+				</router-link>
+				<router-link class="hover:underline" :to="{ name: 'shop_list' }"><p>{{ $t("navbar.boutiques") }}</p>
+				</router-link>
+				<router-link class="hover:underline" :to="{ name: 'ecurie_list' }"><p>{{ $t("navbar.ecuries") }}</p>
+				</router-link>
+				<router-link class="hover:underline" :to="{ name: 'Carte' }"><p>{{ $t("navbar.map") }}</p></router-link>
 				<!-- TODO rediriger vers '/:locale/#service' -->
 				<router-link class="hover:underline" :to="{ name: 'home', id: 'service' }">Prestataires</router-link>
 				<!-- L'utilisation de mode: hash est trop complexe-->
@@ -41,16 +44,16 @@
 				</router-link>
 
 				<!-- Login -->
-				<router-link to="/login" v-if="!loggedInUser"><p>Se connecter</p></router-link>
+				<router-link to="/login" v-if="!loggedInUser"><p>{{ $t("navbar.login.connect") }}</p></router-link>
 
 				<router-link to="/client/panel" v-else-if="loggedInUser && userType === Selected.User">
-					<p>Mon profil</p>
+					<p>{{ $t("navbar.login.profile") }}</p>
 				</router-link>
 				<router-link to="/prestataire/panel" v-else-if="loggedInUser && userType === Selected.Prestataire">
-					<p>Tableau de bord</p>
+					<p>{{ $t("navbar.login.dashboard") }}</p>
 				</router-link>
 				<router-link to="/admin/panel" v-else-if="loggedInUser && userType === Selected.Admin">
-					<p>Tableau de bord</p>
+					<p>{{ $t("navbar.login.dashboard") }}</p>
 				</router-link>
 				<svg class="min-w-4 max-w-5 h-auto ml-1.5 mr-8" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 						 viewBox="0 0 30 30" fill="none">

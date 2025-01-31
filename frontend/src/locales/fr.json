@@ -2,5 +2,16 @@
   "hello": "Bonjour",
   "home": {
     "title": "24h du Mans, prenez le départ du plus grand évènement automobile de France"
+  },
+  "navbar": {
+    "billetteries": "Billetteries",
+    "boutiques": "Boutiques",
+    "ecuries": "Ecuries",
+    "map": "Carte",
+    "login": {
+      "connect": "Se connecter",
+      "profile": "Mon profil",
+      "dashboard": "Mon tableau de bord"
+    }
   }
 }

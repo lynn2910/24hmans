@@ -2,5 +2,16 @@
   "hello": "Hello",
   "home": {
     "title": "24 Hours of Le Mans, take the start of France's biggest motoring event"
+  },
+  "navbar": {
+    "billetteries": "Ticket",
+    "boutiques": "Shops",
+    "ecuries": "Teams",
+    "map": "Map",
+    "login": {
+      "connect": "Login",
+      "profile": "My profile",
+      "dashboard": "My dashboard"
+    }
   }
 }
