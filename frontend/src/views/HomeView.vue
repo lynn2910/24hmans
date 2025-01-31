@@ -135,7 +135,7 @@
 						<div>
 							<input
 									class="min-w-96 m-auto my-auto h-10 py-1 px-2 bg-dark border-2 border-opacity-50 border-blue-400 blue rounded outline-none focus:border-opacity-100"
-									v-model="nameFilter" id="filternom" type="text" placeholder="Aucun mot ajouté.">
+									v-model="nameFilter" id="filternom" type="text" :placeholder="$t('home.prestataires.name_search')">
 						</div>
 					</div>
 					<div class="m-5 ml-20 w-max">

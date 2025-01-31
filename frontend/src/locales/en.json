@@ -25,7 +25,8 @@
       "discover": "Discover our service providers, who offer a wide range of services to enrich <strong>your experience</strong>. Each of them is delighted to share their expertise and contribute to making your event <strong>an unforgettable moment</strong>.",
       "search_by_name": "Search by name",
       "filter_by_ctg": "Filter by category",
-      "no_prestataires": "No service providers found"
+      "no_prestataires": "No service providers found",
+      "name_search": "No keyword added"
     },
     "map": {
       "title": "Interactive Map",
@@ -47,6 +48,9 @@
     "youtube": "YOUTUBE",
     "realise_par": "Developed by",
     "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
+  },
+  "selects": {
+    "no_item_selected": "No item selected"
   },
   "navbar": {
     "billetteries": "Ticket",

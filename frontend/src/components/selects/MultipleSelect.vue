@@ -5,7 +5,9 @@
 				:class="showItems ? 'border-opacity-100' : ''"
 				@click="showItems = true">
 			<!-- Placeholder -->
-			<p v-if="selected.length === 0" class="text-gray-500 m-auto ml-2">{{ placeholder }}</p>
+			<p v-if="selected.length === 0" class="text-gray-500 m-auto ml-2">{{
+					placeholder || $t('selects.no_item_selected')
+				}}</p>
 			<p v-for="(item, index) in selected" :key="index"
 				 class="my-auto mr-1 ml-2 py-1 px-2 bg-blue-600 bg-opacity-25 rounded">
 				{{
@@ -70,7 +72,7 @@ export default {
 		items: Array,
 		placeholder: {
 			type: String,
-			default: "Aucun item sélectionné."
+			default: null
 		}
 	}
 }

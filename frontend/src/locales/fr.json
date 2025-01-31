@@ -25,7 +25,8 @@
       "discover": "Découvrez nos prestataires, qui proposent une large gamme de services pour enrichir <strong>votre expérience</strong>. Chacun d’eux est ravi de partager son savoir-faire et de contribuer à faire de votre événement <strong>un moment inoubliable.</strong>",
       "search_by_name": "Rechercher par nom",
       "filter_by_ctg": "Filtrer par catégorie",
-      "no_prestataires": "Aucun prestataire trouvé"
+      "no_prestataires": "Aucun prestataire trouvé",
+      "name_search": "Aucun mot ajouté."
     },
     "map": {
       "title": "Carte Interactive",
@@ -47,6 +48,9 @@
     "youtube": "YOUTUBE",
     "realise_par": "Réalisé par",
     "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
+  },
+  "selects": {
+    "no_item_selected": "Aucun item sélectionné"
   },
   "navbar": {
     "billetteries": "Billetteries",
