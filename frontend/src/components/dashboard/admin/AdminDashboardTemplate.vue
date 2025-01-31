@@ -8,7 +8,7 @@
 			<div class="w-max ml-2 mt-5">
 				<!-- Dashboard (home) + statistiques-->
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-										 :to="`/admin/panel/`">
+										 :to="{name:'admin_dashboard'}">
 					<svg height="31" width="31" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path
 								d="M19 0C8.5234 0 0 8.5234 0 19C0 29.4766 8.5234 38 19 38C29.4766 38 38 29.4766 38 19C38 8.5234 29.4766 0 19 0ZM19 34.2C10.6191 34.2 3.8 27.3809 3.8 19C3.8 10.6191 10.6191 3.8 19 3.8C27.3809 3.8 34.2 10.6191 34.2 19C34.2 27.3809 27.3809 34.2 19 34.2Z"
@@ -22,7 +22,7 @@
 					<div v-if="currentPage === 'home'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-										 :to="`/admin/panel/map`">
+										 :to="{name:'admin_carte'}">
 					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24">
 						<path
 								d="m21.447 6.105-6-3a1 1 0 0 0-.895 0L9 5.882 3.447 3.105A1 1 0 0 0 2 4v13c0 .379.214.725.553.895l6 3a1 1 0 0 0 .895 0L15 18.118l5.553 2.776a.992.992 0 0 0 .972-.043c.295-.183.475-.504.475-.851V7c0-.379-.214-.725-.553-.895zM10 7.618l4-2v10.764l-4 2V7.618zm-6-2 4 2v10.764l-4-2V5.618zm16 12.764-4-2V5.618l4 2v10.764z"></path>
@@ -44,7 +44,7 @@
 				</div>
 
 				<router-link class="h-12 flex flex-row align-middle py-3 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
-										 :to="`/admin/panel/prestataires`">
+										 :to="{name:'admin_prestataires'}">
 					<svg class="fill-white" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24">
 						<path d="M2 3h20v4H2zm17 5H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8h-2zm-3 6H8v-2h8v2z"></path>
 					</svg>
