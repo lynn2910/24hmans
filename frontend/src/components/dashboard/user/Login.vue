@@ -359,13 +359,11 @@ export default {
 
 			switch (user_type) {
 				case Selected.Prestataire: {
-					this.$router.push({
-						name: "prestataire_dashboard"
-					});
+					this.$router.push({name: "prestataire_dashboard"});
 					break
 				}
 				case Selected.User: {
-					this.$router.push({path: `/client/panel`});
+					this.$router.push({name: 'client_panel'});
 					break;
 				}
 				case Selected.Admin: {

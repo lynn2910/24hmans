@@ -4,7 +4,7 @@
 		<div class="m-5 p-5 w-1/5 min-w-80 bg-emerald-400 bg-opacity-5 rounded border border-gray-700 flex flex-col"
 				 style="height: calc(100% - 3rem)">
 			<!-- Go back home -->
-			<router-link to="/"
+			<router-link :to="{name:'home'}"
 									 class="flex flex-row items-center content-center justify-between py-2 px-3 bg-black bg-opacity-10 hover:bg-opacity-50 cursor-pointer rounded border border-gray-600">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-white">
 					<path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path>
@@ -19,7 +19,8 @@
 
 			<!-- liens -->
 			<div class="mt-8 w-2/3 ml-5 mr-auto">
-				<router-link to="/client/panel" class="mt-3 flex flex-row items-center content-center justify-start">
+				<router-link :to="{ name: 'client_panel' }"
+										 class="mt-3 flex flex-row items-center content-center justify-start">
 					<svg class="fill-white mr-3 my-auto" xmlns="http://www.w3.org/2000/svg" width="24"
 							 height="24"
 							 viewBox="0 0 24 24">

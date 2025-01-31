@@ -46,15 +46,15 @@
 				</router-link>
 
 				<!-- Login -->
-				<router-link to="/login" v-if="!loggedInUser"><p>{{ $t("navbar.login.connect") }}</p></router-link>
+				<router-link :to="{name:'login'}" v-if="!loggedInUser"><p>{{ $t("navbar.login.connect") }}</p></router-link>
 
-				<router-link to="/client/panel" v-else-if="loggedInUser && userType === Selected.User">
+				<router-link :to="{name:'client_panel'}" v-else-if="loggedInUser && userType === Selected.User">
 					<p>{{ $t("navbar.login.profile") }}</p>
 				</router-link>
-				<router-link to="/prestataire/panel" v-else-if="loggedInUser && userType === Selected.Prestataire">
+				<router-link :to="{name:'prestataire_dashboard'}" v-else-if="loggedInUser && userType === Selected.Prestataire">
 					<p>{{ $t("navbar.login.dashboard") }}</p>
 				</router-link>
-				<router-link to="/admin/panel" v-else-if="loggedInUser && userType === Selected.Admin">
+				<router-link :to="{name:'admin_dashboard'}" v-else-if="loggedInUser && userType === Selected.Admin">
 					<p>{{ $t("navbar.login.dashboard") }}</p>
 				</router-link>
 				<svg class="min-w-4 max-w-5 h-auto ml-1.5 mr-8" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -79,7 +79,6 @@
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 import {mapActions, mapGetters, mapState} from "vuex";
 import {Selected} from "@/utils";
-import i18n from "@/i18n";
 import TranslationChanger from "@/components/navigation/TranslationChanger.vue";
 
 export default {
