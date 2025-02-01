@@ -166,7 +166,7 @@
 				<!-- Liste des prestataires -->
 				<div v-if="filteredPrestataires.length" class="mt-5 grid grid-cols-1 md:grid-cols-4 gap-6">
 					<router-link v-for="presta in filteredPrestataires" :key="presta.id"
-											 :to="`/prestataire/${presta.name.toLowerCase().replace(/\W/g, '')}`"
+											 :to="{name:'prestataire_profile', params:{prestataire_name: presta.referencer}}"
 											 class="prestataire-item flex flex-col items-center justify-center text-center p-4 border border-gray-600 rounded shadow-lg
                         transition-all duration-700 ease-in-out transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white]">
 						<img :src="presta.icon" alt="icon"
