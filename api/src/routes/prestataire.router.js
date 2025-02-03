@@ -2,11 +2,14 @@ const {Router} = require("express");
 const {
     getPrestataireFromName,
     getPrestataire,
+    updatePrestataire,
     getPrestataireLink,
     createPrestataireLink,
     updatePrestataireLink,
     deletePrestataireLink
 } = require("../services/prestataire.service");
+const prestataireMiddleware = require("../middlewares/prestataire.middleware");
+const {createRule, User, Permission, Method} = require("../permissions")
 
 const routerPresta = new Router();
 
@@ -107,6 +110,131 @@ routerPresta.get(
         }
     }
 );
+
+/**
+ * @swagger
+ * /prestataire/{prestataire_id}:
+ *   patch:
+ *     summary: Update Prestataire
+ *     tags:
+ *       - Prestataire
+ *     description: Updates the information of a prestataire.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: sessionId
+ *         example: "HVpYuVywN4"
+ *         schema:
+ *           type: string
+ *         description: The session ID of the authenticated prestataire.
+ *       - in: path
+ *         name: prestataire_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the prestataire to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The name of the prestataire.
+ *               email:
+ *                 type: string
+ *                 description: The email of the prestataire.
+ *               referencer:
+ *                 type: string
+ *                 description: The referencer of the prestataire.
+ *               banner:
+ *                 type: string
+ *                 description: The banner URL of the prestataire.
+ *               accentColor:
+ *                 type: string
+ *                 description: The accent color of the prestataire.
+ *               description:
+ *                 type: string
+ *                 description: The description of the prestataire.
+ *     responses:
+ *       200:
+ *         description: Prestataire updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: integer
+ *                   description: Error code (0 for success).
+ *                 data:
+ *                   type: object
+ *                   description: The updated prestataire information.
+ *       400:
+ *         description: Invalid request body.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: integer
+ *                   description: Error code.
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *       404:
+ *         description: Prestataire not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: integer
+ *                   description: Error code.
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *       500:
+ *         description: An error occurred while updating the prestataire.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: integer
+ *                   description: Error code.
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ */
+routerPresta.patch(
+    "/:prestataire_id",
+    prestataireMiddleware,
+    async (req, res) => {
+        const {prestataire_id} = req.params;
+
+        try {
+            const prestataireUpdated = await updatePrestataire(
+                prestataire_id,
+                req.body
+            );
+
+            return res.status(200).json({error: 0, data: prestataireUpdated});
+        } catch (err) {
+            res.status(500).json({
+                error: 1,
+                data: err.message,
+            })
+        }
+    }
+)
+createRule("/prestataire", [Method.PATCH], User.Prestataire, [Permission.Prestataire])
 
 // liens prestas
 /**
@@ -348,16 +476,10 @@ routerPresta.post(
  */
 routerPresta.patch(
     "/:prestataire_name/link/:link_id",
+    prestataireMiddleware,
     async (req, res) => {
         const {prestataire_name, link_id} = req.params;
-        const {sessionId} = req.query;
         const {name, url} = req.body;
-
-        if (!sessionId) {
-            return res.status(400).json({
-                message: "Session ID is required.",
-            });
-        }
 
         try {
             const prestataire = await getPrestataireFromName(prestataire_name);

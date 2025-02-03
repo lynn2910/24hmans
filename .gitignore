@@ -8,6 +8,8 @@ api/package-lock.json
 api/node_modules
 /api/swagger.yaml
 
+api/public/cdn/*
+
 .run/
 
 **/.env
