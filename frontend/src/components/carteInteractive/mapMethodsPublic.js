@@ -2,9 +2,12 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-draw';
+import {mapActions} from "vuex";
 
 export default {
-    initMap(onPopupOpen, getPrestataire) {
+    ...mapActions("shapes", ["getAllShapes"]),
+
+    initMap(onPopupOpen, getPrestataire, locale) {
         const southWest = L.latLng(47.972299, 0.186179);
         const northEast = L.latLng(47.935713, 0.234561);
         const bounds = L.latLngBounds(southWest, northEast);
@@ -37,27 +40,27 @@ export default {
         L.control.zoom({position: 'bottomleft'}).addTo(map);
 
         this.featureGroup = new L.FeatureGroup().addTo(map);
-        this.initDrawTools(map, onPopupOpen, getPrestataire);
+        this.initDrawTools(map, onPopupOpen, getPrestataire, locale);
     },
 
-    initDrawTools(map, onPopupOpen, getPrestataire) {
-        // const drawControl = new L.Control.Draw({
-        //     edit: false,
-        //     draw: {
-        //         polygon: true,
-        //         circle: true,
-        //         marker: false,
-        //         circlemarker: false,Z
-        //         polyline: true,
-        //         rectangle: true,
-        //     },
-        // });
+    initDrawTools(map, onPopupOpen, getPrestataire, locale) {
+        const drawControl = new L.Control.Draw({
+            edit: false,
+            draw: {
+                polygon: false,
+                circle: false,
+                marker: false,
+                circlemarker: false,
+                polyline: false,
+                rectangle: false,
+            },
+        });
 
         // Définir la position en bas à gauche
-        // drawControl.setPosition('bottomleft');
+        drawControl.setPosition('bottomleft');
 
         // Ajouter le contrôle à la carte
-        // map.addControl(drawControl);
+        map.addControl(drawControl);
 
         // map.on('draw:created', (event) => {
         //     const layer = event.layer;
@@ -83,10 +86,10 @@ export default {
         });
     },
 
-    reloadShapesOnMap(getPrestataire) {
+    reloadShapesOnMap(getPrestataire, locale) {
         this.featureGroup.clearLayers();
 
-        this.shapesData.forEach((shape) => {
+        this.getShapes.forEach((shape) => {
             let layer = null;
 
             // Vérification du type de forme
@@ -107,7 +110,8 @@ export default {
 
             // Vérification si la forme a été correctement créée
             if (layer) {
-                // Ajouter des propriétés supplémentaires à la couche si nécessaire
+                layer.shape_id = shape.shape_id || -1;
+                layer.coordinates = shape.coordinates;
                 layer.category = shape.category || 'default';
                 layer.name = shape.name || '';
                 layer.logistics = shape.logistics || '';
@@ -123,7 +127,7 @@ export default {
                 this.applyCategoryStyle(layer);
 
                 // Ajouter un popup avec les informations
-                this.addPopupToShape(layer, getPrestataire);
+                this.addPopupToShape(layer, getPrestataire, locale);
             }
         });
     },
@@ -139,7 +143,7 @@ export default {
         }
     },
 
-    addPopupToShape(layer, getPrestataire) {
+    addPopupToShape(layer, getPrestataire, locale) {
         let popupContent = '';
         const presta = layer?.provider ? getPrestataire(layer.provider) : null;
 
@@ -152,11 +156,11 @@ export default {
                 <div>
                     <h2 class="w-full p-1 text-sm font-extrabold"> ${layer.name || 'Emplacement vide'} </h2>
                     <p class="w-full text-sm">${layer.description || 'Aucune'}  </p>
-                    <p class="w-full text-sm"><span class="text-sm font-bold">Mots clés :</span> ${layer.logistics || 'Aucune logistique'}  </p>
+                    <p class="w-full text-sm"><span class="text-sm font-bold">Logistique :</span> ${layer.logistics || 'Aucune logistique'}  </p>
                     <p class="w-full text-sm"><span class="text-sm font-bold">Surface :</span> ${layer.surface || 'Aucune surface'} m² </p>
                     <p class="w-full text-sm"><span class="text-sm font-bold">Prestataire :</span> ${presta?.name || 'Aucun prestataire'}  </p>
                     <p class="w-full text-sm"><span class="text-sm font-bold">Service :</span> ${layer.service || 'Aucun service'}  </p>
-                    <a href="/prestataire/${prestaLink}" class="text-blue-500">
+                    <a href="/${locale}/prestataire/${prestaLink}" class="text-blue-500">
                         <button class="bg-blue-500 text-sm text-gray-100 rounded-md px-6 py-2 hover:bg-blue-400 transition-opacity duration-700 hover:opacity-100">
                             Voir la page associée
                         </button>
@@ -168,7 +172,7 @@ export default {
                 <div>
                     <h2 class="w-full p-1 text-sm font-extrabold"> ${layer.name || 'Emplacement vide'} </h2>
                     <p class="w-full text-sm">${layer.description || 'Aucune description'}  </p>
-                    <p class="w-full text-sm"><span class="text-sm font-bold">Mots clés :</span> ${layer.logistics || 'Aucune logistique'}  </p>
+                    <p class="w-full text-sm"><span class="text-sm font-bold">Logistique :</span> ${layer.logistics || 'Aucune logistique'}  </p>
                     <p class="w-full text-sm"><span class="text-sm font-bold">Surface :</span> ${layer.surface || 'Aucune surface'} </p>
                     <p class="w-full text-sm"><span class="text-sm font-bold">Prestataire :</span> ${presta?.name || 'Aucun prestataire'}  </p>
                     <p class="w-full text-sm"><span class="text-sm font-bold">Service :</span> ${layer.service || 'Aucun service'}  </p>
@@ -186,6 +190,7 @@ export default {
             {id: 'description', property: 'description'},
             {id: 'provider', property: 'provider'},
             {id: 'service', property: 'service'},
+            {id: 'category', property: 'category'},
         ];
 
         fields.forEach(({id, property}) => {
@@ -194,7 +199,5 @@ export default {
                 element.value = layer[property];
             }
         });
-    }
-    ,
-}
-;
+    },
+};

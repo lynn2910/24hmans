@@ -11,7 +11,7 @@ export default {
     getters: {
         // Getters must be functions that compute derived state
         prestataires: (state) => state.prestataires,
-        getPrestataireServices: (state) => (prestataireId) => {
+        prestataireServices: (state) => (prestataireId) => {
             return state.prestataireServices[prestataireId] || [];
         }
     },

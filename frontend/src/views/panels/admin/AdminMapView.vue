@@ -51,9 +51,9 @@ Page de gestion de la carte interactive admin
         <div class="mt-3">
           <label for="prestataires" class="text-sm font-semibold">Prestataire</label>
           <select
-              id="prestataires" v-model="formData.selectedPrestataire"
+              id="prestataires" v-model="formData.provider"
               class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm"
-              @change="loadServices">
+              @change="loadServices($event.target.value)">
             <option v-for="prestataire in prestataires" :key="prestataire.id" :value="prestataire.id">
               {{ prestataire.name }}
             </option>
@@ -63,7 +63,7 @@ Page de gestion de la carte interactive admin
           <label for="services" class="text-sm font-semibold">Services disponibles</label>
           <select
               id="services"
-              v-model="formData.selectedService"
+              v-model="formData.service"
               class="w-full p-1 border rounded-md text-black border-gray-300 shadow-sm">
             <option v-for="(service, index) in selectedPrestataireServices" :key="index"
                     :value="service">
@@ -87,8 +87,9 @@ Page de gestion de la carte interactive admin
           </div>
 
 
-          <button id="save-info"
-                  class="mt-6 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none text-xl">
+          <button
+              @click="saveUpdatedInfos"
+              class="mt-6 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none text-xl">
             Enregistrer
           </button>
         </div>
@@ -100,7 +101,7 @@ Page de gestion de la carte interactive admin
 <script>
 import AdminDashboardTemplate from "@/components/dashboard/admin/AdminDashboardTemplate.vue";
 import CarteInteractiveAdmin from "@/components/carteInteractive/CarteInteractiveAdmin.vue";
-import {mapGetters} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'AdminMapView',
@@ -113,8 +114,8 @@ export default {
         logistics: '',
         surface: '',
         description: '',
-        selectedPrestataire: '',
-        selectedService: '',
+        provider: '',
+        service: '',
         category: '', // default
       },
       categories: {
@@ -144,37 +145,46 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("prestataire", ["prestataires", "getPrestataireServices"]),
+    ...mapGetters("prestataire", ["prestataires", "prestataireServices"]),
 
     selectedPrestataireServices() {
-      return this.getPrestataireServices(this.formData.selectedPrestataire) || [];
+      return this.prestataireServices(this.formData.provider) || [];
     }
   },
 
   watch: {
-    'formData.selectedPrestataire'(newPrestataireId) {
+    'formData.provider'(newPrestataireId) {
       if (newPrestataireId) {
         this.loadServices(newPrestataireId);
       }
-    }
+    },
   },
 
   methods: {
+    ...mapActions("prestataire", ["getAllPrestataires", "getPrestataireServices"]),
+    ...mapActions("shapes", ["updateShape"]),
+
     updateFormData(layer) {
+      this.formData.shape_id = layer.shape_id || -1;
+      this.formData.coordinates = layer.coordinates;
       this.formData.name = layer.name || '';
       this.formData.logistics = layer.logistics || '';
       this.formData.surface = layer.surface || '';
       this.formData.description = layer.description || '';
-      this.formData.selectedPrestataire = layer.provider || null;
-      this.formData.selectedService = layer.service || null;
+      this.formData.provider = layer.provider || null;
+      this.formData.service = layer.service || null;
       this.formData.category = layer.category || 'default';
+    },
+
+    async saveUpdatedInfos() {
+      await this.updateShape(this.formData);
     },
 
     loadServices(prestataireId) {
       if (prestataireId) {
-        this.$store.dispatch("prestataire/getPrestataireServices", prestataireId);
+        this.getPrestataireServices(prestataireId);
       } else {
-        this.formData.selectedService = null;
+        this.formData.service = null;
       }
     },
 
@@ -184,8 +194,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("prestataire/getAllPrestataires");
+    this.getAllPrestataires();
   }
-
 };
 </script>

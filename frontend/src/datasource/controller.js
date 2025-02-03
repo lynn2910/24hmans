@@ -1,4 +1,6 @@
 import {boutiques, prestataires, billetteries, garages} from "@/datasource/prestataires";
+import {shapes} from "@/datasource/shapes";
+
 import {user_orders, users} from "@/datasource/user";
 import bcrypt from "bcryptjs";
 import {v4 as uuid} from "uuid";
@@ -12,7 +14,7 @@ import {ROUNDS} from "@/utils";
 function getPrestataire(id) {
     let presta = prestataires.find(p => p.id === id);
 
-    if (!presta) return {error: 1, status: 404, data: "prestataire inexistant"}
+    if (!presta) return {error: 1, status: 404, data: "prestataire inexistant par id"}
     return {error: 0, status: 200, data: presta};
 }
 
@@ -47,7 +49,8 @@ function getPrestatairesServicesCount(is_presta = false) {
             p.nb_services++;
         }
 
-        // TODO
+        // TODO : rajouter les autres services lorsqu'ils seront créés
+
     })
     return {error: 0, status: 200, data: prestataires};
 }
@@ -55,7 +58,8 @@ function getPrestatairesServicesCount(is_presta = false) {
 function getPrestataireServices(id, is_presta = false) {
     let prestataire = getPrestataire(id);
     if (prestataire.error) return prestataire;
-    prestataire = prestataire.data;
+    else if (prestataire.error === 0) is_presta = true;
+
 
     let services = [];
     if (boutiques.find((b) => (is_presta || b.enabled) && b.prestataire_id === id)) {
@@ -67,7 +71,9 @@ function getPrestataireServices(id, is_presta = false) {
     if (billetteries.find(b => b.prestataire_id === id)) {
         services.push("Billetterie");
     }
-    // TODO
+
+    // TODO : rajouter les autres services lorsqu'ils seront créés
+
     return {error: 0, status: 200, data: services};
 }
 
@@ -81,7 +87,7 @@ function getPrestataireFromName(name) {
         .find(p =>
             p.name.toLowerCase().replace(/\W/g, '') === name.toLowerCase().replace(/\W/g, ''));
 
-    if (!presta) return {error: 1, status: 404, data: "prestataire inexistant"};
+    if (!presta) return {error: 1, status: 404, data: "prestataire inexistant par name"};
     return {error: 0, status: 200, data: presta};
 }
 
@@ -461,8 +467,23 @@ function getBoutiqueArticleSellsStats(presta_id) {
     return {error: 0, status: 200, data: [{data: Object.values(series)}]}
 }
 
+function getAllShapes() {
+    return {error: 0, status: 200, data: shapes};
+}
+
+function updateArea(updatedData) {
+    const index = shapes.findIndex(shape => shape.shape_id === updatedData.shape_id);
+    if (index !== -1) {
+        shapes[index] = {...updatedData};
+        return {error: 0, status: 200, data: shapes[index]};
+    }
+    return {error: 1, status: 404, data: "Shape not found"};
+}
+
+
 export default {
-    addArticleToBoutique, removeItemFromBoutique,
+    addArticleToBoutique,
+    removeItemFromBoutique,
     getPrestataire,
     getPrestataireFromName,
     getPrestataireWithPassword,
@@ -491,5 +512,11 @@ export default {
     enableOrDisableShop,
     getUserOrders,
     newOrder,
-    getBoutiqueChiffreAffaireSerie, getBoutiqueStats, getBoutiqueCategoriesSellsStats, getBoutiqueArticleSellsStats
+    getBoutiqueChiffreAffaireSerie,
+    getBoutiqueStats,
+    getBoutiqueCategoriesSellsStats,
+    getBoutiqueArticleSellsStats,
+
+    getAllShapes,
+    updateArea
 };

@@ -2,8 +2,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-draw';
+import {mapActions} from "vuex";
 
 export default {
+    ...mapActions("shapes", ["getAllShapes"]),
+
     initMap(onPopupOpen, getPrestataire) {
         const southWest = L.latLng(47.972299, 0.186179);
         const northEast = L.latLng(47.935713, 0.234561);
@@ -42,14 +45,14 @@ export default {
 
     initDrawTools(map, onPopupOpen, getPrestataire) {
         const drawControl = new L.Control.Draw({
-            edit: {featureGroup: this.featureGroup},
+            edit: false,
             draw: {
-                polygon: true,
-                circle: true,
+                polygon: false,
+                circle: false,
                 marker: false,
                 circlemarker: false,
-                polyline: true,
-                rectangle: true,
+                polyline: false,
+                rectangle: false,
             },
         });
 
@@ -59,20 +62,20 @@ export default {
         // Ajouter le contrôle à la carte
         map.addControl(drawControl);
 
-        map.on('draw:created', (event) => {
-            const layer = event.layer;
-            layer.category = 'default'; // Catégorie par défaut
-            this.featureGroup.addLayer(layer);
-            this.applyCategoryStyle(layer);
-            this.saveShape(layer);
-            this.addPopupToShape(layer, getPrestataire);
-        });
-
-        map.on('draw:deleted', (event) => {
-            event.layers.eachLayer((layer) => {
-                this.removeShape(layer);
-            });
-        });
+        // map.on('draw:created', (event) => {
+        //     const layer = event.layer;
+        //     layer.category = 'default'; // Catégorie par défaut
+        //     this.featureGroup.addLayer(layer);
+        //     this.applyCategoryStyle(layer);
+        //     this.saveShape(layer);
+        //     this.addPopupToShape(layer, getPrestataire);
+        // });
+        //
+        // map.on('draw:deleted', (event) => {
+        //     event.layers.eachLayer((layer) => {
+        //         this.removeShape(layer);
+        //     });
+        // });
 
         map.on('popupopen', (event) => {
             const layer = event.popup._source;
@@ -86,7 +89,7 @@ export default {
     reloadShapesOnMap(getPrestataire) {
         this.featureGroup.clearLayers();
 
-        this.shapesData.forEach((shape) => {
+        this.getShapes.forEach((shape) => {
             let layer = null;
 
             // Vérification du type de forme
@@ -107,7 +110,8 @@ export default {
 
             // Vérification si la forme a été correctement créée
             if (layer) {
-                // Ajouter des propriétés supplémentaires à la couche si nécessaire
+                layer.shape_id = shape.shape_id || -1;
+                layer.coordinates = shape.coordinates;
                 layer.category = shape.category || 'default';
                 layer.name = shape.name || '';
                 layer.logistics = shape.logistics || '';
@@ -162,8 +166,8 @@ export default {
             {id: 'logistics', property: 'logistics'},
             {id: 'surface', property: 'surface'},
             {id: 'description', property: 'description'},
-            {id: 'prestataires', property: 'provider'},
-            {id: 'services', property: 'service'},
+            {id: 'provider', property: 'provider'},
+            {id: 'service', property: 'service'},
             {id: 'category', property: 'category'},
         ];
 
@@ -199,6 +203,7 @@ export default {
     saveShape(layer) {
         const shapeData = {
             type: 'shape',
+            shape_id: layer.shape_id,
             coordinates: layer.getLatLngs ? (Array.isArray(layer.getLatLngs()) ? layer.getLatLngs() : [layer.getLatLngs()]) : layer.getLatLng(),
             name: layer.name || '',
             logistics: layer.logistics || '',
@@ -231,30 +236,29 @@ export default {
         link.click();
     },
 
-    loadShapesFromFile(event, getPrestataire) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
+    // loadShapesFromFile(event, getPrestataire) {
+    //     const file = event.target.files[0];
+    //     const reader = new FileReader();
+    //
+    //     reader.onload = (e) => {
+    //         const shapesData = JSON.parse(e.target.result);
+    //         this.shapesData = shapesData;
+    //         this.reloadShapesOnMap(getPrestataire);
+    //     };
+    //
+    //     reader.readAsText(file);
+    // },
 
-        reader.onload = (e) => {
-            const shapesData = JSON.parse(e.target.result);
-            this.shapesData = shapesData;
-            this.reloadShapesOnMap(getPrestataire);
-        };
-
-        reader.readAsText(file);
-    },
-
-    removeShape(layer) {
-        this.featureGroup.removeLayer(layer);
-
-        const index = this.shapesData.findIndex(
-            (shape) =>
-                JSON.stringify(shape.coordinates) === JSON.stringify(layer.getLatLngs ? layer.getLatLngs() : layer.getLatLng())
-        );
-
-        if (index !== -1) {
-            this.shapesData.splice(index, 1);
-        }
-    }
-}
-;
+    // removeShape(layer) {
+    //     this.featureGroup.removeLayer(layer);
+    //
+    //     const index = this.shapesData.findIndex(
+    //         (shape) =>
+    //             JSON.stringify(shape.coordinates) === JSON.stringify(layer.getLatLngs ? layer.getLatLngs() : layer.getLatLng())
+    //     );
+    //
+    //     if (index !== -1) {
+    //         this.shapesData.splice(index, 1);
+    //     }
+    // }
+};
