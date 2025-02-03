@@ -2,8 +2,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-draw';
+import {mapActions} from "vuex";
 
 export default {
+    ...mapActions("shapes", ["getAllShapes"]),
+
     initMap(onPopupOpen, getPrestataire) {
         const southWest = L.latLng(47.972299, 0.186179);
         const northEast = L.latLng(47.935713, 0.234561);
@@ -86,7 +89,7 @@ export default {
     reloadShapesOnMap(getPrestataire) {
         this.featureGroup.clearLayers();
 
-        this.shapesData.forEach((shape) => {
+        this.getShapes.forEach((shape) => {
             let layer = null;
 
             // Vérification du type de forme
@@ -107,7 +110,8 @@ export default {
 
             // Vérification si la forme a été correctement créée
             if (layer) {
-                // Ajouter des propriétés supplémentaires à la couche si nécessaire
+                layer.shape_id = shape.shape_id || -1;
+                layer.coordinates = shape.coordinates;
                 layer.category = shape.category || 'default';
                 layer.name = shape.name || '';
                 layer.logistics = shape.logistics || '';
@@ -199,6 +203,7 @@ export default {
     saveShape(layer) {
         const shapeData = {
             type: 'shape',
+            shape_id: layer.shape_id,
             coordinates: layer.getLatLngs ? (Array.isArray(layer.getLatLngs()) ? layer.getLatLngs() : [layer.getLatLngs()]) : layer.getLatLng(),
             name: layer.name || '',
             logistics: layer.logistics || '',
@@ -222,7 +227,6 @@ export default {
     },
 
     saveAllShapes() {
-        console.log("shapesData before save:", this.shapesData);
         const dataToSave = JSON.stringify(this.shapesData);
         const blob = new Blob([dataToSave], {type: 'application/json'});
         const link = document.createElement('a');
@@ -256,5 +260,4 @@ export default {
             this.shapesData.splice(index, 1);
         }
     }
-}
-;
+};

@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-row w-screen h-screen">
 		<div class="bg-dark h-screen text-white w-56 flex flex-col">
-			<router-link :to="'/'" class="w-full py-3">
+			<router-link :to="{name:'home'}" class="w-full py-3">
 				<IconEvent class="m-auto" width="76" height="50"></IconEvent>
 			</router-link>
 

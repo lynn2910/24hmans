@@ -14,10 +14,8 @@
 </template>
 
 <script>
-import mapMethods from '@/components/carteInteractive/mapMethodsPublic';
-import initialShapes from '@/datasource/carteZones.json';
+import mapMethodsPublic from '@/components/carteInteractive/mapMethodsPublic';
 import {mapActions, mapGetters} from 'vuex';
-import store from "@/store";
 
 export default {
   name: 'CarteInteractivePublic',
@@ -41,7 +39,15 @@ export default {
   },
   data() {
     return {
-      shapesData: [],
+      formData: {
+        name: '',
+        logistics: '',
+        surface: '',
+        description: '',
+        provider: '',
+        service: '',
+        category: '', // default
+      },
       categories: {
         default: '#848485',
         tribunes: '#e3b424',
@@ -54,44 +60,72 @@ export default {
         montgolfieres: '#67290b',
         boutique: '#bf1102',
       },
+      categoryNames: {
+        default: 'Default',
+        tribunes: 'Tribunes',
+        parkingsRouge: 'Parkings Rouge',
+        parkingsBleu: 'Parkings Bleu',
+        parkingsVip: 'Parkings VIP',
+        garages: 'Garages',
+        pistes: 'Pistes',
+        emplacements: 'Emplacements',
+        montgolfieres: 'Montgolfières',
+        boutique: 'Boutique',
+      },
     };
   },
-  mounted() {
-    // TODO fetch map > carte.service.js
-    store.dispatch("prestataire/getAllPrestataires").then(() => {
-      this.initMap(this.onPopupOpen, this.getPrestataire);
-      this.loadInitialShapes();
-    });
+
+  watch: {
+    shapes: {
+      handler(newShapes) {
+        console.log("Shapes have changed:", newShapes);
+        this.reloadShapesOnMap(this.getPrestataire, this.$route.params.locale);
+      },
+      deep: true,
+    },
+  },
+
+  async mounted() {
+    await this.getAllPrestataires();
+    this.initMap(this.onPopupOpen, this.getPrestataire, this.$route.params.locale);
+    await this.getAllShapes();
+    this.reloadShapesOnMap(this.getPrestataire, this.$route.params.locale);
   },
 
   computed: {
     ...mapGetters("prestataire", ["prestataires"]),
+    ...mapGetters("shapes", ["getShapes"]),
+
+    shapes() {
+      return this.getShapes;
+    },
+
     customRoundedClass() {
       return this.roundedClass || '';
     },
   },
   methods: {
-    ...mapMethods,
+    ...mapMethodsPublic,
     onPopupOpen(layer) {
-      console.log("popup open")
-      console.log(layer)
-      this.$emit('zoneSelected', layer)
-      this.fillPopupWithData(layer);
-    },
-    loadInitialShapes() {
-      this.shapesData = initialShapes;
-      this.reloadShapesOnMap(this.getPrestataire);
-    },
-
-    getPrestataire(id) {
-      return this.prestataires.find((prestataire) => prestataire.id === id);
+      this.$emit('zoneSelected', layer);
     },
 
     ...mapActions("prestataire", ["getAllPrestataires"]),
+    ...mapActions("shapes", ["getAllShapes"]),
 
-    async beforeMount() {
-      await store.dispatch("prestataire/getAllPrestataires");
-    },
+    // async beforeMount() {
+    //   await this.getAllPrestataires();
+    // },
+
+    getPrestataire(id) {
+      if (!this.prestataires || this.prestataires.length === 0){
+        this.getAllPrestataires().then(() => {
+          return this.getPrestataire(id)
+        });
+      } else {
+        return this.prestataires.find((prestataire) => prestataire.id === id);
+      }
+    }
   },
 };
 </script>
