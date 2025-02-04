@@ -213,15 +213,15 @@ export default {
       this.formData.logistics = layer.logistics || '';
       this.formData.surface = layer.surface || '';
       this.formData.description = layer.description || '';
-      this.formData.selectedPrestataire = layer.provider || null;
+      this.formData.provider = layer.provider || null;
       this.formData.service = layer.service || null;
       this.formData.category = layer.category || 'default';
 
       this.isReadonly = !(
           // Si l'utilisateur connecté est le prestataire
-          this.formData.selectedPrestataire === this.loggedInUser?.id ||
+          this.formData.provider === this.loggedInUser?.id ||
           // Si aucun prestataire n'est assigné
-          this.formData.selectedPrestataire === null
+          this.formData.provider === null
       );
     },
 
