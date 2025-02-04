@@ -5,7 +5,7 @@ import 'leaflet-draw';
 import {mapActions} from "vuex";
 
 export default {
-    ...mapActions("shapes", ["getAllShapes"]),
+    ...mapActions("shapes", ["getAllShapes", "addShape"]),
 
     initMap(onPopupOpen, getPrestataire) {
         const southWest = L.latLng(47.972299, 0.186179);
@@ -200,11 +200,15 @@ export default {
         }
     },
 
-    saveShape(layer) {
+    async saveShape(layer) {
         const shapeData = {
             type: 'shape',
             shape_id: layer.shape_id,
-            coordinates: layer.getLatLngs ? (Array.isArray(layer.getLatLngs()) ? layer.getLatLngs() : [layer.getLatLngs()]) : layer.getLatLng(),
+            coordinates: layer.getLatLngs
+                ? (Array.isArray(layer.getLatLngs())
+                    ? layer.getLatLngs()
+                    : [layer.getLatLngs()])
+                : layer.getLatLng(),
             name: layer.name || '',
             logistics: layer.logistics || '',
             surface: layer.surface || '',
@@ -214,15 +218,10 @@ export default {
             category: layer.category || 'default',
         };
 
-        const index = this.shapesData.findIndex(
-            (shape) =>
-                JSON.stringify(shape.coordinates) === JSON.stringify(shapeData.coordinates)
-        );
-
-        if (index !== -1) {
-            this.shapesData.splice(index, 1, shapeData);
-        } else {
-            this.shapesData.push(shapeData);
+        try {
+            await this.addShape(shapeData);
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour de la shape:', error);
         }
     },
 

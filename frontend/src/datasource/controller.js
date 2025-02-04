@@ -480,6 +480,12 @@ function updateArea(updatedData) {
     return {error: 1, status: 404, data: "Shape not found"};
 }
 
+function addArea(newShape) {
+    const maxId = shapes.length > 0 ? Math.max(...shapes.map(shape => shape.shape_id)) : 0;
+    newShape.shape_id = maxId + 1;
+
+    return {error: 0, status: 200, data: newShape};
+}
 
 export default {
     addArticleToBoutique,
@@ -518,5 +524,6 @@ export default {
     getBoutiqueArticleSellsStats,
 
     getAllShapes,
-    updateArea
+    updateArea,
+    addArea,
 };

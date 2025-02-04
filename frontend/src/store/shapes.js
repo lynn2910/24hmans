@@ -16,6 +16,11 @@ export default {
             if (index !== -1) {
                 state.shapesData.splice(index, 1, updateShape);
             }
+        },
+
+        addShape(state, newShape) {
+            state.shapesData.push(newShape);
+            console.log("New shape added", state.shapesData);
         }
     },
 
@@ -41,6 +46,16 @@ export default {
                 console.error(res);
             }
         },
+
+        async addShape({commit}, newShape) {
+            const res = await ShapesService.addShape(newShape);
+            console.log("store", res)
+            if (res.error === 0) {
+                commit('addShape', res.data);
+            } else {
+                console.error(res);
+            }
+        }
     },
     getters: {
         getShapes: (state) => {

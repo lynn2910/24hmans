@@ -8,7 +8,12 @@ async function updateShape(updateShapes) {
     return LocalSource.updateArea(updateShapes);
 }
 
+async function addShape(newShape) {
+    return LocalSource.addArea(newShape);
+}
+
 export default {
     getAllShapes,
     updateShape,
+    addShape,
 }
