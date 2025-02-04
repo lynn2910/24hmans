@@ -5,7 +5,7 @@ import 'leaflet-draw';
 import {mapActions} from "vuex";
 
 export default {
-    ...mapActions("shapes", ["getAllShapes", "addShape"]),
+    ...mapActions("shapes", ["getAllShapes", "addShape", "deleteShape", "updateShape"]),
 
     initMap(onPopupOpen, getPrestataire) {
         const southWest = L.latLng(47.972299, 0.186179);
@@ -76,6 +76,12 @@ export default {
                 this.removeShape(layer);
             });
         });
+
+        map.on('draw:edited', (event) => {
+            event.layers.eachLayer((layer) => {
+                this.updatedShape(layer);
+            })
+        })
 
         map.on('popupopen', (event) => {
             const layer = event.popup._source;
@@ -225,6 +231,37 @@ export default {
         }
     },
 
+    async updatedShape(layer) {
+        console.log("OLALLAAAAAA")
+        console.log(layer.coordinates)
+        console.log("22",layer.getLatLngs ?
+                (Array.isArray(layer.getLatLngs())
+                    ? layer.getLatLngs()
+                    : [layer.getLatLngs()])
+                : layer.getLatLng())
+        const updateShape = {
+            shape_id: layer.shape_id,
+            coordinates: layer.getLatLngs ?
+                (Array.isArray(layer.getLatLngs())
+                    ? layer.getLatLngs()
+                    : [layer.getLatLngs()])
+                : layer.getLatLng(),
+            name: layer.name || '',
+            logistics: layer.logistics || '',
+            surface: layer.surface || '',
+            description: layer.description || '',
+            provider: layer.provider || '',
+            service: layer.service || '',
+            category: layer.category || 'default',
+        };
+
+        try {
+            await this.updateShape(updateShape);
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour des coordonnées de la shape:', error);
+        }
+    },
+
     saveAllShapes() {
         const dataToSave = JSON.stringify(this.shapesData);
         const blob = new Blob([dataToSave], {type: 'application/json'});
@@ -249,14 +286,8 @@ export default {
 
     removeShape(layer) {
         this.featureGroup.removeLayer(layer);
-
-        const index = this.shapesData.findIndex(
-            (shape) =>
-                JSON.stringify(shape.coordinates) === JSON.stringify(layer.getLatLngs ? layer.getLatLngs() : layer.getLatLng())
-        );
-
-        if (index !== -1) {
-            this.shapesData.splice(index, 1);
-        }
+        const shapeId = layer.shape_id || null;
+        console.log(shapeId)
+        if (shapeId) { this.deleteShape(shapeId); }
     }
 };

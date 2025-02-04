@@ -487,6 +487,16 @@ function addArea(newShape) {
     return {error: 0, status: 200, data: newShape};
 }
 
+function removeArea(shapeId) {
+    console.log("controller ", shapeId);
+    console.log(!shapeId);
+    if (!shapeId) {
+        return {error: 1, status: 404, data: "Shape not found"};
+    } else {
+        return {error: 0, status: 200, data: shapeId};
+    }
+}
+
 export default {
     addArticleToBoutique,
     removeItemFromBoutique,
@@ -526,4 +536,5 @@ export default {
     getAllShapes,
     updateArea,
     addArea,
+    removeArea,
 };

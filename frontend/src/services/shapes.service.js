@@ -12,8 +12,13 @@ async function addShape(newShape) {
     return LocalSource.addArea(newShape);
 }
 
+async function removeShape(ShapeId) {
+    return LocalSource.removeArea(ShapeId);
+}
+
 export default {
     getAllShapes,
     updateShape,
     addShape,
+    removeShape,
 }

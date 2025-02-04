@@ -122,7 +122,9 @@ export default {
 
   async mounted() {
     this.initMap(this.onPopupOpen, this.getPrestataire);
-    await this.getAllShapes();
+    if (this.getShapes.length === 0) {
+      await this.getAllShapes();
+    }
     this.reloadShapesOnMap(this.getPrestataire);
   },
 
