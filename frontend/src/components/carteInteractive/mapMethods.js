@@ -232,13 +232,6 @@ export default {
     },
 
     async updatedShape(layer) {
-        console.log("OLALLAAAAAA")
-        console.log(layer.coordinates)
-        console.log("22",layer.getLatLngs ?
-                (Array.isArray(layer.getLatLngs())
-                    ? layer.getLatLngs()
-                    : [layer.getLatLngs()])
-                : layer.getLatLng())
         const updateShape = {
             shape_id: layer.shape_id,
             coordinates: layer.getLatLngs ?
@@ -262,32 +255,31 @@ export default {
         }
     },
 
-    saveAllShapes() {
-        const dataToSave = JSON.stringify(this.shapesData);
-        const blob = new Blob([dataToSave], {type: 'application/json'});
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'shapesData.json';
-        link.click();
-    },
-
-    loadShapesFromFile(event, getPrestataire) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            const shapesData = JSON.parse(e.target.result);
-            this.shapesData = shapesData;
-            this.reloadShapesOnMap(getPrestataire);
-        };
-
-        reader.readAsText(file);
-    },
+    // saveAllShapes() {
+    //     const dataToSave = JSON.stringify(this.shapesData);
+    //     const blob = new Blob([dataToSave], {type: 'application/json'});
+    //     const link = document.createElement('a');
+    //     link.href = URL.createObjectURL(blob);
+    //     link.download = 'shapesData.json';
+    //     link.click();
+    // },
+    //
+    // loadShapesFromFile(event, getPrestataire) {
+    //     const file = event.target.files[0];
+    //     const reader = new FileReader();
+    //
+    //     reader.onload = (e) => {
+    //         const shapesData = JSON.parse(e.target.result);
+    //         this.shapesData = shapesData;
+    //         this.reloadShapesOnMap(getPrestataire);
+    //     };
+    //
+    //     reader.readAsText(file);
+    // },
 
     removeShape(layer) {
         this.featureGroup.removeLayer(layer);
         const shapeId = layer.shape_id || null;
-        console.log(shapeId)
         if (shapeId) { this.deleteShape(shapeId); }
     }
 };

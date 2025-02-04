@@ -472,12 +472,14 @@ function getAllShapes() {
 }
 
 function updateArea(updatedData) {
-    const index = shapes.findIndex(shape => shape.shape_id === updatedData.shape_id);
-    if (index !== -1) {
-        shapes[index] = {...updatedData};
-        return {error: 0, status: 200, data: shapes[index]};
-    }
-    return {error: 1, status: 404, data: "Shape not found"};
+    // const index = shapes.findIndex(shape => shape.shape_id === updatedData.shape_id);
+    // if (index !== -1) {
+    //     shapes[index] = {...updatedData};
+    //     return {error: 0, status: 200, data: shapes[index]};
+    // }
+    // return {error: 1, status: 404, data: "Shape not found"};
+    shapes[updatedData.shape_id] = {...updatedData};
+    return {error: 0, status: 200, data: shapes[updatedData.shape_id]};
 }
 
 function addArea(newShape) {
@@ -488,8 +490,6 @@ function addArea(newShape) {
 }
 
 function removeArea(shapeId) {
-    console.log("controller ", shapeId);
-    console.log(!shapeId);
     if (!shapeId) {
         return {error: 1, status: 404, data: "Shape not found"};
     } else {

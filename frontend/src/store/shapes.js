@@ -12,22 +12,18 @@ export default {
         },
 
         updatedShape(state, updateShape) {
-            console.log("before updateShape", state.shapesData[20]);
             const index = state.shapesData.findIndex(shape => shape.shape_id === updateShape.shape_id);
             if (index !== -1) {
                 state.shapesData.splice(index, 1, updateShape);
             }
-            console.log("after updateShape", state.shapesData[20]);
         },
 
         addShape(state, newShape) {
             state.shapesData.push(newShape);
-            console.log("New shape added", state.shapesData);
         },
 
         removeShape(state, shapeId) {
             state.shapesData = state.shapesData.filter(shape => shape.shape_id !== shapeId);
-            console.log("Shape removed", state.shapesData);
         }
     },
 
@@ -48,7 +44,6 @@ export default {
         async updateShape({commit}, updatedShape) {
             const res = await ShapesService.updateShape(updatedShape);
             if (res.error === 0) {
-                console.log("c quoi ce bordel", res.data)
                 commit('updatedShape', res.data);
             } else {
                 console.error(res);
@@ -66,7 +61,6 @@ export default {
 
         async deleteShape({commit}, shapeId) {
             const res = await ShapesService.removeShape(shapeId);
-            console.log("store", res)
             if (res.error === 0) {
                 commit('removeShape', res.data);
             } else {
