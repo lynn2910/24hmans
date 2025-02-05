@@ -127,6 +127,13 @@ Page de gestion de la carte interactive presta
         >
           Enregistrer
         </button>
+                <button @click="deleteInfosPresta"
+                :disabled="isReadonly"
+                :class="isReadonly? 'bg-gray-500 cursor-not-allowed': 'bg-red-600 hover:bg-red-700'"
+                class="ml-4 mt-6 px-3 py-2 text-white rounded-md focus:outline-none text-xl"
+        >
+          Libérer
+        </button>
       </div>
     </div>
   </PrestataireDashboardTemplate>
@@ -204,7 +211,7 @@ export default {
 
   methods: {
     ...mapActions("prestataire", ["getAllPrestataires", "getPrestataireServices"]),
-    ...mapActions("shapes", ["updateShape"]),
+    ...mapActions("shapes", ["updateShape", "deleteInfosPost"]),
 
     updateFormData(layer) {
       this.formData.shape_id = layer.shape_id || -1;
@@ -227,6 +234,17 @@ export default {
 
     async saveUpdatedInfos() {
       await this.updateShape(this.formData);
+    },
+
+    async deleteInfosPresta() {
+      const infosShape = {
+          shape_id: this.formData.shape_id,
+          name: null,
+          description: null,
+          provider: null,
+          service: null,
+      }
+      await this.deleteInfosPost(infosShape)
     },
 
     loadServices(prestataireId) {

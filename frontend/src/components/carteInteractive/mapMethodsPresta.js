@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-draw';
 import {mapActions} from "vuex";
+import layer from "vue2-leaflet/src/mixins/Layer";
 
 export default {
     ...mapActions("shapes", ["getAllShapes"]),

@@ -92,6 +92,12 @@ Page de gestion de la carte interactive admin
               class="mt-6 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none text-xl">
             Enregistrer
           </button>
+
+          <button
+              @click="deleteInfosPresta"
+              class="ml-4 mt-6 px-3 py-2 text-white rounded-md focus:outline-none text-xl bg-red-600 hover:bg-red-700">
+            Libérer
+          </button>
         </div>
       </div>
     </div>
@@ -162,7 +168,7 @@ export default {
 
   methods: {
     ...mapActions("prestataire", ["getAllPrestataires", "getPrestataireServices"]),
-    ...mapActions("shapes", ["updateShape"]),
+    ...mapActions("shapes", ["updateShape", "deleteInfosPost"]),
 
     updateFormData(layer) {
       this.formData.shape_id = layer.shape_id || -1;
@@ -186,6 +192,20 @@ export default {
       } else {
         this.formData.service = null;
       }
+    },
+
+    async deleteInfosPresta() {
+      const infosShape = {
+        shape_id: this.formData.shape_id,
+        name: null,
+        logistics: null,
+        surface: null,
+        description: null,
+        provider: null,
+        service: null,
+        category: null,
+      }
+      await this.deleteInfosPost(infosShape)
     },
 
     getPrestataire(id) {

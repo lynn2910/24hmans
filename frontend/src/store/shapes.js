@@ -24,6 +24,17 @@ export default {
 
         removeShape(state, shapeId) {
             state.shapesData = state.shapesData.filter(shape => shape.shape_id !== shapeId);
+        },
+
+        removeInfosPost(state, infosShape) {
+            const index = state.shapesData.findIndex(shape => shape.shape_id === infosShape);
+            if (index !== -1) {
+                Object.keys(infosShape).forEach(key => {
+                    if (infosShape[key] === null) {
+                        state.shapesData[index][key] = null;
+                    }
+                })
+            }
         }
     },
 
@@ -45,6 +56,16 @@ export default {
             const res = await ShapesService.updateShape(updatedShape);
             if (res.error === 0) {
                 commit('updatedShape', res.data);
+            } else {
+                console.error(res);
+            }
+        },
+
+        async deleteInfosPost({commit}, infosShape) {
+            const res = await ShapesService.deleteInfosPost(infosShape);
+            console.log("Infos ", res)
+            if (res.error === 0) {
+                commit('removeInfosPost', res.data);
             } else {
                 console.error(res);
             }
