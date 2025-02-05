@@ -204,8 +204,17 @@ export default {
         provider: null,
         service: null,
         category: null,
-      }
-      await this.deleteInfosPost(infosShape)
+      };
+
+      this.formData.name = '';
+      this.formData.logistics = '';
+      this.formData.surface = '';
+      this.formData.description = '';
+      this.formData.provider = null;
+      this.formData.service = null;
+      this.formData.category = 'default';
+
+      await this.deleteInfosPost(infosShape);
     },
 
     getPrestataire(id) {

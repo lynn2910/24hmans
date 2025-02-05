@@ -244,6 +244,12 @@ export default {
           provider: null,
           service: null,
       }
+
+      this.formData.name = '';
+      this.formData.description = '';
+      this.formData.provider = null;
+      this.formData.service = null;
+
       await this.deleteInfosPost(infosShape)
     },
 
