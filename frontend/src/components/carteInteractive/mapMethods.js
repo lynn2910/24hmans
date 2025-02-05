@@ -5,7 +5,7 @@ import 'leaflet-draw';
 import {mapActions} from "vuex";
 
 export default {
-    ...mapActions("shapes", ["getAllShapes", "addShape", "deleteShape", "updateShape"]),
+    ...mapActions("shapes", ["getAllShapes", "addShape", "deleteShape", "updateShape", "getAllShapesFromFile"]),
 
     initMap(onPopupOpen, getPrestataire) {
         const southWest = L.latLng(47.972299, 0.186179);
@@ -255,27 +255,28 @@ export default {
         }
     },
 
-    // saveAllShapes() {
-    //     const dataToSave = JSON.stringify(this.shapesData);
-    //     const blob = new Blob([dataToSave], {type: 'application/json'});
-    //     const link = document.createElement('a');
-    //     link.href = URL.createObjectURL(blob);
-    //     link.download = 'shapesData.json';
-    //     link.click();
-    // },
-    //
-    // loadShapesFromFile(event, getPrestataire) {
-    //     const file = event.target.files[0];
-    //     const reader = new FileReader();
-    //
-    //     reader.onload = (e) => {
-    //         const shapesData = JSON.parse(e.target.result);
-    //         this.shapesData = shapesData;
-    //         this.reloadShapesOnMap(getPrestataire);
-    //     };
-    //
-    //     reader.readAsText(file);
-    // },
+    saveAllShapes() {
+        console.log("saving: ", this.getShapes)
+        const dataToSave = JSON.stringify(this.getShapes);
+        const blob = new Blob([dataToSave], {type: 'application/json'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'shapesData.json';
+        link.click();
+    },
+
+    loadShapesFromFile(event, getPrestataire) {
+        console.log("load:")
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            this.getAllShapesFromFile(JSON.parse(e.target.result));
+            this.reloadShapesOnMap(getPrestataire);
+        };
+
+        reader.readAsText(file);
+    },
 
     removeShape(layer) {
         this.featureGroup.removeLayer(layer);

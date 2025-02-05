@@ -52,6 +52,14 @@ export default {
             }
         },
 
+        async getAllShapesFromFile({commit}, shapes) {
+            try {
+                commit("setShapes", shapes);
+            } catch (error) {
+                console.error('Erreur lors de l’appel au service :', error);
+            }
+        },
+
         async updateShape({commit}, updatedShape) {
             const res = await ShapesService.updateShape(updatedShape);
             if (res.error === 0) {
