@@ -1,6 +1,4 @@
 const prisma = require("../db");
-const uuid = require("uuid");
-const CdnService = require("./cdn.service");
 
 function getPrestataire(prestataire_id) {
     return prisma.prestataire.findUnique({
@@ -25,31 +23,31 @@ function getPrestataireFromName(prestataire_name) {
 }
 
 async function updatePrestataire(prestataireId, updatedData) {
-    if (typeof updatedData.description === 'string') {
-        const reg = /<img(?:\s+\w+="[^"]+")*\s+src="data:image\/(\w+);(\w+),([^"]+)"/gm;
-
-        const matches = updatedData.description.matchAll(reg);
-        
-        let actions = Array.from(matches)
-            .map(async (match) => {
-                const [fullMatch, type, encoding, encodedData] = match;
-                if (encoding !== 'base64') throw new Error("Encoding is not base64");
-
-                const data = Buffer.from(encodedData, 'base64');
-                const fileName = `${uuid.v7()}.${type}`;
-
-                // replace <img
-                return [fullMatch, CdnService.createCdnFile(fileName, data)];
-            });
-
-        actions = await Promise.all(actions);
-
-        // Replace all <img> with the new URL
-        for (const action of actions) {
-            const [fullMatch, url] = action;
-            updatedData.description = updatedData.description.replace(fullMatch, `<img alt="" src="${url}">`);
-        }
-    }
+    // if (typeof updatedData.description === 'string') {
+    //     const reg = /<img(?:\s+\w+="[^"]+")*\s+src="data:image\/(\w+);(\w+),([^"]+)"/gm;
+    //
+    //     const matches = updatedData.description.matchAll(reg);
+    //
+    //     let actions = Array.from(matches)
+    //         .map(async (match) => {
+    //             const [fullMatch, type, encoding, encodedData] = match;
+    //             if (encoding !== 'base64') throw new Error("Encoding is not base64");
+    //
+    //             const data = Buffer.from(encodedData, 'base64');
+    //             const fileName = `prestataire/icon/${uuid.v7()}.${type}`;
+    //
+    //             // replace <img
+    //             return [fullMatch, CdnService.createCdnFile(fileName, data)];
+    //         });
+    //
+    //     actions = await Promise.all(actions);
+    //
+    //     // Replace all <img> with the new URL
+    //     for (const action of actions) {
+    //         const [fullMatch, url] = action;
+    //         updatedData.description = updatedData.description.replace(fullMatch, `<img alt="" src="${url}">`);
+    //     }
+    // }
 
     return prisma.prestataire.update({
         data: {

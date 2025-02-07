@@ -213,5 +213,6 @@ module.exports = {
     User, Permission, Method,
     createRule,
     checkAccess,
-    checkPermissions
+    checkPermissions,
+    getSessionInformations
 }

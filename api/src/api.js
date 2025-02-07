@@ -1,11 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const bodyParser = require("body-parser")
 
 // Initialize the database
 require("./db");
 const {createRule, User, Permission, Method} = require("./permissions");
-const {autoClearer} = require("./services/auth.service");
 const {registerMailService} = require("./services/mail/mail.service");
 
 const app = express();
@@ -17,6 +17,10 @@ app.use(cors({
     origin: '*',
     optionsSuccessStatus: 200,
 }));
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true})); // Pour les formulaires
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS");

@@ -193,7 +193,6 @@ import Popup from "@/components/dashboard/Popup.vue";
 import PrestataireService from "@/services/prestataire.service";
 import Editor from '@tinymce/tinymce-vue'
 import {getTinymce} from "@tinymce/tinymce-vue/lib/es2015/main/ts/TinyMCE";
-// import Prestataire from "@/store/prestataire/prestataire";
 
 export default {
 	name: "PrestataireEditPage",
@@ -304,7 +303,6 @@ export default {
 			while (!getTinymce() || !getTinymce().activeEditor) {
 				await wait(1000);
 			}
-			console.log(content)
 			getTinymce().activeEditor.setContent(content)
 		},
 		async saveDescription() {
@@ -322,7 +320,7 @@ export default {
 			} else {
 				alert("Le contenu a été sauvegardé avec succès.")
 			}
-		}
+		},
 	},
 	computed: {
 		blackOrWhite() {

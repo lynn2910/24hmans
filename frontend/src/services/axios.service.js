@@ -73,7 +73,7 @@ export class Request {
     /**
      * Send the built-up request using the `BASE_URL` or the specified `base_url` argument
      * @param {string?} [base_url]
-     * @return {Promise<Response>}
+     * @return {Promise<{error: 0 | 1, status: number, data: any}>}
      * @throws
      */
     send(base_url = BASE_URL) {

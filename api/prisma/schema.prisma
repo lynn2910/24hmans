@@ -55,7 +55,7 @@ model Prestataire {
   id          String  @id @db.VarChar(36)
   icon        String?
   password    String
-  description String? @db.MediumText
+  description String? @db.LongText
 
   name       String @unique
   // La référence dans les URLs (par exemple 'porsche', 'kart24', '24hmans', 'mongman' etc...)
