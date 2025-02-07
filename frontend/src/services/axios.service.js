@@ -102,7 +102,14 @@ export class Request {
             }
             // Pour que Webstorm soit content
             if (!call) return reject(new Error(`Unknown method ${this.method}`));
-            call.then(resolve, reject);
+            call.then(
+                (res) => {
+                    return resolve({error: 0, status: res.status, data: res.data})
+                },
+                (res) => {
+                    return resolve({error: 0, status: res.status, data: res.data})
+                },
+            );
         })
     }
 }
