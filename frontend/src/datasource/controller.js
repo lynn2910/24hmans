@@ -472,15 +472,15 @@ function getAllShapes() {
 }
 
 function updateArea(updatedData) {
-    // const index = shapes.findIndex(shape => shape.shape_id === updatedData.shape_id);
-    // if (index !== -1) {
-    //     shapes[index] = {...updatedData};
-    //     return {error: 0, status: 200, data: shapes[index]};
-    // }
-    // return {error: 1, status: 404, data: "Shape not found"};
-    shapes[updatedData.shape_id] = {...updatedData};
-    return {error: 0, status: 200, data: shapes[updatedData.shape_id]};
+    const index = shapes.findIndex(shape => shape.shape_id === updatedData.shape_id);
+
+    if (index !== -1) {
+        shapes[index] = { ...shapes[index], ...updatedData };
+        return { error: 0, status: 200, data: shapes[index] };
+    }
+    return { error: 1, status: 404, data: "Shape not found" };
 }
+
 
 function addArea(newShape) {
     const maxId = shapes.length > 0 ? Math.max(...shapes.map(shape => shape.shape_id)) : 0;
@@ -499,12 +499,9 @@ function removeArea(shapeId) {
 
 function deleteInfosPost(infosShape) {
     const index = shapes.findIndex(shape => shape.shape_id === infosShape.shape_id);
-            console.log(index)
 
     if (index !== -1) {
         Object.keys(infosShape).forEach((key) => {
-            console.log(infosShape[key]);
-            console.log(infosShape[key] === null);
             if (infosShape[key] === null) {
                 shapes[index][key] = null;
             }

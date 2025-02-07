@@ -127,7 +127,7 @@ Page de gestion de la carte interactive presta
         >
           Enregistrer
         </button>
-                <button @click="deleteInfosPresta"
+        <button @click="deleteInfosPresta"
                 :disabled="isReadonly"
                 :class="isReadonly? 'bg-gray-500 cursor-not-allowed': 'bg-red-600 hover:bg-red-700'"
                 class="ml-4 mt-6 px-3 py-2 text-white rounded-md focus:outline-none text-xl"
@@ -205,8 +205,17 @@ export default {
       if (newPrestataireId !== null) {
         this.loadServices(newPrestataireId);
       }
-      this.$forceUpdate();
     },
+
+    "$store.state.shapes.shapesData": {
+      handler(newShapes) {
+        console.log("Mise à jour :", newShapes);
+        this.getShapes();
+        this.refresh();
+      },
+      deep: true,
+      // immediate: true,
+    }
   },
 
   methods: {
@@ -216,6 +225,7 @@ export default {
     updateFormData(layer) {
       this.formData.shape_id = layer.shape_id || -1;
       this.formData.coordinates = layer.coordinates;
+      this.formData.iconUrl = layer.iconUrl ? layer.iconUrl : '';
       this.formData.name = layer.name || '';
       this.formData.logistics = layer.logistics || '';
       this.formData.surface = layer.surface || '';
@@ -236,29 +246,37 @@ export default {
       await this.updateShape(this.formData);
     },
 
-    async deleteInfosPresta() {
-      const infosShape = {
-          shape_id: this.formData.shape_id,
-          name: null,
-          description: null,
-          provider: null,
-          service: null,
-      }
-
-      this.formData.name = '';
-      this.formData.description = '';
-      this.formData.provider = null;
-      this.formData.service = null;
-
-      await this.deleteInfosPost(infosShape)
-    },
-
     loadServices(prestataireId) {
       if (prestataireId) {
         this.getPrestataireServices(prestataireId);
       } else {
         this.formData.service = null;
       }
+    },
+
+    async deleteInfosPresta() {
+      const infosShape = {
+        shape_id: this.formData.shape_id,
+        name: null,
+        logistics: null,
+        surface: null,
+        description: null,
+        provider: null,
+        service: null,
+      };
+
+      this.formData.name = '';
+      this.formData.logistics = '';
+      this.formData.surface = '';
+      this.formData.description = '';
+      this.formData.provider = null;
+      this.formData.service = null;
+
+      await this.deleteInfosPost(infosShape);
+    },
+
+    refresh() {
+      this.reloadShapesOnMap(this.getPrestataire)
     },
 
     getPrestataire(id) {

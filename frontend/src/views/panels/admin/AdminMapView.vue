@@ -105,9 +105,9 @@ Page de gestion de la carte interactive admin
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex';
 import AdminDashboardTemplate from "@/components/dashboard/admin/AdminDashboardTemplate.vue";
 import CarteInteractiveAdmin from "@/components/carteInteractive/CarteInteractiveAdmin.vue";
-import {mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'AdminMapView',
@@ -152,19 +152,31 @@ export default {
   },
   computed: {
     ...mapGetters("prestataire", ["prestataires", "prestataireServices"]),
+    ...mapGetters("shapes", ["getShapes"]),
 
     selectedPrestataireServices() {
       return this.prestataireServices(this.formData.provider) || [];
+    },
+  },
+
+watch: {
+  'formData.provider'(newPrestataireId) {
+    if (newPrestataireId) {
+      this.loadServices(newPrestataireId);
     }
   },
 
-  watch: {
-    'formData.provider'(newPrestataireId) {
-      if (newPrestataireId) {
-        this.loadServices(newPrestataireId);
-      }
+  "$store.state.shapes.shapesData": {
+    handler(newShapes) {
+      console.log("Mise à jour :", newShapes);
+      this.getShapes();
+      this.refresh();
     },
-  },
+    deep: true,
+    // immediate: true,
+  }
+},
+
 
   methods: {
     ...mapActions("prestataire", ["getAllPrestataires", "getPrestataireServices"]),
@@ -173,6 +185,7 @@ export default {
     updateFormData(layer) {
       this.formData.shape_id = layer.shape_id || -1;
       this.formData.coordinates = layer.coordinates;
+      this.formData.iconUrl = layer.iconUrl ? layer.iconUrl : '';
       this.formData.name = layer.name || '';
       this.formData.logistics = layer.logistics || '';
       this.formData.surface = layer.surface || '';
@@ -215,6 +228,10 @@ export default {
       this.formData.category = 'default';
 
       await this.deleteInfosPost(infosShape);
+    },
+
+    refresh() {
+      this.reloadShapesOnMap(this.getPrestataire)
     },
 
     getPrestataire(id) {
