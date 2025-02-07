@@ -1,5 +1,9 @@
 const axios = require('axios');
-let BASE_URL = "https://apidemo.iut-bm.univ-fcomte.fr/herocorp/"
+let BASE_URL = process.env.VUE_APP_AXIOS_BASE_URL || "http://localhost:4629";
+if (!process.env.VUE_APP_AXIOS_BASE_URL) {
+    alert("Please set VUE_APP_AXIOS_BASE_URL env");
+}
+
 const axios_client = axios.create({baseURL: BASE_URL});
 
 

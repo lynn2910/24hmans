@@ -27,6 +27,12 @@ PROD=false# Ou 'true' en production, mais c'est évident
 DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
 ```
 
+Structure du fichier `frontend/.env`:
+
+```dotenv
+VUE_APP_AXIOS_BASE_URL="http://localhost:4629" # Ou "https://api.24h.chamallow.fr" pour utiliser la production
+```
+
 _Le port `4629` est recommandé pour le développement, car c'est celui-ci qui est utilisé dans Swagger_
 
 ## Installation
