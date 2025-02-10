@@ -251,6 +251,40 @@ function delete_session(karting_id, session_id) {
     })
 }
 
+function create_reservation(reservation_id, circuit_id, user_id, pseudo) {
+    return prisma.userKartingSession.upsert({
+        create: {
+            pseudo,
+            reservation_slot: {
+                connect: {session_id: reservation_id}
+            },
+            circuit: {
+                connect: {circuit_id}
+            },
+            user: {
+                connect: {user_id}
+            }
+        },
+        update: {
+            pseudo
+        },
+        where: {
+            user_id,
+            reservation_slot: {
+                session_id: reservation_id,
+            }
+        }
+    })
+}
+
+function delete_reservation(karting_id, user_reservation_id) {
+    return prisma.userKartingSession.delete({
+        where: {
+            session_id: user_reservation_id,
+        }
+    })
+}
+
 module.exports = {
     get_available_kartings,
     get_karting,
@@ -264,5 +298,8 @@ module.exports = {
     get_karting_session,
     create_session,
     update_session,
-    delete_session
+    delete_session,
+
+    create_reservation,
+    delete_reservation
 }

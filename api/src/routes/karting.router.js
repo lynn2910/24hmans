@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const prestataireMiddleware = require('../middlewares/prestataire.middleware');
+const userMiddleware = require('../middlewares/user.middleware');
 const KartingService = require("../services/karting.service");
 const {createRule, Method, Permission, User} = require("../permissions");
 const {
@@ -9,7 +10,7 @@ const {
     update_circuit,
     get_karting_circuit,
     delete_circuit,
-    get_karting_sessions, create_session, get_karting_session, update_session, delete_session
+    get_karting_sessions, create_session, get_karting_session, update_session, delete_session, create_reservation
 } = require("../services/karting.service");
 
 /**
@@ -810,10 +811,29 @@ createRule("/karting/:karting_id/sessions/:session_id", [Method.PATCH, Method.DE
 // Sessions (user)
 
 // Register to the session
-router.post("/:karting_id/sessions/:session_id/register")
+router.post("/:karting_id/sessions/:session_id/register", userMiddleware, async (req, res) => {
+    try {
+        const karting = await get_karting(req.params.karting_id, null);
 
-// Remove his participation to the session
-router.delete("/:karting_id/sessions/:session_id/register")
+        if (!karting) {
+            res.status(401).json({message: "Access denied"});
+            return;
+        }
 
+        const reservation = await create_reservation(
+            karting.reservation_app_id,
+            req.body.circuit_id,
+            req.session.userId,
+            req.body.pseudo
+        );
+
+        res.status(200).json(reservation);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({message: e.message});
+    }
+})
+
+createRule("/karting/:karting_id/sessions/:session_id/register", [Method.POST], User.User, [Permission.User]);
 
 module.exports = router;
