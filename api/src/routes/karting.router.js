@@ -4,6 +4,7 @@ const router = express.Router();
 const prestataireMiddleware = require('../middlewares/prestataire.middleware');
 const KartingService = require("../services/karting.service");
 const {createRule, Method, Permission, User} = require("../permissions");
+const {get_karting, update_circuit, get_karting_circuit, delete_circuit} = require("../services/karting.service");
 
 /**
  * @swagger
@@ -282,8 +283,138 @@ router.get("/:karting_id/circuit/:circuit_id", async (req, res) => {
     }
 })
 
-router.patch("/:karting_id/circuit/:circuit_id")
-router.delete("/:karting_id/circuit/:circuit_id")
+/**
+ * @swagger
+ * /karting/{karting_id}/circuit/{circuit_id}:
+ *   patch:
+ *     summary: Update Circuit Details
+ *     tags:
+ *       - Karting
+ *     description: Updates details of a specific circuit for a given karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: circuit_id
+ *         example: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the circuit.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               minAge:
+ *                 type: integer
+ *                 description: The minimum age required for the circuit.
+ *               circuit_id:
+ *                 type: string
+ *                 description: The ID of the circuit.
+ *               kart_power:
+ *                 type: string
+ *                 description: The required kart power for the circuit.
+ *             example:
+ *               minAge: 10
+ *               circuit_id: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *               kart_power: "medium"
+ *     responses:
+ *       200:
+ *         description: Circuit details updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Circuit'
+ *       401:
+ *         description: Access denied.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *               example:
+ *                 message: "Access denied"
+ *
+ *   delete:
+ *     summary: Delete Circuit
+ *     tags:
+ *       - Karting
+ *     description: Deletes a specific circuit for a given karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: circuit_id
+ *         example: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the circuit.
+ *     responses:
+ *       200:
+ *         description: Circuit deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Circuit'
+ *       404:
+ *         description: Circuit not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *               example:
+ *                 message: "Circuit not found"
+ */
+router.patch("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (req, res) => {
+    let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
+    if (!karting) {
+        // access denied
+        res.status(401).json({message: "Access denied"});
+        return;
+    }
+
+    let new_circuit = await update_circuit(
+        req.params.karting_id,
+        req.params.circuit_id,
+        req.body
+    );
+
+    res.status(200).json(new_circuit);
+})
+router.delete("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (req, res) => {
+    let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
+
+    if (!karting) {
+        // access denied
+        res.status(404).json({message: "Circuit not found"});
+        return;
+    }
+
+    let deleted_circuit = await delete_circuit(req.params.karting_id, req.params.circuit_id);
+    res.status(200).json(deleted_circuit);
+})
+createRule("/karting/:karting_id/circuit/:circuit_id", [Method.PATCH, Method.DELETE], User.Prestataire, [Permission.Prestataire]);
+
 
 // Sessions
 router.get("/:karting_id/sessions")

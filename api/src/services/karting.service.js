@@ -142,10 +142,32 @@ function get_karting_circuit(karting_id, circuit_id, prestataire_id = null) {
     })
 }
 
+function update_circuit(karting_id, circuit_id, updates) {
+    return prisma.kartingCircuit.update({
+        data: {
+            minAge: updates.minAge,
+            circuit_id: updates.circuit_id,
+            kart_power: updates.kart_power,
+        },
+        where: {
+            karting_id,
+            circuit_id
+        }
+    })
+}
+
+function delete_circuit(karting_id, circuit_id) {
+    return prisma.kartingCircuit.delete({
+        where: {karting_id, circuit_id}
+    })
+}
+
 module.exports = {
     get_available_kartings,
     get_karting,
 
     create_circuit,
-    get_karting_circuit
+    get_karting_circuit,
+    update_circuit,
+    delete_circuit
 }
