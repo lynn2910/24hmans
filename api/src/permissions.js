@@ -193,7 +193,7 @@ async function checkPermissions(rule, sessionId, user_type) {
 
     return {
         infos: sessionInformations,
-        ok: allowedUsers.some(type => type === sessionInformations.userType)
+        ok: sessionInformations ? allowedUsers.some(type => type === sessionInformations.userType) : true
     };
 }
 

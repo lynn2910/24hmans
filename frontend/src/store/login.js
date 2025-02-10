@@ -46,9 +46,7 @@ export default {
             if (data.type === Selected.User) res = await UsersService.loginUser(data.id, data.password);
             else if (data.type === Selected.Prestataire) res = await PrestataireService.loginPrestataire(data.id, data.password);
             else if (data.type === Selected.Admin) res = await AdminService.loginAdmin(data.id, data.password);
-
-            console.log(res)
-
+            
             if (!res.error) {
                 commit("updateSessionId", res.data.code);
                 commit("updateLoggedInUser", res.data.user);
