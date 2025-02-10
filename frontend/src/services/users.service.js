@@ -1,8 +1,10 @@
 import LocalSource from '../datasource/controller'
-import {Request, defineSessionId} from "@/services/axios.service";
+import {Request, defineSessionId, removeSessionId} from "@/services/axios.service";
 import {Selected} from "@/utils";
 
 async function loginUser(email, password) {
+    console.log("Logging user...")
+
     // return LocalSource.loginUser(email, password)
     const res = await Request.post("/auth/login")
         .body({
@@ -10,6 +12,17 @@ async function loginUser(email, password) {
             password: password,
             userType: Selected.User
         })
+        .send();
+
+    console.log("login res : ", res)
+
+    return res;
+}
+
+async function signupUser(email, password, first_name, last_name) {
+    // return LocalSource.signupUser(email, password, first_name, last_name)
+    const res = await Request.post("/auth/signup")
+        .body({email, password, first_name, last_name})
         .send();
 
     console.log(res)
@@ -22,8 +35,12 @@ async function loginUser(email, password) {
     return {error: 0, status: 200, data: res.data.user};
 }
 
-async function signupUser(email, password, first_name, last_name) {
-    return LocalSource.signupUser(email, password, first_name, last_name)
+async function logoutUser(sessionId) {
+    await Request.post("/auth/logout")
+        .body({sessionId})
+        .send()
+
+    removeSessionId();
 }
 
 async function getUserCount() {
@@ -43,5 +60,6 @@ export default {
     signupUser,
     getUserCount,
     getUserOrders,
-    newOrder
+    newOrder,
+    logoutUser
 }

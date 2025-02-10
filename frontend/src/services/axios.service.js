@@ -5,13 +5,19 @@ if (!process.env.VUE_APP_AXIOS_BASE_URL) {
 }
 
 const axios_client = axios.create({baseURL: BASE_URL});
+let sessionIdIntercepter = null;
 
 export function defineSessionId(sessionId) {
-    axios_client.interceptors.request.use(
+    sessionIdIntercepter = axios_client.interceptors.request.use(
         config => {
             return {...config, params: sessionId};
         }
     )
+}
+
+export function removeSessionId() {
+    axios_client.interceptors.request.eject(sessionIdIntercepter);
+    sessionIdIntercepter = null;
 }
 
 /**

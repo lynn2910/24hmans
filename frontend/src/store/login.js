@@ -14,9 +14,13 @@ export default {
          * Le type d'utilisateur connecté
          * @type {Selected}
          */
-        userType: null
+        userType: null,
+        sessionId: null
     },
     mutations: {
+        updateSessionId(state, sessionId) {
+            state.sessionId = sessionId;
+        },
         updateLoggedInUser(state, loggedInUser) {
             state.loggedInUser = loggedInUser;
         },
@@ -35,7 +39,6 @@ export default {
          * @returns {Promise<void>}
          */
         async login({commit}, data) {
-            // TODO Retirer cette condition
             if (!('password' in data)) return alert("champ 'password' manquant pour login le prestataire :/")
 
             console.log("Get logged in user");
@@ -44,8 +47,11 @@ export default {
             else if (data.type === Selected.Prestataire) res = await PrestataireService.loginPrestataire(data.id, data.password);
             else if (data.type === Selected.Admin) res = await AdminService.loginAdmin(data.id, data.password);
 
+            console.log(res)
+
             if (!res.error) {
-                commit("updateLoggedInUser", res.data);
+                commit("updateSessionId", res.data.code);
+                commit("updateLoggedInUser", res.data.user);
                 commit('updateUserType', data.type);
             } else {
                 console.error(res);
@@ -67,8 +73,10 @@ export default {
                 console.error(res)
             }
         },
-        logout({commit}) {
+        async logout({commit}) {
             console.log("The user has been disconnected")
+            await UsersService.logoutUser();
+            commit("updateSessionId", null);
             commit("logOut", null);
         }
     },
