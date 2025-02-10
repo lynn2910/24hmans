@@ -8,6 +8,7 @@ const {
     updatePrestataireLink,
     deletePrestataireLink
 } = require("../services/prestataire.service");
+const adminMiddleware = require("../middlewares/admin.middleware");
 const prestataireMiddleware = require("../middlewares/prestataire.middleware");
 const {createRule, User, Permission, Method} = require("../permissions")
 
@@ -61,6 +62,14 @@ const routerPresta = new Router();
  *               items:
  *                  $ref: '#/components/schemas/PrestataireLink'
  */
+
+routerPresta.get(
+    "/all",
+    async (req, res) => {
+        const prestataires = await (require("../db")).prestataire.findMany();
+        res.status(200).json(prestataires);
+    }
+)
 
 /**
  * @swagger
@@ -212,6 +221,46 @@ routerPresta.get(
  *                 message:
  *                   type: string
  *                   description: The error message.
+ *   delete:
+ *     summary: Delete a Prestataire
+ *     tags:
+ *       - Prestataire  # Or a more specific tag if you have one
+ *     description: Deletes a specific prestataire. Requires admin privileges.
+ *     parameters:
+ *       - in: path
+ *         name: prestataire_id
+ *         example: "prestataire-123"  # Replace with a real example
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the prestataire to delete.
+ *     responses:
+ *       200:
+ *         description: Prestataire deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: integer
+ *                   example: 0
+ *                 data:
+ *                   $ref: '#/components/schemas/Prestataire' # Define this schema!
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: integer
+ *                   example: 1
+ *                 data:
+ *                   type: string
+ *                   description: The error message.
+ *                   example: "Error message details"
  */
 routerPresta.patch(
     "/:prestataire_id",
@@ -234,7 +283,30 @@ routerPresta.patch(
         }
     }
 )
-createRule("/prestataire", [Method.PATCH], User.Prestataire, [Permission.Prestataire])
+createRule("/prestataire", [Method.PATCH], User.Prestataire, [Permission.Prestataire, Permission.Admin]);
+
+routerPresta.delete(
+    "/:prestataire_id",
+    adminMiddleware,
+    async (req, res) => {
+        const {prestataire_id} = req.params;
+
+        try {
+            const prestataireDeleted = await (require("../db")).prestataire.delete({
+                where: {
+                    id: prestataire_id,
+                }
+            })
+
+            return res.status(200).json({error: 0, data: prestataireDeleted});
+        } catch (err) {
+            res.status(500).json({
+                error: 1,
+                data: err.message,
+            })
+        }
+    }
+)
 
 // liens prestas
 /**
@@ -317,10 +389,10 @@ routerPresta.get(
  *     description: Cette méthode crée un nouveau lien pour un prestataire, en utilisant le nom du prestataire et les données du lien.
  *     parameters:
  *       - in: path
- *         name: prestataire_name
+ *         name: prestataire_id
  *         required: true
- *         description: Nom du prestataire
- *         example: "porsche"
+ *         description: ID du prestataire
+ *         example: "45309281-fc24-4e02-ad47-a275c64f5327"
  *         schema:
  *           type: string
  *       - in: query
@@ -369,9 +441,9 @@ routerPresta.get(
  *                   example: "Prestataire not found."
  */
 routerPresta.post(
-    "/:prestataire_name/link",
+    "/:prestataire_id/link",
     async (req, res) => {
-        const {prestataire_name} = req.params;
+        const {prestataire_id} = req.params;
         const {sessionId} = req.query;
         const {name, url} = req.body;
 
@@ -381,7 +453,7 @@ routerPresta.post(
             });
         }
 
-        let presta = await getPrestataireFromName(prestataire_name);
+        let presta = await getPrestataire(prestataire_id);
         if (!presta) {
             return res.status(404).json({
                 message: "Prestataire not found."
