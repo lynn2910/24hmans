@@ -6,6 +6,13 @@ if (!process.env.VUE_APP_AXIOS_BASE_URL) {
 
 const axios_client = axios.create({baseURL: BASE_URL});
 
+export function defineSessionId(sessionId) {
+    axios_client.interceptors.request.use(
+        config => {
+            return {...config, params: sessionId};
+        }
+    )
+}
 
 /**
  * @enum
@@ -37,7 +44,7 @@ export class Request {
      */
     constructor(method, route) {
         this.method = method;
-        this.route = route;
+        this.url = route;
     }
 
     static get = (route) => new Request(Method.Get, route);

@@ -1,7 +1,25 @@
 import LocalSource from '../datasource/controller'
+import {Request, defineSessionId} from "@/services/axios.service";
+import {Selected} from "@/utils";
 
 async function loginUser(email, password) {
-    return LocalSource.loginUser(email, password)
+    // return LocalSource.loginUser(email, password)
+    const res = await Request.post("/auth/login")
+        .body({
+            login: email,
+            password: password,
+            userType: Selected.User
+        })
+        .send();
+
+    console.log(res)
+
+    if (res.error) {
+        return res;
+    }
+
+    defineSessionId(res.data.code);
+    return {error: 0, status: 200, data: res.data.user};
 }
 
 async function signupUser(email, password, first_name, last_name) {
