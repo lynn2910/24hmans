@@ -47,13 +47,15 @@ function login(login, password, userType) {
             }
             // Admin
             case 3: {
-                await prisma.admin.findUnique({
+                await prisma.admin.findFirst({
                     omit: {password: false},
-                    where: {login}
+                    where: {name: login}
                 }).then((admin) => {
                     isLoginValid = true;
                     fetchedPassword = admin.password;
                     infos = admin;
+
+                    infos["id"] = infos["admin_id"].toString();
                 }).catch(() => null);
                 break;
             }
@@ -61,10 +63,10 @@ function login(login, password, userType) {
 
         if (!isLoginValid || !fetchedPassword) return reject({reject: 1, error: 0, data: "Login invalid"});
 
+
         bcrypt.compare(password, fetchedPassword)
             .then(async (result) => {
                 if (!result) return reject({reject: 1, error: 0, data: "Login invalid"});
-
                 // Login valide. On créé la session
                 const sessionId = await createSession(userType, infos.id)
 
@@ -77,6 +79,7 @@ function login(login, password, userType) {
                 })
             })
             .catch((err) => {
+                console.error(err)
                 return reject({reject: 0, error: 1, data: err.message});
             });
     })
@@ -91,7 +94,7 @@ async function createSession(userType, userId) {
             userId
         }
     });
-
+    
     return sessionId
 }
 

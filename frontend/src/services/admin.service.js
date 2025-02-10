@@ -1,7 +1,14 @@
-import LocalSource from '../datasource/controller'
+import {Request} from "@/services/axios.service";
+import {Selected} from "@/utils";
 
-function loginAdmin(name, password) {
-    return LocalSource.loginAdmin(name, password)
+async function loginAdmin(name, password) {
+    return await Request.post("/auth/login")
+        .body({
+            login: name,
+            password,
+            userType: Selected.Admin
+        })
+        .send();
 }
 
 export default {loginAdmin}

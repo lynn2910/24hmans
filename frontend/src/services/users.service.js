@@ -1,5 +1,5 @@
 import LocalSource from '../datasource/controller'
-import {Request, defineSessionId, removeSessionId} from "@/services/axios.service";
+import {defineSessionId, removeSessionId, Request} from "@/services/axios.service";
 import {Selected} from "@/utils";
 
 async function loginUser(email, password) {
@@ -14,6 +14,8 @@ async function loginUser(email, password) {
         })
         .send();
 
+    if (!res.error) defineSessionId(res.data?.code)
+
     console.log("login res : ", res)
 
     return res;
@@ -27,32 +29,32 @@ async function signupUser(email, password, first_name, last_name) {
 
     console.log(res)
 
-    if (res.error) {
-        return res;
-    }
-
-    defineSessionId(res.data.code);
-    return {error: 0, status: 200, data: res.data.user};
+    return res;
 }
 
 async function logoutUser(sessionId) {
+    console.log("Closing session...")
     await Request.post("/auth/logout")
         .body({sessionId})
         .send()
 
     removeSessionId();
+    console.log("Session closed")
 }
 
 async function getUserCount() {
+    // TODO
     return LocalSource.getAllUsers();
 }
 
-async function getUserOrders(user_id) {
-    return LocalSource.getUserOrders(user_id);
+async function getUserOrders() {
+    return await Request.get("/users/@me/orders").send();
 }
 
 async function newOrder(order) {
-    return LocalSource.newOrder(order);
+    return await Request.post("/users/@me/orders")
+        .body(order)
+        .send();
 }
 
 export default {

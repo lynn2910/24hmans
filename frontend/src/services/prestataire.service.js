@@ -1,4 +1,6 @@
 import LocalSource from "@/datasource/controller"
+import {Request} from "@/services/axios.service";
+import {Selected} from "@/utils";
 
 /**
  * Obtiens un prestataire s'il existe
@@ -10,7 +12,15 @@ async function getPrestataire(id) {
 }
 
 async function loginPrestataire(id, password) {
-    return LocalSource.getPrestataireWithPassword(id, password)
+    // return LocalSource.getPrestataireWithPassword(id, password)
+    
+    return await Request.post("/auth/login")
+        .body({
+            login: id,
+            password,
+            userType: Selected.Prestataire
+        })
+        .send();
 }
 
 async function getAllPrestataires() {
@@ -46,8 +56,8 @@ async function importPrestataire(name, password) {
     return LocalSource.createPrestataireInternal({name, password})
 }
 
-async function updatePrestataireName(presta_id, new_name){
-    return LocalSource.updatePrestataireName(presta_id, { name : new_name})
+async function updatePrestataireName(presta_id, new_name) {
+    return LocalSource.updatePrestataireName(presta_id, {name: new_name})
 }
 
 async function updatePrestataireLink(presta_id, link_name, link_url, link_id) {

@@ -386,7 +386,7 @@ export default {
 		transformPrestataireName,
 		...mapActions('login', ['login', 'logout']),
 		async logoutUser() {
-			this.logout();
+			await this.logout();
 			await this.$router.push({name: "login"});
 		}
 	}

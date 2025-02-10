@@ -26,7 +26,8 @@ export default {
 		}
 	},
 	async beforeMount() {
-		let res = await UsersService.getUserOrders(this.loggedInUser.id);
+		let res = await UsersService.getUserOrders();
+		console.log(res)
 		if (!res.error) {
 			this.orders = res.data.sort((a, b) => a.date.getUTCMilliseconds() - b.date.getUTCMilliseconds());
 		} else {
