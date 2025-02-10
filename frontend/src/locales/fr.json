@@ -74,5 +74,20 @@
       "profile": "Mon profil",
       "dashboard": "Mon tableau de bord"
     }
+  },
+  "tools": {
+    "loading": {
+      "waiting": "Veuillez patienter"
+    }
+  },
+  "dashboards": {
+    "client": {
+      "go_back_home": "Retourner à la page d'accueil",
+      "home": "Page d'accueil",
+      "billets": "Mes billets",
+      "karting": "Mes courses",
+      "achats": "Mes achats",
+      "deconnect": "Se déconnecter"
+    }
   }
 }

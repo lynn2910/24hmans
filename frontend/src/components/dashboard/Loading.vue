@@ -5,7 +5,7 @@
 
 			<div class="bg-dark p-5 rounded-xl">
 				<h1>{{ title }}</h1>
-				<p class="italic text-sm opacity-50">Veuillez patienter</p>
+				<p class="italic text-sm opacity-50">{{ $t("tools.loading.waiting") }}</p>
 
 				<p></p>
 			</div>
