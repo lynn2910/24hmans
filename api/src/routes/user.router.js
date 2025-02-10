@@ -100,14 +100,14 @@ const {createRule, Method, User, Permission} = require("../permissions");
 const {getUser, getUserOrders, createNewOrder} = require("../services/user.service");
 const {getPrestataire} = require("../services/prestataire.service");
 const {getAdmin} = require("../services/admin.service");
+const {get_user_reservations, delete_reservation} = require("../services/karting.service");
 
 /**
  * @swagger
  * /users/@me:
  *   get:
  *     summary: Get Current User Information
- *     tags:
- *       - User
+ *     tags: [User]
  *     description: Retrieves information about the currently authenticated user.
  *     parameters:
  *       - in: query
@@ -338,6 +338,138 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
 })
 
 
-//
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     UserKartingSession:  # Example schema - MUST be defined
+ *       type: object
+ *       properties:
+ *         user_id:
+ *           type: string
+ *           description: The ID of the user.
+ *           example: "user-456"
+ *         session_id:
+ *           type: string
+ *           description: The ID of the session.
+ *           example: "session-789"
+ *         reservation_slot:  # Include nested objects!
+ *           $ref: '#/components/schemas/ReservationSlot' # Define this schema!
+ *         circuit:
+ *           $ref: '#/components/schemas/Circuit' # And this one!
+ *         # ... other properties
+ *       required:
+ *         - user_id
+ *         - session_id
+ *     ReservationSlot:  # Example schema - MUST be defined
+ *       type: object
+ *       properties:
+ *         reservation_id:
+ *           type: string
+ *           description: The ID of the reservation slot
+ *           example: "slot-123"
+ *         from:
+ *           type: string
+ *           format: date-time
+ *           description: Start time of the session slot.
+ *           example: "2024-10-30T10:00:00.000Z"
+ *         to:
+ *           type: string
+ *           format: date-time
+ *           description: End time of the session slot.
+ *           example: "2024-10-30T11:00:00.000Z"
+ *         maxSize:
+ *           type: integer
+ *           description: Maximum number of people for the session slot.
+ *           example: 10
+ *         # ... other properties
+ *       required:
+ *         - reservation_id
+ *         - from
+ *         - to
+ *         - maxSize
+ *     Circuit:  # Example Circuit schema - MUST be defined
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The ID of the circuit.
+ *           example: "circuit-123"
+ *         name:
+ *           type: string
+ *           description: The name of the circuit.
+ *           example: "Monza"
+ *         # ... other circuit properties
+ *       required:
+ *         - id
+ *         - name
+ *     Error:  # Re-using the Error schema from previous examples
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: Error message.
+ *           example: "Karting not found"
+ */
+
+/**
+ * @swagger
+ * /users/@me/karting:
+ *   get:
+ *     summary: Get User Karting Reservations
+ *     tags: [User]
+ *     description: Retrieves all karting reservations for the authenticated user.
+ *     responses:
+ *       200:
+ *         description: User karting reservations retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/UserKartingSession' # Define this schema!
+ *       500:  # Include a 500 for potential server errors
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *
+ * /users/@me/karting/{reservation_id}:
+ *   delete:
+ *     summary: Delete a User Karting Reservation
+ *     tags: [User]
+ *     description: Deletes a specific karting reservation for the authenticated user.
+ *     parameters:
+ *       - in: path
+ *         name: reservation_id
+ *         example: "reservation-123" # Replace with a real example
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the reservation to delete.
+ *     responses:
+ *       200:
+ *         description: User karting reservation deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserKartingSession' # Or a simplified version
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get("/@me/karting", userMiddleware, async (req, res) => {
+    const reservations = await get_user_reservations(req.session.userId);
+    res.status(200).json(reservations);
+})
+router.delete("/@me/karting/:reservation_id", userMiddleware, async (req, res) => {
+    const reservation = await delete_reservation(req.session.userId, req.params.reservation_id);
+    res.status(200).json(reservation);
+})
+
 
 module.exports = router;

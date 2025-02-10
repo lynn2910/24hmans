@@ -251,6 +251,18 @@ function delete_session(karting_id, session_id) {
     })
 }
 
+function get_user_reservations(user_id) {
+    return prisma.userKartingSession.findMany({
+        where: {
+            user_id
+        },
+        include: {
+            reservation_slot: true,
+            circuit: true,
+        }
+    })
+}
+
 function create_reservation(reservation_id, circuit_id, user_id, pseudo) {
     return prisma.userKartingSession.upsert({
         create: {
@@ -277,9 +289,10 @@ function create_reservation(reservation_id, circuit_id, user_id, pseudo) {
     })
 }
 
-function delete_reservation(karting_id, user_reservation_id) {
+function delete_reservation(user_id, user_reservation_id) {
     return prisma.userKartingSession.delete({
         where: {
+            user_id,
             session_id: user_reservation_id,
         }
     })
@@ -300,6 +313,7 @@ module.exports = {
     update_session,
     delete_session,
 
+    get_user_reservations,
     create_reservation,
     delete_reservation
 }

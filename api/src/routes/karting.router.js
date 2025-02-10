@@ -810,7 +810,66 @@ createRule("/karting/:karting_id/sessions/:session_id", [Method.PATCH, Method.DE
 
 // Sessions (user)
 
-// Register to the session
+/**
+ * @swagger
+ * /karting/{karting_id}/sessions/{session_id}/register:
+ *   post:
+ *     summary: Register for a Karting Session
+ *     tags:
+ *       - Karting
+ *     description: Registers the authenticated user for a specific karting session.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: session_id
+ *         example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the session.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               circuit_id:
+ *                 type: string
+ *                 description: The ID of the circuit to register for.
+ *                 example: "circuit-123"
+ *               pseudo:
+ *                 type: string
+ *                 description: The user's pseudo for the session.
+ *                 example: "JohnDoe"
+ *             required:
+ *               - circuit_id
+ *               - pseudo
+ *     responses:
+ *       200:
+ *         description: User registered for the session successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserKartingSession'  # Or a simplified version
+ *       401:
+ *         description: Access denied (karting not found or unauthorized).
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/:karting_id/sessions/:session_id/register", userMiddleware, async (req, res) => {
     try {
         const karting = await get_karting(req.params.karting_id, null);
