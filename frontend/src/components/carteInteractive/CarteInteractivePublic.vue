@@ -78,10 +78,10 @@ export default {
   watch: {
     shapes: {
       handler(newShapes) {
-        console.log("Shapes have changed:", newShapes);
         this.reloadShapesOnMap(this.getPrestataire, this.$route.params.locale);
       },
       deep: true,
+      // immediate: true,
     },
   },
 

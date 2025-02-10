@@ -12,14 +12,18 @@ export default {
         },
 
         updatedShape(state, updateShape) {
-            const index = state.shapesData.findIndex(shape => shape.shape_id === updateShape.shape_id);
-            if (index !== -1) {
-                state.shapesData.splice(index, 1, updateShape);
+            const shapeIndex = state.shapesData.findIndex(shape => shape.shape_id === updateShape.shape_id);
+            if (shapeIndex !== -1) {
+                Vue.set(state.shapesData, shapeIndex, updateShape);
+                // Object.assign(state.shapesData[shapeIndex], updateShape);
             }
         },
 
         addShape(state, newShape) {
-            state.shapesData.push(newShape);
+            const existingShape = state.shapesData.find(shape => shape.shape_id === newShape.shape_id);
+            if (!existingShape) {
+                state.shapesData.push(newShape);
+            }
         },
 
         removeShape(state, shapeId) {
@@ -31,7 +35,8 @@ export default {
             if (index !== -1) {
                 Object.keys(infosShape).forEach(key => {
                     if (infosShape[key] === null) {
-                        state.shapesData[index][key] = null;
+                        Vue.set(state.shapesData[index], key, null);
+                        // state.shapesData[index][key] = null;
                     }
                 })
             }
@@ -45,7 +50,7 @@ export default {
                 if (res.error === 0) {
                     commit("setShapes", res.data);
                 } else {
-                    console.log(res);
+                    console.error(res);
                 }
             } catch (error) {
                 console.error('Erreur lors de l’appel au service :', error);
@@ -71,7 +76,6 @@ export default {
 
         async deleteInfosPost({commit}, infosShape) {
             const res = await ShapesService.deleteInfosPost(infosShape);
-            console.log("Infos ", res)
             if (res.error === 0) {
                 commit('removeInfosPost', res.data);
             } else {
