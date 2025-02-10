@@ -4,7 +4,85 @@ const router = express.Router();
 const prestataireMiddleware = require('../middlewares/prestataire.middleware');
 const KartingService = require("../services/karting.service");
 const {createRule, Method, Permission, User} = require("../permissions");
-const {get_karting, update_circuit, get_karting_circuit, delete_circuit} = require("../services/karting.service");
+const {
+    get_karting,
+    update_circuit,
+    get_karting_circuit,
+    delete_circuit,
+    get_karting_sessions, create_session, get_karting_session, update_session, delete_session
+} = require("../services/karting.service");
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     KartingSessionSlot:
+ *       type: object
+ *       properties:
+ *         session_id:
+ *           type: string
+ *           description: The ID of the session.
+ *           example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+ *         karting_id:
+ *           type: string
+ *           description: The ID of the karting.
+ *           example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         session_slot_id:
+ *           type: string
+ *           description: The ID of the session slot.
+ *           example: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *         from:
+ *           type: string
+ *           format: date-time
+ *           description: Start time of the session slot.
+ *           example: "2024-10-27T10:00:00.000Z"
+ *         to:
+ *           type: string
+ *           format: date-time
+ *           description: End time of the session slot.
+ *           example: "2024-10-27T11:00:00.000Z"
+ *         maxSize:
+ *           type: integer
+ *           description: Maximum number of people for the session slot.
+ *           example: 10
+ *       required:
+ *         - session_id
+ *         - karting_id
+ *         - session_slot_id
+ *         - from
+ *         - to
+ *         - maxSize
+ *     Circuit:  # Example Circuit schema
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The ID of the circuit.
+ *           example: "circuit-123"
+ *         name:
+ *           type: string
+ *           description: The name of the circuit.
+ *           example: "Monza"
+ *         minAge:
+ *           type: integer
+ *           description: Minimum age for the circuit.
+ *           example: 8
+ *         kart_power:
+ *           type: string
+ *           description: Required kart power.
+ *           example: "medium"
+ *         #... other circuit properties
+ *       required:
+ *         - id
+ *         - name
+ *     Error: # Generic error schema
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: Error message.
+ *           example: "Karting not found"
+ */
 
 /**
  * @swagger
@@ -208,8 +286,6 @@ router.post("/:karting_id/circuit", prestataireMiddleware, async (req, res) => {
         ({status, message}) => res.status(status).json({message})
     )
 })
-createRule("/karting/:karting_id/circuit", Method.All, User.Prestataire, [Permission.Prestataire]);
-
 /**
  * @swagger
  * /karting/{karting_id}/circuit/{circuit_id}:
@@ -401,6 +477,7 @@ router.patch("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (r
 
     res.status(200).json(new_circuit);
 })
+
 router.delete("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (req, res) => {
     let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
 
@@ -413,15 +490,322 @@ router.delete("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (
     let deleted_circuit = await delete_circuit(req.params.karting_id, req.params.circuit_id);
     res.status(200).json(deleted_circuit);
 })
+createRule("/karting/:karting_id/circuit", Method.All, User.Prestataire, [Permission.Prestataire]);
 createRule("/karting/:karting_id/circuit/:circuit_id", [Method.PATCH, Method.DELETE], User.Prestataire, [Permission.Prestataire]);
 
 
 // Sessions
-router.get("/:karting_id/sessions")
+/**
+ * @swagger
+ * /karting/{karting_id}/sessions:
+ *   get:
+ *     summary: Get Karting Sessions
+ *     tags:
+ *       - Karting
+ *     description: Retrieves all session slots associated with a specific karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *     responses:
+ *       200:
+ *         description: Session slots retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/KartingSessionSlot'
+ *       404:
+ *         description: Karting not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *               example:
+ *                 message: "karting not found"
+ *       500:
+ *         description: An error occurred while fetching session slots.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *               example:
+ *                 message: "Error message details"
+ *   post:
+ *     summary: Create a Karting Session
+ *     tags:
+ *       - Karting
+ *     description: Creates a new session slot for a specific karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: query
+ *         name: sessionId
+ *         example: "sdkhd4Kcr8"
+ *         schema:
+ *           type: string
+ *         description: The session ID of the authenticated prestataire.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fromDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: Start date and time of the session.
+ *                 example: "2024-10-28T14:00:00.000Z"
+ *               toDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: End date and time of the session.
+ *                 example: "2024-10-28T15:00:00.000Z"
+ *               maxSize:
+ *                 type: integer
+ *                 description: Maximum number of participants for the session.
+ *                 example: 12
+ *             required:
+ *               - fromDate
+ *               - toDate
+ *               - maxSize
+ *     responses:
+ *       200:
+ *         description: Session slot created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/KartingSessionSlot'
+ *       404:
+ *         description: Karting not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       409:
+ *         description: Missing required fields in the request body.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500: # It's good practice to include a 500 for general errors
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get("/:karting_id/sessions", async (req, res) => {
+    try {
+        const kart = await get_karting_sessions(req.params.karting_id);
+        res.status(200).json(kart);
+    } catch (err) {
+        if (err.code === 'P2025') {
+            return res.status(404).json({message: "karting not found"});
+        }
 
-router.post("/:karting_id/sessions")
-router.patch("/:karting_id/sessions/:session_id")
-router.delete("/:karting_id/sessions/:session_id")
+        console.error(err);
+        res.status(500).json({message: err.message});
+    }
+})
+
+router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => {
+    let karting = await get_karting(req.params.karting_id, req.session?.userId || null);
+    if (!karting) {
+        res.status(404).json({message: "karting not found"});
+    }
+
+    let fields = ["fromDate", "toDate", "maxSize"];
+    if (!fields.some((f) => f in req.body)) {
+        return res.status(409).json({message: "Missing fields"});
+    }
+
+    const session = await create_session(req.params.karting_id, karting.reservation_app_id, req.body);
+    res.status(200).json(session);
+})
+
+/**
+ * @swagger
+ * /karting/{karting_id}/sessions/{session_id}:
+ *   patch:
+ *     summary: Update a Karting Session
+ *     tags:
+ *       - Karting
+ *     description: Updates an existing session slot for a specific karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: session_id
+ *         example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the session.
+ *       - in: query
+ *         name: sessionId
+ *         example: "sdkhd4Kcr8"
+ *         schema:
+ *           type: string
+ *         description: The session ID of the authenticated prestataire.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fromDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: New start date and time of the session.
+ *                 example: "2024-10-29T10:00:00.000Z"
+ *               toDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: New end date and time of the session.
+ *                 example: "2024-10-29T11:00:00.000Z"
+ *               maxSize:
+ *                 type: integer
+ *                 description: New maximum number of participants for the session.
+ *                 example: 15
+ *             required:  # Important: List required fields for the update
+ *               - fromDate
+ *               - toDate
+ *               - maxSize
+ *     responses:
+ *       200:
+ *         description: Session slot updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/KartingSessionSlot'
+ *       401:
+ *         description: Access denied.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       409:
+ *         description: Missing required fields in the request body.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500: # It's good practice to include a 500 for general errors
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *
+ *   delete:
+ *     summary: Delete a Karting Session
+ *     tags:
+ *       - Karting
+ *     description: Deletes an existing session slot for a specific karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: session_id
+ *         example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the session.
+ *       - in: query
+ *         name: sessionId
+ *         example: "sdkhd4Kcr8"
+ *         schema:
+ *           type: string
+ *         description: The session ID of the authenticated prestataire.
+ *     responses:
+ *       200:
+ *         description: Session slot deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/KartingSessionSlot' # Or a simplified version
+ *       401:
+ *         description: Access denied.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: An error occurred while deleting the session slot.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.patch("/:karting_id/sessions/:session_id", prestataireMiddleware, async (req, res) => {
+    let karting = await get_karting_session(req.params.karting_id, req.params.session_id);
+    if (!karting) {
+        // access denied
+        res.status(401).json({message: "Access denied"});
+        return;
+    }
+
+    let fields = ["fromDate", "toDate", "maxSize"];
+    if (!fields.some((f) => f in req.body)) {
+        return res.status(409).json({message: "Missing fields"});
+    }
+
+    let new_session = await update_session(
+        req.params.karting_id,
+        req.params.session_id,
+        req.body
+    );
+
+    res.status(200).json(new_session);
+})
+router.delete("/:karting_id/sessions/:session_id", prestataireMiddleware, async (req, res) => {
+    let karting = await get_karting_session(req.params.karting_id, req.params.session_id);
+    if (!karting) {
+        // access denied
+        res.status(401).json({message: "Access denied"});
+        return;
+    }
+
+    try {
+        let old_session = await delete_session(req.params.karting_id, req.params.session_id);
+        res.status(200).json(old_session);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({message: e.message});
+    }
+})
+createRule("/karting/:karting_id/sessions", Method.All, User.Prestataire, [Permission.Prestataire]);
+createRule("/karting/:karting_id/sessions/:session_id", [Method.PATCH, Method.DELETE], User.Prestataire, [Permission.Prestataire]);
 
 // Sessions (user)
 

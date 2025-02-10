@@ -70,6 +70,30 @@ function get_karting(karting_id, prestataire_id = null) {
     })
 }
 
+function create_karting(prestataire_id) {
+    return new Promise(async (resolve, reject) => {
+        const reservation_app = await prisma.reservationApp.create({
+            data: {
+                app_id: uuid.v4(),
+            }
+        });
+
+        const karting = await prisma.karting.create({
+            data: {
+                karting_id: uuid.v4(),
+                prestataire: {
+                    connect: prestataire_id,
+                },
+                reservations: {
+                    connect: reservation_app.app_id,
+                }
+            }
+        });
+
+        return resolve(karting);
+    })
+}
+
 //
 //
 //          CIRCUIT
@@ -162,6 +186,71 @@ function delete_circuit(karting_id, circuit_id) {
     })
 }
 
+function get_karting_sessions(karting_id) {
+    return prisma.kartingSessionSlot.findMany({
+        where: {
+            karting_id
+        },
+        include: {
+            session_slot: true,
+        },
+    })
+}
+
+function create_session(karting_id, reservation_app_id, body) {
+    return prisma.kartingSessionSlot.create({
+        data: {
+            session_id: uuid.v4(),
+            karting: {
+                connect: {karting_id},
+            },
+            session_slot: {
+                create: {
+                    reservation_id: uuid.v4(),
+                    app: {
+                        connect: {
+                            app_id: reservation_app_id
+                        }
+                    },
+                    from: body.fromDate,
+                    to: body.toDate,
+                    maxSize: body.maxSize,
+                }
+            }
+        }
+    })
+}
+
+function get_karting_session(karting_id, session_id) {
+    return prisma.kartingSessionSlot.findUnique({
+        where: {
+            session_id, karting_id
+        }
+    })
+}
+
+function update_session(karting_id, session_id, data) {
+    return prisma.kartingSessionSlot.update({
+        data: {
+            session_slot: {
+                update: {
+                    from: data.fromDate,
+                    to: data.toDate,
+                    maxSize: data.maxSize,
+                }
+            }
+        }
+    })
+}
+
+function delete_session(karting_id, session_id) {
+    return prisma.kartingSessionSlot.delete({
+        where: {
+            karting_id, session_id,
+        }
+    })
+}
+
 module.exports = {
     get_available_kartings,
     get_karting,
@@ -169,5 +258,11 @@ module.exports = {
     create_circuit,
     get_karting_circuit,
     update_circuit,
-    delete_circuit
+    delete_circuit,
+
+    get_karting_sessions,
+    get_karting_session,
+    create_session,
+    update_session,
+    delete_session
 }
