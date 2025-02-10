@@ -100,7 +100,7 @@ const {createRule, Method, User, Permission} = require("../permissions");
 const {getUser, getUserOrders, createNewOrder} = require("../services/user.service");
 const {getPrestataire} = require("../services/prestataire.service");
 const {getAdmin} = require("../services/admin.service");
-const {get_user_reservations, delete_reservation} = require("../services/karting.service");
+const {get_user_reservations, delete_reservation, update_reservation} = require("../services/karting.service");
 
 /**
  * @swagger
@@ -337,7 +337,6 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
         .catch((err) => res.status(err.status).json({message: err.message}))
 })
 
-
 /**
  * @swagger
  * components:
@@ -418,6 +417,14 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *   get:
  *     summary: Get User Karting Reservations
  *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: sessionId
+ *         example: "sdkhd4Kcr8"
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The session ID of the authenticated user.
  *     description: Retrieves all karting reservations for the authenticated user.
  *     responses:
  *       200:
@@ -434,8 +441,55 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
- *
  * /users/@me/karting/{reservation_id}:
+ *   patch:
+ *     summary: Update User Karting Reservation
+ *     tags: [User]
+ *     description: Updates a specific karting reservation for the authenticated user (e.g., updates the pseudo).
+ *     parameters:
+ *       - in: path
+ *         name: reservation_id
+ *         example: "reservation-123"  # Replace with a real example
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the reservation to update.
+ *       - in: query
+ *         name: sessionId
+ *         example: "sdkhd4Kcr8"
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The session ID of the authenticated user.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pseudo:
+ *                 type: string
+ *                 description: The updated user's pseudo for the session.
+ *                 example: "JohnDoeUpdated"
+ *     responses:
+ *       200:
+ *         description: User karting reservation updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserKartingSession'  # Or a simplified version
+ *       400:  # Bad Request if no pseudo is provided
+ *         description: Bad Request. No pseudo provided for update.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *   delete:
  *     summary: Delete a User Karting Reservation
  *     tags: [User]
@@ -448,6 +502,13 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *         schema:
  *           type: string
  *         description: The ID of the reservation to delete.
+ *       - in: query
+ *         name: sessionId
+ *         example: "sdkhd4Kcr8"
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The session ID of the authenticated user.
  *     responses:
  *       200:
  *         description: User karting reservation deleted successfully.
@@ -465,6 +526,10 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
 router.get("/@me/karting", userMiddleware, async (req, res) => {
     const reservations = await get_user_reservations(req.session.userId);
     res.status(200).json(reservations);
+})
+router.patch("/@me/karting/:reservation_id", userMiddleware, async (req, res) => {
+    const reservation = await update_reservation(req.params.reservation_id, req.session.userId, req.body?.pseudo);
+    res.status(200).json(reservation);
 })
 router.delete("/@me/karting/:reservation_id", userMiddleware, async (req, res) => {
     const reservation = await delete_reservation(req.session.userId, req.params.reservation_id);

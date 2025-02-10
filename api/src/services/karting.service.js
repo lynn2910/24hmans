@@ -289,6 +289,18 @@ function create_reservation(reservation_id, circuit_id, user_id, pseudo) {
     })
 }
 
+function update_reservation(reservation_id, user_id, pseudo) {
+    return prisma.userKartingSession.update({
+        data: {
+            pseudo
+        },
+        where: {
+            user_id,
+            session_id: reservation_id,
+        }
+    })
+}
+
 function delete_reservation(user_id, user_reservation_id) {
     return prisma.userKartingSession.delete({
         where: {
@@ -315,5 +327,6 @@ module.exports = {
 
     get_user_reservations,
     create_reservation,
+    update_reservation,
     delete_reservation
 }
