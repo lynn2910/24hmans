@@ -145,40 +145,30 @@ VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-
 
 INSERT INTO Ecurie(id, name, prestataire_id)
     VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
-
-INSERT INTO FormulaireEcurie(ecurie_id, prenom, nom, email, tel, num_billet, submitted_at)
-VALUES ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Yanis", "Blanc", "Yanis@gmail.com", "07 72 50 20 32", '01',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Juliette", "Richard", "Juliette.Richard@gmail.com", "+07 88 55 02 07",
-        '02', "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Ethan", "Durand", "DurandEthan@gmail.com", "07 15 10 20 00", '03',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sasha", "LeFevre", "Sasha.Lefevre@gmail.com", "08 53 69 85 65", '04',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sarah", "Henry", "sarah.Henry@gmail.com", "09 98 56 25 46", '05',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Mary", "Guerin", "mary@gmail.com", "07 10 12 15 14", '06',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Loris", "Michel", "loris@gmail.com", "07 20 12 23 50", '07',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Felix", "Mercier", "felix@gmail.com", "03 42 15 78 89", '08',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Lea", "Andre", "Lea.Andre@gmail.com", "08 45 95 86 54", '09',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Camille", "Rousseau", "camille.Rousseau@gmail.com", "05 15 50 00 15",
-        '10', "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sebastien", "Mcdowell", "sebastien@gmail.com", "06 66 66 66 66", '11',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Martin", "Fournier", "martin.Fournier@gmail.com", "08 58 65 53 65",
-        '12', "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Marie", "Jean", "Marie@gmail.com", "07 82 53 33 33", '13',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Adrien", "Bonnet", "AdrienBonnet@gmail.com", "07 78 95 86 85", '14',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Quentin", "Masson", "Quentin@gmail.com", "08 89 56 87 55", '15',
-        "2024-11-28 12:40:24"),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Gabriel", "Morin", "gabriel.morin@gmail.com", "09 65 85 96 85", '16',
-        "2024-11-28 12:40:24");
+select  * from Ecurie;
+DELETE FROM FormulaireEcurie WHERE ecurie_id= 'd8d755cb-9aba-43f5-9546-14db654a1f06';
+SELECT * FROM FormulaireEcurie;
+INSERT INTO FormulaireEcurie(ecurie_id, prenom, nom, year, email, tel, num_billet, submitted_at, is_winner)
+VALUES('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Yanis', 'Blanc', 2024, 'yanis.blanc@gmail.com', '07 72 50 20 32', '01',
+        '2024-11-28 12:40:24', false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Juliette", "Richard",2024, 'juliette@gmail.com', "+07 88 55 02 07",
+        '02', "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Ethan", 'Durand',2024, 'ethan@gmail.com', '07 15 10 20 00', '03',
+        "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sasha", "LeFevre",2024,'sasha@gmail.com', "08 53 69 85 65", '04',
+        "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sarah", "Henry",2024, 'sarah@gmail.com', "09 98 56 25 46", '05',
+        "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Mary", "Guerin", 2024,'mary@gmail.com', "07 10 12 15 14", '06',
+        "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Loris", "Michel",2024, 'lorsi@gmail.com', "07 20 12 23 50", '07',
+        "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Felix", "Mercier", 2024,'felix@gmail.com', "03 42 15 78 89", '08',
+        "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Lea", "Andre",2024, 'lea@gmail.com', "08 45 95 86 54", '09',
+        "2024-11-28 12:40:24", false),
+       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Camille", "Rousseau",2024, 'camille@gmail.com', "05 15 50 00 15",
+        '10', "2024-11-28 12:40:24", false);
 
 
-#SELECT * FROM FormulaireEcurie ;
+SELECT * FROM FormulaireEcurie ;
