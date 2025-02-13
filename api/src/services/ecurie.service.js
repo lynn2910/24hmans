@@ -19,7 +19,6 @@ function getParticipants(ecurie_id) {
         },
     });
 }
-// Fonction pour supprimer tous les participants d'une écurie
 async function deleteParticipants(ecurie_id) {
     try {
         await prisma.formulaireEcurie.deleteMany({
@@ -128,7 +127,7 @@ async function registerWinners(winners, ecurie_name) {
 
 async function getRandomWinners() {
     const participants = await prisma.formulaireEcurie.findMany({
-        where: { is_winner: false }, // Sélectionner uniquement ceux qui ne sont pas déjà gagnants
+        where: { is_winner: false },
     });
     const shuffledParticipants = participants.sort(() => 0.5 - Math.random());
     const winners = shuffledParticipants.slice(0, 10);
@@ -137,7 +136,7 @@ async function getRandomWinners() {
 
 
 module.exports = {
-   getParticipants,
+    getParticipants,
     deleteParticipants,
     getRandomParticipants,
     registerWinners

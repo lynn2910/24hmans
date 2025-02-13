@@ -142,9 +142,9 @@ routerEcurie.post('/:ecurie_id/winner', async (req, res) => {
         if (participants.length < 10) {
             return res.status(404).json({ message: "Pas assez de participants pour sélectionner 10 gagnants." });
         }
-        const winners = participants.sort(() => Math.random() - 0.5).slice(0, 10);  // Mélange aléatoire et sélection des 10 premiers
+        const winners = participants.sort(() => Math.random() - 0.5).slice(0, 10);
 
-        await registerWinners(winners, ecurie_id);  // Passer les gagnants à la fonction registerWinners
+        await registerWinners(winners, ecurie_id);
 
         res.status(200).json({ message: "Les gagnants ont été sélectionnés et notifiés." });
     } catch (error) {
