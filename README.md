@@ -101,7 +101,7 @@ _apt_ sur Linux).
 
 > **Si vous n'arrivez pas à faire fonctionner l'API ou ne voulez/ne pouvez pas mettre à jour MariaDB :**
 >
-> Nous avons déployé l'API et le frontend respectivement aux adresses suivantes :
+> Nous avons déployé le frontend et l'API respectivement aux adresses suivantes :
 > - [24h.chamallow.fr](https://24h.chamallow.fr)
 > - [api.24h.chamallow.fr](https://api.24h.chamallow.fr)
 >
