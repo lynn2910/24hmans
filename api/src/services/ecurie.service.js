@@ -107,7 +107,7 @@ async function registerWinners(winners, ecurie_name) {
                     args: {
                         user: { email, first_name, last_name },
                         ecurie_name,
-                        host: 'https://tonsite.com',
+                        host: 'http://localhost:4629/login',
                     }
                 });
             }
@@ -127,18 +127,11 @@ async function registerWinners(winners, ecurie_name) {
 }
 
 async function getRandomWinners() {
-    // Récupérer tous les participants inscrits dans la base de données
     const participants = await prisma.formulaireEcurie.findMany({
         where: { is_winner: false }, // Sélectionner uniquement ceux qui ne sont pas déjà gagnants
     });
-
-    // Mélanger les participants de manière aléatoire
     const shuffledParticipants = participants.sort(() => 0.5 - Math.random());
-
-    // Sélectionner les 10 premiers gagnants aléatoires
     const winners = shuffledParticipants.slice(0, 10);
-
-    // Appel à la fonction registerWinners pour enregistrer les gagnants
     await registerWinners(winners, 'Nom de l\'écurie');
 }
 
