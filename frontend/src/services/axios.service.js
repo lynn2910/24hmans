@@ -72,7 +72,7 @@ export class Request {
     args(route_args) {
         Object.entries(route_args)
             .forEach(([key, value]) => {
-                this.route.replace(`:${key}`, value);
+                this.url = this.url.replace(`:${key}`, value);
             })
 
         return this;

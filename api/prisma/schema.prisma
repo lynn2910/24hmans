@@ -100,8 +100,8 @@ model Boutique {
   enabled Boolean @default(false)
   shop_id String  @id
 
-  categories       BoutiqueCategory[]
-  BoutiqueArticles BoutiqueArticles[]
+  categories BoutiqueCategory[]
+  articles   BoutiqueArticles[]
 }
 
 model BoutiqueCategory {
@@ -109,8 +109,8 @@ model BoutiqueCategory {
   category_id    String @id
   category_label String
 
-  shop             Boutique           @relation(fields: [shop_id], references: [shop_id], onDelete: Cascade)
-  BoutiqueArticles BoutiqueArticles[]
+  shop     Boutique           @relation(fields: [shop_id], references: [shop_id], onDelete: Cascade)
+  articles BoutiqueArticles[]
 }
 
 model BoutiqueArticles {

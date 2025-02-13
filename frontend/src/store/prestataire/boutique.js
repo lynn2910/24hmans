@@ -105,7 +105,7 @@ export default {
 
             if (!res.error) {
                 commit("updateCategories", res.data.categories);
-                commit("updateItems", res.data.items);
+                commit("updateItems", res.data.articles);
                 commit("updateBoutiquePresta", res.data.prestataire);
                 commit("updateShopExists", true);
                 commit('updateShopEnabled', res.data.enabled || false);
@@ -124,22 +124,22 @@ export default {
                 console.error(`Cannot get all items stored in all shops: ${res.data}`)
             }
         },
-        async addArticleToBoutique(_, {prestataire_id, article}) {
-            const res = await BoutiqueService.addArticleToBoutique(prestataire_id, article);
+        async addArticleToBoutique(_, {boutique_id, article}) {
+            const res = await BoutiqueService.addArticleToBoutique(boutique_id, article);
 
             if (res.error) {
                 console.error(res.data);
             }
         },
-        async removeArticleFromBoutique(_, {prestataire_id, article_id}) {
-            const res = await BoutiqueService.removeArticleFromBoutique(prestataire_id, article_id);
+        async removeArticleFromBoutique(_, {shop_id, article_id}) {
+            const res = await BoutiqueService.removeArticleFromBoutique(shop_id, article_id);
 
             if (res.error) {
                 console.error(res.data);
             }
         },
-        async enableOrDisableShop({commit}, {prestataire_id, value}) {
-            const res = await ShopService.enableOrDisableShop(prestataire_id, value);
+        async enableOrDisableShop({commit}, {shop_id, value}) {
+            const res = await ShopService.enableOrDisableShop(shop_id, value);
             if (res.error) {
                 console.error(res.data);
             } else {

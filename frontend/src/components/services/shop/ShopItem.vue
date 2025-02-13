@@ -16,7 +16,7 @@
 		<h3 class="mx-auto text-xl text-center font-bold italic group-hover:text-blue-500">{{ item.name }}</h3>
 
 		<p class="mx-auto mt-5 text-xl font-semibold text-center ml-4">
-			{{ item.price.toFixed(2) }} €</p>
+			{{ Number.parseFloat(item.price).toFixed(2) }} €</p>
 		<!-- Indicateur de stock -->
 		<p :class="isStockVisible + ' ' + stockColor" class="text-center mt-0">{{ item.stock }} produits restants</p>
 

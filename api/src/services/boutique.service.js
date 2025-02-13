@@ -15,6 +15,30 @@ function getAllShops() {
     })
 }
 
+function getShop(prestataire_id) {
+    return prisma.boutique.findFirst({
+        where: {
+            prestataire_id,
+        },
+        include: {
+            categories: true,
+            prestataire: true,
+            articles: true
+        }
+    })
+}
+
+function editShop(shop_id, presta_id, data) {
+    return prisma.boutique.update({
+        data: {
+            enabled: data.enabled,
+        },
+        where: {
+            shop_id,
+            prestataire_id: presta_id,
+        }
+    })
+}
 
 //
 //
@@ -151,6 +175,7 @@ function getShopItems(shop_id, filters = {}) {
             shop: {
                 enabled: true,
             },
+            deleted: false,
             OR: [
                 {
                     shop_id: {
@@ -274,7 +299,10 @@ function editItem(shop_id, item_id, patch) {
 function deleteItem(shop_id, item_id) {
     return new Promise(async (resolve, reject) => {
         try {
-            const deletedItem = await prisma.boutiqueArticles.delete({
+            const deletedItem = await prisma.boutiqueArticles.update({
+                data: {
+                    deleted: true
+                },
                 where: {
                     shop_id,
                     item_id: Number.parseInt(item_id) || -1
@@ -289,7 +317,7 @@ function deleteItem(shop_id, item_id) {
 }
 
 module.exports = {
-    getAllShops,
+    getAllShops, getShop, editShop,
     getShopItems, getShopItemByName,
     createItem, editItem, deleteItem,
     getShopCategories, addCategory, editCategoryLabel, deleteCategory,

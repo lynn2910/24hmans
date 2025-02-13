@@ -108,6 +108,103 @@ routerBoutique.get("/available_shops", (req, res) => {
     )
 })
 
+/**
+ * @swagger
+ * /boutique/{shop_id}:
+ *   get:
+ *     summary: Get Shop Details
+ *     tags:
+ *       - Boutique
+ *     description: Retrieves details of a specific shop.
+ *     parameters:
+ *       - in: path
+ *         name: shop_id
+ *         example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the shop.
+ *     responses:
+ *       200:
+ *         description: Shop details retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Shop' # Define this schema!
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *                   example: "Error message details"
+ *   patch:
+ *     summary: Update Shop Details
+ *     tags:
+ *       - Boutique
+ *     description: Updates details of a specific shop. Requires prestataire privileges.
+ *     parameters:
+ *       - in: path
+ *         name: shop_id
+ *         example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the shop.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               enabled:
+ *                 type: boolean
+ *                 description: Whether the shop is enabled or not.
+ *                 example: true
+ *     responses:
+ *       200:
+ *         description: Shop details updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Shop'  # Define this schema!
+ *       400: # Bad Request if no data is sent.
+ *         description: Bad Request. No data provided for update.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *                   example: "Error message details"
+ */
+
+routerBoutique.get("/:shop_id", (req, res) => {
+    BoutiqueService.getShop(req.params.shop_id).then(
+        (shop) => res.status(200).json(shop),
+        (err) => res.status(500).json({message: err.message})
+    )
+})
+
+routerBoutique.patch("/:shop_id", prestataireMiddleware, (req, res) => {
+    BoutiqueService.editShop(req.params.shop_id, req.session.userId, req.body).then(
+        (shop) => res.status(200).json(shop),
+        (err) => res.status(500).json({message: err.message})
+    )
+})
+
 //
 //
 //  CATEGORIES
@@ -577,51 +674,64 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
 /**
  * @swagger
  * /boutique/{shop_id}/items:
- *      parameters:
- *          - in: path
- *            name: shop_id
- *            required: true
- *            description: "L'ID de la boutique"
- *            schema:
- *              type: string
- *      post:
- *          tags:
- *              - Boutique
- *          summary: "Create a new article"
- *          parameters
- *              - in: query
- *                name: sessionId
- *                required: true
- *                description: Session ID for authentication
- *                schema:
- *                  type: string
- *          requestBody:
- *            required: true
- *            content:
- *              application/json:
- *                schema:
- *                  type: object
- *                  properties:
- *                    name:
- *                      type: string
- *                      required: true
- *                    price:
- *                      type: number
- *                      required: true
- *                    stock:
- *                      type: integer
- *                      required: false
- *                    category_id:
- *                      type: string
- *                      format: uuid
- *                      required: true
- *          responses:
- *              200:
- *                  description: "The created article"
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/ShopItem'
+ *   post:
+ *     summary: Create a Shop Item
+ *     tags:
+ *       - Boutique
+ *     description: Creates a new item for a specific shop. Requires prestataire privileges.
+ *     parameters:
+ *       - in: path
+ *         name: shop_id
+ *         example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the shop.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The name of the item.
+ *                 example: "T-Shirt"
+ *               price:
+ *                 type: number
+ *                 description: The price of the item.
+ *                 example: 29.99
+ *               stock:
+ *                 type: integer
+ *                 description: The stock quantity of the item.
+ *                 example: 100
+ *               category_id:
+ *                 type: string
+ *                 format: uuid
+ *                 description: The ID of the category the item belongs to.
+ *                 example: "be2cff03-7d12-4369-acff-037d12a36993"
+ *             required:
+ *               - name
+ *               - price
+ *               - category_id
+ *     responses:
+ *       200:
+ *         description: Shop item created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ShopItem'  # Or a simplified version
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *                   example: "Error message details"
  */
 routerBoutique.post("/:shop_id/items/", prestataireMiddleware, async (req, res) => {
     BoutiqueService.createItem(

@@ -17,14 +17,18 @@
 			</div>
 		</div>
 
+
 		<!-- Si la boutique n'existe pas -->
 		<NotExists v-else-if="prestataire && !shopExists" title="Cette boutique n'existe pas"
-							 :route-back-u-r-l="`/prestataire/${$route.params.prestataire_name}`" route-back="Retourner à la
+							 :route-back-u-r-l="{name: 'prestataire_profile', params: {prestataire_name: prestataire.referencer}}"
+							 route-back="Retourner à la
 					page du prestataire"
 							 description="Vous tentez d'accéder à une boutique qui n'existe pas."></NotExists>
 
 		<!-- Si le prestataire n'existe pas -->
-		<NotExists v-else title="Ce prestataire n'existe pas" route-back-u-r-l="/#prestataires" route-back="Retourner à la
+		<NotExists v-else-if="fetchedPrestataire" title="Ce prestataire n'existe pas"
+							 :route-back-u-r-l="{path:'/#prestataires'}"
+							 route-back="Retourner à la
 					liste des prestataires"
 							 description="Vous tentez d'accéder à la boutique d'un prestataire qui n'existe pas."></NotExists>
 	</div>
@@ -70,12 +74,15 @@ export default {
 	actions: {...mapActions("prestataire/boutique", ["getShop"]),},
 	data() {
 		return {
+			fetchedPrestataire: false,
 			prestataire: null,
 			filters: []
 		}
 	},
 	async beforeMount() {
 		let prestataire = await PrestataireService.getPrestataireFromName(this.$route.params.prestataire_name);
+
+		this.fetchedPrestataire = false;
 
 		if (!prestataire.error) {
 			this.prestataire = prestataire.data;

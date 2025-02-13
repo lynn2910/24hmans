@@ -3,46 +3,56 @@ import LocalSource from "@/datasource/controller"
 
 
 async function getShopInformations(prestataire_id, is_presta = false) {
-    return LocalSource.getBoutiqueInfos(prestataire_id, is_presta)
+    // return LocalSource.getBoutiqueInfos(prestataire_id, is_presta)
+
+    return Request.get("/boutique/:id")
+        .args({id: prestataire_id})
+        .send()
 }
 
-async function getItemFromName(prestataire_name, item_name) {
-    return LocalSource.getShopItemFromName(prestataire_name, item_name)
+async function getItemFromName(shop_id, item_name) {
+    // return LocalSource.getShopItemFromName(prestataire_name, item_name)
+
+    return Request.get("/boutique/:shop_id/items/:item_id")
+        .args({shop_id, item_id: item_name})
+        .send()
 }
 
-/**
- * Returns all articles given in the list
- * @param {Array<{origin: string, id: string}>} item_id_list
- * @return {Promise<{error: 0 | 1, status: number, data: Object[]}>}
- */
-async function getItemsBulk(item_id_list) {
-    return {
-        error: 0,
-        status: 200,
-        data: item_id_list.map((item) => LocalSource.getShopItem(item.origin, item.id).data)
-    };
-}
 
 async function getAllItems() {
+    // TODO
     return LocalSource.getAllItems()
 }
 
-async function getShopItems(prestataire_id, is_presta = false) {
-    return LocalSource.getShopItems(prestataire_id, is_presta)
+async function addArticleToBoutique(shop_id, article) {
+    // return LocalSource.addArticleToBoutique(prestataire_id, article)
+
+    return await Request.post("/boutique/:shop_id/items")
+        .args({shop_id})
+        .body(article)
+        .send()
 }
 
-async function addArticleToBoutique(prestataire_id, article) {
-    return LocalSource.addArticleToBoutique(prestataire_id, article)
+async function removeArticleFromBoutique(shop_id, article_id) {
+    // return LocalSource.removeItemFromBoutique(shop_id, article_id)
+
+    return await Request.delete("/boutique/:shop_id/items/:article_id")
+        .args({shop_id, article_id})
+        .send();
 }
 
-async function removeArticleFromBoutique(prestataire_id, article_id) {
-    return LocalSource.removeItemFromBoutique(prestataire_id, article_id)
+
+async function enableOrDisableShop(shop_id, newValue) {
+    // return LocalSource.enableOrDisableShop(presta_id, newValue);
+
+    return await Request.patch("/boutique/:shop_id")
+        .args({shop_id})
+        .body({enabled: newValue})
+        .send()
 }
 
 
-async function enableOrDisableShop(presta_id, newValue) {
-    return LocalSource.enableOrDisableShop(presta_id, newValue);
-}
+// TODO API stats
 
 async function getBoutiqueChiffreAffaireSerie(presta_id) {
     return LocalSource.getBoutiqueChiffreAffaireSerie(presta_id);
@@ -63,9 +73,7 @@ async function getBoutiqueArticleSellsStats(prestataire_id) {
 export default {
     getShopInformations,
     getItemFromName,
-    getItemsBulk,
     getAllItems,
-    getShopItems,
     addArticleToBoutique,
     removeArticleFromBoutique,
     enableOrDisableShop,

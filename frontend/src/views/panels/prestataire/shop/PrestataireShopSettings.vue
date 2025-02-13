@@ -57,13 +57,13 @@ export default {
 		},
 	},
 	computed: {
-		...mapState('prestataire/boutique', ['shopEnabled', 'shopExists'])
+		...mapState('prestataire/boutique', ['shopEnabled', 'shopExists', 'shopId'])
 	},
 	methods: {
 		...mapActions('prestataire/boutique', ['enableOrDisableShop']),
 		publishOrUnpublish() {
 			this.enableOrDisableShop({
-				prestataire_id: this.prestataire.id,
+				shop_id: this.shopId,
 				value: !this.shopEnabled
 			});
 		}

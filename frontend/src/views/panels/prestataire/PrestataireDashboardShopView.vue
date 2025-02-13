@@ -119,13 +119,13 @@ export default {
 		async createArticle(article) {
 			await this.$store.dispatch("prestataire/boutique/addArticleToBoutique", {
 				article,
-				prestataire_id: this.prestataire.id
+				boutique_id: this.shopId
 			});
 		},
 		async deleteArticle(article_id) {
 			await this.$store.dispatch("prestataire/boutique/removeArticleFromBoutique", {
 				article_id,
-				prestataire_id: this.prestataire.id
+				shop_id: this.shopId,
 			})
 		},
 	},

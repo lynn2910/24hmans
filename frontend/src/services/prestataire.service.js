@@ -9,7 +9,7 @@ import {Selected} from "@/utils";
  */
 async function getPrestataire(id) {
     // return LocalSource.getPrestataire(id)
-    return Request.get("/prestataires/:id")
+    return Request.get("/prestataire/:id")
         .args({id})
         .send();
 }
@@ -28,7 +28,7 @@ async function loginPrestataire(id, password) {
 
 async function getAllPrestataires() {
     // return LocalSource.getAllPrestataires()
-    return Request.get("/prestataires/all").send();
+    return Request.get("/prestataire/all").send();
 }
 
 async function getPrestatairesServicesCount() {
@@ -46,13 +46,13 @@ async function getPrestataireServices(id) {
  */
 async function getPrestataireFromName(name) {
     // return LocalSource.getPrestataireFromName(name)
-    return Request.get("/prestataires/:name")
+    return Request.get("/prestataire/:name")
         .args({name})
         .send();
 }
 
 async function deletePrestataire(id) {
-    return Request.delete("/prestataires/:id")
+    return Request.delete("/prestataire/:id")
         .args({id})
         .send();
 }
@@ -69,7 +69,7 @@ async function importPrestataire(name, password) {
 
 async function updatePrestataire(presta_id, data) {
     // return LocalSource.updatePrestataire(presta_id, data);
-    return await Request.patch("/prestataires/:id")
+    return await Request.patch("/prestataire/:id")
         .args({id: presta_id})
         .body(data)
         .send()
@@ -78,7 +78,7 @@ async function updatePrestataire(presta_id, data) {
 async function updatePrestataireLink(presta_id, link_name, link_url, link_id) {
     // return LocalSource.updatePrestataireLink(presta_id, {id: link_id, name: link_name, url: link_url})
 
-    return await Request.patch("/prestataires/:presta_id/link/:link_id")
+    return await Request.patch("/prestataire/:presta_id/link/:link_id")
         .args({presta_id, link_id})
         .body({name: link_name, url: link_url})
         .send()

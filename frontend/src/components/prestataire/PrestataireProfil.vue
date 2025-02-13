@@ -37,13 +37,15 @@ export default {
 
 <template>
 	<div class="w-full mt-36 bg-dark">
-		<img :src="`${publicPath}${prestataire?.icon}`" alt="Photo de profil" class="mx-auto rounded-full w-44 h-44">
+		<img v-if="prestataire?.icon" :src="`${publicPath}${prestataire?.icon}`" alt="Photo de profil"
+				 class="mx-auto rounded-full w-44 h-44">
 		<h1 class="font-extrabold text-4xl text-center py-4">{{ prestataire?.name }}</h1>
 		<div class="flex flex-row mx-auto justify-center content-center">
-			<a v-for="link in (prestataire?.links || [])" :key="link" :href="link.url"
+			<a v-for="(link, index) in (prestataire?.links || [])" :key="index" :href="link.url"
 				 class="py-2 px-5 bg-gray-700 mx-5 font-medium rounded-3xl hover:bg-gray-500 text-xl">
 				{{ link.name }}</a>
 		</div>
+
 		<p class="w-[75%] mx-auto mt-12 mb-16 text-xl" style="white-space: pre-wrap"
 			 v-html="prestataire?.description"></p>
 
@@ -53,8 +55,8 @@ export default {
 		<div v-if="services.length" class="flex justify-center mt-6 my-14">
 			<div class="w-full max-w-2xl">
 				<router-link
-						v-for="service in services"
-						:key="service"
+						v-for="(service, index) in services"
+						:key="index"
 						:to="service.toLowerCase() === 'garage' ? `/${$route.params.locale}/ecuries` : `/${$route.params.locale}/${service.toLowerCase()}/${prestataire?.name.toLowerCase()}`"
 						class="relative flex flex-col items-center text-center p-4 border border-gray-600 rounded shadow-lg
                    transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white]"

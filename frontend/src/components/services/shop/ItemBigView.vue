@@ -15,12 +15,13 @@
 				<div class="flex flex-row content-center w-full">
 					<h1 class="text-3xl font-bold leading-loose mr-5">{{ article.name }}</h1>
 					<!-- Category -->
-					<ShopItemCategory :category="categories.find(c => c.category_id === article.category_id)?.category_label"
+					<ShopItemCategory :category="article.category.category_label"
 														class="w-min-30 w-auto my-auto"></ShopItemCategory>
 				</div>
 
 				<div>
-					<h2 class="text-5xl my-4 mb-0 font-bold text-blue-500">{{ article.price.toFixed(2) }} €</h2>
+					<h2 class="text-5xl my-4 mb-0 font-bold text-blue-500">{{ Number.parseFloat(article.price).toFixed(2) }}
+						€</h2>
 
 					<!-- Indicateur de stock -->
 					<p v-if="article.stock > 0" class="opacity-80">Encore <strong
@@ -44,7 +45,7 @@
 		</div>
 
 		<!-- Si l'article n'existe pas -->
-		<NotExists v-else title="Cet article n'existe pas"
+		<NotExists v-else-if="finishedFetching" title="Cet article n'existe pas"
 							 description="Vous tentez d'accéder à un article qui n'existe pas."
 							 :route-back-u-r-l="{name:'shop_view', params:{prestataire_name}}" route-back="Retourner à la
 					boutique"></NotExists>
@@ -67,7 +68,8 @@ export default {
 	data() {
 		return {
 			article: null,
-			prestataire: null
+			prestataire: null,
+			finishedFetching: false
 		}
 	},
 	props: {
@@ -76,6 +78,7 @@ export default {
 	},
 	computed: {
 		...mapGetters("prestataire/boutique", ["categories"]),
+		...mapState("prestataire/boutique", ["shopId"]),
 		...mapState('login', ['loggedInUser'])
 	},
 	methods: {
@@ -116,7 +119,8 @@ export default {
 			return;
 		}
 
-		let item = await BoutiqueService.getItemFromName(this.prestataire_name, this.item_name);
+		let item = await BoutiqueService.getItemFromName(this.shopId, this.item_name);
+		this.finishedFetching = true;
 		if (!item.error) {
 			this.article = item.data;
 		}

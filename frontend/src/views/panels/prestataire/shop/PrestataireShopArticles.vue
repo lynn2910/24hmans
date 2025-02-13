@@ -220,9 +220,10 @@ export default {
 		createArticle() {
 			if (this.isItemCreationValid) {
 				this.$emit('createArticle', {
-					...this.creationForm,
+					name: this.creationForm.name,
+					price: Number.parseFloat(this.creationForm.price),
+					stock: this.creationForm.price,
 					category_id: this.creationForm.category?.category_id,
-					price: Number.parseFloat(this.creationForm.price)
 				});
 			}
 		},
