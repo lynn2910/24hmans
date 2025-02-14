@@ -9,12 +9,11 @@ const {registerWinner, registerWinners} = require("../services/ecurie.service");
 
 
 
-
 /**
  * @swagger
  * /ecurie/{ecurie_id}/participants:
  *   post:
- *     summary: Récupère tous les participants d'une écurie
+ *     summary: Récupère tous les participants d'une écurie pour une année spécifique
  *     tags:
  *       - Participants
  *     parameters:
@@ -24,6 +23,17 @@ const {registerWinner, registerWinners} = require("../services/ecurie.service");
  *         schema:
  *           type: string
  *         description: ID de l'écurie
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               year:
+ *                 type: integer
+ *                 description: Année des participants
+ *                 example: 2024
  *     responses:
  *       200:
  *         description: Liste des participants
@@ -49,29 +59,35 @@ const {registerWinner, registerWinners} = require("../services/ecurie.service");
  *                   submitted_at:
  *                     type: string
  *                     format: date-time
+ *       400:
+ *         description: Année non fournie ou invalide
  *       404:
- *         description: Aucun participant trouvé
+ *         description: Aucun participant trouvé pour cette écurie et cette année
  *       500:
  *         description: Erreur serveur
  */
-
-
-
-
-// Route pour récupérer tous les participants d'une écurie
 routerEcurie.post('/:ecurie_id/participants', async (req, res) => {
     const { ecurie_id } = req.params;
+    const { year } = req.body;
+
+    if (!year || typeof year !== 'number') {
+        return res.status(400).json({ message: 'Veuillez fournir une année valide.' });
+    }
+
     try {
-        const participants = await EcurieService.getParticipants(ecurie_id);
+        const participants = await EcurieService.getParticipants(ecurie_id, year);
+
         if (participants.length === 0) {
-            return res.status(404).json({ message: 'Aucun participant trouvé pour cette écurie.' });
+            return res.status(404).json({ message: 'Aucun participant trouvé pour cette écurie et cette année.' });
         }
+
         res.status(200).json(participants);
     } catch (error) {
         console.error("Erreur dans la récupération des participants :", error);
         res.status(500).json({ message: 'Erreur serveur, impossible de récupérer les participants.' });
     }
 });
+
 
 
 
