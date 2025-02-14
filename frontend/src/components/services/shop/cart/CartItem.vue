@@ -22,7 +22,7 @@
 				<p class="text-sm font-normal ml-2 text-gray-200">x {{ count }}</p>
 			</router-link>
 			<!-- Indicateur de stock si nécessaire -->
-			<p v-if="article.stock < 30" class="text-red-600">Il ne reste plus que {{ article.stock }} articles en stock</p>
+			<p v-if="article.stock < 30" class="text-red-600">{{ $t("cart.stock_rest", {stock: article.stock}) }}</p>
 
 			<!-- Actions -->
 			<div class="flex flex-row items-center content-center justify-start mt-3">
