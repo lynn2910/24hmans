@@ -32,11 +32,32 @@ async function getAllPrestataires() {
 }
 
 async function getPrestatairesServicesCount() {
-    return LocalSource.getPrestatairesServicesCount();
+    // return LocalSource.getPrestatairesServicesCount();
+
+    let prestataires = await getAllPrestataires();
+    if (prestataires.error) return prestataires;
+    prestataires = prestataires.data;
+
+    let fetchingActions = prestataires.map(async (p) => {
+        let services = await getPrestataireServices(p.id);
+        if (!services.error) {
+            p.nb_services = services.data.length;
+        } else {
+            p.nb_services = -1;
+        }
+    });
+
+    await Promise.all(fetchingActions);
+
+    return prestataires;
 }
 
 async function getPrestataireServices(id) {
-    return LocalSource.getPrestataireServices(id);
+    // return LocalSource.getPrestataireServices(id);
+
+    return Request.get("/prestataire/:prestataire_id/services")
+        .args({prestataire_id: id})
+        .send();
 }
 
 /**

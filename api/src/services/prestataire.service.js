@@ -22,6 +22,35 @@ function getPrestataireFromName(prestataire_name) {
     });
 }
 
+function getPrestataireService(presta_id) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log(presta_id);
+            let presta = await prisma.prestataire.findUnique({
+                select: {
+                    boutique: true,
+                    Ecurie: true,
+                    Billeterie: true,
+                    karting: true,
+                    // TODO montgolfieres
+                },
+                where: {
+                    id: presta_id,
+                }
+            });
+
+            return resolve(
+                Object.entries(presta)
+                    .filter(([_, v]) => v)
+                    .map(([s, _]) => s.toLowerCase())
+            );
+        } catch (err) {
+            console.error(err);
+            return reject(null);
+        }
+    })
+}
+
 async function updatePrestataire(prestataireId, updatedData) {
     // if (typeof updatedData.description === 'string') {
     //     const reg = /<img(?:\s+\w+="[^"]+")*\s+src="data:image\/(\w+);(\w+),([^"]+)"/gm;
@@ -142,8 +171,9 @@ async function deletePrestataireLink(presta_id, link_id) {
 module.exports = {
     getPrestataire,
     getPrestataireFromName,
-    getPrestataireLink,
+    getPrestataireService,
     updatePrestataire,
+    getPrestataireLink,
     createPrestataireLink,
     updatePrestataireLink,
     deletePrestataireLink
