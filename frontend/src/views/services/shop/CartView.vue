@@ -113,10 +113,12 @@ export default {
 				articles,
 			};
 
-			this.clearCart(this.loggedInUser.id);
+			this.clearUserCart();
+			this.cart.items = []
+			
 			let res = await UsersService.newOrder(preparation);
 			if (!res.error) {
-				this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}});
+				await this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}});
 			}
 		}
 	},
