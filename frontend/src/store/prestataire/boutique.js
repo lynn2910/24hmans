@@ -18,7 +18,7 @@ export default {
         categories: state => state.categories,
         items: state => state.items,
         shopExists: state => state.shopExists,
-        getCart: (state) => (user_id) => state.carts[user_id],
+        getCart: (state) => (user_id) => state.carts[user_id] || {items:[]},
         getCartCount: (state) => (user_id) => {
             const items = state.carts[user_id]?.items || [];
             return items.reduce((a, b) => a += b?.count || 0, 0);

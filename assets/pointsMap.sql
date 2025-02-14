@@ -1,5 +1,5 @@
 DELETE
-FROM point;
+FROM Point;
 
 INSERT INTO Point (point_id, lat, lng, shape_id)
 VALUES (1, 47.94976405693712, 0.2070558071136475, 1);

@@ -1,5 +1,5 @@
 DELETE
-FROM shape;
+FROM Shape;
 
 INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
                    category)
