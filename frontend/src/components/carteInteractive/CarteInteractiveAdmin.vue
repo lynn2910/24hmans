@@ -11,6 +11,12 @@
         class="z-0 relative rounded-md shadow-lg border border-gray-300"
     ></div>
 
+    <CategoryModal
+        v-model="showCategoryModal"
+        :categories="markerIcons"
+        @selected="applyMarkerCategory"
+    />
+
     <!-- Boutons d'actions -->
     <div class="absolute bottom-4 right-4 flex flex-col space-y-2">
       <button
@@ -59,9 +65,34 @@
 import mapMethods from '@/components/carteInteractive/mapMethods';
 // import initialShapes from '@/datasource/carteZones.json';
 import {mapActions, mapGetters} from 'vuex';
+import CategoryModal from "@/components/carteInteractive/CategoryModal.vue";
 
 export default {
   name: 'CarteInteractiveAdmin',
+  components: {CategoryModal},
+  data() {
+    return {
+      showCategoryModal: false,
+      pendingMarker: null,
+      markerIcons: {
+        ballon_service: "/markers/ballonMarker.png",
+        karting_service: "/markers/kartingMarker.png",
+        raceCar_service: "/markers/raceCarMarker.png",
+        village_service: "/markers/village_service.png",
+        camping: "/markers/campingMarker.png",
+        toilet: "/markers/toiletMarker.png",
+        interdit: "/markers/interditMarker.png",
+        parking: "/markers/parkingMarker.png",
+        codeky_presta: "/markers/codeky_presta.png",
+        ferrari_presta: "/markers/ferrari_presta.png",
+        karting_presta: "/markers/karting_presta.png",
+        montgolfiere_presta: "/markers/montgolfiere_presta.png",
+        organisateurs_presta: "/markers/organisateurs_presta.png",
+        porsche_presta: "/markers/porsche_presta.png",
+      },
+    }
+  },
+
   props: {
     width: {
       type: String,
@@ -131,6 +162,29 @@ export default {
     ...mapMethods,
     onPopupOpen(layer) {
       this.$emit('zoneSelected', layer);
+    },
+
+    addMarker(event) {
+      this.pendingMarker = event.layer;
+      this.showCategoryModal = true;
+    },
+
+    applyMarkerCategory(category) {
+      if (!this.pendingMarker) return;
+
+      const iconUrl = this.markerIcons[category] || this.markerIcons["village_service"];
+      const iconSize = [30, 30];
+      const icon = L.icon({ iconUrl, iconSize });
+
+      this.pendingMarker.setIcon(icon);
+      this.pendingMarker.iconUrl = iconUrl;
+
+      this.featureGroup.addLayer(this.pendingMarker);
+      this.applyCategoryStyle(this.pendingMarker);
+      this.saveShape(this.pendingMarker);
+      this.addPopupToShape(this.pendingMarker, this.getPrestataire);
+
+      this.pendingMarker = null;
     },
 
     ...mapActions("prestataire", ["getAllPrestataires"]),

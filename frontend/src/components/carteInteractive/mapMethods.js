@@ -4,9 +4,6 @@ import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-draw';
 import {mapActions} from "vuex";
 
-const INITIAL_SMALL_ICON_SIZE = [0, 0];
-const INITIAL_LARGE_ICON_SIZE = [0, 0];
-
 
 export default {
     ...mapActions("shapes", ["getAllShapes", "addShape", "deleteShape", "updateShape", "getAllShapesFromFile"]),
@@ -95,36 +92,9 @@ export default {
         map.on('draw:created', (event) => {
             const layer = event.layer;
 
+            // ajouter un marker, appel méthode du component CategoryModal
             if (event.layerType === 'marker') {
-                // Demander à l'utilisateur de choisir une catégorie
-                const categories = Object.keys(markerIcons).join(" | ");
-                const chosenCategory = prompt(`Choisissez une catégorie d'icône pour le marker : \n\n ${categories}`);
-
-                // Vérifier la catégorie choisie et définir l'icône par défaut
-                const iconUrl = markerIcons[chosenCategory] || markerIcons["village"];
-
-                // Déterminer si l'icône doit être petite ou grande
-                const isShortIcon = [
-                    "porsche_presta", "organisateurs_presta", "montgolfiere_presta",
-                    "karting_presta", "ferrari_presta", "codeky_presta"
-                ].some(keyword => iconUrl.includes(keyword));
-
-                const isSmallIcon = [
-                    "parking", "camping", "interdit"
-                ].some(keyword => iconUrl.includes(keyword));
-
-                const isLargeIcon = [
-                    "ballon_service", "karting_service",
-                    "raceCar_service", "village_service"
-                ].some(keyword => iconUrl.includes(keyword));
-
-                // Appliquer la bonne taille d'icône dès la création
-                const iconSize = isShortIcon ? [15, 15] : isSmallIcon ? [30, 30] : isLargeIcon ? [50, 50] : [0, 0];
-                const icon = L.icon({iconUrl, iconSize});
-
-                // Appliquer l'icône au marqueur
-                layer.setIcon(icon);
-                layer.iconUrl = iconUrl;
+                    this.addMarker(event);
             }
 
             this.featureGroup.addLayer(layer);
