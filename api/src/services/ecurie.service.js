@@ -68,61 +68,70 @@ async function getRandomParticipants(ecurie_id) {
         throw new Error("Impossible de récupérer les participants aléatoires.");
     }
 }
-async function registerWinners(winners, ecurie_name) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            if (!Array.isArray(winners) || winners.length !== 10) {
-                return reject({ status: 400, message: "Exactly 10 winners must be provided" });
-            }
-
-            const winnerEntries = [];
-            const winnerEmails = winners.map(winner => winner.email);
-
-            for (const winner of winners) {
-                const { email } = winner;
-
-                const tryToFindUser = await prisma.formulaireEcurie.findFirst({
-                    where: { email: { equals: email } }
-                });
-
-                if (!tryToFindUser) {
-                    return reject({ status: 404, message: `User not found: ${email}` });
-                }
-                const { prenom: first_name, nom: last_name } = tryToFindUser;
-
-                console.log(`Nom et prénom récupérés pour ${email}: ${first_name} ${last_name}`);
-
-                winnerEntries.push({
-                    where: { id: tryToFindUser.id },
-                    data: {
-                        is_winner: true,
-                    }
-                });
-                await addMailRequest({
-                    subject: `Félicitations, ${first_name} !`,
-                    htmlPath: "ecurie/html_gagnant.ejs",
-                    plainPath: "ecurie/ecurie_gagnant.ejs",
-                    sendTo: email,
-                    args: {
-                        user: { first_name, last_name },
-                        ecurie_name,
-                        host: 'http://localhost:8080/fr/login',
-                    }
-                });
-            }
-            for (const entry of winnerEntries) {
-                await prisma.formulaireEcurie.update({
-                    where: entry.where,
-                    data: entry.data
-                });
-            }
-
-            resolve({ message: "Winners registered successfully and marked in the database" });
-        } catch (error) {
-            console.error(`Cannot register winners: ${error.message}`, error);
-            reject({ status: 500, message: error.message });
+async function registerWinners(winners, ecurie_id) {
+    try {
+        if (!Array.isArray(winners) || winners.length !== 10) {
+            throw { status: 400, message: "Exactly 10 winners must be provided" };
         }
-    });
+
+        // Récupérer le nom de l'écurie à partir de l'ID
+        const ecurie = await prisma.ecurie.findUnique({
+            where: { id: ecurie_id },
+            select: { name: true } // Récupère uniquement le nom
+        });
+
+        if (!ecurie) {
+            throw { status: 404, message: `Écurie introuvable avec l'ID : ${ecurie_id}` };
+        }
+
+        const ecurie_name = ecurie.name; // Récupération du vrai nom
+
+        const winnerEntries = [];
+        for (const winner of winners) {
+            const { email } = winner;
+
+            const tryToFindUser = await prisma.formulaireEcurie.findFirst({
+                where: { email: { equals: email }, ecurie_id }
+            });
+
+            if (!tryToFindUser) {
+                throw { status: 404, message: `User not found in this ecurie: ${email}` };
+            }
+
+            const { prenom: first_name, nom: last_name } = tryToFindUser;
+
+            console.log(`Nom et prénom récupérés pour ${email}: ${first_name} ${last_name}`);
+
+            winnerEntries.push({
+                where: { id: tryToFindUser.id },
+                data: { is_winner: true }
+            });
+
+            await addMailRequest({
+                subject: `Félicitations, ${first_name} !`,
+                htmlPath: "ecurie/html_gagnant.ejs",
+                plainPath: "ecurie/ecurie_gagnant.ejs",
+                sendTo: email,
+                args: {
+                    user: { first_name, last_name },
+                    ecurie_name,
+                    host: 'http://localhost:8080/fr/login',
+                }
+            });
+        }
+
+        for (const entry of winnerEntries) {
+            await prisma.formulaireEcurie.update({
+                where: entry.where,
+                data: entry.data
+            });
+        }
+
+        return { message: "Winners registered successfully and marked in the database" };
+    } catch (error) {
+        console.error(`Cannot register winners: ${error.message}`, error);
+        throw { status: 500, message: error.message };
+    }
 }
 
 async function getRandomWinners() {

@@ -51,7 +51,7 @@ export default {
 				<router-link
 						v-for="prestataire in ecuries"
 						:key="prestataire.id"
-						:to="{ name: 'visite_ecuries', params: {prestataire_name: prestataire.name.toLowerCase()} }"
+						:to="{ name: 'visite_ecuries', params: {prestataire_name: prestataire.referencer} }"
 						class="relative group flex flex-col items-center text-center w-96 h-[40rem] p-8 bg-red-950-800 border border-green-950 rounded-lg shadow-lg overflow-hidden
                    transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_40px_2px_black]">
 					<!-- Bordures -->
