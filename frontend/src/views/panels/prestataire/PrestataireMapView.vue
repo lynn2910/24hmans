@@ -258,16 +258,12 @@ export default {
       const infosShape = {
         shape_id: this.formData.shape_id,
         name: null,
-        logistics: null,
-        surface: null,
         description: null,
         provider: null,
         service: null,
       };
 
       this.formData.name = '';
-      this.formData.logistics = '';
-      this.formData.surface = '';
       this.formData.description = '';
       this.formData.provider = null;
       this.formData.service = null;
