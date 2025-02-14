@@ -104,9 +104,9 @@ async function registerWinners(winners, ecurie_name) {
                     plainPath: "ecurie/ecurie_gagnant.ejs",
                     sendTo: email,
                     args: {
-                        user: { email, first_name, last_name },
+                        user: { first_name, last_name },
                         ecurie_name,
-                        host: 'http://localhost:4629/login',
+                        host: 'http://localhost:8080/fr/login',
                     }
                 });
             }

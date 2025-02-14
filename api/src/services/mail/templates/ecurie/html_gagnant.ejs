@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//FR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="x-apple-disable-message-reformatting"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="color-scheme" content="light dark"/>
+    <meta name="supported-color-schemes" content="light dark"/>
+    <title></title>
+    <style type="text/css" rel="stylesheet" media="all">
+        /* Styles basiques et boutons déjà inclus, similaires à ceux fournis */
+    </style>
+</head>
+<body>
+<table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+    <tr>
+        <td align="center">
+            <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                    <td class="email-masthead">
+                        <a href="<%= host %>" class="f-fallback email-masthead_name">24h du Mans</a>
+                    </td>
+                </tr>
+                <!-- Corps de l'email -->
+                <tr>
+                    <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+                        <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                                <td class="content-cell">
+                                    <div class="f-fallback">
+                                        <h1>Félicitations, <%= user.first_name %> <%= user.last_name?.toUpperCase() %>!</h1>
+
+                                        <p>
+                                            Vous avez été sélectionné lors du tirage au sort pour visiter l'écurie <%= ecurieName %> lors des 24 Heures du Mans !
+                                            Nous sommes heureux de vous accueillir pour cette expérience inoubliable.
+                                        </p>
+                                        <br>
+                                        <p>Voici quelques informations pratiques pour vous aider à préparer votre visite :</p>
+
+                                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                            <tr>
+                                                <td align="center">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <a href="<%= host %>/carte" class="f-fallback button" target="_blank" style="color: #FFF !important;">
+                                                                    Découvrir la carte du site
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><br></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <a href="<%= host %>/boutiques" class="f-fallback button" style="color: #FFF !important;" target="_blank">
+                                                                    Visiter les boutiques
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><br></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <a href="<%= host %>/ecuries" class="f-fallback button" style="color: #FFF !important;" target="_blank">
+                                                                    M'inscrire à la visite d'une écurie
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <p>Pour référence, voici vos informations de connexion :</p>
+                                        <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                            <tr>
+                                                <td class="attributes_content">
+                                                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                                        <tr>
+                                                            <td class="attributes_item">
+                                                                <span class="f-fallback">
+                                                                  <strong>Login Page:</strong>
+                                                                    <a href="<%= dashboardURL %>"><%= host %>/login</a>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="attributes_item">
+                                                                <span class="f-fallback">
+                                                                  <strong>Email:</strong> <%= user.email %>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <p>
+                                            Si vous avez des questions concernant votre inscription, n'hésitez pas à contacter notre équipe d'assistance à l'adresse <a href="mailto:24hmans.sae@gmail.com">24hmans.sae@gmail.com</a>. Nous sommes là pour vous aider !
+                                        </p>
+
+                                        <p>On a hâte de vous voir,
+                                            <br>L'équipe des 24h du Mans</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                                <td class="content-cell" align="center">
+                                    <p class="f-fallback sub align-center">
+                                        24h du Mans
+                                        <br>4EME ETAGE PLACE LUIGI CHINETTI 72100 LE MANS
+                                        <br>MODULE SPORTIF
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

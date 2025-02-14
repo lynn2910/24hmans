@@ -89,5 +89,14 @@
       "achats": "Mes achats",
       "deconnect": "Se déconnecter"
     }
+  },
+  "cart": {
+    "title": "Votre panier",
+    "price": "Prix",
+    "resume": "Résumé",
+    "ttc": "TTC",
+    "payment": "Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni enregistrée.",
+    "make_order": "Payer",
+    "stock_rest": "Il ne reste plus que {stock} articles en stock"
   }
 }

@@ -6,7 +6,7 @@ const {
     getPrestataireLink,
     createPrestataireLink,
     updatePrestataireLink,
-    deletePrestataireLink
+    deletePrestataireLink, getPrestataireService
 } = require("../services/prestataire.service");
 const adminMiddleware = require("../middlewares/admin.middleware");
 const prestataireMiddleware = require("../middlewares/prestataire.middleware");
@@ -307,6 +307,53 @@ routerPresta.delete(
         }
     }
 )
+
+/**
+ * @swagger
+ * /prestataire/{prestataire_id}/services:
+ *   get:
+ *     summary: Get Prestataire Services
+ *     tags:
+ *       - Prestataire  # Or a more specific tag
+ *     description: Retrieves the available services for a specific prestataire.
+ *     parameters:
+ *       - in: path
+ *         name: prestataire_id
+ *         example: "45309281-fc24-4e02-ad47-a275c64f5327"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the prestataire.
+ *     responses:
+ *       200:
+ *         description: List of services retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *                 example: "boutique"
+ *       500:
+ *         description: Prestataire not found or internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+
+
+routerPresta.get("/:prestataire_id/services", async (req, res) => {
+    try {
+        const services = await getPrestataireService(req.params.prestataire_id);
+        console.log(services);
+
+        res.status(200).json(services);
+    } catch (err) {
+        res.status(500).json({message: "prestataire not found.",});
+    }
+})
+
 
 // liens prestas
 /**

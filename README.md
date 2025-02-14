@@ -119,7 +119,7 @@ Ouvrez un terminal dans la route du projet, et exécutez :
 
 ```shell
 cd assets/parser
-node .\parserDataMap.js
+node parserDataMap.js
 cd ..
 ```
 
@@ -130,9 +130,9 @@ Puis, pour envoyer toutes les données à MariaDB :
 _Toujours dans le dossier `assets`_
 
 ```shell
-mysql -u <user> -p < ./database.sql
-mysql -u <user> -p < ./pointsMap.sql
-mysql -u <user> -p < ./shapesMap.sql
+mysql -u <user> -p <database> < ./database.sql
+mysql -u <user> -p <database> < ./shapesMap.sql
+mysql -u <user> -p <database> < ./pointsMap.sql
 ```
 
 Vous avez maintenant une API prête à fonctionner.

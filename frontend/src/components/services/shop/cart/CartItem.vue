@@ -22,7 +22,7 @@
 				<p class="text-sm font-normal ml-2 text-gray-200">x {{ count }}</p>
 			</router-link>
 			<!-- Indicateur de stock si nécessaire -->
-			<p v-if="article.stock < 30" class="text-red-600">Il ne reste plus que {{ article.stock }} articles en stock</p>
+			<p v-if="article.stock < 30" class="text-red-600">{{ $t("cart.stock_rest", {stock: article.stock}) }}</p>
 
 			<!-- Actions -->
 			<div class="flex flex-row items-center content-center justify-start mt-3">
@@ -56,7 +56,7 @@
 
 		<div class="ml-auto flex flex-col items-end justify-end text-right">
 			<p class="font-bold text-xl text-blue-500">{{ totalPrice.toFixed(2) }}€</p>
-			<p class="text-gray-300 text-sm">{{ (article.price || 0).toFixed(2) }}€ x{{ count }}</p>
+			<p class="text-gray-300 text-sm">{{ (Number.parseFloat(article.price) || 0).toFixed(2) }}€ x{{ count }}</p>
 		</div>
 
 		<svg v-if="isInvalid" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

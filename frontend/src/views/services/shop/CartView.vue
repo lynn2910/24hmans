@@ -4,11 +4,12 @@
 		<div class="w-1/2">
 			<div
 					class="flex flex-row justify-between items-center py-5 ml-5 mr-5 border-b border-b-white border-opacity-50 ">
-				<h1 class="font-bold text-2xl">Votre panier</h1>
-				<p class="font-bold text-right my-auto mr-5">Prix</p>
+				<h1 class="font-bold text-2xl">{{ $t("cart.title") }}</h1>
+				<p class="font-bold text-right my-auto mr-5">{{ $t("cart.price") }}</p>
 			</div>
 
 			<div class="flex flex-col justify-start h-[90%] overflow-y-auto">
+
 				<CartItem v-for="(item, index) in nonNullItems" :key="index"
 									:article="item" :count="item.count"
 									@decrease="decreaseItem(item.item_id)"
@@ -21,13 +22,12 @@
 		<div class="p-5 rounded bg-emerald-500 bg-opacity-10 border border-gray-500 w-1/2 flex flex-col justify-start">
 			<div class="grid grid-cols-3">
 				<div>
-					<h2 class="font-bold text-2xl mb-5">Résumé</h2>
+					<h2 class="font-bold text-2xl mb-5">{{ $t("cart.resume") }}</h2>
 					<p class="text-2xl font-bold">Total: <span class="text-blue-500">{{ totalPrice.toFixed(2) }}€</span><span
-							class="text-sm ml-1">TTC</span></p>
+							class="text-sm ml-1">{{ $t("cart.ttc") }}</span></p>
 
 					<p class="italic col-span-2 mt-5 text-gray-400">
-						Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni
-						enregistrée.
+						{{ $t("payment") }}
 					</p>
 				</div>
 
@@ -45,7 +45,9 @@
 					</svg>
 				</div>
 
-				<button @click="buildNewOrder" class="py-2 px-3 rounded-xl bg-blue-500 hover:bg-blue-600 w-4/5">Payer</button>
+				<button @click="buildNewOrder" class="py-2 px-3 rounded-xl bg-blue-500 hover:bg-blue-600 w-4/5">
+					{{ $t("cart.make_order") }}
+				</button>
 			</div>
 		</div>
 
@@ -87,7 +89,7 @@ export default {
 			const item = this.myCart.items.find(i => i.id === item_id);
 			if (!item) return console.error(`Cannot find the item '${item_id}' in the cart of '${this.userId}'`);
 
-			const shopItem = this.allShopItems.find((it) => it.item_id === item.id && it.prestataire.id === item.origin);
+			const shopItem = this.allShopItems.find((it) => it.item_id === item.id && it.prestataire_id === item.origin);
 			if (!shopItem) return console.error(`Cannot find the item '${item_id}' in the shop`);
 
 			if (shopItem.stock >= item.count + 1)
@@ -112,10 +114,12 @@ export default {
 				articles,
 			};
 
-			this.clearCart(this.loggedInUser.id);
+			this.clearUserCart();
+			this.cart.items = []
+
 			let res = await UsersService.newOrder(preparation);
 			if (!res.error) {
-				this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}});
+				await this.$router.push({name: 'client_panel_orders', query: {order_id: res.data.order_id}});
 			}
 		}
 	},
@@ -132,14 +136,14 @@ export default {
 		},
 		nonNullItems() {
 			return this.myCart.items.filter((i) => i).map((i) => {
-				const item = this.allShopItems.find((it) => it.item_id === i.id && it.prestataire.id === i.origin);
+				const item = this.allShopItems.find((it) => it.item_id === i.id && it.prestataire_id === i.origin);
 
 				if (item) return {...item, ...i}
 				else return {...i, name: "Unknown"}
 			})
 		},
 		totalPrice() {
-			return this.nonNullItems.reduce((a, b) => a += b.price * b.count, 0)
+			return this.nonNullItems.reduce((a, b) => a + (b.price * b.count), 0)
 		}
 	},
 	async beforeCreate() {

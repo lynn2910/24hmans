@@ -18,7 +18,7 @@ export default {
         categories: state => state.categories,
         items: state => state.items,
         shopExists: state => state.shopExists,
-        getCart: (state) => (user_id) => state.carts[user_id],
+        getCart: (state) => (user_id) => state.carts[user_id] || {items:[]},
         getCartCount: (state) => (user_id) => {
             const items = state.carts[user_id]?.items || [];
             return items.reduce((a, b) => a += b?.count || 0, 0);
@@ -118,8 +118,12 @@ export default {
         async getAllItemsInShop({commit}) {
             const res = await BoutiqueService.getAllItems();
 
+
             if (!res.error) {
-                commit("updateAllShopItemsStore", res.data);
+                commit("updateAllShopItemsStore", res.data.map((a) => {
+                    a.price = Number.parseFloat(a.price || "0.0");
+                    return a;
+                }));
             } else {
                 console.error(`Cannot get all items stored in all shops: ${res.data}`)
             }

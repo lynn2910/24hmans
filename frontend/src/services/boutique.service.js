@@ -20,8 +20,23 @@ async function getItemFromName(shop_id, item_name) {
 
 
 async function getAllItems() {
-    // TODO
-    return LocalSource.getAllItems()
+    let boutiques = await Request.get("/boutique/available_shops").send();
+    if (boutiques.error) return boutiques;
+    boutiques = boutiques.data;
+
+    let fetchingActions = boutiques.map(async (shop) => {
+        let res = await getShopInformations(shop.prestataire_id);
+        if (!res.error) {
+            shop.articles = res.data.articles.map((a) => ({...a, prestataire_id: shop.prestataire_id}));
+        } else {
+            shop.articles = []
+        }
+    })
+
+    await Promise.all(fetchingActions)
+
+
+    return {error: 0, status: 200, data: boutiques.map(({articles}) => articles || []).flatMap((a) => a)}
 }
 
 async function addArticleToBoutique(shop_id, article) {

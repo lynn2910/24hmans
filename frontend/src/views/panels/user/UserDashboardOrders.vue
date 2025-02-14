@@ -29,6 +29,9 @@ export default {
 		let res = await UsersService.getUserOrders();
 		console.log(res)
 		if (!res.error) {
+			res.data.forEach((order) => {
+				order.date = new Date(order.date)
+			})
 			this.orders = res.data.sort((a, b) => a.date.getUTCMilliseconds() - b.date.getUTCMilliseconds());
 		} else {
 			console.error(res.data)

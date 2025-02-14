@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/api.js",
   "scripts": {
-    "api": "npx prisma generate --no-hints && npx prisma db push && nodemon src/api.js -i swagger.yaml",
+    "api": "npx prisma generate --no-hints && npx prisma db push && npx nodemon src/api.js -i swagger.yaml",
     "prod": "npx prisma generate --no-hints && npx prisma db push && node src/api.js -i swagger.yaml",
     "db": "npx prisma generate --no-hints && npx prisma db push"
   },
@@ -22,6 +22,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.16",
+    "nodemon": "^3.1.9",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^11.0.3"
