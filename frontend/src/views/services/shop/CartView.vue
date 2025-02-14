@@ -9,6 +9,7 @@
 			</div>
 
 			<div class="flex flex-col justify-start h-[90%] overflow-y-auto">
+
 				<CartItem v-for="(item, index) in nonNullItems" :key="index"
 									:article="item" :count="item.count"
 									@decrease="decreaseItem(item.item_id)"
@@ -87,7 +88,7 @@ export default {
 			const item = this.myCart.items.find(i => i.id === item_id);
 			if (!item) return console.error(`Cannot find the item '${item_id}' in the cart of '${this.userId}'`);
 
-			const shopItem = this.allShopItems.find((it) => it.item_id === item.id && it.prestataire.id === item.origin);
+			const shopItem = this.allShopItems.find((it) => it.item_id === item.id && it.prestataire_id === item.origin);
 			if (!shopItem) return console.error(`Cannot find the item '${item_id}' in the shop`);
 
 			if (shopItem.stock >= item.count + 1)
@@ -132,14 +133,14 @@ export default {
 		},
 		nonNullItems() {
 			return this.myCart.items.filter((i) => i).map((i) => {
-				const item = this.allShopItems.find((it) => it.item_id === i.id && it.prestataire.id === i.origin);
+				const item = this.allShopItems.find((it) => it.item_id === i.id && it.prestataire_id === i.origin);
 
 				if (item) return {...item, ...i}
 				else return {...i, name: "Unknown"}
 			})
 		},
 		totalPrice() {
-			return this.nonNullItems.reduce((a, b) => a += b.price * b.count, 0)
+			return this.nonNullItems.reduce((a, b) => a + (b.price * b.count), 0)
 		}
 	},
 	async beforeCreate() {

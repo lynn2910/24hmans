@@ -23,7 +23,11 @@ function getShop(prestataire_id) {
         include: {
             categories: true,
             prestataire: true,
-            articles: true
+            articles: {
+                include: {
+                    category: true,
+                }
+            }
         }
     })
 }

@@ -43,7 +43,7 @@ async function logoutUser(sessionId) {
 }
 
 async function getUserCount() {
-    // TODO
+    // TODO stats
     return LocalSource.getAllUsers();
 }
 
