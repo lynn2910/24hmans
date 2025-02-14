@@ -30,7 +30,7 @@ function getPrestataireService(presta_id) {
                 select: {
                     boutique: true,
                     Ecurie: true,
-                    Billeterie: true,
+                    Billetterie: true,
                     karting: true,
                     // TODO montgolfieres
                 },

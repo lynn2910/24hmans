@@ -68,10 +68,10 @@ model Prestataire {
   links PrestataireLink[]
   Shape Shape[]
 
-  boutique   Boutique?
-  Ecurie     Ecurie?
-  Billeterie Billetteries?
-  karting    Karting?
+  boutique    Boutique?
+  Ecurie      Ecurie?
+  Billetterie Billetteries?
+  karting     Karting?
 
   @@index([name])
 }
