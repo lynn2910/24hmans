@@ -5,8 +5,6 @@
 
 			<div class="flex flex-row items-start content-center justify-between">
 				<h1 class="font-bold text-xl">Liste des articles</h1>
-				<DownloadData @download="$emit('download')" @copy="$emit('copy')"
-											@import="(d) => $emit('import', d)"></DownloadData>
 			</div>
 
 			<table class="block overflow-x-scroll overflow-y-scroll w-full whitespace-nowrap">
@@ -101,11 +99,10 @@
 
 <script>
 import {transformPrestataireName} from "@/utils";
-import DownloadData from "@/components/dashboard/DownloadData.vue";
 
 export default {
 	name: "PrestataireShopCategories",
-	components: {DownloadData},
+	components: {},
 	props: {
 		articles: {
 			type: Array,
