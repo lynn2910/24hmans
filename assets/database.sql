@@ -31,7 +31,7 @@ VALUES ('max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
 INSERT INTO Prestataire (name, id, icon, password, email, referencer)
 VALUES ('Porsche', '45309281-fc24-4e02-ad47-a275c64f5327', 'prestataires_icons/porsche_presta.jpg',
         '$2a$10$Jfw2HzNUl/FQk.30LkQJhOa1W3rr1RDT7KUOmTVbN.ucf44w3PlEK', 'porsche@gmail.com',
-        'porsche'),                                                                                        -- "Spider-Porsche"
+        'porsche'),                                                                                        -- 'Spider-Porsche'
        ('24h du Mans', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'prestataires_icons/organisateurs_presta.jpg',
         '$2y$10$NXLvYYnkO8Nvz7vnuE6GVuszoBjyTFyAH2.vINZ1OinJZC6tRi6D6', 'mongman@gmail.com', '24hdumans'), -- 'lemans'
        ('Kart\'24', '524aaa51-09c1-48f1-85d3-ac878394e1ff', 'prestataires_icons/karting_presta.jpg',
@@ -145,30 +145,36 @@ VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-
 
 INSERT INTO Ecurie(id, name, prestataire_id)
     VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
-select  * from Ecurie;
-DELETE FROM FormulaireEcurie WHERE ecurie_id= 'd8d755cb-9aba-43f5-9546-14db654a1f06';
-SELECT * FROM FormulaireEcurie;
+select *
+from Ecurie;
+DELETE
+FROM FormulaireEcurie
+WHERE ecurie_id = 'd8d755cb-9aba-43f5-9546-14db654a1f06';
+SELECT *
+FROM FormulaireEcurie;
 INSERT INTO FormulaireEcurie(ecurie_id, prenom, nom, year, email, tel, num_billet, submitted_at, is_winner)
-VALUES('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Yanis', 'Blanc', 2024, 'yanis.blanc@gmail.com', '07 72 50 20 32', '01',
+VALUES ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Yanis', 'Blanc', 2024, 'yanis.blanc@gmail.com', '07 72 50 20 32', '01',
         '2024-11-28 12:40:24', false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Juliette", "Richard",2024, 'juliette@gmail.com', "+07 88 55 02 07",
-        '02', "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Ethan", 'Durand',2024, 'ethan@gmail.com', '07 15 10 20 00', '03',
-        "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sasha", "LeFevre",2024,'sasha@gmail.com', "08 53 69 85 65", '04',
-        "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Sarah", "Henry",2024, 'sarah@gmail.com', "09 98 56 25 46", '05',
-        "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Mary", "Guerin", 2024,'mary@gmail.com', "07 10 12 15 14", '06',
-        "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Loris", "Michel",2024, 'lorsi@gmail.com', "07 20 12 23 50", '07',
-        "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Felix", "Mercier", 2024,'felix@gmail.com', "03 42 15 78 89", '08',
-        "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Lea", "Andre",2024, 'lea@gmail.com', "08 45 95 86 54", '09',
-        "2024-11-28 12:40:24", false),
-       ("d8d755cb-9aba-43f5-9546-14db654a1f06", "Camille", "Rousseau",2024, 'camille@gmail.com', "05 15 50 00 15",
-        '10', "2024-11-28 12:40:24", false);
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Juliette', 'Richard', 2024, 'juliette@gmail.com', '+07 88 55 02 07',
+        '02', '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Ethan', 'Durand', 2024, 'ethan@gmail.com', '07 15 10 20 00', '03',
+        '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Sasha', 'LeFevre', 2024, 'sasha@gmail.com', '08 53 69 85 65',
+        '04',
+        '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Sarah', 'Henry', 2024, 'sarah@gmail.com', '09 98 56 25 46', '05',
+        '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Mary', 'Guerin', 2024, 'mary@gmail.com', '07 10 12 15 14', '06',
+        '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Loris', 'Michel', 2024, 'lorsi@gmail.com', '07 20 12 23 50', '07',
+        '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Felix', 'Mercier', 2024, 'felix@gmail.com', '03 42 15 78 89', '08',
+        '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Lea', 'Andre', 2024, 'lea@gmail.com', '08 45 95 86 54', '09',
+        '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Camille', 'Rousseau', 2024, 'camille@gmail.com', '05 15 50 00 15',
+        '10', '2024-11-28 12:40:24', false);
 
 
-SELECT * FROM FormulaireEcurie ;
+SELECT *
+FROM FormulaireEcurie;
