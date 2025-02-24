@@ -84,12 +84,21 @@ export default {
         <div class="p-6 lg:p-10 flex flex-col lg:flex-row gap-6">
             <div class="flex-1 bg-gray-800 text-white p-6 rounded-lg shadow-xl">
                 <h2 class="text-2xl font-bold mb-6">Participants par année</h2>
+                <div>
+                    <button @click="handleTirage"
+                            class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full font-semibold transition-all hover:bg-blue-600 transform hover:scale-105 shadow-md">
+                        Tirage au sort
+                    </button>
+                </div>
                 <div class="mb-4">
-                    <label for="year-select">Sélectionner une année :</label>
-                    <select v-model="selectedYear" id="year-select" class="p-2 border rounded">
-                        <option v-for="year in Object.keys(participantsByYear).sort((a, b) => b - a)" :key="year" :value="year">{{ year }}</option>
+                    <label for="year-select" class="text-blue-400 font-semibold">Sélectionner une année :</label>
+                    <select v-model="selectedYear" id="year-select" class="p-2 border rounded bg-gray-800 text-white border-blue-400">
+                        <option v-for="year in Object.keys(participantsByYear).sort((a, b) => b - a)" :key="year" :value="year" class="text-black">
+                            {{ year }}
+                        </option>
                     </select>
                 </div>
+
                 <ul v-if="participantsByYear[selectedYear] && participantsByYear[selectedYear].length > 0" class="space-y-3">
                     <li v-for="participant in participantsByYear[selectedYear]" :key="participant.email" class="p-3 bg-gray-700 rounded-lg">
                         <div class="font-semibold text-lg">{{ participant.lastname }} - {{ participant.name }}</div>
@@ -97,10 +106,6 @@ export default {
                     </li>
                 </ul>
                 <p v-else class="mt-4 text-gray-400">Aucun participant trouvé pour {{ selectedYear }}.</p>
-                <button @click="handleTirage"
-                        class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full font-semibold transition-all hover:bg-blue-600 transform hover:scale-105 shadow-md">
-                    Tirage au sort
-                </button>
             </div>
 
             <!-- Résultat du Tirage -->
