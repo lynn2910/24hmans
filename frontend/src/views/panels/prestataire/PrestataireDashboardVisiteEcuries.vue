@@ -99,6 +99,7 @@ export default {
                     </select>
                 </div>
 
+
                 <ul v-if="participantsByYear[selectedYear] && participantsByYear[selectedYear].length > 0" class="space-y-3">
                     <li v-for="participant in participantsByYear[selectedYear]" :key="participant.email" class="p-3 bg-gray-700 rounded-lg">
                         <div class="font-semibold text-lg">{{ participant.lastname }} - {{ participant.name }}</div>
