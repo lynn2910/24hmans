@@ -2,6 +2,7 @@ import PrestataireService from "@/services/prestataire.service";
 import UsersService from "@/services/users.service";
 import {Selected} from "@/utils";
 import AdminService from "@/services/admin.service";
+import {defineSessionId, removeSessionId} from "@/services/axios.service";
 
 export default {
     namespaced: true,
@@ -20,6 +21,8 @@ export default {
     mutations: {
         updateSessionId(state, sessionId) {
             state.sessionId = sessionId;
+            removeSessionId()
+            defineSessionId(sessionId);
         },
         updateLoggedInUser(state, loggedInUser) {
             state.loggedInUser = loggedInUser;
@@ -46,7 +49,7 @@ export default {
             if (data.type === Selected.User) res = await UsersService.loginUser(data.id, data.password);
             else if (data.type === Selected.Prestataire) res = await PrestataireService.loginPrestataire(data.id, data.password);
             else if (data.type === Selected.Admin) res = await AdminService.loginAdmin(data.id, data.password);
-            
+
             if (!res.error) {
                 commit("updateSessionId", res.data.code);
                 commit("updateLoggedInUser", res.data.user);

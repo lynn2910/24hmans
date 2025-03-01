@@ -155,6 +155,13 @@ routerBoutique.get("/available_shops", (req, res) => {
  *         schema:
  *           type: string
  *         description: The ID of the shop.
+ *       - in: query
+ *         name: sessionId
+ *         required: true
+ *         example: "HVpYuVywN4"
+ *         description: Session ID for authentication
+ *         schema:
+ *           type: string
  *     requestBody:
  *       content:
  *         application/json:
@@ -191,19 +198,29 @@ routerBoutique.get("/available_shops", (req, res) => {
  *                   example: "Error message details"
  */
 
-routerBoutique.get("/:shop_id", (req, res) => {
+routerBoutique.get("/:shop_id", prestataireMiddleware, (req, res) => {
+    console.log("wtf?")
     BoutiqueService.getShop(req.params.shop_id).then(
-        (shop) => res.status(200).json(shop),
+        (shop) => {
+            if (!shop.enabled && req.session?.userId !== req.params.shop_id) res.status(401).json({message: "Access denied"})
+            else res.status(200).json(shop)
+        },
         (err) => res.status(500).json({message: err.message})
     )
 })
+createRule("/boutique/{shop_id}", Method.GET, User.Prestataire, [Permission.Public])
+
 
 routerBoutique.patch("/:shop_id", prestataireMiddleware, (req, res) => {
+    console.log("Editing shop")
+    console.log(req.params.shop_id)
+    console.log(req.session)
     BoutiqueService.editShop(req.params.shop_id, req.session.userId, req.body).then(
         (shop) => res.status(200).json(shop),
         (err) => res.status(500).json({message: err.message})
     )
 })
+createRule("/boutique/{shop_id}", Method.PATCH, User.Prestataire, [Permission.Prestataire, Permission.Admin])
 
 //
 //

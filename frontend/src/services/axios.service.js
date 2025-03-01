@@ -11,8 +11,10 @@ const axios_client = axios.create({baseURL: BASE_URL});
 let sessionIdIntercepterId = null;
 
 export function defineSessionId(sessionId) {
+    console.log("New session ID", sessionId);
     sessionIdIntercepterId = axios_client.interceptors.request.use(
         config => {
+            console.log("Configuring session ID", sessionId);
             return {...config, params: {sessionId}};
         }
     )

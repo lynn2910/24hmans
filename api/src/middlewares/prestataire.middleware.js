@@ -2,6 +2,7 @@ const {checkAccess, Method, User, checkPermissions} = require("../permissions");
 
 module.exports = async function (req, res, next) {
     const sessionId = req.query.sessionId;
+    console.log("Session ID", sessionId);
 
     if (!sessionId) return res.status(401).json({message: "Access denied"});
 

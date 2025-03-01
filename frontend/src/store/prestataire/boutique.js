@@ -18,7 +18,7 @@ export default {
         categories: state => state.categories,
         items: state => state.items,
         shopExists: state => state.shopExists,
-        getCart: (state) => (user_id) => state.carts[user_id] || {items:[]},
+        getCart: (state) => (user_id) => state.carts[user_id] || {items: []},
         getCartCount: (state) => (user_id) => {
             const items = state.carts[user_id]?.items || [];
             return items.reduce((a, b) => a += b?.count || 0, 0);
@@ -144,6 +144,7 @@ export default {
         },
         async enableOrDisableShop({commit}, {shop_id, value}) {
             const res = await ShopService.enableOrDisableShop(shop_id, value);
+            console.log(res)
             if (res.error) {
                 console.error(res.data);
             } else {
