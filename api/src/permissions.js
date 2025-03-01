@@ -163,6 +163,8 @@ function checkAccess(route, method, wanted_user_type, sessionId) {
  */
 async function checkPermissions(rule, sessionId, user_type) {
     let sessionInformations = await getSessionInformations(sessionId);
+    if (!sessionInformations) return {infos: null, ok: false}
+
     let allowedUsers = []
 
     for (const permission of rule?.permissions || []) {
