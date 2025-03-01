@@ -6,6 +6,7 @@ async function run() {
     const schema = fs.readFileSync(path.join(__dirname, "prisma/schema.prisma"), "utf8")
 
     const tables = await get_tables(schema);
+    
 
     const order = buildTree(tables);
 
