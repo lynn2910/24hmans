@@ -226,7 +226,6 @@ export default {
 	},
 	methods: {
 		// NOM
-
 		openNameEditPopup() {
 			this.editedName = this.prestataire.name;
 			this.showNameEditPopup = true;

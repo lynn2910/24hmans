@@ -10,8 +10,6 @@ Page de gestion des prestataires du dashboard admin
 			<div class="w-full bg-blue-400 bg-opacity-5 m-5 mr-0 p-5 h-full border border-gray-700 rounded-2xl">
 				<div class="flex flex-row content-center items-center justify-between w-full mb-5">
 					<h2 class="text-2xl font-bold">Prestataires</h2>
-					<DownloadData @download="downloadPrestataires" @copy="copyPrestataires"
-												@import="importPrestataires"></DownloadData>
 				</div>
 
 				<table class="w-full text-left table-auto min-w-max">
@@ -186,7 +184,6 @@ import {mapActions, mapGetters} from "vuex";
 import store from "@/store";
 import {evaluatePasswordSecurity, passwordScoreColor, transformPrestataireName} from "@/utils";
 import Popup from "@/components/dashboard/Popup.vue";
-import DownloadData from "@/components/dashboard/DownloadData.vue";
 import Loading from "@/components/dashboard/Loading.vue";
 import PrestataireService from "@/services/prestataire.service";
 import PrestataireEditPage from "@/components/dashboard/PrestataireEditPage.vue";
@@ -194,7 +191,7 @@ import PasswordField from "@/components/dashboard/PasswordField.vue";
 
 export default {
 	name: "AdminDashboardView",
-	components: {PasswordField, PrestataireEditPage, Loading, DownloadData, Popup, AdminDashboardTemplate},
+	components: {PasswordField, PrestataireEditPage, Loading, Popup, AdminDashboardTemplate},
 	data() {
 		return {
 			services: [],
@@ -223,75 +220,7 @@ export default {
 		}
 	},
 	methods: {
-
-		// IMPORT
-		evaluatePasswordSecurity,
-		passwordScoreColor,
 		transformPrestataireName,
-
-		// DOWNLOAD/COPY/IMPORT
-		downloadPrestataires() {
-			let jsonPrestataires = JSON.stringify(this.prestataires);
-
-			const blob = new Blob([jsonPrestataires], {type: 'application/json'});
-
-			const link = document.createElement('a');
-			link.href = URL.createObjectURL(blob);
-			link.download = 'prestataires.json';
-			link.click();
-
-			URL.revokeObjectURL(link.href);
-		},
-		copyPrestataires() {
-			let jsonPrestataires = JSON.stringify(this.prestataires);
-			navigator.clipboard.writeText(jsonPrestataires)
-					.then(() => {
-						console.log('Prestataires copiés dans le presse-papier');
-						this.showCopyPopup = true;
-					})
-					.catch(err => {
-						console.error('Erreur de copie : ', err);
-					});
-		},
-		async importPrestataires(d) {
-			if (d.error) {
-				alert("Format de fichier invalide.")
-			}
-			let importedPrestataires = d.data;
-			this.showImportLoadingAnimation = true;
-
-			let alreadyCreatedPrestataires = this.prestataires.map(({id, name}) => ({id, name}));
-			this.importingLoader.max = importedPrestataires.length;
-
-			try {
-				for (const np of importedPrestataires) {
-					// Pour éviter les doublons :O
-					let doesAlreadyExist = alreadyCreatedPrestataires.some(p =>
-							transformPrestataireName(p.name) === transformPrestataireName(np.name)
-							|| p.id === np.id
-					);
-
-					if (!doesAlreadyExist) {
-						// Ajout du prestataire
-						alreadyCreatedPrestataires.push({name: np.name, id: np.id});
-
-						let res = await PrestataireService.importPrestataire(np.name, np.password);
-
-						console.log(res)
-					}
-
-					this.importingLoader.step++;
-				}
-
-				// Lastly, fetch again all prestataires
-				await store.dispatch("prestataire/getAllPrestataires");
-			} catch (err) {
-				alert("Une erreur est survenue. Êtes-vous sûr d'avoir utilisé le bon format de données?");
-				console.error(err)
-			}
-
-			this.showImportLoadingAnimation = false;
-		},
 
 		// POPUP
 		closePopup() {
@@ -373,7 +302,8 @@ export default {
 	async mounted() {
 		let services = await PrestataireService.getPrestatairesServicesCount();
 		if (!services.error) {
-			this.services = services.data;
+			console.log(services)
+			this.services = services;
 		} else {
 			console.error(services)
 		}
