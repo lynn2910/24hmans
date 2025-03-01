@@ -26,6 +26,9 @@ function getShop(prestataire_id) {
             articles: {
                 include: {
                     category: true,
+                },
+                where: {
+                    deleted: false
                 }
             }
         }
@@ -224,6 +227,7 @@ function getShopItemByName(shop_id, item_id) {
             deleted: true,
         },
         where: {
+            deleted: false,
             OR: [
                 {
                     referencer: {
@@ -243,11 +247,13 @@ function getShopItemByName(shop_id, item_id) {
 function createItem(shop_id, {name, price, stock, category_id}) {
     return new Promise(async (resolve, reject) => {
         try {
+            let stockParsed = stock ? (typeof stock === "string" ? Number.parseInt(stock) : stock) : stock;
+
             const article = await prisma.boutiqueArticles.create({
                 data: {
                     name, price,
                     referencer: name.toLowerCase().trim().replace(/\s+/g, '-'),
-                    stock: stock && stock >= 0 ? stock : 0,
+                    stock: stockParsed && stockParsed >= 0 ? stockParsed : 0,
 
                     shop: {
                         connect: {shop_id,}
@@ -276,7 +282,8 @@ function editItem(shop_id, item_id, patch) {
         try {
             const updatedArticle = await prisma.boutiqueArticles.update({
                 where: {
-                    item_id: Number.parseInt(item_id) || -1
+                    item_id: Number.parseInt(item_id) || -1,
+                    deleted: false
                 },
                 data: {
                     // On met à jour ce champ que si le nom change :)

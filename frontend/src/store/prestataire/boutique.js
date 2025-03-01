@@ -31,6 +31,15 @@ export default {
         updateItems(state, items) {
             state.items = items;
         },
+        addItem(state, item) {
+            state.items.push(item);
+        },
+        removeItem(state, item_id) {
+            let index = state.items.findIndex(it => it.item_id === item_id);
+            if (index >= 0) {
+                state.items.splice(index, 1);
+            }
+        },
         updateShopExists(state, shopExists) {
             state.shopExists = shopExists;
         },
@@ -128,18 +137,22 @@ export default {
                 console.error(`Cannot get all items stored in all shops: ${res.data}`)
             }
         },
-        async addArticleToBoutique(_, {boutique_id, article}) {
+        async addArticleToBoutique({commit}, {boutique_id, article}) {
             const res = await BoutiqueService.addArticleToBoutique(boutique_id, article);
 
             if (res.error) {
                 console.error(res.data);
+            } else {
+                commit("addItem", res.data);
             }
         },
-        async removeArticleFromBoutique(_, {shop_id, article_id}) {
+        async removeArticleFromBoutique({commit}, {shop_id, article_id}) {
             const res = await BoutiqueService.removeArticleFromBoutique(shop_id, article_id);
 
             if (res.error) {
                 console.error(res.data);
+            } else {
+                commit("removeItem", res.data?.item_id)
             }
         },
         async enableOrDisableShop({commit}, {shop_id, value}) {

@@ -754,7 +754,10 @@ routerBoutique.post("/:shop_id/items/", prestataireMiddleware, async (req, res) 
         req.body
     ).then(
         (created_article) => res.status(200).json(created_article),
-        (err) => res.status(500).json({message: err.message})
+        (err) => {
+            console.error(err)
+            res.status(500).json({message: err.message})
+        }
     )
 })
 
