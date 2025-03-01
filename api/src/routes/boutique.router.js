@@ -198,8 +198,7 @@ routerBoutique.get("/available_shops", (req, res) => {
  *                   example: "Error message details"
  */
 
-routerBoutique.get("/:shop_id", prestataireMiddleware, (req, res) => {
-    console.log("wtf?")
+routerBoutique.get("/:shop_id", (req, res) => {
     BoutiqueService.getShop(req.params.shop_id).then(
         (shop) => {
             if (!shop.enabled && req.session?.userId !== req.params.shop_id) res.status(401).json({message: "Access denied"})
@@ -208,7 +207,6 @@ routerBoutique.get("/:shop_id", prestataireMiddleware, (req, res) => {
         (err) => res.status(500).json({message: err.message})
     )
 })
-createRule("/boutique/{shop_id}", Method.GET, User.Prestataire, [Permission.Public])
 
 
 routerBoutique.patch("/:shop_id", prestataireMiddleware, (req, res) => {

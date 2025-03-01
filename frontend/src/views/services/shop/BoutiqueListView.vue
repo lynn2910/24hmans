@@ -1,14 +1,8 @@
 <script>
 import PrestataireService from "@/services/prestataire.service";
-import billeterieListView from "@/views/services/BilleterieListView.vue";
 
 export default {
 	name: "Boutiques",
-	computed: {
-		billeterieListView() {
-			return billeterieListView
-		}
-	},
 	async beforeMount() {
 		try {
 			const prestatairesRes = await PrestataireService.getAllPrestataires();

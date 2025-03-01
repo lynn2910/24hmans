@@ -35,12 +35,12 @@ function getPrestataireService(presta_id) {
                 },
                 where: {
                     id: presta_id,
-                }
+                },
             });
 
             return resolve(
                 Object.entries(presta)
-                    .filter(([_, v]) => v)
+                    .filter(([_, v]) => v && v.enabled)
                     .map(([s, _]) => s.toLowerCase())
             );
         } catch (err) {
