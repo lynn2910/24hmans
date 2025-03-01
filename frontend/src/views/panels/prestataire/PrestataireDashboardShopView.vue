@@ -12,8 +12,8 @@
 
 			<PrestataireShopCategories :prestataire="prestataire" :articles="items"
 																 :categories="categories"
-																 @createArticle="createArticle"
-																 @articleDelete="deleteArticle">
+																 @createCategory="createCategory"
+																 @articleDelete="deleteArticle"> <!-- TODO updateCategory && deleteCategory -->
 			</PrestataireShopCategories>
 		</div>
 		<div v-else-if="activeTab === 'settings'">
@@ -27,12 +27,12 @@
 <script>
 import PrestataireDashboardWithTabsTemplate
 	from "@/components/dashboard/prestataire/PrestataireDashboardWithTabsTemplate.vue";
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 import PrestataireShopArticles from "@/views/panels/prestataire/shop/PrestataireShopArticles.vue";
-import {transformPrestataireName, wait} from "@/utils";
 import Loading from "@/components/dashboard/Loading.vue";
 import PrestataireShopSettings from "@/views/panels/prestataire/shop/PrestataireShopSettings.vue";
 import PrestataireShopCategories from "@/views/panels/prestataire/shop/PrestataireShopCategories.vue";
+import BoutiqueService from "@/services/boutique.service";
 
 
 export default {
@@ -77,6 +77,20 @@ export default {
 				shop_id: this.shopId,
 			})
 		},
+
+		...mapMutations("prestataire/boutique", ["addCategory", "removeCategory"]),
+
+		// CATEGORIES
+		async createCategory(category_name) {
+			console.log("Creating category...")
+			let res = await BoutiqueService.createShopCategory(this.shopId, category_name);
+			console.log(res)
+			if (!res.error) {
+				this.addCategory(res.data.category);
+			} else {
+				console.error(res.data)
+			}
+		}
 	},
 	async beforeMount() {
 		const tab = this.$route.query.tab;

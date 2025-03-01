@@ -34,8 +34,17 @@ export default {
         addItem(state, item) {
             state.items.push(item);
         },
+        addCategory(state, category) {
+            state.categories.push(category);
+        },
         removeItem(state, item_id) {
             let index = state.items.findIndex(it => it.item_id === item_id);
+            if (index >= 0) {
+                state.items.splice(index, 1);
+            }
+        },
+        removeCategory(state, category_id) {
+            let index = state.items.findIndex(ctg => ctg.category_id === category_id);
             if (index >= 0) {
                 state.items.splice(index, 1);
             }

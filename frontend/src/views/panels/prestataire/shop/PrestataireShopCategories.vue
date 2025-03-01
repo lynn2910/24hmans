@@ -98,8 +98,6 @@
 </template>
 
 <script>
-import {transformPrestataireName} from "@/utils";
-
 export default {
 	name: "PrestataireShopCategories",
 	components: {},
@@ -133,15 +131,9 @@ export default {
 		}
 	},
 	methods: {
-		transformPrestataireName,
-		findCategory(id) {
-			return this.categories.find(category => category.category_id === id)
-		},
 		createCategory() {
 			if (this.isCategoryCreationValid) {
-				this.$emit('createCategory', {
-					// TODO
-				});
+				this.$emit('createCategory', this.creationForm.name);
 			}
 		},
 	}

@@ -66,6 +66,13 @@ async function enableOrDisableShop(shop_id, newValue) {
         .send()
 }
 
+async function createShopCategory(shop_id, category_label) {
+    return await Request.post("/boutique/:shop_id/categories")
+        .args({shop_id})
+        .body({category_label})
+        .send()
+}
+
 
 // TODO API stats
 
@@ -92,5 +99,6 @@ export default {
     addArticleToBoutique,
     removeArticleFromBoutique,
     enableOrDisableShop,
+    createShopCategory,
     getBoutiqueChiffreAffaireSerie, getBoutiqueStats, getBoutiqueCategoriesSellsStats, getBoutiqueArticleSellsStats
 }
