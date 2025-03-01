@@ -11,7 +11,7 @@ Page de gestion des prestataires du dashboard admin
 				<div class="flex flex-row content-center items-center justify-between w-full mb-5">
 					<h2 class="text-2xl font-bold">Prestataires</h2>
 				</div>
-
+				
 				<table class="w-full text-left table-auto min-w-max">
 					<thead>
 
@@ -24,6 +24,7 @@ Page de gestion des prestataires du dashboard admin
 
 					</thead>
 					<tbody>
+
 
 					<tr v-for="(prestataire, index) in prestataires" :key="index" class="border-b border-b-gray-500 my-2">
 						<td class="p-4 py-2 border-b border-blue-gray-50">
@@ -49,7 +50,7 @@ Page de gestion des prestataires du dashboard admin
 
 							<!-- voir -->
 							<router-link
-									:to="`/prestataire/${transformPrestataireName(prestataire.name)}`"
+									:to="`/prestataire/${prestataire.referencer}`"
 									target="_blank"
 									class="flex flex-row items-center content-center py-2 px-3 bg-dark rounded hover:bg-opacity-50 cursor-pointer">
 								<p class="mr-2">Voir</p>
@@ -182,7 +183,6 @@ Page de gestion des prestataires du dashboard admin
 import AdminDashboardTemplate from "@/components/dashboard/admin/AdminDashboardTemplate.vue";
 import {mapActions, mapGetters} from "vuex";
 import store from "@/store";
-import {evaluatePasswordSecurity, passwordScoreColor, transformPrestataireName} from "@/utils";
 import Popup from "@/components/dashboard/Popup.vue";
 import Loading from "@/components/dashboard/Loading.vue";
 import PrestataireService from "@/services/prestataire.service";
@@ -220,8 +220,6 @@ export default {
 		}
 	},
 	methods: {
-		transformPrestataireName,
-
 		// POPUP
 		closePopup() {
 			this.showEditPopup = false;
@@ -302,7 +300,6 @@ export default {
 	async mounted() {
 		let services = await PrestataireService.getPrestatairesServicesCount();
 		if (!services.error) {
-			console.log(services)
 			this.services = services;
 		} else {
 			console.error(services)

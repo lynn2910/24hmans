@@ -67,7 +67,7 @@ export function passwordScoreColor(score) {
  * @returns {string} Either 'black' or 'white'
  */
 export function getOptimalTextColor(hexColor) {
-    hexColor = hexColor.replace('#', '');
+    if (hexColor.startsWith("#")) hexColor = hexColor.replace('#', '');
 
     const r = parseInt(hexColor.substr(0, 2), 16);
     const g = parseInt(hexColor.substr(2, 2), 16);

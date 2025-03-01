@@ -46,13 +46,11 @@
 					</div>
 
 				</Popup>
-
 				<!-- Liens -->
 				<div class="flex flex-row justify-center items-center content-center my-5">
-
 					<div v-for="(link, index) in prestataire.links || []" :key="index"
 							 class="rounded-3xl py-2 px-3 hover:mix-blend-difference flex flex-row justify-center content-center items-center mx-1"
-							 :style="{backgroundColor: prestataire.accentColor || '#fff', color: blackOrWhite}">
+							 :style="{backgroundColor: prestataire.accentColor || '#000', color: blackOrWhite}">
 						<a :href="link.url" class="font-semibold leading-loose">{{ link.name }}</a>
 						<svg xmlns="http://www.w3.org/2000/svg"
 								 @click="openLinkEditPopup(link)"
@@ -67,9 +65,10 @@
 
 					<div
 							@click="openCreateLinkPopup"
-							class="rounded-3xl py-2 px-3 hover:mix-blend-difference flex flex-row justify-center content-center items-center h-12 mx-1 cursor-pointer"
+							class="rounded-3xl py-2 px-3 hover:mix-blend-difference flex flex-row justify-center content-center items-center h-12 mx-1 cursor-pointer bg-black"
 							:style="{backgroundColor: prestataire.accentColor, color: blackOrWhite}">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+								 class="fill-white">
 							<path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
 						</svg>
 					</div>
@@ -323,7 +322,7 @@ export default {
 	},
 	computed: {
 		blackOrWhite() {
-			return getOptimalTextColor(this.prestataire.accentColor)
+			return getOptimalTextColor(this.prestataire.accentColor || "#000")
 		},
 		TINY_MCE_API_KEY() {
 			return TINY_MCE_API_KEY

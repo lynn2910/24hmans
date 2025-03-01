@@ -25,7 +25,6 @@ function getPrestataireFromName(prestataire_name) {
 function getPrestataireService(presta_id) {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log(presta_id);
             let presta = await prisma.prestataire.findUnique({
                 select: {
                     boutique: true,

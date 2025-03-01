@@ -17,7 +17,8 @@ export default {
     },
     mutations: {
         updatePrestataires(state, prestataires) {
-            state.prestataires = prestataires;
+            // "localeCompare" existe sur les navigateurs modernes
+            state.prestataires = prestataires.sort((a, b) => a.name.localeCompare(b.name));
         },
         updatePrestataireServices(state, {prestataireId, services}) {
             state.prestataireServices = {...state.prestataireServices, [prestataireId]: services};

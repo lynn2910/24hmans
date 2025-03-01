@@ -66,7 +66,7 @@ const routerPresta = new Router();
 routerPresta.get(
     "/all",
     async (req, res) => {
-        const prestataires = await (require("../db")).prestataire.findMany();
+        const prestataires = await (require("../db")).prestataire.findMany({include: {links: true}});
         res.status(200).json(prestataires);
     }
 )
