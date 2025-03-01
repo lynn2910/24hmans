@@ -3,8 +3,10 @@
 		<div class="fixed -z-10 top-0 left-0 w-full h-full" :style="{backgroundColor: prestataire.accentColor}"></div>
 		<div class="h-[95%] bg-dark rounded-xl overflow-y-scroll text-ellipsis overflow-x-hidden">
 
-			<div class="w-full h-36 rounded-t-xl bg-bottom bg-no-repeat bg-cover"
-					 :style="{background: `url('/banners/${prestataire.banner || ''}')`}"></div>
+			<div class="h-10"></div>
+
+			<!--			<div class="w-full h-36 rounded-t-xl bg-bottom bg-no-repeat bg-cover"-->
+			<!--					 :style="{background: `url('/banners/${prestataire.banner || ''}')`}"></div>-->
 
 			<!-- Body -->
 			<div class="p-5">
