@@ -5,25 +5,33 @@ if (!process.env.VUE_APP_AXIOS_BASE_URL) {
 }
 
 const axios_client = axios.create({baseURL: BASE_URL});
+
 /**
  * @type {null|number}
  */
-let sessionIdIntercepterId = null;
+let tokenIntercepterId = null;
 
-export function defineSessionId(sessionId) {
-    console.log("New session ID", sessionId);
-    sessionIdIntercepterId = axios_client.interceptors.request.use(
+// Charger le token au moment de l'authentification
+if (sessionStorage.getItem('access_token')) {
+    defineToken(sessionStorage.getItem('access_token'));
+}
+
+
+export function defineToken(token) {
+    sessionStorage.setItem("access_token", token);
+    tokenIntercepterId = axios_client.interceptors.request.use(
         config => {
-            console.log("Configuring session ID", sessionId);
-            return {...config, params: {sessionId}};
+            config.headers.setAuthorization('Bearer ' + token, true);
+
+            return config;
         }
     )
 }
 
 export function removeSessionId() {
-    if (sessionIdIntercepterId !== null) {
-        axios_client.interceptors.request.eject(sessionIdIntercepterId);
-        sessionIdIntercepterId = null;
+    if (tokenIntercepterId !== null) {
+        axios_client.interceptors.request.eject(tokenIntercepterId);
+        tokenIntercepterId = null;
     }
 }
 
@@ -131,7 +139,7 @@ export class Request {
                     return resolve({error: 0, status: res.status, data: res.data})
                 },
                 (res) => {
-                    return resolve({error: 0, status: res.status, data: res.data})
+                    return resolve({error: 1, status: res.status, data: res.data})
                 },
             );
         })

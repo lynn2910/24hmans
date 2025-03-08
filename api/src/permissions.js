@@ -203,7 +203,7 @@ async function getSessionInformations(sessionId) {
     try {
         return await prisma.sessions.findUnique({
             where: {
-                sessionId
+                sessionId: null
             }
         })
     } catch (e) {

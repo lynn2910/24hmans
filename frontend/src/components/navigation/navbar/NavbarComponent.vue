@@ -57,6 +57,7 @@
 				<router-link :to="{name:'admin_dashboard'}" v-else-if="loggedInUser && userType === Selected.Admin">
 					<p>{{ $t("navbar.login.dashboard") }}</p>
 				</router-link>
+
 				<svg class="min-w-4 max-w-5 h-auto ml-1.5 mr-8" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 						 viewBox="0 0 30 30" fill="none">
 					<g clip-path="url(#clip0_95_645)">

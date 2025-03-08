@@ -6,7 +6,7 @@ async function loginAdmin(name, password) {
         .body({
             login: name,
             password,
-            userType: Selected.Admin
+            role: Selected.Admin
         })
         .send();
 }

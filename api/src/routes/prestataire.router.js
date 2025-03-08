@@ -132,7 +132,7 @@ routerPresta.get(
  *       - bearerAuth: []
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "HVpYuVywN4"
  *         schema:
  *           type: string
@@ -443,7 +443,7 @@ routerPresta.get(
  *         schema:
  *           type: string
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         required: true
  *         description: Session ID for authentication
  *         example: "HVpYuVywN4"
@@ -536,7 +536,7 @@ routerPresta.post(
  *         schema:
  *           type: integer
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         required: true
  *         description: Session ID for authentication
  *         example: "HVpYuVywN4"
@@ -648,7 +648,7 @@ routerPresta.patch(
  *         schema:
  *           type: integer
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         required: true
  *         example: "HVpYuVywN4"
  *         description: Session ID for authentication

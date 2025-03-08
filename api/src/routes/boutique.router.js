@@ -156,7 +156,7 @@ routerBoutique.get("/available_shops", (req, res) => {
  *           type: string
  *         description: The ID of the shop.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         required: true
  *         example: "HVpYuVywN4"
  *         description: Session ID for authentication
@@ -289,7 +289,7 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
  *         schema:
  *           type: string
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         required: true
  *         example: "HVpYuVywN4"
  *         description: Session ID for authentication
@@ -354,7 +354,7 @@ createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method
  * /boutique/{shop_id}/categories/{category_id}:
  *      parameters:
  *          - in: query
- *            name: sessionId
+ *            name: token
  *            example: "HVpYuVywN4"
  *            required: true
  *            description: Session ID for authentication
@@ -577,7 +577,7 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          summary: "Update the fields of an article"
  *          parameters:
  *              - in: query
- *                name: sessionId
+ *                name: token
  *                example: "HVpYuVywN4"
  *                required: true
  *                description: Session ID for authentication
@@ -649,7 +649,7 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          summary: "Delete a specific article"
  *          parameters:
  *              - in: query
- *                name: sessionId
+ *                name: token
  *                example: "HVpYuVywN4"
  *                required: true
  *                description: Session ID for authentication

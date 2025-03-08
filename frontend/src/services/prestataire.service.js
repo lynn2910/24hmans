@@ -21,7 +21,7 @@ async function loginPrestataire(id, password) {
         .body({
             login: id,
             password,
-            userType: Selected.Prestataire
+            role: Selected.Prestataire
         })
         .send();
 }

@@ -45,7 +45,7 @@ const router = new (require("express").Router)();
  *       - multipart/form-data
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         required: true
  *         description: "Session ID"
  *         example: "HVpYuVywN4"

@@ -2,7 +2,8 @@ import PrestataireService from "@/services/prestataire.service";
 import UsersService from "@/services/users.service";
 import {Selected} from "@/utils";
 import AdminService from "@/services/admin.service";
-import {defineSessionId, removeSessionId} from "@/services/axios.service";
+import {defineToken, removeSessionId} from "@/services/axios.service";
+import AuthService from "@/services/auth.service";
 
 export default {
     namespaced: true,
@@ -16,13 +17,13 @@ export default {
          * @type {Selected}
          */
         userType: null,
-        sessionId: null
+        token: null
     },
     mutations: {
-        updateSessionId(state, sessionId) {
-            state.sessionId = sessionId;
+        updateToken(state, token) {
+            state.token = token;
             removeSessionId()
-            defineSessionId(sessionId);
+            defineToken(token);
         },
         updateLoggedInUser(state, loggedInUser) {
             state.loggedInUser = loggedInUser;
@@ -51,7 +52,8 @@ export default {
             else if (data.type === Selected.Admin) res = await AdminService.loginAdmin(data.id, data.password);
 
             if (!res.error) {
-                commit("updateSessionId", res.data.code);
+                localStorage.setItem("access_token", res.data.token);
+                commit("updateToken", res.data.token);
                 commit("updateLoggedInUser", res.data.user);
                 commit('updateUserType', data.type);
             } else {
@@ -75,10 +77,26 @@ export default {
             }
         },
         async logout({commit}) {
-            console.log("The user has been disconnected")
-            await UsersService.logoutUser();
-            commit("updateSessionId", null);
+            console.log("The user has been disconnected");
+            localStorage.removeItem("access_token");
+            commit("updateToken", null);
             commit("logOut", null);
+        },
+        async getInformations({commit}) {
+            console.log("Testing stored token...")
+            let res = await AuthService.getAuthentificationInformations();
+            console.log(res)
+            if (!res.error) {
+                console.log(res)
+                console.log("Token valid!");
+                commit('updateToken', localStorage.getItem('access_token'));
+                commit('updateLoggedInUser', res.data);
+                commit('updateUserType', res.data.userType);
+            } else {
+                console.log("Token invalid!");
+                localStorage.removeItem("access_token");
+                removeSessionId()
+            }
         }
     },
 }

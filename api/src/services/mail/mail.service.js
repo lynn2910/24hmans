@@ -58,7 +58,6 @@ function registerMailService() {
  *          email: "stephane.domas@univ-fcomte.fr"
  *          // ne pas envoyer le mail à son adresse, on ne va pas l'embêter
  *      },
- *      sessionId: "0123456789"
  *   }
  * }
  *

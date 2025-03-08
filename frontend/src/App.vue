@@ -14,8 +14,18 @@
 <script lang="ts">
 import NavbarComponent from "@/components/navigation/navbar/NavbarComponent.vue";
 import Snow from "@/components/Snow.vue";
+import {mapActions} from "vuex";
 
 export default {
 	components: {NavbarComponent, Snow},
+	methods: {
+		...mapActions('login', ['getInformations']),
+	},
+	async beforeMount() {
+		if (sessionStorage.getItem('access_token')) {
+			console.log("Already logged in?");
+			await this.getInformations();
+		}
+	}
 }
 </script>

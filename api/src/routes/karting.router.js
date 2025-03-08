@@ -95,7 +95,7 @@ const {
  *     description: Retrieves a list of available kartings.
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -146,7 +146,7 @@ router.get("/available", async (req, res) => {
  *           type: string
  *         description: The ID of the karting.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -213,7 +213,7 @@ router.get("/:karting_id/", async (req, res) => {
  *     description: "Creates a new circuit for a specific karting."
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -311,7 +311,7 @@ router.post("/:karting_id/circuit", prestataireMiddleware, async (req, res) => {
  *           type: string
  *         description: The ID of the circuit.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -559,7 +559,7 @@ createRule("/karting/:karting_id/circuit/:circuit_id", [Method.PATCH, Method.DEL
  *           type: string
  *         description: The ID of the karting.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -667,7 +667,7 @@ router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => 
  *           type: string
  *         description: The ID of the session.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -743,7 +743,7 @@ router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => 
  *           type: string
  *         description: The ID of the session.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string

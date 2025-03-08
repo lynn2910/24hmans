@@ -1,5 +1,5 @@
 import LocalSource from '../datasource/controller'
-import {defineSessionId, removeSessionId, Request} from "@/services/axios.service";
+import {defineToken, removeSessionId, Request} from "@/services/axios.service";
 import {Selected} from "@/utils";
 
 async function loginUser(email, password) {
@@ -10,11 +10,11 @@ async function loginUser(email, password) {
         .body({
             login: email,
             password: password,
-            userType: Selected.User
+            role: Selected.User
         })
         .send();
 
-    if (!res.error) defineSessionId(res.data?.code)
+    if (!res.error) defineToken(res.data?.code)
 
     console.log("login res : ", res)
 

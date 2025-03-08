@@ -214,7 +214,7 @@ export default {
 	data() {
 		return {
 			nameFilter: '',
-			selectedCategories: [], // Utilisé pour stocker les catégories sélectionnées
+			selectedCategories: [],
 		};
 	},
 	computed: {
@@ -257,7 +257,7 @@ export default {
 	},
 	methods: {
 		updateActiveFilters(selected) {
-			this.selectedCategories = selected; // Met à jour les catégories sélectionnées
+			this.selectedCategories = selected;
 		},
 		isInGarages(prestataireId) {
 			return garages.some(garage => garage.prestataire_id === prestataireId);

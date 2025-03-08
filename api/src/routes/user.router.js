@@ -97,10 +97,9 @@ const router = express.Router();
 
 const userMiddleware = require("../middlewares/user.middleware");
 const {createRule, Method, User, Permission} = require("../permissions");
-const {getUser, getUserOrders, createNewOrder} = require("../services/user.service");
-const {getPrestataire} = require("../services/prestataire.service");
-const {getAdmin} = require("../services/admin.service");
+const {getUserOrders, createNewOrder} = require("../services/user.service");
 const {get_user_reservations, delete_reservation, update_reservation} = require("../services/karting.service");
+const {authenticateToken} = require("../middlewares/auth.middleware");
 
 /**
  * @swagger
@@ -111,7 +110,7 @@ const {get_user_reservations, delete_reservation, update_reservation} = require(
  *     description: Retrieves information about the currently authenticated user.
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         schema:
  *           example: "sdkhd4Kcr8"
  *           type: string
@@ -140,33 +139,13 @@ const {get_user_reservations, delete_reservation, update_reservation} = require(
  *                   type: string
  *                   description: The error message.
  */
-router.get('/@me', userMiddleware, async (req, res) => {
-    let user = req.session;
+router.get('/@me', authenticateToken, async (req, res) => {
+    let user = req.user;
 
-    switch (req.session.userType) {
-        case 1: {
-            getUser(user.userId).then(
-                (u) => res.status(200).json(u),
-                (err) => res.status(500).json({message: err.message}),
-            )
-            break;
-        }
-        case 2: {
-            getPrestataire(user.userId).then(
-                (u) => res.status(200).json(u),
-                (err) => res.status(500).json({message: err.message}),
-            );
-            break;
-        }
-        case 3: {
-            getAdmin(user.userId).then(
-                (u) => res.status(200).json(u),
-                (err) => res.status(500).json({message: err.message}),
-            )
-        }
-    }
+    delete user.password;
+
+    res.status(200).json(user);
 })
-createRule("/users/@me", Method.All, User.User, [Permission.User, Permission.Prestataire, Permission.Admin])
 
 /**
  * @swagger
@@ -178,7 +157,7 @@ createRule("/users/@me", Method.All, User.User, [Permission.User, Permission.Pre
  *     description: Retrieves a list of orders for the currently authenticated user.
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -226,7 +205,7 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *     description: Creates a new order for the authenticated user.
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -419,7 +398,7 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *     tags: [User]
  *     parameters:
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -455,7 +434,7 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *           type: string
  *         description: The ID of the reservation to update.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
@@ -503,7 +482,7 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *           type: string
  *         description: The ID of the reservation to delete.
  *       - in: query
- *         name: sessionId
+ *         name: token
  *         example: "sdkhd4Kcr8"
  *         schema:
  *           type: string
