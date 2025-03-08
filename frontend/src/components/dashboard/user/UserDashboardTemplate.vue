@@ -104,7 +104,6 @@ export default {
 	},
 	async beforeMount() {
 		if (!this.loggedInUser || this.userType !== Selected.User) {
-
 			if (this.userType !== Selected.User) console.log("Ce n'est pas un utilisateur");
 			else console.log("Aucun utilisateur connecté n'a été trouvé");
 

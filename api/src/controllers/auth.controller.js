@@ -23,9 +23,14 @@ async function login(req, res) {
 
 async function register(req, res) {
     try {
-        const user = await authService.register(req.body);
+        const user = await authService.registerUser(req.body);
+
+        user.role = 1;
+        user.userType = user.role;
+
         res.status(201).json(user);
     } catch (error) {
+        console.error(error)
         res.status(500).json({message: error.message});
     }
 }

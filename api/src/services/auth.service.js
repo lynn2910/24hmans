@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
-const prisma = require("../db")
+const prisma = require("../db");
+const uuid = require("uuid");
 
 async function authenticate(id, password, role) {
     let user;
@@ -25,6 +26,8 @@ async function authenticate(id, password, role) {
 
 async function registerUser(userData) {
     userData.password = await bcrypt.hash(userData.password, 10);
+    userData.id = uuid.v4();
+
     return prisma.user.create({data: userData});
 }
 

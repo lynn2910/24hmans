@@ -357,22 +357,32 @@ export default {
 				return;
 			}
 
-			switch (user_type) {
-				case Selected.Prestataire: {
-					this.$router.push({name: "prestataire_dashboard"});
-					break
+			try {
+				switch (user_type) {
+					case Selected.Prestataire: {
+						this.$router.push({name: "prestataire_dashboard"});
+						break
+					}
+					case Selected.User: {
+						this.$router.push({name: 'client_panel'});
+						break;
+					}
+					case Selected.Admin: {
+						this.$router.push({name: "admin_dashboard"});
+						break;
+					}
+					default: {
+						alert(`Unknown login redirection: ${this.selected}`)
+					}
 				}
-				case Selected.User: {
-					this.$router.push({name: 'client_panel'});
-					break;
-				}
-				case Selected.Admin: {
-					this.$router.push({name: "admin_dashboard"});
-					break;
-				}
-				default: {
-					alert(`Unknown login redirection: ${this.selected}`)
-				}
+			} catch (_) {
+			}
+		}
+	},
+	watch: {
+		loggedInUser(newValue, _) {
+			if (newValue) {
+				this.redirectUser(newValue.role || newValue.userType);
 			}
 		}
 	},
