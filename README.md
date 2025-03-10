@@ -25,6 +25,11 @@ PROD=false# Ou 'true' en production, mais c'est évident
 
 # Utilisé par l'ORM 'Prisma'
 DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
+
+MAIL_ADDRESS="<EMAIL>"
+MAIL_PASSWORD="<MOT_DE_PASSE_SPECIAL>"
+
+SECRET="<SECRET_POUR_LES_TOKENS>"
 ```
 
 Structure du fichier `frontend/.env`:
