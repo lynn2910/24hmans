@@ -208,6 +208,8 @@ router.get("/:karting_id/", async (req, res) => {
  * /karting/{karting_id}/circuit:
  *   post:
  *     summary: "Create Circuit for Karting"
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Karting
  *     description: "Creates a new circuit for a specific karting."
@@ -365,6 +367,8 @@ router.get("/:karting_id/circuit/:circuit_id", async (req, res) => {
  * /karting/{karting_id}/circuit/{circuit_id}:
  *   patch:
  *     summary: Update Circuit Details
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Karting
  *     description: Updates details of a specific circuit for a given karting.
@@ -424,6 +428,8 @@ router.get("/:karting_id/circuit/:circuit_id", async (req, res) => {
  *
  *   delete:
  *     summary: Delete Circuit
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Karting
  *     description: Deletes a specific circuit for a given karting.
@@ -547,6 +553,8 @@ createRule("/karting/:karting_id/circuit/:circuit_id", [Method.PATCH, Method.DEL
  *                 message: "Error message details"
  *   post:
  *     summary: Create a Karting Session
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Karting
  *     description: Creates a new session slot for a specific karting.
@@ -648,6 +656,8 @@ router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => 
  * /karting/{karting_id}/sessions/{session_id}:
  *   patch:
  *     summary: Update a Karting Session
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Karting
  *     description: Updates an existing session slot for a specific karting.
@@ -726,6 +736,8 @@ router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => 
  *     summary: Delete a Karting Session
  *     tags:
  *       - Karting
+ *     security:
+ *       - bearerAuth: []
  *     description: Deletes an existing session slot for a specific karting.
  *     parameters:
  *       - in: path
@@ -815,6 +827,8 @@ createRule("/karting/:karting_id/sessions/:session_id", [Method.PATCH, Method.DE
  * /karting/{karting_id}/sessions/{session_id}/register:
  *   post:
  *     summary: Register for a Karting Session
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Karting
  *     description: Registers the authenticated user for a specific karting session.
