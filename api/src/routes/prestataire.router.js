@@ -125,6 +125,8 @@ routerPresta.get(
  * /prestataire/{prestataire_id}:
  *   patch:
  *     summary: Update Prestataire
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Prestataire
  *     description: Updates the information of a prestataire.
@@ -223,6 +225,8 @@ routerPresta.get(
  *                   description: The error message.
  *   delete:
  *     summary: Delete a Prestataire
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Prestataire  # Or a more specific tag if you have one
  *     description: Deletes a specific prestataire. Requires admin privileges.
@@ -432,6 +436,8 @@ routerPresta.get(
  *   post:
  *     tags:
  *       - Prestataire
+ *     security:
+ *       - bearerAuth: []
  *     summary: Créer un lien pour un prestataire
  *     description: Cette méthode crée un nouveau lien pour un prestataire, en utilisant le nom du prestataire et les données du lien.
  *     parameters:
@@ -518,6 +524,8 @@ routerPresta.post(
  *   patch:
  *     tags:
  *       - Prestataire
+ *     security:
+ *       - bearerAuth: []
  *     summary: Mettre à jour un lien d'un prestataire
  *     description: Cette méthode met à jour partiellement un lien spécifique associé à un prestataire, en utilisant le nom du prestataire et l'ID du lien.
  *     parameters:
@@ -628,6 +636,8 @@ routerPresta.patch(
  * @swagger
  * /prestataire/{prestataire_name}/link/{link_id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Prestataire
  *     summary: Supprimer un lien associé à un prestataire
