@@ -1,5 +1,4 @@
 const express = require("express");
-const {login, logout, signupUser} = require("../services/auth.service");
 const authController = require("../controllers/auth.controller");
 const router = express.Router();
 
@@ -68,18 +67,10 @@ const router = express.Router();
  *                   type: string
  *                   description: The error message
  */
-// router.post('/login', async (req, res) => {
-//     login(req.body?.login, req.body?.password, req.body?.userType)
-//         .then((answer) => res.status(200).json(answer))
-//         .catch(({reject}) => {
-//             if (reject) res.status(400).json({code: "LOGIN_INVALID", message: "The login is invalid"})
-//             else res.status(500).json({code: "INTERNAL_ERROR", message: "An error occurred"})
-//         })
-// })
 router.post("/login", authController.login)
 
 /**
- * @swagger
+ * @ swagger
  * /auth/logout:
  *   post:
  *     summary: Logout API
@@ -110,14 +101,14 @@ router.post("/login", authController.login)
  *                   type: string
  *                   description: The error message
  */
-router.post("/logout", async (req, res) => {
-    logout(req.body?.sessionId)
-        .then(() => res.status(202).send())
-        .catch((err) => {
-            console.error(err);
-            res.status(500).json({message: "An error occurred"})
-        })
-})
+// router.post("/logout", async (req, res) => {
+//     logout(req.body?.sessionId)
+//         .then(() => res.status(202).send())
+//         .catch((err) => {
+//             console.error(err);
+//             res.status(500).json({message: "An error occurred"})
+//         })
+// })
 
 /**
  * @swagger
@@ -181,28 +172,6 @@ router.post("/logout", async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-// router.post("/signup", async (req, res) => {
-//     if (
-//         !req.body || typeof req.body !== 'object'
-//         || Array.isArray(req.body)
-//         || ['email', 'first_name', 'last_name', 'password'].some(k => !(k in req.body))
-//     ) {
-//         res.status(400).json({message: "Invalid body"});
-//         return;
-//     }
-//
-//     signupUser(
-//         req.body.email,
-//         req.body.first_name,
-//         req.body.last_name,
-//         req.body.password
-//     )
-//         .then((data) => res.status(200).json(data))
-//         .catch(({status, message}) => {
-//             res.status(status).json({message});
-//         })
-// })
 router.post('/signup', authController.register);
-
 
 module.exports = router;
