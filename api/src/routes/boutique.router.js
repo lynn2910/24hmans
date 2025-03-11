@@ -155,13 +155,8 @@ routerBoutique.get("/available_shops", (req, res) => {
  *         schema:
  *           type: string
  *         description: The ID of the shop.
- *       - in: query
- *         name: token
- *         required: true
- *         example: "HVpYuVywN4"
- *         description: Session ID for authentication
- *         schema:
- *           type: string
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -288,13 +283,8 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
  *         example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
  *         schema:
  *           type: string
- *       - in: query
- *         name: token
- *         required: true
- *         example: "HVpYuVywN4"
- *         description: Session ID for authentication
- *         schema:
- *           type: string
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Boutique
  *     requestBody:
@@ -362,6 +352,8 @@ createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method
  *              type: string
  *      patch:
  *          summary: "Update the label of a category"
+ *          security:
+ *              - bearerAuth: []
  *          tags:
  *              - Boutique
  *          parameters:
@@ -410,6 +402,8 @@ createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method
  *                 description: "Internal Server Error - Unexpected error during category update"
  *      delete:
  *          summary: Delete a category from the shop
+ *          security:
+ *              - bearerAuth: []
  *          tags:
  *              - Boutique
  *          parameters:
@@ -532,7 +526,6 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
     )
 })
 
-
 /**
  * @swagger
  * /boutique/{shop_id}/items/{item_id}/:
@@ -571,10 +564,97 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *                              properties:
  *                                  message:
  *                                      type: string
+ */
+
+/**
+ * @swagger
+ * /boutique/{shop_id}/items:
+ *   post:
+ *     summary: Create a Shop Item
+ *     tags:
+ *       - Boutique
+ *     description: Creates a new item for a specific shop. Requires prestataire privileges.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: shop_id
+ *         example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the shop.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The name of the item.
+ *                 example: "T-Shirt"
+ *               price:
+ *                 type: number
+ *                 description: The price of the item.
+ *                 example: 29.99
+ *               stock:
+ *                 type: integer
+ *                 description: The stock quantity of the item.
+ *                 example: 100
+ *               category_id:
+ *                 type: string
+ *                 format: uuid
+ *                 description: The ID of the category the item belongs to.
+ *                 example: "be2cff03-7d12-4369-acff-037d12a36993"
+ *             required:
+ *               - name
+ *               - price
+ *               - category_id
+ *     responses:
+ *       200:
+ *         description: Shop item created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ShopItem'  # Or a simplified version
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *                   example: "Error message details"
+ */
+
+/**
+ * @swagger
+ * /boutique/{shop_id}/items/{item_id}/:
+ *      parameters:
+ *          - in: path
+ *            name: shop_id
+ *            required: true
+ *            description: "L'ID de la boutique"
+ *            example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
+ *            schema:
+ *              type: string
+ *          - in: path
+ *            name: item_id
+ *            example: 2
+ *            required: true
+ *            description: "L'ID de l'article ou son identifiant de référencement"
+ *            schema:
+ *              type: string
  *      patch:
  *          tags:
  *              - Boutique
  *          summary: "Update the fields of an article"
+ *          security:
+ *              - bearerAuth: []
  *          parameters:
  *              - in: query
  *                name: token
@@ -647,6 +727,8 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          tags:
  *              - Boutique
  *          summary: "Delete a specific article"
+ *          security:
+ *              - bearerAuth: []
  *          parameters:
  *              - in: query
  *                name: token
@@ -686,68 +768,6 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
     )
 })
 
-/**
- * @swagger
- * /boutique/{shop_id}/items:
- *   post:
- *     summary: Create a Shop Item
- *     tags:
- *       - Boutique
- *     description: Creates a new item for a specific shop. Requires prestataire privileges.
- *     parameters:
- *       - in: path
- *         name: shop_id
- *         example: "867fb638-7cb1-4228-a643-5c4f352f44b1"
- *         required: true
- *         schema:
- *           type: string
- *         description: The ID of the shop.
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: The name of the item.
- *                 example: "T-Shirt"
- *               price:
- *                 type: number
- *                 description: The price of the item.
- *                 example: 29.99
- *               stock:
- *                 type: integer
- *                 description: The stock quantity of the item.
- *                 example: 100
- *               category_id:
- *                 type: string
- *                 format: uuid
- *                 description: The ID of the category the item belongs to.
- *                 example: "be2cff03-7d12-4369-acff-037d12a36993"
- *             required:
- *               - name
- *               - price
- *               - category_id
- *     responses:
- *       200:
- *         description: Shop item created successfully.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ShopItem'  # Or a simplified version
- *       500:
- *         description: Internal server error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: The error message.
- *                   example: "Error message details"
- */
 routerBoutique.post("/:shop_id/items/", prestataireMiddleware, async (req, res) => {
     BoutiqueService.createItem(
         req.params.shop_id,
