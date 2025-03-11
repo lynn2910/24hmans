@@ -7,14 +7,14 @@ const anyLoginMiddleware = require("../middlewares/any.middleware");
 const router = new (require("express").Router)();
 
 /**
- * @swagger
+ * @ swagger
  * tags:
  *   - name: CDN
  *     description: Gestion des fichiers CDN
  */
 
 /**
- * @swagger
+ * @ swagger
  * /cdn/{id}:
  *   get:
  *     summary: Récupérer un fichier CDN
@@ -36,7 +36,7 @@ const router = new (require("express").Router)();
  */
 
 /**
- * @swagger
+ * @ swagger
  * /cdn/{id}:
  *   post:
  *     summary: Upload un fichier vers le CDN
