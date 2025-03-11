@@ -1,12 +1,8 @@
-const { Router } = require("express");
-const uuid = require("uuid").v4;
+const {Router} = require("express");
 const EcurieService = require("../services/ecurie.service");
 
 const routerEcurie = new Router();
-const prestataireMiddleware = require("../middlewares/prestataire.middleware");
-const UserMiddleware = require("../middlewares/user.middleware");
-const {registerWinner, registerWinners} = require("../services/ecurie.service");
-
+const {registerWinners} = require("../services/ecurie.service");
 
 
 /**
@@ -14,6 +10,8 @@ const {registerWinner, registerWinners} = require("../services/ecurie.service");
  * /ecurie/{ecurie_id}/participants:
  *   post:
  *     summary: Récupère tous les participants d'une écurie pour une année spécifique
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Participants
  *     parameters:
@@ -67,29 +65,26 @@ const {registerWinner, registerWinners} = require("../services/ecurie.service");
  *         description: Erreur serveur
  */
 routerEcurie.post('/:ecurie_id/participants', async (req, res) => {
-    const { ecurie_id } = req.params;
-    const { year } = req.body;
+    const {ecurie_id} = req.params;
+    const {year} = req.body;
 
     if (!year || typeof year !== 'number') {
-        return res.status(400).json({ message: 'Veuillez fournir une année valide.' });
+        return res.status(400).json({message: 'Veuillez fournir une année valide.'});
     }
 
     try {
         const participants = await EcurieService.getParticipants(ecurie_id, year);
 
         if (participants.length === 0) {
-            return res.status(404).json({ message: 'Aucun participant trouvé pour cette écurie et cette année.' });
+            return res.status(404).json({message: 'Aucun participant trouvé pour cette écurie et cette année.'});
         }
 
         res.status(200).json(participants);
     } catch (error) {
         console.error("Erreur dans la récupération des participants :", error);
-        res.status(500).json({ message: 'Erreur serveur, impossible de récupérer les participants.' });
+        res.status(500).json({message: 'Erreur serveur, impossible de récupérer les participants.'});
     }
 });
-
-
-
 
 
 /**
@@ -97,6 +92,8 @@ routerEcurie.post('/:ecurie_id/participants', async (req, res) => {
  * /ecurie/{ecurie_id}/participants:
  *   delete:
  *     summary: Supprime tous les participants d'une écurie
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - Participants
  *     parameters:
@@ -116,15 +113,15 @@ routerEcurie.post('/:ecurie_id/participants', async (req, res) => {
 
 // Route pour supprimer tous les participants d'une écurie
 routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
-    const { ecurie_id } = req.params;
+    const {ecurie_id} = req.params;
 
     try {
         await EcurieService.deleteParticipants(ecurie_id);
 
-        res.status(200).json({ message: "Tous les participants ont été supprimés avec succès." });
+        res.status(200).json({message: "Tous les participants ont été supprimés avec succès."});
     } catch (error) {
         console.error("Erreur dans la suppression des participants :", error);
-        res.status(500).json({ message: "Erreur serveur, impossible de supprimer les participants." });
+        res.status(500).json({message: "Erreur serveur, impossible de supprimer les participants."});
     }
 });
 
@@ -135,6 +132,8 @@ routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
  *     summary: Sélectionne 10 gagnants aléatoires parmi les participants d'une écurie, les enregistre et envoie un email aux gagnants et aux participants sélectionnés.
  *     tags:
  *       - Participants
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - name: ecurie_id
  *         in: path
@@ -151,21 +150,21 @@ routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
  *         description: Erreur serveur.
  */
 routerEcurie.post('/:ecurie_id/winner', async (req, res) => {
-    const { ecurie_id } = req.params;
+    const {ecurie_id} = req.params;
 
     try {
         const participants = await EcurieService.getRandomParticipants(ecurie_id);
         if (participants.length < 10) {
-            return res.status(404).json({ message: "Pas assez de participants pour sélectionner 10 gagnants." });
+            return res.status(404).json({message: "Pas assez de participants pour sélectionner 10 gagnants."});
         }
         const winners = participants.sort(() => Math.random() - 0.5).slice(0, 10);
 
         await registerWinners(winners, ecurie_id);
 
-        res.status(200).json({ message: "Les gagnants ont été sélectionnés et notifiés." });
+        res.status(200).json({message: "Les gagnants ont été sélectionnés et notifiés."});
     } catch (error) {
         console.error("Erreur lors de la sélection des gagnants :", error);
-        res.status(500).json({ message: "Erreur serveur, impossible d'enregistrer les gagnants." });
+        res.status(500).json({message: "Erreur serveur, impossible d'enregistrer les gagnants."});
     }
 });
 
