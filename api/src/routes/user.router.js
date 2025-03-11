@@ -201,6 +201,8 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *   post:
  *     tags:
  *       - User
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new order
  *     description: Creates a new order for the authenticated user.
  *     parameters:
@@ -394,6 +396,8 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  * @swagger
  * /users/@me/karting:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get User Karting Reservations
  *     tags: [User]
  *     parameters:
@@ -422,6 +426,8 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *               $ref: '#/components/schemas/Error'
  * /users/@me/karting/{reservation_id}:
  *   patch:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Update User Karting Reservation
  *     tags: [User]
  *     description: Updates a specific karting reservation for the authenticated user (e.g., updates the pseudo).
@@ -470,6 +476,8 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Delete a User Karting Reservation
  *     tags: [User]
  *     description: Deletes a specific karting reservation for the authenticated user.
