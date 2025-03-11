@@ -157,19 +157,6 @@ model UserOrderArticle {
 
 //
 //
-//    SESSIONS (système d'authentification)
-//
-//
-
-model Sessions {
-  token     String   @id @db.Char(10)
-  userType  Int // Either 'user', 'presta' or 'admin'
-  userId    String   @db.Char(36)
-  createdAt DateTime @default(now())
-}
-
-//
-//
 //    CARTE INTERACTIVE
 //
 //
