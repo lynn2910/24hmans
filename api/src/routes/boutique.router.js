@@ -342,14 +342,6 @@ createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method
 /**
  * @swagger
  * /boutique/{shop_id}/categories/{category_id}:
- *      parameters:
- *          - in: query
- *            name: token
- *            example: "HVpYuVywN4"
- *            required: true
- *            description: Session ID for authentication
- *            schema:
- *              type: string
  *      patch:
  *          summary: "Update the label of a category"
  *          security:
@@ -655,14 +647,6 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          summary: "Update the fields of an article"
  *          security:
  *              - bearerAuth: []
- *          parameters:
- *              - in: query
- *                name: token
- *                example: "HVpYuVywN4"
- *                required: true
- *                description: Session ID for authentication
- *                schema:
- *                  type: string
  *          requestBody:
  *            required: true
  *            content:
@@ -729,14 +713,6 @@ routerBoutique.get("/:shop_id/items", (req, res) => {
  *          summary: "Delete a specific article"
  *          security:
  *              - bearerAuth: []
- *          parameters:
- *              - in: query
- *                name: token
- *                example: "HVpYuVywN4"
- *                required: true
- *                description: Session ID for authentication
- *                schema:
- *                  type: string
  *          responses:
  *              200:
  *                  description: "The deleted article"

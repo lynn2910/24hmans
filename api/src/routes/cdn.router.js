@@ -41,14 +41,11 @@ const router = new (require("express").Router)();
  *   post:
  *     summary: Upload un fichier vers le CDN
  *     tags: [CDN]
+ *     security:
+ *       - bearerAuth: []
  *     consumes:
  *       - multipart/form-data
  *     parameters:
- *       - in: query
- *         name: token
- *         required: true
- *         description: "Session ID"
- *         example: "HVpYuVywN4"
  *       - in: path
  *         name: id
  *         schema:

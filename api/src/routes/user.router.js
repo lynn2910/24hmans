@@ -108,14 +108,6 @@ const {authenticateToken} = require("../middlewares/auth.middleware");
  *     summary: Get Current User Information
  *     tags: [User]
  *     description: Retrieves information about the currently authenticated user.
- *     parameters:
- *       - in: query
- *         name: token
- *         schema:
- *           example: "sdkhd4Kcr8"
- *           type: string
- *         required: true
- *         description: The session ID of the authenticated user.
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -155,14 +147,6 @@ router.get('/@me', authenticateToken, async (req, res) => {
  *     tags:
  *       - User
  *     description: Retrieves a list of orders for the currently authenticated user.
- *     parameters:
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         required: true
- *         description: The session ID of the authenticated user.
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -205,14 +189,6 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *       - bearerAuth: []
  *     summary: Create a new order
  *     description: Creates a new order for the authenticated user.
- *     parameters:
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         required: true
- *         description: The session ID of the authenticated user.
  *     requestBody:
  *       required: true
  *       content:
@@ -368,7 +344,7 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *         - from
  *         - to
  *         - maxSize
- *     Circuit:  # Example Circuit schema - MUST be defined
+ *     Circuit:
  *       type: object
  *       properties:
  *         id:
@@ -379,7 +355,6 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *           type: string
  *           description: The name of the circuit.
  *           example: "Monza"
- *         # ... other circuit properties
  *       required:
  *         - id
  *         - name
@@ -400,14 +375,6 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *       - bearerAuth: []
  *     summary: Get User Karting Reservations
  *     tags: [User]
- *     parameters:
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         required: true
- *         description: The session ID of the authenticated user.
  *     description: Retrieves all karting reservations for the authenticated user.
  *     responses:
  *       200:
@@ -439,13 +406,6 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *         schema:
  *           type: string
  *         description: The ID of the reservation to update.
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         required: true
- *         description: The session ID of the authenticated user.
  *     requestBody:
  *       content:
  *         application/json:
@@ -489,13 +449,6 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *         schema:
  *           type: string
  *         description: The ID of the reservation to delete.
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         required: true
- *         description: The session ID of the authenticated user.
  *     responses:
  *       200:
  *         description: User karting reservation deleted successfully.

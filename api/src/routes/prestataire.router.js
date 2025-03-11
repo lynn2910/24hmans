@@ -133,12 +133,6 @@ routerPresta.get(
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: query
- *         name: token
- *         example: "HVpYuVywN4"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *       - in: path
  *         name: prestataire_id
  *         required: true
@@ -448,13 +442,6 @@ routerPresta.get(
  *         example: "45309281-fc24-4e02-ad47-a275c64f5327"
  *         schema:
  *           type: string
- *       - in: query
- *         name: token
- *         required: true
- *         description: Session ID for authentication
- *         example: "HVpYuVywN4"
- *         schema:
- *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -543,13 +530,6 @@ routerPresta.post(
  *         example: 1
  *         schema:
  *           type: integer
- *       - in: query
- *         name: token
- *         required: true
- *         description: Session ID for authentication
- *         example: "HVpYuVywN4"
- *         schema:
- *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -657,13 +637,6 @@ routerPresta.patch(
  *         example: 1
  *         schema:
  *           type: integer
- *       - in: query
- *         name: token
- *         required: true
- *         example: "HVpYuVywN4"
- *         description: Session ID for authentication
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         description: Lien supprimé avec succès

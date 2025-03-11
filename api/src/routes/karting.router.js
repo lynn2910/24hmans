@@ -93,13 +93,6 @@ const {
  *     tags:
  *       - Karting
  *     description: Retrieves a list of available kartings.
- *     parameters:
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *     responses:
  *       200:
  *         description: List of available kartings retrieved successfully.
@@ -145,12 +138,6 @@ router.get("/available", async (req, res) => {
  *         schema:
  *           type: string
  *         description: The ID of the karting.
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *     responses:
  *       200:
  *         description: Karting details retrieved successfully.
@@ -214,12 +201,6 @@ router.get("/:karting_id/", async (req, res) => {
  *       - Karting
  *     description: "Creates a new circuit for a specific karting."
  *     parameters:
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *       - in: path
  *         name: karting_id
  *         required: true
@@ -312,12 +293,6 @@ router.post("/:karting_id/circuit", prestataireMiddleware, async (req, res) => {
  *         schema:
  *           type: string
  *         description: The ID of the circuit.
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *     responses:
  *       200:
  *         description: Circuit details retrieved successfully.
@@ -566,12 +541,6 @@ createRule("/karting/:karting_id/circuit/:circuit_id", [Method.PATCH, Method.DEL
  *         schema:
  *           type: string
  *         description: The ID of the karting.
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *     requestBody:
  *       content:
  *         application/json:
@@ -676,12 +645,6 @@ router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => 
  *         schema:
  *           type: string
  *         description: The ID of the session.
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *     requestBody:
  *       content:
  *         application/json:
@@ -754,12 +717,6 @@ router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => 
  *         schema:
  *           type: string
  *         description: The ID of the session.
- *       - in: query
- *         name: token
- *         example: "sdkhd4Kcr8"
- *         schema:
- *           type: string
- *         description: The session ID of the authenticated prestataire.
  *     responses:
  *       200:
  *         description: Session slot deleted successfully.
