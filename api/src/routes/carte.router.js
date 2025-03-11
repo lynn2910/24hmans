@@ -176,6 +176,8 @@ routerCarte.get("/shapes", async (req, res) => {
  *     tags:
  *       - Carte
  *     summary: "Ajoute une nouvelle zone"
+ *     security:
+ *       - bearerAuth: []
  *     description: "Permet d'ajouter une nouvelle zone en fournissant ses informations complètes, telles que les coordonnées, le nom, la logistique, la surface, la description, le fournisseur, le service et la catégorie."
  *     requestBody:
  *       required: true
@@ -480,6 +482,8 @@ routerCarte.get("/shapes/:id", async (req, res) => {
  *   delete:
  *     tags:
  *       - Carte
+ *     security:
+ *       - bearerAuth: []
  *     summary: "Supprime une zone par son identifiant"
  *     description: "Permet de supprimer une zone en fournissant son identifiant unique (shape_id)."
  *     parameters:
@@ -570,6 +574,8 @@ routerCarte.delete("/shapes/:id", async (req, res) => {
  *   put:
  *     tags:
  *       - Carte
+ *     security:
+ *       - bearerAuth: []
  *     summary: "Met à jour une zone existante"
  *     description: "Permet de mettre à jour une zone avec de nouvelles informations. Les coordonnées peuvent être mises à jour si fournies."
  *     parameters:
