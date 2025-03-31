@@ -119,9 +119,18 @@
     }
   },
   "login": {
+    "title": "Connexion",
+    "login": {
+      "title": "Identifiant",
+      "email": "Email"
+    },
     "password": {
+      "title": "Mot de passe",
       "placeholder": "mot de passe"
-    }
+    },
+    "login_btn": "Se connecter",
+    "register_link": "Je n'ai pas encore de comptes",
+    "invalid": "Identifiant ou mot de passe invalide"
   },
   "cart": {
     "title": "Votre panier",
