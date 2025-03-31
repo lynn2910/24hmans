@@ -146,6 +146,11 @@
           "access": {
             "public": "Accessible au public",
             "text": "Ce paramètre permet de contrôler la visibilité de la boutique aux yeux du publique."
+          },
+          "tabs": {
+            "settings": "Paramètres généraux",
+            "items": "Articles",
+            "categories": "Catégories"
           }
         }
       },
