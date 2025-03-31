@@ -104,7 +104,7 @@
 									style="fill: #394240"/>
 						</g>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t("dashboards.presta_admin.shop") }}</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t("dashboards.presta_admin.shop.name") }}</h2>
 				</router-link>
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"

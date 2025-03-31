@@ -4,6 +4,6 @@ import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/Pre
 
 <template>
 	<PrestataireDashboardTemplate current-page="home">
-		<p>Je suis un dashboard</p>
+		<p>{{ $t('dashboards.presta_admin.presta_home.hello') }}</p>
 	</PrestataireDashboardTemplate>
 </template>

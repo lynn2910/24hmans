@@ -101,7 +101,7 @@
     },
     "profile": "Mon profil",
     "presta_admin": {
-      "shop": "Boutique",
+      "shop_name": "Boutique",
       "kart": "Karting",
       "tickets": "Billeterie",
       "ecuries": "Visites des écuries",
@@ -119,6 +119,7 @@
         "category": "Catégorie"
       },
       "shop": {
+        "name": "Boutique",
         "articles": {
           "title": "Liste des articles",
           "no_article": "Aucun article à afficher",
@@ -154,6 +155,21 @@
           }
         }
       },
+      "presta_home": {
+        "hello": "Je suis un dashboard"
+      },
+      "karting": {
+        "name": "Karting"
+      },
+      "tickets_obj": {
+        "name": "Billetterie"
+      },
+      "ecuries_obj": {
+        "name": "Visites de garage"
+      },
+      "montgolfieres": {
+        "name": "Montgolfières"
+      },
       "prestataires": {
         "copy_success": "Vous avez copié avec succès les prestataires",
         "delete": {
@@ -166,6 +182,7 @@
     "presta_multi": "Prestataires",
     "available_services": "Services disponibles",
     "statistics": {
+      "not_available": "Les statistiques pour la catégorie <strong>{activeTab}</strong>s ne sont pas encore disponibles.",
       "shop": {
         "clients": "clients",
         "benef": "de bénéfices",
