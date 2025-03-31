@@ -1,6 +1,9 @@
 {
   "hello": "Bonjour",
   "name": "24 Heures du Mans",
+  "presta": "Prestataire",
+  "user": "Utilisateur",
+  "admin": "Administrateur",
   "home": {
     "dates": "11 AU 15 JUIN 2025",
     "title": "24h du Mans, prenez le départ du plus grand évènement automobile de France",
@@ -202,8 +205,10 @@
     },
     "password": {
       "title": "Mot de passe",
-      "placeholder": "mot de passe"
+      "placeholder": "mot de passe",
+      "confirm_password": "Confirmer le mot de passe"
     },
+    "signup": "Créer le compte",
     "login_btn": "Se connecter",
     "register_link": "Je n'ai pas encore de comptes",
     "invalid": "Identifiant ou mot de passe invalide"
@@ -302,7 +307,10 @@
         "title": "Inscription au tirage au sort",
         "lastname": "Nom :",
         "firstname": "Prénom :",
+        "firstname_simple": "Prénom",
+        "family_name": "Nom de famille",
         "email": "E-mail :",
+        "email_simple": "Email",
         "phone": "Téléphone :",
         "ticket_number": "Numéro de billet :"
       }

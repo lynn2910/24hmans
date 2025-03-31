@@ -105,7 +105,7 @@
 									style="fill: #394240"/>
 						</g>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t('dashboards.presta_admin.shop') }}</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t('dashboards.presta_admin.shop.name') }}</h2>
 				</div>
 				<!-- :to="`/admin/panel/panel/service/karting`" -->
 				<div
