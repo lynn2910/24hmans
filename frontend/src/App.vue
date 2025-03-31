@@ -8,16 +8,17 @@
 		<router-view/>
 
 		<!-- Santa is here -->
-		<Snow :radius="[1.0, 4.5]" :snow-amount="500" :speed="[0.5,2.5]"></Snow>
+		<SakuraBlossom :radius="[10.0, 40.5]" :flowers-amount="125" :speed="[0.5,1.5]"
+									 :rotation="[-7, 8]"></SakuraBlossom>
 	</div>
 </template>
 <script lang="ts">
 import NavbarComponent from "@/components/navigation/navbar/NavbarComponent.vue";
-import Snow from "@/components/Snow.vue";
 import {mapActions} from "vuex";
+import SakuraBlossom from "@/components/SakuraBlossom.vue";
 
 export default {
-	components: {NavbarComponent, Snow},
+	components: {SakuraBlossom, NavbarComponent},
 	methods: {
 		...mapActions('login', ['getInformations']),
 	},
