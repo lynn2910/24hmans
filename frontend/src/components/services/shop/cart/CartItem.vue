@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import {transformPrestataireName} from "@/utils"
 import {mapActions} from "vuex";
 
 export default {
@@ -78,7 +77,6 @@ export default {
 	},
 	methods: {
 		...mapActions('prestataire/boutique', ['getCarts']),
-		transformPrestataireName
 	},
 	computed: {
 		isInvalid() {

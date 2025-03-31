@@ -1,15 +1,3 @@
-<!--
-
-From
-
-https://uiverse.io/PriyanshuGupta28/ordinary-ape-65
-
-By
-
-Priyanshu Gupta
-
--->
-
 <style scoped>
 .checkbox-wrapper-51 input[type="checkbox"] {
 	visibility: hidden;
@@ -85,7 +73,6 @@ Priyanshu Gupta
 <template>
 	<div class="checkbox-wrapper-51">
 		<input id="cbx-51" type="checkbox" v-bind:checked="value" @change="$emit('change')">
-		<!-- L'avantage d'un toggle, on a pas besoin de passer de valeurs :)-->
 		<label class="toggle" for="cbx-51">
       <span>
         <svg viewBox="0 0 10 10" height="10px" width="10px">

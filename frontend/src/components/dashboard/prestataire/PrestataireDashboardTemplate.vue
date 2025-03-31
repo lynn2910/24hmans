@@ -17,7 +17,7 @@
 								d="M18.9995 6.01542V19H31.9841C31.9884 17.2937 31.6554 15.6033 31.0044 14.026C30.3534 12.4487 29.3971 11.0156 28.1905 9.80902C26.9839 8.60244 25.5508 7.64617 23.9735 6.99514C22.3963 6.34411 20.7059 6.01116 18.9995 6.01542Z"
 								style="fill: #fff"/>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Dashboard</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t('dashboards.name') }}</h2>
 
 					<div v-if="currentPage === 'home'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
@@ -28,7 +28,7 @@
 								d="M6.49984 30.2498H1.74984C1.32991 30.2498 0.927184 30.083 0.630251 29.7861C0.333319 29.4892 0.166504 29.0864 0.166504 28.6665V15.9998C0.166504 15.5799 0.333319 15.1772 0.630251 14.8803C0.927184 14.5833 1.32991 14.4165 1.74984 14.4165H6.49984C6.91976 14.4165 7.32249 14.5833 7.61942 14.8803C7.91636 15.1772 8.08317 15.5799 8.08317 15.9998V28.6665C8.08317 29.0864 7.91636 29.4892 7.61942 29.7861C7.32249 30.083 6.91976 30.2498 6.49984 30.2498ZM17.5832 30.2498H12.8332C12.4132 30.2498 12.0105 30.083 11.7136 29.7861C11.4167 29.4892 11.2498 29.0864 11.2498 28.6665V1.74984C11.2498 1.32991 11.4167 0.927184 11.7136 0.630251C12.0105 0.333319 12.4132 0.166504 12.8332 0.166504H17.5832C18.0031 0.166504 18.4058 0.333319 18.7028 0.630251C18.9997 0.927184 19.1665 1.32991 19.1665 1.74984V28.6665C19.1665 29.0864 18.9997 29.4892 18.7028 29.7861C18.4058 30.083 18.0031 30.2498 17.5832 30.2498ZM28.6665 30.2498H23.9165C23.4966 30.2498 23.0938 30.083 22.7969 29.7861C22.5 29.4892 22.3332 29.0864 22.3332 28.6665V11.2498C22.3332 10.8299 22.5 10.4272 22.7969 10.1303C23.0938 9.83332 23.4966 9.6665 23.9165 9.6665H28.6665C29.0864 9.6665 29.4892 9.83332 29.7861 10.1303C30.083 10.4272 30.2498 10.8299 30.2498 11.2498V28.6665C30.2498 29.0864 30.083 29.4892 29.7861 29.7861C29.4892 30.083 29.0864 30.2498 28.6665 30.2498Z"
 								style="fill: #fff"/>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Statistiques</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t('dashboards.stats') }}</h2>
 
 					<div v-if="currentPage === 'stats'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
@@ -40,7 +40,7 @@
 						<path
 								d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Mon profil</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t('dashboards.profile') }}</h2>
 
 					<div v-if="currentPage === 'profil'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</div>
@@ -50,13 +50,13 @@
 						<path
 								d="m21.447 6.105-6-3a1 1 0 0 0-.895 0L9 5.882 3.447 3.105A1 1 0 0 0 2 4v13c0 .379.214.725.553.895l6 3a1 1 0 0 0 .895 0L15 18.118l5.553 2.776a.992.992 0 0 0 .972-.043c.295-.183.475-.504.475-.851V7c0-.379-.214-.725-.553-.895zM10 7.618l4-2v10.764l-4 2V7.618zm-6-2 4 2v10.764l-4-2V5.618zm16 12.764-4-2V5.618l4 2v10.764z"></path>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Carte</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t('home.map.short') }}</h2>
 
 					<div v-if="currentPage === 'map'" class="ml-auto w-2 bg-white rounded-2xl"></div>
 				</router-link>
 
 				<!-- Titre "SERVICES" -->
-				<h1 class="uppercase font-bold mt-4 mb-5 text-lg">Services</h1>
+				<h1 class="uppercase font-bold mt-4 mb-5 text-lg">{{ $t('dashboards.services') }}</h1>
 
 				<!-- Liste des services -->
 				<router-link
@@ -104,7 +104,7 @@
 									style="fill: #394240"/>
 						</g>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Boutique</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t("dashboards.presta_admin.shop") }}</h2>
 				</router-link>
 				<router-link
 						class="h-12 flex flex-row align-middle grayscale py-1 px-3 hover:bg-white hover:bg-opacity-10 hover:rounded"
@@ -172,7 +172,7 @@
 									style="fill: #fff"/>
 						</g>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Visites des écuries</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t("dashboards.presta_admin.ecuries") }}</h2>
 				</router-link>
 				<!-- :to="`/prestataire/panel/service/karting`" -->
 				<div class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3 ">
@@ -220,7 +220,7 @@
 									style="fill: #fff"/>
 						</g>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Karting</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t("dashboards.presta_admin.kart") }}</h2>
 				</div>
 				<!-- :to="`/prestataire/panel/service/billeterie`" -->
 				<div class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3">
@@ -254,7 +254,7 @@
 									style="fill: #0F53A8"/>
 						</g>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Billetterie</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t("dashboards.presta_admin.tickets") }}</h2>
 				</div>
 				<!-- :to="`/prestataire/panel/service/montgolfieres`" -->
 				<div class="cursor-not-allowed opacity-50 h-12 flex flex-row align-middle grayscale py-1 px-3">
@@ -301,7 +301,7 @@
 								d="M15.7281 32.5286C15.5018 32.5286 15.332 32.3588 15.332 32.1325V28.8511C15.332 28.6248 15.5018 28.4551 15.7281 28.4551C15.9544 28.4551 16.1241 28.6248 16.1241 28.8511V32.1325C16.1241 32.3023 16.0109 32.5286 15.7281 32.5286ZM20.4805 32.5286C20.2542 32.5286 20.0844 32.3588 20.0844 32.1325V28.8511C20.0844 28.6248 20.2542 28.4551 20.4805 28.4551C20.7068 28.4551 20.8765 28.6248 20.8765 28.8511V32.1325C20.8199 32.3023 20.6502 32.5286 20.4805 32.5286ZM18.1043 32.5286C17.878 32.5286 17.7082 32.3588 17.7082 32.1325V28.8511C17.7082 28.6248 17.878 28.4551 18.1043 28.4551C18.3306 28.4551 18.5003 28.6248 18.5003 28.8511V32.1325C18.5003 32.3023 18.274 32.5286 18.1043 32.5286Z"
 								style="fill: #141515"/>
 					</svg>
-					<h2 class="my-auto pl-3 text-lg font-semibold">Montgolfières</h2>
+					<h2 class="my-auto pl-3 text-lg font-semibold">{{ $t("dashboards.presta_admin.montgols") }}</h2>
 				</div>
 			</div>
 

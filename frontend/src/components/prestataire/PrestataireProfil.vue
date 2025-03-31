@@ -49,7 +49,7 @@ export default {
 		<p class="w-[75%] mx-auto mt-12 mb-16 text-xl" style="white-space: pre-wrap"
 			 v-html="prestataire?.description"></p>
 
-		<h1 class="font-extrabold text-4xl text-center py-4">Services</h1>
+		<h1 class="font-extrabold text-4xl text-center py-4">{{ $t('dashboards.services') }}</h1>
 
 		<!-- Liste des services -->
 		<div v-if="services.length" class="flex justify-center mt-6 my-14">
@@ -79,7 +79,7 @@ export default {
 		<p v-else
 			 class="text-center text-gray-400 text-xl italic mt-4"
 			 style="display: flex; justify-content: center; align-items: center; height: 15vh;">
-			Aucun service...
+			{{ $t('dashboards.no_services') }}
 		</p>
 
 	</div>

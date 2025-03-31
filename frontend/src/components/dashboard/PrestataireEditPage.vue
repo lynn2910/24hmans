@@ -40,10 +40,10 @@
 					<div class="flex flex-row items-center content-center justify-between mt-5">
 						<button class="bg-green-600 hover:bg-green-800 py-2 px-3 rounded mr-5"
 										@click="updateName()">
-							Mettre à jour le nom
+							{{ $t("prestataire_edit") }}
 						</button>
 						<button class="bg-gray-500 hover:bg-gray-800 py-2 px-3 rounded" @click="closeNameEditPopup">
-							Annuler
+							{{ $t('cancel') }}
 						</button>
 					</div>
 
@@ -79,7 +79,7 @@
 					<Popup v-if="showLinkEditPopup" title="Modification d'un lien" @close="closeLinkEditPopup">
 
 						<div class="flex flex-row items-center content-center justify-between">
-							<p class="font-bold mr-5 w-14">Nom</p>
+							<p class="font-bold mr-5 w-14">{{ $t('global.name') }}</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									type="text"
@@ -89,7 +89,7 @@
 									maxlength="64">
 						</div>
 						<div class="flex flex-row items-center content-center justify-between mt-2">
-							<p class="font-bold mr-5 w-14">URL</p>
+							<p class="font-bold mr-5 w-14">{{ $t('global.url') }}</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									type="text"
@@ -103,10 +103,10 @@
 						<div class="flex flex-row items-center content-center justify-between mt-5">
 							<button class="bg-green-600 hover:bg-green-800 py-2 px-3 rounded mr-5"
 											@click="updateLink()">
-								Mettre à jour
+								{{ $t('global.update') }}
 							</button>
 							<button class="bg-gray-500 hover:bg-gray-800 py-2 px-3 rounded" @click="closeLinkEditPopup">
-								Annuler
+								{{ $t('cancel') }}
 							</button>
 						</div>
 
@@ -115,7 +115,7 @@
 					<!-- Create link -->
 					<Popup v-if="showCreateLinkPopup" title="Ajout d'un lien" @close="closeLinkCreatePopup">
 						<div class="flex flex-row items-center content-center justify-between">
-							<p class="font-bold mr-5 w-14">Nom</p>
+							<p class="font-bold mr-5 w-14">{{ $('global.name') }}</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									type="text"
@@ -125,7 +125,7 @@
 									maxlength="64">
 						</div>
 						<div class="flex flex-row items-center content-center justify-between mt-2">
-							<p class="font-bold mr-5 w-14">URL</p>
+							<p class="font-bold mr-5 w-14">{{ $t('global.url') }}</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									type="text"
@@ -140,10 +140,10 @@
 						<div class="flex flex-row items-center content-center justify-between mt-5">
 							<button class="bg-green-600 hover:bg-green-800 py-2 px-3 rounded mr-5"
 											@click="createLink()">
-								Créer le lien
+								{{ $t("prestataire_edit.create_link") }}
 							</button>
 							<button class="bg-gray-500 hover:bg-gray-800 py-2 px-3 rounded" @click="closeLinkEditPopup">
-								Annuler
+								{{ $t("cancel") }}
 							</button>
 						</div>
 					</Popup>
@@ -164,7 +164,7 @@
 							<path
 									d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"></path>
 						</svg>
-						Sauvegarder
+						{{ $t('global.save') }}
 					</button>
 					<button class="py-2 px-3 rounded-3xl bg-gray-500 hover:bg-gray-600 m-2 flex flex-row"
 									@click="setDescription(prestataire.description)">
@@ -174,7 +174,7 @@
 							<path
 									d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219 9.053 9.053 0 0 0-2.43-2.43 8.95 8.95 0 0 0-3.219-1.355 9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053 7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725 7.11 7.11 0 0 1-.644 1.188 7.2 7.2 0 0 1-.858 1.039 7.028 7.028 0 0 1-3.536 1.907 7.13 7.13 0 0 1-2.822 0 6.961 6.961 0 0 1-2.503-1.054 7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034 9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183 9.014 9.014 0 0 0 3.218-1.355 8.886 8.886 0 0 0 1.331-1.099 9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z"></path>
 						</svg>
-						Réinitialiser
+						{{ $t('global.reset') }}
 					</button>
 				</div>
 

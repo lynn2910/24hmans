@@ -86,6 +86,8 @@
     "name": "Tableau de bord",
     "users": "Utilisateurs",
     "stats": "Statistiques",
+    "services": "Services",
+    "no_services": "Aucun service...",
     "client": {
       "go_back_home": "Retourner à la page d'accueil",
       "home": "Page d'accueil",
@@ -94,12 +96,29 @@
       "achats": "Mes achats",
       "deconnect": "Se déconnecter"
     },
+    "profile": "Mon profil",
     "presta_admin": {
       "shop": "Boutique",
       "kart": "Karting",
       "tickets": "Billeterie",
       "ecuries": "Visites des écuries",
       "montgols": "Montgolfières"
+    },
+    "statistics": {
+      "shop": {
+        "clients": "clients",
+        "benef": "de bénéfices",
+        "commands": "commandes",
+        "turnover": "Chiffre d'affaire",
+        "gains_graph": "Argent gagnée en €",
+        "sells_by_ctg": "Répartition des ventes par catégorie de produit",
+        "sells_by_article": "Répartition des ventes par article"
+      }
+    }
+  },
+  "login": {
+    "password": {
+      "placeholder": "mot de passe"
     }
   },
   "cart": {
@@ -107,8 +126,35 @@
     "price": "Prix",
     "resume": "Résumé",
     "ttc": "TTC",
+    "add": "Ajouter au panier",
     "payment": "Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni enregistrée.",
     "make_order": "Payer",
     "stock_rest": "Il ne reste plus que {stock} articles en stock"
+  },
+  "prestataire_edit": {
+    "update": "Mettre à jour le nom",
+    "create_link": "Créer le lien"
+  },
+  "global": {
+    "name": "Nom",
+    "url": "URL",
+    "update": "Mettre à jour",
+    "save": "Sauvegarder",
+    "reset": "Réinitialiser",
+    "next": "Suivant"
+  },
+  "cancel": "Annuler",
+  "services": {
+    "billetterie": {
+      "date_title": "Sélection de la date"
+    },
+    "reserve": "Payer et réserver",
+    "type_billet": {
+      "title": "Type billet"
+    }
+  },
+  "payment": {
+    "title": "Paiement",
+    "warning": "Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni enregistrée."
   }
 }
