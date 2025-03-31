@@ -7,11 +7,10 @@
                     left: `${s.x}px`,
                     height: `${s.radius}px`,
                     width: `${s.radius}px`,
-                    backgroundImage: `url(${sakuraImages[s.type]})`,
+                    backgroundImage: `url(${sakuraImages[s.type].url})`,
                     backgroundSize: 'cover',
                     animationDelay: `${s.delay}s`,
                     transform: `rotate(${s.rotation}deg)`
-
                  }"
 					 class="fixed rounded-full"
 					 style="z-index: 9998; pointer-events: none;"
@@ -92,6 +91,14 @@
 						<input type="number" min="-180" max="180" step="1" v-model="form.rotationMax" class="ml-2 w-14">
 					</div>
 				</div>
+				<div>
+					<h3 class="font-semibold">Probabilités des fleurs</h3>
+					<div class="ml-2" v-for="(image, index) in form.sakuraImages" :key="index">
+						<p>Probabilité fleur {{ index + 1 }} (%)</p>
+						<input type="range" min="0" max="100" step="1" v-model="form.sakuraImages[index].prob">
+						<input type="number" min="0" max="100" step="1" v-model="form.sakuraImages[index].prob" class="ml-2 w-14">
+					</div>
+				</div>
 				<div class="flex flex-row items-center content-center justify-between pr-3 mt-3 w-72">
 					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
 							 class="cursor-pointer"
@@ -123,6 +130,17 @@
 export default {
 	name: "SakuraBlossom",
 	data() {
+
+		const sakuraImagesList = [
+			{url: '/flowers/yellow.png', prob: 2},
+			{url: '/flowers/fish.png', prob: 5},
+			{url: '/flowers/green.png', prob: 2},
+			{url: '/flowers/medium1.png', prob: 23},
+			{url: '/flowers/medium2.png', prob: 23},
+			{url: '/flowers/pink.png', prob: 22},
+			{url: '/flowers/white.png', prob: 23},
+		];
+
 		return {
 			sakuraBlossoms: [],
 			width: window.innerWidth,
@@ -130,12 +148,7 @@ export default {
 			showEditPopup: false,
 			showSakura: true,
 			looping: false,
-			sakuraImages: [
-				'/flowers/medium1.png',
-				'/flowers/medium2.png',
-				'/flowers/pink.png',
-				'/flowers/white.png',
-			],
+			sakuraImages: sakuraImagesList,
 			form: {
 				speedMin: this.speed[0],
 				speedMax: this.speed[1],
@@ -146,6 +159,7 @@ export default {
 				amount: this.flowersAmount,
 				rotationMin: this.rotation[0],
 				rotationMax: this.rotation[1],
+				sakuraImages: sakuraImagesList
 			},
 			applied: {
 				speed: this.speed,
@@ -153,6 +167,7 @@ export default {
 				wind: this.wind,
 				amount: this.flowersAmount,
 				rotation: this.rotation,
+				sakuraImages: sakuraImagesList,
 			}
 		}
 	},
@@ -189,6 +204,17 @@ export default {
 		},
 
 		// SAKURA EDIT
+		getFlowerType() {
+			const rand = Math.random() * 100;
+			let cumulativeProbability = 0;
+			for (let i = 0; i < this.applied.sakuraImages.length; i++) {
+				cumulativeProbability += this.applied.sakuraImages[i].prob;
+				if (rand <= cumulativeProbability) {
+					return i;
+				}
+			}
+			return this.applied.sakuraImages.length - 1;
+		},
 
 		createSakuraBlossoms() {
 			this.sakuraBlossoms = [];
@@ -199,7 +225,7 @@ export default {
 					radius: this.getRandom(...this.applied.radius),
 					speed: this.getRandom(...this.applied.speed),
 					wind: this.getRandom(...this.applied.wind),
-					type: Math.floor(Math.random() * this.sakuraImages.length),
+					type: this.getFlowerType(),
 					delay: Math.random(),
 					rotation: 0,
 					rotationSpeed: this.getRandom(...this.applied.rotation)
@@ -218,16 +244,17 @@ export default {
 		translateSakuraBlossom(sakuraBlossom) {
 			sakuraBlossom.y += sakuraBlossom.speed;
 			sakuraBlossom.x += sakuraBlossom.wind;
-
-			sakuraBlossom.rotation = (sakuraBlossom.rotation + sakuraBlossom.rotationSpeed) % 360
+			sakuraBlossom.rotation = (sakuraBlossom.rotation + sakuraBlossom.rotationSpeed) % 360;
 		},
 		onDown(s) {
-			if (s.y < this.height && (s.x > 0 && s.x < window.innerWidth)) return;
+			if (s.y < this.height && (s.x > -20 && s.x < window.innerWidth + 20)) return;
 
 			s.x = this.getRandom(0, this.width);
 			s.y = this.getRandom(-this.height, 0);
 			s.speed = this.getRandom(...this.applied.speed);
 			s.wind = this.getRandom(...this.applied.wind);
+			s.rotation = 0;
+			s.rotationSpeed = this.getRandom(...this.applied.rotation)
 		},
 		loop() {
 			this.looping = true;
@@ -274,7 +301,7 @@ export default {
 		rotation: {
 			type: Array,
 			default: () => [-10, 10]
-		}
+		},
 	},
 	created() {
 		window.addEventListener("resize", this.documentDimChange);
