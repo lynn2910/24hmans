@@ -118,6 +118,16 @@
         "description_placeholder": "Entrez votre texte ici..",
         "category": "Catégorie"
       },
+      "shop": {
+        "articles": {
+          "title": "Liste des articles",
+          "no_article": "Aucun article à afficher",
+          "create_article": "Création d'un article",
+          "initial_stock": "Stock initial du produit",
+          "selling_price": "Prix de vente",
+          "add_article": "Ajouter l'article"
+        }
+      },
       "prestataires": {
         "copy_success": "Vous avez copié avec succès les prestataires",
         "delete": {
@@ -175,7 +185,11 @@
     "services": "Services",
     "services_lowercase": "services",
     "url": "URL",
+    "stock": "Stock",
+    "price_detailed": "Prix (€)",
+    "description": "Description",
     "update": "Mettre à jour",
+    "category": "Catégorie",
     "save": "Sauvegarder",
     "reset": "Réinitialiser",
     "next": "Suivant",
