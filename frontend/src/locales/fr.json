@@ -22,6 +22,7 @@
     "services": "Découvrez nos <strong>offres de billetterie</strong>, pour garantir votre place lors de cet événement emblématique. Que vous soyez passionné de sport automobile ou simplement curieux de vivre une expérience unique, nos billets vous <strong>donneront accès aux meilleures places</strong> et services pour profiter pleinement des 24 Heures du Mans.",
     "link_to_billetterie": "Lien vers la billetterie",
     "prestataires": {
+      "name": "Prestataires",
       "discover": "Découvrez nos prestataires, qui proposent une large gamme de services pour enrichir <strong>votre expérience</strong>. Chacun d’eux est ravi de partager son savoir-faire et de contribuer à faire de votre événement <strong>un moment inoubliable.</strong>",
       "search_by_name": "Rechercher par nom",
       "filter_by_ctg": "Filtrer par catégorie",
@@ -30,6 +31,7 @@
     },
     "map": {
       "title": "Carte Interactive",
+      "short": "Carte",
       "text": "Retrouvez toutes les informations sur l'événement <strong>grâce à notre carte interactive</strong>. Explorez facilement les lieux, services et points d'intérêt <strong>pour une expérience optimale</strong> sur place."
     }
   },
@@ -81,6 +83,9 @@
     }
   },
   "dashboards": {
+    "name": "Tableau de bord",
+    "users": "Utilisateurs",
+    "stats": "Statistiques",
     "client": {
       "go_back_home": "Retourner à la page d'accueil",
       "home": "Page d'accueil",
@@ -88,6 +93,13 @@
       "karting": "Mes courses",
       "achats": "Mes achats",
       "deconnect": "Se déconnecter"
+    },
+    "presta_admin": {
+      "shop": "Boutique",
+      "kart": "Karting",
+      "tickets": "Billeterie",
+      "ecuries": "Visites des écuries",
+      "montgols": "Montgolfières"
     }
   },
   "cart": {
