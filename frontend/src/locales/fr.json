@@ -134,6 +134,19 @@
           "category_creation": "Création d'une catégorie",
           "category_name_placeholder": "Nom de la catégorie",
           "add_category": "Ajouter la catégorie"
+        },
+        "global_settings": {
+          "shop_online": "La boutique est en ligne",
+          "shop_offline": "La boutique n'est pas en ligne",
+          "watch_shop": "Voir la boutique",
+          "visibility": {
+            "everyone": "Visible pour tous",
+            "only_presta": "Uniquement visible pour vous"
+          },
+          "access": {
+            "public": "Accessible au public",
+            "text": "Ce paramètre permet de contrôler la visibilité de la boutique aux yeux du publique."
+          }
         }
       },
       "prestataires": {
@@ -189,6 +202,7 @@
   },
   "global": {
     "id": "ID",
+    "settings": "Paramètres",
     "name": "Nom",
     "services": "Services",
     "services_lowercase": "services",
