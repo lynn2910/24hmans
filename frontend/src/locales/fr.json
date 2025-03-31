@@ -227,5 +227,114 @@
     "card_number": "Numéro de carte",
     "expiration": "Expiration (mm/yy)",
     "security_code": "Code de sécurité"
+  },
+  "bonuses": {
+    "cgv": {
+      "title": "Conditions générales de ventes de la billeterie",
+      "text": "Lien vers le document PDF :"
+    },
+    "mentions": {
+      "title": "Mentions légales",
+      "editor": {
+        "title": "Éditeur du site",
+        "text": "Ce site est édité par un groupe d'étudiants de <strong>L'Institut Universitaire Technologique de Nord Franche-Comté</strong> dans le cadre d'un projet universitaire.",
+        "responsables": "Les responsables de la publication sont :",
+        "cedric": "Cic",
+        "colin": "COLIN"
+      },
+      "host": {
+        "title": "Hébergeur",
+        "name": "Nom de l'hébergeur :",
+        "address": "Adresse:",
+        "address_line1": "19 avenue du Maréchal Juin",
+        "address_line2": "BP 527",
+        "address_line3": "90016 Belfort cedex"
+      },
+      "intellectual": {
+        "title": "Propriété intellectuelle",
+        "text1": "L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle.",
+        "text2": "Les images et vidéos présentes sur ce site sont la propriété de leurs auteurs respectifs et sont utilisées dans un but strictement informatif et non commercial.",
+        "text3": "Les marques citées sur ce site sont la propriété de leurs détenteurs respectifs. Tous les droits de reproduction sont réservés, y compris les documents téléchargeables et les représentations iconographiques et photographiques.",
+        "text4": "La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite, sauf autorisation expresse du responsable de la publication.",
+        "contact": "Toute personne souhaitant contester l'utilisation d'une image ou d'une vidéo est priée de contacter le responsable de la publication ,",
+        "email": "cedric.colin35@gmail.com"
+      },
+      "personal": {
+        "title": "Donnersonnelles",
+        "link": "Voir la page"
+      },
+      "hyperlinks": {
+        "title": "Liens hypertextes",
+        "text": "Ce site peut contenir des liens hypertextes vers d'autres sites web. Nous ne sommes pas responsables du contenu de ces sites et ne pouvons en garantir la disponibilité."
+      },
+      "warning": {
+        "title": "Avertissement",
+        "text1": "Les informations contenues sur ce site sont fournies à titre indicatif et ne sauraient engager la responsabilité des étudiants",
+        "text2": "Nous nous efforçons de maintenir ce site à jour, mais ne pouvons garantir l'exactitude, la complétude et l'actualité des informations qui y sont diffusées."
+      },
+      "law": {
+        "title": "Loi applicable",
+        "text": "Le présent site est soumis à la loi française. En cas de litige, seuls les tribunaux français seront compétents."
+      }
+    },
+    "personal_data": {
+      "title": "Politique de confidentialité",
+      "introduction": {
+        "title": "1. Introduction",
+        "text": "La présente politique de confidentialité a pour objet de vous informer sur la manière dont nous collectons, utilisons, stockons et protégeons les données personnelles que vous nous fournissez lorsque vous utilisez notre site web."
+      },
+      "data_collection": {
+        "title": "2. Collecte et utilisation des données",
+        "collected_data": "Données collectées :",
+        "collected_data_text": "Nous collectons les données personnelles que vous nous fournissez volontairement lorsque vous interagissez avec notre site (par exemple, votre nom, votre adresse électronique si vous nous contactez). Nous pouvons également collecter des données de navigation grâce à l'utilisation de cookies et de technologies similaires.",
+        "data_use": "Utilisation des données :",
+        "site_functionality": "Fonctionnalité du site :",
+        "site_functionality_text": "Assurer le bon fonctionnement de notre site web et vous fournir les services que vous demandez.",
+        "personalization": "Personnalisation :",
+        "personalization_text": "Améliorer votre expérience utilisateur en mémorisant vos préférences (langue, articles dans le panier, etc.)."
+      },
+      "cookies": {
+        "title": "3. Cookies",
+        "text": "Nous utilisons des cookies fonctionnels pour améliorer votre expérience de navigation. Ces cookies ne collectent aucune donnée personnelle permettant de vous identifier. Vous pouvez à tout moment choisir de désactiver les cookies en modifiant les paramètres de votre navigateur. Toutefois, cette action peut affecter certaines fonctionnalités du site."
+      },
+      "data_storage": {
+        "title": "4. Stockage des données",
+        "text": "Les données personnelles que nous collectons sont stockées sur des serveurs sécurisés situés au sein de l'Union Européenne. Nous conservons vos données personnelles uniquement le temps nécessaire à la réalisation des finalités pour lesquelles elles ont été collectées."
+      },
+      "data_sharing": {
+        "title": "5. Partage des données",
+        "text": "Nous ne partageons, ne vendons ni ne louons vos données personnelles à des tiers."
+      },
+      "data_security": {
+        "title": "6. Sécurité des données",
+        "text": "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données personnelles contre toute perte, altération, destruction ou accès non autorisé."
+      },
+      "your_rights": {
+        "title": "7. Vos droits",
+        "text": "Conformément à la réglementation en vigueur, vous disposez des droits suivants :",
+        "access_right": "Droit d'accès :",
+        "access_right_text": "Vous pouvez demander à accéder aux données personnelles que nous détenons à votre sujet.",
+        "rectification_right": "Droit de rectification :",
+        "rectification_right_text": "Vous pouvez demander à rectifier toute donnée personnelle inexacte.",
+        "erasure_right": "Droit à l'effacement :",
+        "erasure_right_text": "Vous pouvez demander à supprimer vos données personnelles, dans certaines conditions.",
+        "opposition_right": "Droit d'opposition :",
+        "opposition_right_text": "Vous pouvez vous opposer au traitement de vos données personnelles pour certaines finalités.",
+        "limitation_right": "Droit à la limitation :",
+        "limitation_right_text": "Vous pouvez demander à limiter le traitement de vos données personnelles.",
+        "portability_right": "Droit à la portabilité :",
+        "portability_right_text": "Vous pouvez demander à recevoir vos données personnelles dans un format structuré, couramment utilisé et lisible par machine.",
+        "contact_text": "Pour exercer vos droits, veuillez nous contacter à l'adresse suivante :"
+      },
+      "policy_changes": {
+        "title": "8. Modifications de la politique de confidentialité",
+        "text": "Nous nous réservons le droit de modifier la présente politique de confidentialité à tout moment. Toute modification sera effective dès sa publication sur notre site web. "
+      },
+      "contact": {
+        "title": "9. Contact",
+        "text": "Pour toute question relative à la présente politique de confidentialité, vous pouvez nous contacter à l'adresse suivante :"
+      },
+      "edited": "Edité le 8 Janvier 2025 à 16:53 Heure Française"
+    }
   }
 }
