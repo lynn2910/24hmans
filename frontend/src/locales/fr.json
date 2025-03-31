@@ -94,7 +94,9 @@
       "billets": "Mes billets",
       "karting": "Mes courses",
       "achats": "Mes achats",
-      "deconnect": "Se déconnecter"
+      "no_commands": "Vous n'avez passé aucune commande.",
+      "deconnect": "Se déconnecter",
+      "hello": "Bonjour "
     },
     "profile": "Mon profil",
     "presta_admin": {

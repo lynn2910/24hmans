@@ -1,6 +1,6 @@
 <template>
 	<UserDashboardTemplate>
-		<h1 class="text-xl font-bold mb-3">Mes courses</h1>
+		<h1 class="text-xl font-bold mb-3">{{ $t('dashboards.client.karting') }}</h1>
 
 	</UserDashboardTemplate>
 </template>

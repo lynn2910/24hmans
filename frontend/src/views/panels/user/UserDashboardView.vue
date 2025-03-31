@@ -14,6 +14,9 @@ export default defineComponent({
 
 <template>
 	<UserDashboardTemplate>
-		<p>Bonjour <strong>{{ loggedInUser?.first_name }}</strong> {{ loggedInUser?.last_name?.toUpperCase() }}</p>
+		<p>{{ $t('dashboards.client.hello') }}
+			<strong>{{ loggedInUser?.first_name }}</strong>
+			{{ loggedInUser?.last_name?.toUpperCase() }}
+		</p>
 	</UserDashboardTemplate>
 </template>
