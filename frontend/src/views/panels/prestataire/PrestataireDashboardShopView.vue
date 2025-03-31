@@ -88,7 +88,7 @@ export default {
 			if (!res.error) {
 				this.addCategory(res.data.category);
 			} else {
-				console.error(res.data)
+				console.error(res)
 			}
 		}
 	},
