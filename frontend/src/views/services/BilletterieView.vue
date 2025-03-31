@@ -54,7 +54,19 @@
         </div>
         <!-- Résumé -->
         <div class="p-11 border-l border-l-gray-700">
-            <slot name="resume"></slot>
+            <slot name="resume">
+                <p><strong>Type de Billet :</strong> {{ selectedTypeBillet ? selectedTypeBillet.category_label : "Non sélectionné" }}</p>
+
+                <p><strong>Date(s) choisi(s) :</strong>
+                    <span v-if="selectedDates.length">{{ selectedDates.map(date => date.nom).join(", ") }}</span>
+                    <span v-else>Non sélectionnée</span>
+                </p>
+
+                <p><strong>Nombre de personnes :</strong>
+                    <span v-if="selectedPersonnes.length">{{ selectedPersonnes.length }}</span>
+                    <span v-else>Non renseigné</span>
+                </p>
+            </slot>
         </div>
     </div>
 </template>
@@ -94,7 +106,10 @@ export default {
         if (!res.error) {
             this.prestataire = res.data;
 
+            console.log(this.prestataire)
+
             res = await PrestataireService.getAllCategoryTicket(this.prestataire.id);
+            console.log(res)
             if (!res.error) {
                 this.categories = res.data;
             } else {
@@ -125,6 +140,7 @@ export default {
         },
         typeBilletSelected(category) {
             this.selectedTypeBillet = category;
+            console.log(this.selectedTypeBillet)
             this.changeStep(Etape.Date);
         },
         datesSelected(selectedForfaits) {
