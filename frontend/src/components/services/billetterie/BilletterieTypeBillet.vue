@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="text-2xl font-bold my-3">{{ $t('services.type_billet.title') }}</h1>
+		<h1 class="text-2xl font-bold my-3">{{ $t('services.billetterie.type_billet.title') }}</h1>
 		<div>
 			<div v-for="(category, index) in categories" :key="index">
 				<span class="text-white text-lg font-bold cursor-pointer hover:underline"

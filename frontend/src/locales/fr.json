@@ -146,11 +146,11 @@
   "cancel": "Annuler",
   "services": {
     "billetterie": {
-      "date_title": "Sélection de la date"
-    },
-    "reserve": "Payer et réserver",
-    "type_billet": {
-      "title": "Type billet"
+      "date_title": "Sélection de la date",
+      "reserve": "Payer et réserver",
+      "type_billet": {
+        "title": "Type billet"
+      }
     }
   },
   "payment": {

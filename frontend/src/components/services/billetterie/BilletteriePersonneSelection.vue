@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="text-2xl font-bold my-3">{{ $t('services.type_billet.title') }}</h1>
+		<h1 class="text-2xl font-bold my-3">{{ $t('services.billetterie.type_billet.title') }}</h1>
 		<div>
 			<div v-for="(personne, index) in personnes" :key="index" class="mb-3">
                 <span
