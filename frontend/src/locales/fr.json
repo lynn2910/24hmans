@@ -144,7 +144,8 @@
     "save": "Sauvegarder",
     "reset": "Réinitialiser",
     "next": "Suivant",
-    "still": "encore"
+    "still": "encore",
+    "register": "S'inscrire"
   },
   "cancel": "Annuler",
   "services": {
@@ -152,7 +153,18 @@
       "date_title": "Sélection de la date",
       "reserve": "Payer et réserver",
       "type_billet": {
-        "title": "Type billet"
+        "title": "Type billet",
+        "select": "Sélectionner le type de billet"
+      },
+      "select_persons": "Sélectionner les personnes",
+      "date_selection": "Sélectionner les dates",
+      "step": "Étape {n}",
+      "resume": {
+        "type": "Type de billet:",
+        "not_selected": "Non sélectionné",
+        "not_given": "Non renseigné",
+        "dates_selected": "Date(s) choisi(s):",
+        "persons_number": "Nombre de personnes:"
       }
     },
     "shop": {
@@ -176,6 +188,25 @@
         "active_filters": "Filtres actifs"
       },
       "stock_lasting": "{stock} produits restant"
+    },
+    "ecurie": {
+      "title": "Tirage au sort",
+      "rules": {
+        "title": "Règles pour participer au tirage au sort",
+        "one": "Le participant doit être majeur pour participer.",
+        "two": "Un seul billet par participant.",
+        "three": "Les informations fournies doivent être exactes et vérifiables.",
+        "four": "La participation au tirage au sort est ouverte jusqu'au <strong class=\"text-white\">25 juin 2025</strong>.",
+        "five": "Les gagnants seront informés par mail le <strong class=\"text-white\">26 juin 2025</strong>."
+      },
+      "sign": {
+        "title": "Inscription au tirage au sort",
+        "lastname": "Nom :",
+        "firstname": "Prénom :",
+        "email": "E-mail :",
+        "phone": "Téléphone :",
+        "ticket_number": "Numéro de billet :"
+      }
     }
   },
   "payment": {
