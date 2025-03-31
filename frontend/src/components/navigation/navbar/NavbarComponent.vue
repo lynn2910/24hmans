@@ -7,7 +7,7 @@
 		<div
 				class="w-[95%] bg-dark m-auto rounded-full text-white flex flex-row font-semibold space-x-8 px-4 py-1 items-center content-center shadow shadow-white">
 			<router-link :to="{name:'home'}" class="w-1/4">
-				<IconEvent height="30"></IconEvent>
+				<IconEvent height="50"></IconEvent>
 			</router-link>
 
 			<div class="flex flex-row items-center justify-center mr-auto w-3/4 gap-8">
