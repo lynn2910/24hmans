@@ -82,7 +82,7 @@
 							class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 							v-model="creationForm.name"
 							type="text"
-							placeholder="Nom du prestataire"
+							placeholder="Nom de la catégorie"
 							minlength="1">
 				</div>
 

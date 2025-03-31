@@ -13,7 +13,7 @@
 		</div>
 
 		<img src="../assets/images/monument_prefere_francais.png" alt="Monument préféré des français"
-				 class="w-72 h-auto absolute top-[65%] left-10 z-10 drop-shadow-all-white-700">
+				 class="w-72 h-auto absolute top-[65%] left-10 z-10 drop-shadow-all-white-700" loading="lazy">
 
 		<div class="absolute top-[92%] bottom-0 left-0 right-0 rounded-t-3xl h-lvh bg-dark"></div>
 
@@ -27,6 +27,7 @@
 								ref="presentationImg1"
 								class="max-w-md rounded-xl opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
 								src="@/assets/images/presentation1.jpeg"
+								loading="lazy"
 								alt="Présentation 1"
 						>
 					</div>
@@ -55,6 +56,7 @@
 								class="max-w-md rounded-xl opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
 								src="@/assets/images/presentation2.jpeg"
 								alt="Présentation 2"
+								loading="lazy"
 						>
 					</div>
 				</div>
@@ -68,6 +70,7 @@
 								class="max-w-md opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
 								src="@/assets/images/chiffres.png"
 								alt="Chiffres"
+								loading="lazy"
 						>
 					</div>
 					<div class="flex flex-col">
@@ -95,6 +98,7 @@
 								class="max-w-md rounded-xl opacity-0 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg]"
 								src="@/assets/images/tribune.jpg"
 								alt="Tribune"
+								loading="lazy"
 						>
 					</div>
 				</div>
@@ -111,6 +115,7 @@
 								class="max-w-md mx-auto rounded-xl opacity-100 transform transition-all duration-700 ease-in-out hover:scale-105 hover:rotate-[-3deg] group-hover:opacity-50"
 								src="@/assets/images/ticket.png"
 								alt="Ticket"
+								loading="lazy"
 						>
 
 						<!-- Texte qui apparaît au survol -->
@@ -169,7 +174,7 @@
 											 :to="{name:'prestataire_profile', params:{prestataire_name: presta.referencer}}"
 											 class="prestataire-item flex flex-col items-center justify-center text-center p-4 border border-gray-600 rounded shadow-lg
                         transition-all duration-700 ease-in-out transform hover:scale-105 hover:shadow-[0px_0px_15px_2px_white]">
-						<img :src="presta.icon" alt="icon"
+						<img :src="presta.icon" alt="icon" loading="lazy"
 								 class="prestataire-icon w-24 h-24 object-cover my-2 rounded-full"/>
 						<h2 class="prestataire-name text-xl font-bold mt-3">{{ presta.name }}</h2>
 					</router-link>
@@ -188,7 +193,8 @@
 				<CarteInteractivePublic width="1000px" height="550px" borderRadius="16px"/>
 
 				<div class="flex justify-center items-center">
-					<img class="flex" src="@/assets/images/descriptionServices.png" alt="description carte interactive"/>
+					<img class="flex" src="@/assets/images/descriptionServices.png" alt="description carte interactive"
+							 loading="lazy"/>
 				</div>
 
 			</div>
@@ -282,15 +288,13 @@ export default {
 		await store.dispatch("prestataire/getAllPrestataires");
 	},
 	mounted() {
-		// Crée un observateur d'intersection
+		// Permet de gérer les animéations des images
 		const observer = new IntersectionObserver(
 				(entries) => {
 					entries.forEach(entry => {
-						// Si l'image est visible à l'écran
 						if (entry.isIntersecting) {
 							entry.target.classList.add('opacity-100', 'scale-105', 'rotate-3');
 						} else {
-							// Si l'image sort de l'écran, on la réinitialise
 							entry.target.classList.remove('opacity-100', 'scale-105', 'rotate-3');
 						}
 					});
@@ -298,7 +302,6 @@ export default {
 				{threshold: 0.5} // Déclenche l'animation quand 50% de l'image est visible
 		);
 
-		// Crée un tableau de références d'images
 		const images = ['tribuneImg', 'presentationImg1', 'presentationImg2', 'chiffresImg', 'ticketImg'];
 
 		// Observer chaque image dans le tableau
