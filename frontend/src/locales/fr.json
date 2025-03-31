@@ -141,7 +141,8 @@
     "update": "Mettre à jour",
     "save": "Sauvegarder",
     "reset": "Réinitialiser",
-    "next": "Suivant"
+    "next": "Suivant",
+    "still": "encore"
   },
   "cancel": "Annuler",
   "services": {
@@ -151,10 +152,35 @@
       "type_billet": {
         "title": "Type billet"
       }
+    },
+    "shop": {
+      "no_visual": "Aucun visuel",
+      "in_stock": "produits en stock",
+      "no_more_in_stock": "Stock épuise",
+      "article_doesnt_exist_title": "Cet article n'existe pas",
+      "article_doesnt_exist": "Vous tentez d'accéder à un article qui n'existe pas.",
+      "go_back_to_shop": "Retourner à la boutique",
+      "shop_name": "Boutique de {name}",
+      "shop_doesnt_exist_title": "Cette boutique n'existe pas",
+      "shop_doesnt_exist": "Vous tentez d'accéder à une boutique qui n'existe pas.",
+      "go_back_to_prestataire_profile": "Retourner à la page du prestataire",
+      "prestataire_doesnt_exist_title": "Ce prestataire n'existe pas",
+      "prestataire_doesnt_exist": "Vous tentez d'accéder à la boutique d'un prestataire qui n'existe pas.",
+      "go_back_to_prestataires_list": "Retourner à la liste des prestataires",
+      "filters": {
+        "selection": "Notre sélection",
+        "keywords": "Mots-clés",
+        "categories": "Catégories",
+        "active_filters": "Filtres actifs"
+      },
+      "stock_lasting": "{stock} produits restant"
     }
   },
   "payment": {
     "title": "Paiement",
-    "warning": "Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni enregistrée."
+    "warning": "Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni enregistrée.",
+    "card_number": "Numéro de carte",
+    "expiration": "Expiration (mm/yy)",
+    "security_code": "Code de sécurité"
   }
 }

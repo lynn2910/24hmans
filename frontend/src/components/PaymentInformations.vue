@@ -105,11 +105,11 @@
 		</div>
 		<div class="form-container">
 			<div class="field-container">
-				<label for="name">Name</label>
+				<label for="name">{{ $t("global.name") }}</label>
 				<input id="name" ref="name" maxlength="20" type="text">
 			</div>
 			<div class="field-container">
-				<label for="cardnumber">Card Number</label>
+				<label for="cardnumber">{{ $t('payment.card_number') }}</label>
 				<input id="cardnumber" ref="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
 				<svg id="ccicon" ref="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1"
 						 xmlns="http://www.w3.org/2000/svg"
@@ -117,11 +117,11 @@
 				</svg>
 			</div>
 			<div class="field-container">
-				<label for="expirationdate">Expiration (mm/yy)</label>
+				<label for="expirationdate">{{ $t('payment.expiration') }}</label>
 				<input id="expirationdate" ref="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
 			</div>
 			<div class="field-container">
-				<label for="securitycode">Security Code</label>
+				<label for="securitycode">{{ $t('payment.security_code') }}</label>
 				<input id="securitycode" ref="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
 			</div>
 		</div>
