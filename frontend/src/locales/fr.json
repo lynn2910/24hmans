@@ -105,8 +105,30 @@
       "kart": "Karting",
       "tickets": "Billeterie",
       "ecuries": "Visites des écuries",
-      "montgols": "Montgolfières"
+      "montgols": "Montgolfières",
+      "some_stats": "Quelques statistiques",
+      "map_editing": {
+        "place_name": "Nom de l'emplacement",
+        "place_placeholder": "Entrez le nom de l'emplacement",
+        "logistic": "Logistique",
+        "logistic_placeholder": "Entrez la logistique",
+        "surface": "Surface (m²)",
+        "surface_placeholder": "Entrez la surface en m²",
+        "description": "Description",
+        "description_placeholder": "Entrez votre texte ici..",
+        "category": "Catégorie"
+      },
+      "prestataires": {
+        "copy_success": "Vous avez copié avec succès les prestataires",
+        "delete": {
+          "confirmation_text": "Vous êtes sur le point de supprimer le prestataire",
+          "text": "Êtes-vous sûr de vouloir supprimer ce prestataire"
+        }
+      }
     },
+    "presta": "Prestataire",
+    "presta_multi": "Prestataires",
+    "available_services": "Services disponibles",
     "statistics": {
       "shop": {
         "clients": "clients",
@@ -148,7 +170,10 @@
     "create_link": "Créer le lien"
   },
   "global": {
+    "id": "ID",
     "name": "Nom",
+    "services": "Services",
+    "services_lowercase": "services",
     "url": "URL",
     "update": "Mettre à jour",
     "save": "Sauvegarder",
@@ -157,7 +182,11 @@
     "still": "encore",
     "register": "S'inscrire",
     "hello_day": "Bonjour",
-    "hello_night": "Bonsoir"
+    "hello_night": "Bonsoir",
+    "free_zone": "Libérer",
+    "see": "Voir",
+    "delete": "Supprimer",
+    "close": "Fermer"
   },
   "cancel": "Annuler",
   "services": {

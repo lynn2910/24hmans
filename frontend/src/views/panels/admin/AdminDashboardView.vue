@@ -8,15 +8,15 @@ Page d'accueil du dashboard admin
 	<AdminDashboardTemplate current-page="home">
 		<div class="flex flex-row items-center content-center justify-start gap-5 h-[90%] w-full mt-[2.5%]">
 			<div class="w-full bg-blue-400 bg-opacity-5 m-5 mr-0 p-5 h-full border border-gray-700 rounded-2xl">
-				<h2 class="text-2xl font-bold mb-5">Prestataires</h2>
+				<h2 class="text-2xl font-bold mb-5">{{ $t('home.prestataires.name') }}</h2>
 
 				<table class="w-full text-left table-auto min-w-max">
 					<thead>
 
 					<tr class="text-left">
-						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Id</th>
-						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Name</th>
-						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Services</th>
+						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">{{ $t('global.id') }}</th>
+						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">{{ $t("global.name") }}</th>
+						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">{{ $t('global.services') }}</th>
 						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50"></th>
 					</tr>
 
@@ -36,11 +36,8 @@ Page d'accueil du dashboard admin
 						</td>
 						<td class="p-4 border-b border-blue-gray-50">
 							<p>
-								<strong>
-									{{
-										services.find((s) => s.id === prestataire.id)?.nb_services || 0
-									}}
-								</strong> services
+								<strong>{{ services.find((s) => s.id === prestataire.id)?.nb_services || 0 }}</strong>
+								{{ $t('global.services_lowercase') }}
 							</p>
 						</td>
 						<td class="p-4 border-b border-blue-gray-50 flex flex-row items-center justify-evenly">
@@ -80,7 +77,7 @@ Page d'accueil du dashboard admin
 
 			</div>
 			<div class="min-w-[400px] w-96 bg-blue-400 bg-opacity-5 m-5 ml-0 p-5 h-full border border-gray-700 rounded-2xl">
-				<h2 class="text-2xl font-bold mb-5">Quelques statistiques</h2>
+				<h2 class="text-2xl font-bold mb-5">{{ $t('dashboards.presta_admin.some_stats') }}</h2>
 				<p class="text-xl"><strong class="text-2xl font-bold">{{ userCount }}</strong> utilisateurs</p>
 			</div>
 		</div>
