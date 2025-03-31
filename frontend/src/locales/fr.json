@@ -155,7 +155,9 @@
     "reset": "Réinitialiser",
     "next": "Suivant",
     "still": "encore",
-    "register": "S'inscrire"
+    "register": "S'inscrire",
+    "hello_day": "Bonjour",
+    "hello_night": "Bonsoir"
   },
   "cancel": "Annuler",
   "services": {

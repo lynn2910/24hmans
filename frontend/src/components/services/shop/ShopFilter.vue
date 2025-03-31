@@ -14,7 +14,7 @@
 						class="ml-3 my-auto h-10 py-1 px-2 bg-dark border-2 border-blue-400 border-opacity-50 rounded outline-none focus:border-opacity-100"
 						type="text"
 						@change="updateActiveFilters"
-						placeholder="Mots-clés">
+						:placeholder="$t('services.shop.filters.keywords')">
 			</div>
 			<!-- Categories -->
 			<div class="flex flex-row align-middle content-center px-5 min-w-96">

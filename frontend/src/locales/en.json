@@ -2,51 +2,54 @@
   "hello": "Hello",
   "name": "24 Hours of Le Mans",
   "home": {
-    "title": "24 Hours of Le Mans, take the start of the greatest automobile event in France",
+    "dates": "JUNE 11TH TO 15TH, 2025",
+    "title": "24h of Le Mans, take the start of the greatest car event in France",
     "date": "JUNE 11TH TO 15TH, 2025",
     "tondeuse": {
-      "h1": "An iconic race",
-      "p1": "Welcome to the 24 Hours of Le Mans, the legendary endurance race! Every year since 1923, the best drivers compete for 24 hours on a unique circuit combining the Bugatti track and public roads. Speed, strategy, and performance await you!",
-      "h2": "A unique circuit in the Sarthe region",
-      "p2": "Whether you are a passionate fan or simply curious, the 24 Hours of Le Mans is one of the three most prestigious races along with Monaco and Indianapolis. Experience the passion of the fans, the speed, and the strategy of the cars in action."
+      "h1": "An emblematic race",
+      "p1": "Welcome to the 24 Hours of Le Mans, the mythical endurance race! Every year since 1923, the best drivers have competed for 24 hours on a unique circuit combining the Bugatti track and public roads. Speed, strategy and performance await you!",
+      "h2": "A unique circuit in the Sarthe",
+      "p2": "Whether you are passionate or curious, the 24 Hours of Le Mans is one of the three most prestigious races with Monaco and Indianapolis. Experience the passion of the fans, the speed and strategy of the cars in action."
     },
     "numbers": {
-      "title": "Some figures",
+      "title": "Some numbers",
       "h1": "A big step",
       "p1": "Record attendance for the centenary of the 24 Hours of Le Mans 2023! Join hundreds of thousands of enthusiasts and experience the unique atmosphere of this legendary race. Don't miss the next event and be part of history!"
     },
     "thanks": {
       "title": "And a big thank you",
-      "p": "Thank you to all the enthusiasts who came to celebrate the 24 Hours of Le Mans! Your presence and enthusiasm make this event an unforgettable experience. We can't wait to see you again to experience the excitement together at each new edition!"
+      "p": "Thank you to all the enthusiasts who came to celebrate the 24 Hours of Le Mans! Your presence and your enthusiasm make this event an unforgettable experience. We look forward to seeing you again to experience the thrill together at each new edition!"
     },
-    "services": "Discover our <strong>ticketing offers</strong>, to guarantee your place at this iconic event. Whether you are a motorsport enthusiast or simply curious to have a unique experience, our tickets will <strong>give you access to the best seats</strong> and services to fully enjoy the 24 Hours of Le Mans.",
-    "link_to_billetterie": "Link to ticketing",
+    "services": "Discover our <strong>ticket offers</strong>, to guarantee your place at this emblematic event. Whether you are passionate about motorsport or simply curious to live a unique experience, our tickets will <strong>give you access to the best seats</strong> and services to fully enjoy the 24 Hours of Le Mans.",
+    "link_to_billetterie": "Link to the ticket office",
     "prestataires": {
-      "discover": "Discover our service providers, who offer a wide range of services to enrich <strong>your experience</strong>. Each of them is delighted to share their expertise and contribute to making your event <strong>an unforgettable moment</strong>.",
+      "name": "Providers",
+      "discover": "Discover our providers, who offer a wide range of services to enrich <strong>your experience</strong>. Each of them is delighted to share their know-how and contribute to making your event <strong>an unforgettable moment.</strong>",
       "search_by_name": "Search by name",
       "filter_by_ctg": "Filter by category",
-      "no_prestataires": "No service providers found",
-      "name_search": "No keyword added"
+      "no_prestataires": "No providers found",
+      "name_search": "No word added."
     },
     "map": {
       "title": "Interactive Map",
-      "text": "Find all the information about the event <strong>thanks to our interactive map</strong>. Easily explore the places, services, and points of interest <strong>for an optimal experience</strong> on site."
+      "short": "Map",
+      "text": "Find all the information about the event <strong>thanks to our interactive map</strong>. Easily explore the places, services and points of interest <strong>for an optimal experience</strong> on site."
     }
   },
   "footer": {
     "a_propos": "ABOUT",
-    "mentions_legales": "LEGAL NOTICES",
+    "mentions_legales": "LEGAL NOTICE",
     "donnees_personnelles": "PERSONAL DATA",
-    "cgv_billeterie": "TICKETING TERMS AND CONDITIONS",
+    "cgv_billeterie": "TICKET SALES TERMS",
     "services": "SERVICES",
     "billetteries": "TICKET OFFICES",
-    "visites_ecuries": "TEAM VISITS",
+    "visites_ecuries": "PADDOCK VISITS",
     "boutique": "SHOP",
-    "reseaux": "SOCIAL MEDIA",
+    "reseaux": "NETWORKS",
     "instagram": "INSTAGRAM",
     "facebook": "FACEBOOK",
     "youtube": "YOUTUBE",
-    "realise_par": "Developed by",
+    "realise_par": "Created by",
     "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
   },
   "selects": {
@@ -64,15 +67,165 @@
     "bo_empty": "No provider has a shop at the moment."
   },
   "navbar": {
-    "billetteries": "Ticket",
+    "billetteries": "Ticket offices",
     "boutiques": "Shops",
-    "ecuries": "Teams",
+    "ecuries": "Stables",
     "map": "Map",
-    "prestataires": "Prestataires",
+    "prestataires": "Provider",
     "login": {
-      "connect": "Login",
+      "connect": "Log in",
       "profile": "My profile",
       "dashboard": "My dashboard"
     }
+  },
+  "tools": {
+    "loading": {
+      "waiting": "Please wait"
+    }
+  },
+  "dashboards": {
+    "name": "Dashboard",
+    "users": "Users",
+    "stats": "Statistics",
+    "services": "Services",
+    "no_services": "No service...",
+    "client": {
+      "go_back_home": "Go back to the homepage",
+      "home": "Homepage",
+      "billets": "My tickets",
+      "karting": "My races",
+      "achats": "My purchases",
+      "no_commands": "You have not placed any orders.",
+      "deconnect": "Log out",
+      "hello": "Hello "
+    },
+    "profile": "My profile",
+    "presta_admin": {
+      "shop": "Shop",
+      "kart": "Karting",
+      "tickets": "Ticketing",
+      "ecuries": "Paddock visits",
+      "montgols": "Hot air balloons"
+    },
+    "statistics": {
+      "shop": {
+        "clients": "customers",
+        "benef": "in profit",
+        "commands": "orders",
+        "turnover": "Turnover",
+        "gains_graph": "Money earned in €",
+        "sells_by_ctg": "Distribution of sales by product category",
+        "sells_by_article": "Distribution of sales by article"
+      }
+    }
+  },
+  "login": {
+    "title": "Login",
+    "login": {
+      "title": "Login",
+      "email": "Email"
+    },
+    "password": {
+      "title": "Password",
+      "placeholder": "password"
+    },
+    "login_btn": "Log in",
+    "register_link": "I don't have an account yet",
+    "invalid": "Invalid login or password"
+  },
+  "cart": {
+    "title": "Your cart",
+    "price": "Price",
+    "resume": "Summary",
+    "ttc": "VAT included",
+    "add": "Add to cart",
+    "payment": "The system for entering bank information is fictitious. No information is processed or recorded.",
+    "make_order": "Pay",
+    "stock_rest": "Only {stock} items left in stock"
+  },
+  "prestataire_edit": {
+    "update": "Update name",
+    "create_link": "Create link"
+  },
+  "global": {
+    "name": "Name",
+    "url": "URL",
+    "update": "Update",
+    "save": "Save",
+    "reset": "Reset",
+    "next": "Next",
+    "still": "still",
+    "register": "Register",
+    "hello_day": "Hello",
+    "hello_night": "Hello"
+  },
+  "cancel": "Cancel",
+  "services": {
+    "billetterie": {
+      "date_title": "Date selection",
+      "reserve": "Pay and reserve",
+      "type_billet": {
+        "title": "Ticket type",
+        "select": "Select the ticket type"
+      },
+      "select_persons": "Select the number of people",
+      "date_selection": "Select dates",
+      "step": "Step {n}",
+      "resume": {
+        "type": "Ticket type:",
+        "not_selected": "Not selected",
+        "not_given": "Not specified",
+        "dates_selected": "Date(s) chosen:",
+        "persons_number": "Number of people:"
+      }
+    },
+    "shop": {
+      "no_visual": "No image",
+      "in_stock": "products in stock",
+      "no_more_in_stock": "Out of stock",
+      "article_doesnt_exist_title": "This article does not exist",
+      "article_doesnt_exist": "You are trying to access an article that does not exist.",
+      "go_back_to_shop": "Go back to the shop",
+      "shop_name": "{name}'s shop",
+      "shop_doesnt_exist_title": "This shop does not exist",
+      "shop_doesnt_exist": "You are trying to access a shop that does not exist.",
+      "go_back_to_prestataire_profile": "Go back to the provider's page",
+      "prestataire_doesnt_exist_title": "This provider does not exist",
+      "prestataire_doesnt_exist": "You are trying to access the shop of a provider that does not exist.",
+      "go_back_to_prestataires_list": "Go back to the list of providers",
+      "filters": {
+        "selection": "Our selection",
+        "keywords": "Keywords",
+        "categories": "Categories",
+        "active_filters": "Active filters"
+      },
+      "stock_lasting": "{stock} products remaining"
+    },
+    "ecurie": {
+      "title": "Draw",
+      "rules": {
+        "title": "Rules for participating in the draw",
+        "one": "The participant must be of legal age to participate.",
+        "two": "One ticket per participant.",
+        "three": "The information provided must be accurate and verifiable.",
+        "four": "Participation in the draw is open until <strong class=\"text-white\">June 25, 2025</strong>.",
+        "five": "The winners will be notified by email on <strong class=\"text-white\">June 26, 2025</strong>."
+      },
+      "sign": {
+        "title": "Registration for the draw",
+        "lastname": "Last name:",
+        "firstname": "First name:",
+        "email": "E-mail:",
+        "phone": "Phone:",
+        "ticket_number": "Ticket number:"
+      }
+    }
+  },
+  "payment": {
+    "title": "Payment",
+    "warning": "The system for entering bank information is fictitious. No information is processed or recorded.",
+    "card_number": "Card number",
+    "expiration": "Expiration (mm/yy)",
+    "security_code": "Security code"
   }
 }
