@@ -10,6 +10,7 @@
 
 			<!-- Body -->
 			<div class="p-5">
+
 				<!-- Name  -->
 				<h1 class="font-bold text-3xl text-center flex flex-row justify-center items-center content-center">
 					{{ prestataire.name }}
@@ -48,6 +49,8 @@
 					</div>
 
 				</Popup>
+
+
 				<!-- Liens -->
 				<div class="flex flex-row justify-center items-center content-center my-5">
 					<div v-for="(link, index) in prestataire.links || []" :key="index"
@@ -120,7 +123,7 @@
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									type="text"
 									v-model="selectedLink.name"
-									placeholder="Nom"
+									:placeholder="$t('global.name')"
 									minlength="1"
 									maxlength="64">
 						</div>
@@ -130,7 +133,7 @@
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									type="text"
 									v-model="selectedLink.url"
-									placeholder="URL"
+									:placeholder="$t('global.url')"
 									pattern="/(((ftp|http|https):\/\/)|(\/)|(..\/))(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/"
 									minlength="1"
 									maxlength="64">

@@ -584,17 +584,11 @@ routerPresta.patch(
     "/:prestataire_name/link/:link_id",
     authenticateToken,
     async (req, res) => {
-        const {prestataire_name, link_id} = req.params;
+        const {link_id} = req.params;
         const {name, url} = req.body;
 
         try {
-            const prestataire = await getPrestataireFromName(prestataire_name);
-            if (!prestataire) {
-                return res.status(404).json({
-                    message: "Prestataire not found.",
-                });
-            }
-            const updatedLink = await updatePrestataireLink(prestataire.id, link_id, {name, url});
+            const updatedLink = await updatePrestataireLink(req.user.id, link_id, {name, url});
             if (!updatedLink) {
                 return res.status(404).json({
                     message: "Link not found.",
