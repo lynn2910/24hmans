@@ -62,20 +62,32 @@
 		</div>
 		<!-- Résumé -->
 		<div class="p-11 border-l border-l-gray-700">
-			<slot name="resume">
-				<p><strong>{{ $t('services.billetterie.resume.type') }}</strong>
-					{{ selectedTypeBillet ? selectedTypeBillet.category_label : $t('not_selected') }}</p>
+			<h2 class="font-bold text-lg mb-4">Résumé</h2>
 
-				<p><strong>{{ $t('services.billetterie.resume.dates_selected') }}</strong>
-					<span v-if="selectedDates.length">{{ selectedDates.map(date => date.nom).join(", ") }}</span>
-					<span v-else>{{ $t('services.billetterie.resume.not_selected') }}</span>
-				</p>
+			<!-- Type de billet -->
+			<p>
+				<strong>Type :</strong>
+				<span v-if="selectedTypeBillet">
+            {{ selectedTypeBillet.category_label || selectedTypeBillet.name }}
+        </span>
+				<span v-else class="text-gray-500">Non sélectionné</span>
+			</p>
 
-				<p><strong>{{ $t('services.billetterie.resume.persons_number') }}</strong>
-					<span v-if="selectedPersonnes.length">{{ selectedPersonnes.length }}</span>
-					<span v-else>{{ $t('services.billetterie.resume.not_given') }}</span>
-				</p>
-			</slot>
+			<!-- Dates -->
+			<p>
+				<strong>Dates :</strong>
+				<span v-if="selectedDates.length">
+            {{  selectedDates.map(date => date.forfait_label).join(", ")  }}
+        </span>
+				<span v-else class="text-gray-500">Aucune date sélectionnée</span>
+			</p>
+
+			<!-- Personnes -->
+			<p>
+				<strong>Nombre de personnes :</strong>
+				<span v-if="selectedPersonnes.length">{{ selectedPersonnes }}</span>
+				<span v-else class="text-gray-500">Aucune personne</span>
+			</p>
 		</div>
 	</div>
 </template>
@@ -154,10 +166,12 @@ export default {
 		},
 		datesSelected(selectedForfaits) {
 			this.selectedDates = selectedForfaits;
+			console.log(this.selectedDates);
 			this.changeStep(Etape.Personne);
 		},
 		personnesSelected(personnesInputs) {
 			this.selectedPersonnes = personnesInputs;
+			console.log(this.selectedPersonnes);
 			this.changeStep(Etape.Paiement);
 		}
 	}
