@@ -253,6 +253,7 @@ export default {
 				password: "",
 				confirm_password: "",
 			},
+			already_redirected: false,
 			Selected
 		}
 	},
@@ -337,7 +338,7 @@ export default {
 		 * Redirige l'utilisateur une fois le login effectué
 		 */
 		redirectUser(user_type) {
-			if (this.noRedirection)
+			if (this.noRedirection || this.already_redirected)
 				return;
 
 			console.log("Redirecting user")
@@ -352,22 +353,30 @@ export default {
 				if (userType === Selected.Prestataire && !uri.startsWith('/prestataire/panel')) good = false;
 				if (userType === Selected.Admin && !uri.startsWith('/admin/panel')) good = false;
 
-				if (good) this.$router.push({path: uri});
-				return;
+				console.log("is good?", good)
+				if (good) {
+					this.already_redirected = true;
+					return this.$router.push({path: uri})
+				}
 			}
+
+			console.log("Redirecting to default view of logged in user: ", userType)
 
 			try {
 				switch (user_type) {
 					case Selected.Prestataire: {
 						this.$router.push({name: "prestataire_dashboard"});
+						this.already_redirected = true;
 						break
 					}
 					case Selected.User: {
 						this.$router.push({name: 'client_panel'});
+						this.already_redirected = true;
 						break;
 					}
 					case Selected.Admin: {
 						this.$router.push({name: "admin_dashboard"});
+						this.already_redirected = true;
 						break;
 					}
 					default: {
