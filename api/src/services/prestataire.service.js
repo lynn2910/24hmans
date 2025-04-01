@@ -28,7 +28,7 @@ function getPrestataireService(presta_id) {
             let presta = await prisma.prestataire.findUnique({
                 select: {
                     boutique: true,
-                    ecurie: true,
+                    Ecurie: true,
                     Billetterie: true,
                     karting: true,
                     // TODO montgolfieres
@@ -167,9 +167,10 @@ async function deletePrestataireLink(presta_id, link_id) {
         return {error: 1, status: 500, data: "Internal server error."};
     }
 }
- async function DeleteSelection(){
 
- }
+async function DeleteSelection() {
+
+}
 
 module.exports = {
     getPrestataire,
