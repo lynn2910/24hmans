@@ -58,8 +58,6 @@ async function removeArticleFromBoutique(shop_id, article_id) {
 
 
 async function enableOrDisableShop(shop_id, newValue) {
-    // return LocalSource.enableOrDisableShop(presta_id, newValue);
-
     return await Request.patch("/boutique/:shop_id")
         .args({shop_id})
         .body({enabled: newValue})

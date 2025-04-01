@@ -408,8 +408,6 @@ function getBoutiqueChiffreAffaireSerie(presta_id) {
             serie[month] += sum;
         });
 
-    console.log("getBoutiqueChiffreAffaireSerie", JSON.stringify({serie, categories}, null, 2))
-
     return {error: 0, status: 200, data: {serie, categories}};
 }
 
@@ -426,11 +424,6 @@ function getBoutiqueStats(presta_id) {
     let total_amount = orders.map(o => o.total_price)
         .reduce((a, b) => a += b, 0);
 
-    console.log("getBoutiqueStats", JSON.stringify({
-        clients,
-        commands: orders.length,
-        total_gains: total_amount
-    }, null, 2))
     return {error: 0, status: 200, data: {clients, commands: orders.length, total_gains: total_amount}}
 }
 
@@ -451,21 +444,17 @@ function getBoutiqueCategoriesSellsStats(presta_id) {
             series[ctg_index] = article.amount;
         });
 
-    console.log("getBoutiqueCategoriesSellsStats", JSON.stringify({labels, series}, null, 2));
     return {error: 0, status: 200, data: {labels, series}}
 }
 
 function getBoutiqueArticleSellsStats(presta_id) {
-    console.log("YEET")
     let boutique = boutiques.find(b => b.prestataire_id === presta_id);
-    console.log(boutique)
     if (!boutique) return {error: 1, status: 404, data: "boutique not found"};
 
     let series = {};
     boutique.items.forEach(({name, item_id}) => {
         series[item_id] = {x: name, y: 0}
     });
-    console.log(series)
 
     user_orders.map(o => o.articles.filter(a => a.article.shop_id === boutique.shop_id))
         .flat()
@@ -473,9 +462,7 @@ function getBoutiqueArticleSellsStats(presta_id) {
             series[article.article_id].y += article.amount;
         });
 
-    console.log(series)
 
-    console.log("getBoutiqueArticleSellsStats", JSON.stringify([{data: Object.values(series)}]))
     return {error: 0, status: 200, data: [{data: Object.values(series)}]}
 }
 
