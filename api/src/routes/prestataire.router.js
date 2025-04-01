@@ -8,9 +8,8 @@ const {
     updatePrestataireLink,
     deletePrestataireLink, getPrestataireService
 } = require("../services/prestataire.service");
-const adminMiddleware = require("../middlewares/admin.middleware");
-const prestataireMiddleware = require("../middlewares/prestataire.middleware");
 const {createRule, User, Permission, Method} = require("../permissions")
+const {authenticateToken} = require("../middlewares/auth.middleware");
 
 const routerPresta = new Router();
 
@@ -262,7 +261,7 @@ routerPresta.get(
  */
 routerPresta.patch(
     "/:prestataire_id",
-    prestataireMiddleware,
+    authenticateToken,
     async (req, res) => {
         const {prestataire_id} = req.params;
 
@@ -285,7 +284,7 @@ createRule("/prestataire", [Method.PATCH], User.Prestataire, [Permission.Prestat
 
 routerPresta.delete(
     "/:prestataire_id",
-    adminMiddleware,
+    authenticateToken,
     async (req, res) => {
         const {prestataire_id} = req.params;
 
@@ -482,25 +481,11 @@ routerPresta.get(
  */
 routerPresta.post(
     "/:prestataire_id/link",
+    authenticateToken,
     async (req, res) => {
-        const {prestataire_id} = req.params;
-        const {sessionId} = req.query;
         const {name, url} = req.body;
 
-        if (!sessionId) {
-            return res.status(400).json({
-                message: "Session ID is required."
-            });
-        }
-
-        let presta = await getPrestataire(prestataire_id);
-        if (!presta) {
-            return res.status(404).json({
-                message: "Prestataire not found."
-            });
-        }
-
-        const newLink = await createPrestataireLink(presta.id, {name, url});
+        const newLink = await createPrestataireLink(req.user.id, {name, url});
         return res.status(201).json(newLink);
     }
 );
@@ -583,19 +568,13 @@ routerPresta.post(
  */
 routerPresta.patch(
     "/:prestataire_name/link/:link_id",
-    prestataireMiddleware,
+    authenticateToken,
     async (req, res) => {
-        const {prestataire_name, link_id} = req.params;
+        const {link_id} = req.params;
         const {name, url} = req.body;
 
         try {
-            const prestataire = await getPrestataireFromName(prestataire_name);
-            if (!prestataire) {
-                return res.status(404).json({
-                    message: "Prestataire not found.",
-                });
-            }
-            const updatedLink = await updatePrestataireLink(prestataire.id, link_id, {name, url});
+            const updatedLink = await updatePrestataireLink(req.user.id, link_id, {name, url});
             if (!updatedLink) {
                 return res.status(404).json({
                     message: "Link not found.",
@@ -670,6 +649,7 @@ routerPresta.patch(
  */
 routerPresta.delete(
     "/:prestataire_name/link/:link_id",
+    authenticateToken,
     async (req, res) => {
         const {prestataire_name, link_id} = req.params;
         let presta = await getPrestataireFromName(prestataire_name);
