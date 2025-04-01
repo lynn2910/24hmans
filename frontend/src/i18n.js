@@ -26,7 +26,13 @@ export default new VueI18n({
                 currency: 'TRY'
             }
         },
+        'zh': {
+            currency: {
+                style: 'currency',
+                currency: 'CNY'
+            }
+        }
     }
 })
 
-export const SUPPORTED_LOCALES = ['fr', 'en', 'tr']
+export const SUPPORTED_LOCALES = ['fr', 'en', 'tr', 'zh', 'ru']

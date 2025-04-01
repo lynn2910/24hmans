@@ -1,0 +1,435 @@
+{
+  "hello": "你好",
+  "name": "勒芒24小时耐力赛",
+  "presta": "服务提供商",
+  "user": "用户",
+  "admin": "管理员",
+  "home": {
+    "dates": "2025年6月11日至15日",
+    "title": "勒芒24小时耐力赛，开启法国最大的汽车赛事",
+    "date": "2025年6月11日至15日",
+    "tondeuse": {
+      "h1": "一项标志性赛事",
+      "p1": "欢迎参加勒芒24小时耐力赛，这项传奇的耐力赛！自1923年以来，每年，最优秀的赛车手都会在独特的赛道上进行24小时的比赛，这条赛道结合了布加迪赛道和公共道路。速度、策略和性能的完美结合！",
+      "h2": "萨尔特独特的赛道",
+      "p2": "无论您是爱好者还是好奇者，勒芒24小时耐力赛都是与摩纳哥和印第安纳波利斯齐名的三大著名赛事之一。体验车迷的激情、赛车的速度和策略。"
+    },
+    "numbers": {
+      "title": "一些数字",
+      "h1": "一大步",
+      "p1": "2023年勒芒24小时耐力赛百年纪念的创纪录上座率！加入数十万爱好者的行列，体验这项传奇赛事的独特氛围。不要错过下一个盛会，成为历史的一部分！"
+    },
+    "thanks": {
+      "title": "非常感谢",
+      "p": "感谢所有前来庆祝勒芒24小时耐力赛的爱好者！你们的 присутствие и 热情使这项赛事成为一次难忘的经历。我们迫不及待地想再次见到你们，一起感受每一届新赛事的激动人心！"
+    },
+    "services": "探索我们的<strong>票务优惠</strong>，以确保您在这项标志性赛事中的席位。无论您是赛车运动爱好者，还是只是好奇地想体验独特的经历，我们的门票都将为您提供<strong>最佳的座位</strong>和服务，让您充分享受勒芒24小时耐力赛。",
+    "link_to_billetterie": "票务链接",
+    "prestataires": {
+      "name": "服务提供商",
+      "discover": "了解我们的服务提供商，他们提供各种服务来丰富您的<strong>体验</strong>。他们都乐于分享自己的知识，并为使您的活动成为<strong>难忘的时刻</strong>做出贡献。",
+      "search_by_name": "按名称搜索",
+      "filter_by_ctg": "按类别筛选",
+      "no_prestataires": "未找到服务提供商",
+      "name_search": "未添加任何词。"
+    },
+    "map": {
+      "title": "互动地图",
+      "short": "地图",
+      "text": "通过我们的<strong>互动地图</strong>查找有关赛事的所有信息。轻松探索场地、服务和景点，以获得<strong>最佳的现场体验</strong>。"
+    }
+  },
+  "footer": {
+    "a_propos": "关于我们",
+    "mentions_legales": "法律声明",
+    "donnees_personnelles": "个人数据",
+    "cgv_billeterie": "票务销售条款和条件",
+    "services": "服务",
+    "billetteries": "票务处",
+    "visites_ecuries": "车队参观",
+    "boutique": "商店",
+    "reseaux": "社交网络",
+    "instagram": "INSTAGRAM",
+    "facebook": "FACEBOOK",
+    "youtube": "YOUTUBE",
+    "realise_par": "由...制作",
+    "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
+  },
+  "selects": {
+    "no_item_selected": "未选择任何项目"
+  },
+  "lists": {
+    "billetteries": "票务处列表",
+    "bi_click": "点击进入票务处",
+    "bi_empty": "目前没有服务提供商拥有票务处。",
+    "ecuries": "车队列表",
+    "ecu_click": "点击进入车队",
+    "ecu_empty": "目前没有可用的车队...",
+    "boutiques": "商店列表",
+    "bo_click": "点击进入商店",
+    "bo_empty": "目前没有服务提供商拥有商店。"
+  },
+  "navbar": {
+    "billetteries": "票务处",
+    "boutiques": "商店",
+    "ecuries": "车队",
+    "map": "地图",
+    "prestataires": "服务提供商",
+    "login": {
+      "connect": "登录",
+      "profile": "我的个人资料",
+      "dashboard": "我的仪表盘"
+    }
+  },
+  "tools": {
+    "loading": {
+      "waiting": "请稍候"
+    }
+  },
+  "dashboards": {
+    "name": "仪表盘",
+    "users": "用户",
+    "stats": "统计数据",
+    "services": "服务",
+    "no_services": "没有服务...",
+    "client": {
+      "go_back_home": "返回主页",
+      "home": "主页",
+      "billets": "我的门票",
+      "karting": "我的卡丁车",
+      "achats": "我的购买",
+      "no_commands": "您尚未下达任何命令。",
+      "deconnect": "登出",
+      "hello": "你好 "
+    },
+    "profile": "我的个人资料",
+    "presta_admin": {
+      "shop_name": "商店",
+      "kart": "卡丁车",
+      "tickets": "票务",
+      "ecuries": "车队参观",
+      "montgols": "热气球",
+      "some_stats": "一些统计数据",
+      "map_editing": {
+        "place_name": "地点名称",
+        "place_placeholder": "输入地点名称",
+        "logistic": "物流",
+        "logistic_placeholder": "输入物流",
+        "surface": "面积 (平方米)",
+        "surface_placeholder": "以平方米为单位输入面积",
+        "description": "描述",
+        "description_placeholder": "在此处输入您的文本..",
+        "category": "类别"
+      },
+      "shop": {
+        "name": "商店",
+        "articles": {
+          "title": "商品列表",
+          "no_article": "没有要显示的商品",
+          "create_article": "创建商品",
+          "initial_stock": "商品的初始库存",
+          "selling_price": "售价",
+          "add_article": "添加商品"
+        },
+        "categories": {
+          "title": "类别列表",
+          "no_category": "没有要显示的类别",
+          "articles_count": "商品数量",
+          "category_creation": "创建类别",
+          "category_name_placeholder": "类别名称",
+          "add_category": "添加类别"
+        },
+        "global_settings": {
+          "shop_online": "商店在线",
+          "shop_offline": "商店离线",
+          "watch_shop": "查看商店",
+          "visibility": {
+            "everyone": "所有人可见",
+            "only_presta": "仅您可见"
+          },
+          "access": {
+            "public": "公开",
+            "text": "此设置允许控制商店对公众的可见性。"
+          },
+          "tabs": {
+            "settings": "常规设置",
+            "items": "商品",
+            "categories": "类别"
+          }
+        }
+      },
+      "presta_home": {
+        "hello": "我是一个仪表盘"
+      },
+      "karting": {
+        "name": "卡丁车"
+      },
+      "tickets_obj": {
+        "name": "票务"
+      },
+      "ecuries_obj": {
+        "name": "车库参观"
+      },
+      "montgolfieres": {
+        "name": "热气球"
+      },
+      "prestataires": {
+        "copy_success": "您已成功复制服务提供商",
+        "delete": {
+          "confirmation_text": "您即将删除服务提供商",
+          "text": "您确定要删除此服务提供商吗"
+        }
+      }
+    },
+    "presta": "服务提供商",
+    "presta_multi": "服务提供商",
+    "available_services": "可用服务",
+    "statistics": {
+      "not_available": "类别 <strong>{activeTab}</strong> 的统计数据尚不可用。",
+      "shop": {
+        "clients": "客户",
+        "benef": "利润",
+        "commands": "命令",
+        "turnover": "营业额",
+        "gains_graph": "以欧元 (€) 计的收入",
+        "sells_by_ctg": "按产品类别划分的销售额",
+        "sells_by_article": "按商品划分的销售额"
+      }
+    }
+  },
+  "login": {
+    "title": "登录",
+    "login": {
+      "title": "身份",
+      "email": "电子邮件"
+    },
+    "password": {
+      "title": "密码",
+      "placeholder": "密码",
+      "confirm_password": "确认密码"
+    },
+    "signup": "创建帐户",
+    "login_btn": "登录",
+    "register_link": "我还没有帐户",
+    "invalid": "身份或密码无效"
+  },
+  "cart": {
+    "title": "您的购物车",
+    "price": "价格",
+    "resume": "摘要",
+    "ttc": "含税",
+    "add": "添加到购物车",
+    "payment": "银行信息输入系统是虚构的。任何信息都不会被处理或记录。",
+    "make_order": "下订单",
+    "stock_rest": "库存中仅剩 {stock} 件商品"
+  },
+  "prestataire_edit": {
+    "update": "更新名称",
+    "create_link": "创建链接"
+  },
+  "global": {
+    "id": "ID",
+    "settings": "设置",
+    "name": "名称",
+    "services": "服务",
+    "services_lowercase": "服务",
+    "url": "URL",
+    "stock": "库存",
+    "price_detailed": "价格 (€)",
+    "description": "描述",
+    "update": "更新",
+    "category": "类别",
+    "save": "保存",
+    "reset": "重置",
+    "next": "下一步",
+    "still": "仍然",
+    "register": "注册",
+    "hello_day": "你好",
+    "hello_night": "晚上好",
+    "free_zone": "释放",
+    "see": "查看",
+    "delete": "删除",
+    "close": "关闭"
+  },
+  "cancel": "取消",
+  "services": {
+    "billetterie": {
+      "date_title": "选择日期",
+      "reserve": "付款并预订",
+      "type_billet": {
+        "title": "门票类型",
+        "select": "选择门票类型"
+      },
+      "select_persons": "选择人数",
+      "date_selection": "选择日期",
+      "step": "步骤 {n}",
+      "resume": {
+        "type": "门票类型:",
+        "not_selected": "未选择",
+        "not_given": "未提供",
+        "dates_selected": "选择的日期:",
+        "persons_number": "人数:"
+      }
+    },
+    "shop": {
+      "no_visual": "没有视觉效果",
+      "in_stock": "库存商品",
+      "no_more_in_stock": "缺货",
+      "article_doesnt_exist_title": "该商品不存在",
+      "article_doesnt_exist": "您试图访问不存在的商品。",
+      "go_back_to_shop": "返回商店",
+      "shop_name": "{name} 的商店",
+      "shop_doesnt_exist_title": "该商店不存在",
+      "shop_doesnt_exist": "您试图访问不存在的商店。",
+      "go_back_to_prestataire_profile": "返回服务提供商页面",
+      "prestataire_doesnt_exist_title": "该服务提供商不存在",
+      "prestataire_doesnt_exist": "您试图访问不存在的服务提供商的商店。",
+      "go_back_to_prestataires_list": "返回服务提供商列表",
+      "filters": {
+        "selection": "我们的选择",
+        "keywords": "关键词",
+        "categories": "类别",
+        "active_filters": "有效过滤器"
+      },
+      "stock_lasting": "剩余 {stock} 件商品"
+    },
+    "ecurie": {
+      "title": "抽奖活动",
+      "rules": {
+        "title": "参加抽奖活动的规则",
+        "one": "参与者必须达到法定年龄才能参与。",
+        "two": "每位参与者一张票。",
+        "three": "提供的信息必须准确且可验证。",
+        "four": "抽奖活动参与时间截止至 <strong class=\"text-white\">2025年6月25日</strong>。",
+        "five": "获奖者将于 <strong class=\"text-white\">2025年6月26日</strong>通过电子邮件通知。"
+      },
+      "sign": {
+        "title": "抽奖活动报名",
+        "lastname": "姓氏:",
+        "firstname": "名字:",
+        "firstname_simple": "名字",
+        "family_name": "姓氏",
+        "email": "电子邮件:",
+        "email_simple": "电子邮件",
+        "phone": "电话:",
+        "ticket_number": "票号:"
+      }
+    }
+  },
+  "payment": {
+    "title": "支付",
+    "warning": "银行信息输入系统是虚构的。任何信息都不会被处理或记录。",
+    "card_number": "卡号",
+    "expiration": "到期日期 (月/年)",
+    "security_code": "安全码"
+  },
+  "bonuses": {
+    "cgv": {
+      "title": "票务销售的一般条款和条件",
+      "text": "PDF文档的链接:"
+    },
+    "mentions": {
+      "title": "法律声明",
+      "editor": {
+        "title": "网站编辑",
+        "text": "本网站由 <strong>北部弗朗什-孔泰大学技术学院</strong> 的一群学生在大学项目的框架内编辑。",
+        "responsables": "出版负责人是:",
+        "cedric": "西德里克",
+        "colin": "科林"
+      },
+      "host": {
+        "title": "主机",
+        "name": "主机名称:",
+        "address": "地址:",
+        "address_line1": "19 avenue du Maréchal Juin",
+        "address_line2": "BP 527",
+        "address_line3": "90016 Belfort cedex"
+      },
+      "intellectual": {
+        "title": "知识产权",
+        "text1": "本网站的全部内容均受法国和国际版权和知识产权法的管辖。",
+        "text2": "本网站上的图像和视频均为其各自作者的财产，仅用于提供信息和非商业目的。",
+        "text3": "本网站上引用的商标为其各自所有者的财产。保留所有复制权，包括可下载的文档以及图标和照片表示。",
+        "text4": "未经出版负责人明确授权，严禁以任何电子媒体复制本网站的全部或部分内容。",
+        "contact": "任何希望对图像或视频的使用提出异议的人都请联系出版负责人，",
+        "email": "cedric.colin35@gmail.com"
+      },
+      "personal": {
+        "title": "个人数据",
+        "link": "查看页面"
+      },
+      "hyperlinks": {
+        "title": "超链接",
+        "text": "本网站可能包含指向其他网站的超链接。我们不对这些网站的内容负责，也不能保证其可用性。"
+      },
+      "warning": {
+        "title": "警告",
+        "text1": "本网站包含的信息仅供参考，学生不对其承担任何责任",
+        "text2": "我们努力保持本网站的更新，但不能保证在此处发布的信息的准确性、完整性和及时性。"
+      },
+      "law": {
+        "title": "适用法律",
+        "text": "本网站受法国法律管辖。如果发生争议，只有法国法院具有管辖权。"
+      }
+    },
+    "personal_data": {
+      "title": "隐私政策",
+      "introduction": {
+        "title": "1. 简介",
+        "text": "本隐私政策旨在告知您我们如何收集、使用、存储和保护您在使用我们的网站时向我们提供的个人数据。"
+      },
+      "data_collection": {
+        "title": "2. 数据收集和使用",
+        "collected_data": "收集的数据:",
+        "collected_data_text": "当您与我们的网站互动时（例如，如果您联系我们，您的姓名、电子邮件地址），我们会收集您自愿提供给我们的个人数据。我们还可以通过使用cookies和类似技术来收集浏览数据。",
+        "data_use": "数据使用:",
+        "site_functionality": "网站功能:",
+        "site_functionality_text": "确保我们的网站正常运行并为您提供您要求的服务。",
+        "personalization": "个性化:",
+        "personalization_text": "通过记住您的偏好（语言、购物车中的商品等）来改善您的用户体验。"
+      },
+      "cookies": {
+        "title": "3. Cookies",
+        "text": "我们使用功能性cookies来改善您的浏览体验。这些cookies不收集任何可以识别您身份的个人数据。您可以随时通过更改浏览器设置来选择禁用cookies。但是，此操作可能会影响网站的某些功能。"
+      },
+      "data_storage": {
+        "title": "4. 数据存储",
+        "text": "我们收集的个人数据存储在位于欧盟境内的安全服务器上。我们仅在实现收集目的所需的时间内保留您的个人数据。"
+      },
+      "data_sharing": {
+        "title": "5. 数据共享",
+        "text": "我们不会与第三方共享、出售或出租您的个人数据。"
+      },
+      "data_security": {
+        "title": "6. 数据安全",
+        "text": "我们实施适当的技术和组织安全措施，以保护您的个人数据免遭任何损失、更改、破坏或未经授权的访问。"
+      },
+      "your_rights": {
+        "title": "7. 您的权利",
+        "text": "根据现行法规，您拥有以下权利:",
+        "access_right": "访问权:",
+        "access_right_text": "您可以要求访问我们持有的关于您的个人数据。",
+        "rectification_right": "纠正权:",
+        "rectification_right_text": "您可以要求我们纠正任何不准确的个人数据。",
+        "erasure_right": "删除权:",
+        "erasure_right_text": "在某些情况下，您可以要求我们删除您的个人数据。",
+        "opposition_right": "反对权:",
+        "opposition_right_text": "您可以反对为某些目的处理您的个人数据。",
+        "limitation_right": "限制权:",
+        "limitation_right_text": "您可以要求我们限制对您的个人数据的处理。",
+        "portability_right": "便携权:",
+        "portability_right_text": "您可以要求以结构化、常用且机器可读的格式接收您的个人数据。",
+        "contact_text": "要行使您的权利，请通过以下地址与我们联系:"
+      },
+      "policy_changes": {
+        "title": "8. 隐私政策变更",
+        "text": "我们保留随时修改本隐私政策的权利。任何更改将在我们的网站上发布后立即生效。"
+      },
+      "contact": {
+        "title": "9. 联系方式",
+        "text": "如果您对本隐私政策有任何疑问，可以通过以下地址与我们联系:"
+      },
+      "edited": "编辑于 2025 年 1 月 8 日 16:53 法国时间"
+    }
+  }
+}
