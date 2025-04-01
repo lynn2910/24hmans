@@ -14,13 +14,15 @@ export default {
 	name: "PrestataireEdit",
 	components: {PrestataireDashboardTemplate, PrestataireEditPage},
 	computed: {
-		...mapState('login', ['loggedInUser'])
+		...mapState('login', ['loggedInUser']),
+		...mapState('prestataire', ['prestataires'])
 	},
 	data() {
 		return {
 			prestataire: null
 		}
 	},
+	methods: {},
 	async mounted() {
 		const presta = await PrestataireService.getPrestataire(this.loggedInUser.id);
 		if (!presta.error) {
@@ -31,6 +33,12 @@ export default {
 	watch: {
 		loggedInUser(newValue) {
 			this.prestataire = newValue;
+		},
+		prestataires(newValue) {
+			let myPresta = newValue.find(p => p.id === this.prestataire.id);
+			if (myPresta) {
+				this.prestataire = myPresta;
+			}
 		}
 	}
 }

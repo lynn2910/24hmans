@@ -118,7 +118,7 @@
 					<!-- Create link -->
 					<Popup v-if="showCreateLinkPopup" title="Ajout d'un lien" @close="closeLinkCreatePopup">
 						<div class="flex flex-row items-center content-center justify-between">
-							<p class="font-bold mr-5 w-14">{{ $('global.name') }}</p>
+							<p class="font-bold mr-5 w-14">{{ $t('global.name') }}</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									type="text"
