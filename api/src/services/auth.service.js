@@ -28,7 +28,9 @@ async function registerUser(userData) {
     userData.password = await bcrypt.hash(userData.password, 10);
     userData.id = uuid.v4();
 
-    return prisma.user.create({data: userData});
+    await prisma.user.create({data: userData});
+
+    return prisma.user.findFirst({where: {id: userData.id}});
 }
 
 module.exports = {authenticate, registerUser};
