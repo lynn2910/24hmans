@@ -271,7 +271,7 @@ router.post("/@me/orders", authenticateToken, async (req, res) => {
     //     ]
     // }
 
-    if (req.session?.userType !== User.User) {
+    if (req.user?.userType !== User.User) {
         res.status(401).json({message: "You are not a user"});
         return;
     }
@@ -288,7 +288,7 @@ router.post("/@me/orders", authenticateToken, async (req, res) => {
         return;
     }
 
-    createNewOrder(req.session.userId, raw_order)
+    createNewOrder(req.user.id, raw_order)
         .then((order) => res.status(200).json({order}))
         .catch((err) => res.status(err.status).json({message: err.message}))
 })

@@ -786,4 +786,49 @@ routerBoutique.delete("/:shop_id/items/:item_id", authenticateToken, async (req,
 })
 
 
+routerBoutique.get("/:shop_id/stats/categories", async (req, res) => {
+    BoutiqueService.getBoutiqueCategoriesSellsStats(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
+
+routerBoutique.get("/:shop_id/stats/general", async (req, res) => {
+    BoutiqueService.getBoutiqueStats(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
+
+
+routerBoutique.get("/:shop_id/stats/gains", async (req, res) => {
+    BoutiqueService.getBoutiqueChiffreAffaireSerie(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
+
+routerBoutique.get("/:shop_id/stats/sells", async (req, res) => {
+    BoutiqueService.getBoutiqueArticleSellsStats(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
+
 module.exports = routerBoutique;

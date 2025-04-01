@@ -76,20 +76,32 @@ async function createShopCategory(shop_id, category_label) {
 
 // TODO API stats
 
-async function getBoutiqueChiffreAffaireSerie(presta_id) {
-    return LocalSource.getBoutiqueChiffreAffaireSerie(presta_id);
+async function getBoutiqueChiffreAffaireSerie(shop_id) {
+    // return LocalSource.getBoutiqueChiffreAffaireSerie(presta_id);
+    return await Request.get('/boutique/{id}/stats/gains')
+        .args({id: shop_id})
+        .send()
 }
 
-async function getBoutiqueStats(prestataire_id) {
-    return LocalSource.getBoutiqueStats(prestataire_id);
+async function getBoutiqueStats(shop_id) {
+    // return LocalSource.getBoutiqueStats(prestataire_id);
+    return await Request.get('/boutique/{id}/stats/general')
+        .args({id: shop_id})
+        .send()
 }
 
-async function getBoutiqueCategoriesSellsStats(prestataire_id) {
-    return LocalSource.getBoutiqueCategoriesSellsStats(prestataire_id);
+async function getBoutiqueCategoriesSellsStats(shop_id) {
+    // return LocalSource.getBoutiqueCategoriesSellsStats(prestataire_id);
+    return await Request.get('/boutique/{id}/stats/categories')
+        .args({id: shop_id})
+        .send()
 }
 
-async function getBoutiqueArticleSellsStats(prestataire_id) {
-    return LocalSource.getBoutiqueArticleSellsStats(prestataire_id);
+async function getBoutiqueArticleSellsStats(shop_id) {
+    // return LocalSource.getBoutiqueArticleSellsStats(shop_id);
+    return await Request.get('/boutique/{id}/stats/sells')
+        .args({id: shop_id})
+        .send()
 }
 
 export default {
