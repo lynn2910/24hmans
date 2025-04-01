@@ -120,7 +120,7 @@ export default {
 				},
 			},
 			articles_chart: {
-				series: [], // Initialize as an empty array
+				series: [],
 				chartOptions: {
 					legend: {
 						show: false
