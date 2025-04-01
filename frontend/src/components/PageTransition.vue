@@ -20,19 +20,14 @@ export default {
 		}
 	},
 	created() {
-		// Hook into Vue Router navigation
 		this.$router.beforeEach((to, from, next) => {
-			// Start page out transition
 			this.transitionClass = 'h-full bottom-0 opacity-100'
-
-			// Allow slight delay for visual effect
 			setTimeout(() => {
 				next()
 			}, 300)
 		})
 
 		this.$router.afterEach(() => {
-			// Start transition out
 			setTimeout(() => {
 				this.transitionClass = 'h-0 bottom-0 opacity-0'
 			}, 300)

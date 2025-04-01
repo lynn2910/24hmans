@@ -7,7 +7,7 @@
 						 alt="Impossible de charger l'image"/>
 				<div v-else class="w-[50%] h-[75vh] h-max-[90%] flex flex-col items-center content-center">
 					<img class="w-auto h-20 m-auto mb-0" src="@/assets/images/no_image.png" alt="Aucune image">
-					<h2 class="m-auto mt-2 text-base opacity-90">Aucun visuel</h2>
+					<h2 class="m-auto mt-2 text-base opacity-90">{{ $t("services.shop.no_visual") }}</h2>
 				</div>
 			</div>
 			<div class="bg-white bg-opacity-45 rounded-xl h-[75vh] w-0.5 overflow-hidden"></div>
@@ -20,22 +20,22 @@
 				</div>
 
 				<div>
-					<h2 class="text-5xl my-4 mb-0 font-bold text-blue-500">{{ Number.parseFloat(article.price).toFixed(2) }}
-						€</h2>
+					<h2 class="text-5xl my-4 mb-0 font-bold text-blue-500">
+						{{ Number.parseFloat(article.price).toFixed(2) }} €
+					</h2>
 
 					<!-- Indicateur de stock -->
-					<p v-if="article.stock > 0" class="opacity-80">Encore <strong
-							:class="getStockColor(article.stock)">{{ article.stock }}</strong>
-						produits en stock
+					<p v-if="article.stock > 0" class="opacity-80">
+						{{ $t('global.still') }}
+						<strong :class="getStockColor(article.stock)">{{ article.stock }}</strong>
+						{{ $t('services.shop.in_stock') }}
 					</p>
-					<p v-else class="opacity-80 text-red-500">Stock épuisé</p>
+					<p v-else class="opacity-80 text-red-500">{{ $t('services.shop.no_more_in_stock') }}</p>
 				</div>
 
 				<ShopDetail v-if="article.description && article.description.length > 0" name="Description" open>
 					<p>{{ article.description }}</p>
 				</ShopDetail>
-
-				<!-- TODO Ajouter les options liées au panier et au système de commandes (faire que ca colle au bas) -->
 
 				<!-- Panier -->
 				<div class="mt-auto">
@@ -45,10 +45,11 @@
 		</div>
 
 		<!-- Si l'article n'existe pas -->
-		<NotExists v-else-if="finishedFetching" title="Cet article n'existe pas"
-							 description="Vous tentez d'accéder à un article qui n'existe pas."
-							 :route-back-u-r-l="{name:'shop_view', params:{prestataire_name}}" route-back="Retourner à la
-					boutique"></NotExists>
+		<NotExists v-else-if="finishedFetching"
+							 :title="$t('services.shop.article_doesnt_exist_title')"
+							 :description="$t('services.shop.article_doesnt_exist')"
+							 :route-back-u-r-l="{name:'shop_view', params:{prestataire_name}}"
+							 :route-back="$t('services.shop.go_back_to_shop')"></NotExists>
 	</div>
 </template>
 

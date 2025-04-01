@@ -18,7 +18,8 @@
 		<p class="mx-auto mt-5 text-xl font-semibold text-center ml-4">
 			{{ Number.parseFloat(item.price).toFixed(2) }} €</p>
 		<!-- Indicateur de stock -->
-		<p :class="isStockVisible + ' ' + stockColor" class="text-center mt-0">{{ item.stock }} produits restants</p>
+		<p :class="isStockVisible + ' ' + stockColor" class="text-center mt-0">
+			{{ $t('services.shop.stock_lasting', {stock: item.stock}) }}</p>
 
 		<ShopItemCategory class="ml-2 mt-7" :category="category"></ShopItemCategory>
 	</router-link>
@@ -48,9 +49,6 @@ export default {
 		category: String,
 	},
 	computed: {
-		ItemBigView() {
-			return ItemBigView
-		},
 		isStockVisible() {
 			return this.item.stock > 30 ? 'opacity-0' : 'visible'
 		},

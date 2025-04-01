@@ -8,7 +8,7 @@
 		<div class="absolute top-[35%] left-0 right-0 text-center font-semibold not-italic text-5xl text-white ml-80 mr-80">
 			<h1 class="drop-shadow-all-white-700">
 				{{ $t('home.title') }}
-				<br><br><span class="not-italic text-4xl pt-5">11 AU 15 JUIN 2025</span>
+				<br><br><span class="not-italic text-4xl pt-5">{{ $t('home.dates') }}</span>
 			</h1>
 		</div>
 
@@ -19,7 +19,7 @@
 
 		<section class="absolute bg-dark text-white">
 			<div class="p-5 mx-36">
-				<h2 class="font-bold italic text-5xl text-center m-14">24 Heures du Mans</h2>
+				<h2 class="font-bold italic text-5xl text-center m-14">{{ $t('name') }}s</h2>
 
 				<div class="flex flex-row">
 					<div class="mx-auto mt-10">

@@ -196,7 +196,8 @@ routerBoutique.get("/available_shops", (req, res) => {
 routerBoutique.get("/:shop_id", (req, res) => {
     BoutiqueService.getShop(req.params.shop_id).then(
         (shop) => {
-            if (!shop.enabled && req.session?.userId !== req.params.shop_id) res.status(401).json({message: "Access denied"})
+            if (shop && !shop.enabled && req.session?.userId !== req.params.shop_id) res.status(401).json({message: "Access denied"})
+            else if (!shop) return res.status(404).json({message: 'No shop found'})
             else res.status(200).json(shop)
         },
         (err) => res.status(500).json({message: err.message})

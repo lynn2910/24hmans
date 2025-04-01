@@ -1,19 +1,18 @@
 <template>
 	<div class="mt-36">
-		<h1 class="font-bold text-3xl text-center mb-10">Mentions légales</h1>
+		<h1 class="font-bold text-3xl text-center mb-10">{{ $t('bonuses.mentions.title') }}</h1>
 
 		<div class="mx-10 md:mx-40">
-			<h2 class="text-xl font-bold mb-5">Éditeur du site</h2>
+			<h2 class="text-xl font-bold mb-5">{{ $t('bonuses.mentions.editor.title') }}</h2>
 
 			<p>
-				Ce site est édité par un groupe d'étudiants de <strong>L'Institut Universitaire Technologique de Nord
-				Franche-Comté</strong> dans le cadre d'un projet universitaire.
+				{{ $t('bonuses.mentions.editor.text') }}
 				<br>
-				Les responsables de la publication sont :
+				{{ $t('bonuses.mentions.editor.responsables') }}
 			</p>
 			<div class="grid grid-cols-2 grid-rows-5 w-40 mt-3 ml-5">
-				<p>Cédric</p>
-				<p>COLIN</p>
+				<p>{{ $t('bonuses.mentions.editor.cedric') }}</p>
+				<p>{{ $t('bonuses.mentions.editor.colin') }}</p>
 
 				<p>Marvyn</p>
 				<p>LEVIN</p>
@@ -30,65 +29,58 @@
 
 			<hr class="my-10">
 
-			<h2 class="text-xl font-bold mb-5">Hébergeur</h2>
+			<h2 class="text-xl font-bold mb-5">{{ $t('bonuses.mentions.host.title') }}</h2>
 
-			<p><strong>Nom de l'hébergeur :</strong> Cédric COLIN</p>
-			<p><strong>Adresse:</strong></p>
+			<p><strong>{{ $t('bonuses.mentions.host.name') }}</strong> Cédric COLIN</p>
+			<p><strong>{{ $t('bonuses.mentions.host.address') }}</strong></p>
 			<div class="ml-5">
-				<p>19 avenue du Maréchal Juin</p>
-				<p>BP 527</p>
-				<p>90016 Belfort cedex</p>
+				<p>{{ $t('bonuses.mentions.host.address_line1') }}</p>
+				<p>{{ $t('bonuses.mentions.host.address_line2') }}</p>
+				<p>{{ $t('bonuses.mentions.host.address_line3') }}</p>
 			</div>
 
 			<hr class="my-10">
 
-			<h2 class="text-xl font-bold mb-5">Propriété intellectuelle</h2>
+			<h2 class="text-xl font-bold mb-5">{{ $t('bonuses.mentions.intellectual.title') }}</h2>
 
-			<p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la
-				propriété intellectuelle.</p>
-			<p>Les images et vidéos présentes sur ce site sont la propriété de leurs auteurs respectifs et sont utilisées dans
-				un but strictement informatif et non commercial.</p>
-			<p>Les marques citées sur ce site sont la propriété de leurs détenteurs respectifs. Tous les droits de
-				reproduction sont réservés, y compris les documents téléchargeables et les représentations iconographiques et
-				photographiques.</p>
-			<p>La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement
-				interdite, sauf autorisation expresse du responsable de la publication.</p>
+			<p>{{ $t('bonuses.mentions.intellectual.text1') }}</p>
+			<p>{{ $t('bonuses.mentions.intellectual.text2') }}</p>
+			<p>{{ $t('bonuses.mentions.intellectual.text3') }}</p>
+			<p>{{ $t('bonuses.mentions.intellectual.text4') }}</p>
 
 			<br><br>
 
-			<p>Toute personne souhaitant contester l'utilisation d'une image ou d'une vidéo est priée de contacter le
-				responsable de la publication à l'adresse suivante :
-				<a class="underline text-blue-400" href="mailto:cedric.colin35@gmail.com">cedric.colin35@gmail.com</a>
+			<p>{{ $t('bonuses.mentions.intellectual.contact') }}
+				<a class="underline text-blue-400"
+					 href="mailto:cedric.colin35@gmail.com">{{ $t('bonuses.mentions.intellectual.email') }}</a>
 			</p>
 
 			<hr class="my-10">
 
-			<h2 class="text-xl font-bold mb-5">Données personnelles</h2>
+			<h2 class="text-xl font-bold mb-5">{{ $t('bonuses.mentions.personal.title') }}</h2>
 
-			<router-link class="underline text-blue-400" :to="{name: 'donnees_personnelles'}">Voir la page</router-link>
-
-			<hr class="my-10">
-
-			<h2 class="text-xl font-bold mb-5">Liens hypertextes</h2>
-
-			<p>Ce site peut contenir des liens hypertextes vers d'autres sites web. Nous ne sommes pas responsables du contenu
-				de ces sites et ne pouvons en garantir la disponibilité.</p>
+			<router-link class="underline text-blue-400" :to="{name: 'donnees_personnelles'}">
+				{{ $t('bonuses.mentions.personal.link') }}
+			</router-link>
 
 			<hr class="my-10">
 
-			<h2 class="text-xl font-bold mb-5">Avertissement</h2>
+			<h2 class="text-xl font-bold mb-5">{{ $t('bonuses.mentions.hyperlinks.title') }}</h2>
 
-			<p>Les informations contenues sur ce site sont fournies à titre indicatif et ne sauraient engager la
-				responsabilité des étudiants</p>
-			<p>Nous nous efforçons de maintenir ce site à jour, mais ne pouvons garantir l'exactitude, la complétude et
-				l'actualité des informations qui y sont diffusées.</p>
+			<p>{{ $t('bonuses.mentions.hyperlinks.text') }}</p>
 
 			<hr class="my-10">
 
-			<h2 class="text-xl font-bold mb-5">Loi applicable</h2>
+			<h2 class="text-xl font-bold mb-5">{{ $t('bonuses.mentions.warning.title') }}</h2>
 
-			<p>Le présent site est soumis à la loi française. En cas de litige, seuls les tribunaux français seront
-				compétents.</p>
+			<p>{{ $t('bonuses.mentions.warning.text1') }}</p>
+			<p>{{ $t('bonuses.mentions.warning.text2') }}</p>
+
+			<hr class="my-10">
+
+			<h2 class="text-xl font-bold mb-5">{{ $t('bonuses.mentions.law.title') }}</h2>
+
+			<p>{{ $t('bonuses.mentions.law.text') }}</p>
 		</div>
 
 

@@ -1,14 +1,18 @@
 {
   "hello": "Hello",
   "name": "24 Hours of Le Mans",
+  "presta": "Provide",
+  "user": "User",
+  "admin": "Admin",
   "home": {
-    "title": "24 Hours of Le Mans, take the start of the greatest automobile event in France",
-    "date": "JUNE 11TH TO 15TH, 2025",
+    "dates": "JUNE 11 TO 15, 2025",
+    "title": "24h of Le Mans, take the start of the biggest car event in France",
+    "date": "JUNE 11 TO 15, 2025",
     "tondeuse": {
-      "h1": "An iconic race",
-      "p1": "Welcome to the 24 Hours of Le Mans, the legendary endurance race! Every year since 1923, the best drivers compete for 24 hours on a unique circuit combining the Bugatti track and public roads. Speed, strategy, and performance await you!",
-      "h2": "A unique circuit in the Sarthe region",
-      "p2": "Whether you are a passionate fan or simply curious, the 24 Hours of Le Mans is one of the three most prestigious races along with Monaco and Indianapolis. Experience the passion of the fans, the speed, and the strategy of the cars in action."
+      "h1": "An emblematic race",
+      "p1": "Welcome to the 24 Hours of Le Mans, the mythical endurance race! Every year since 1923, the best drivers have competed for 24 hours on a unique circuit combining the Bugatti circuit and public roads. Speed, strategy and performance guaranteed!",
+      "h2": "A unique circuit in the Sarthe",
+      "p2": "Whether you are passionate or curious, the 24 Hours of Le Mans is one of the three most prestigious races with Monaco and Indianapolis. Experience the passion of the fans, the speed and strategy of the cars in action."
     },
     "numbers": {
       "title": "Some figures",
@@ -17,36 +21,38 @@
     },
     "thanks": {
       "title": "And a big thank you",
-      "p": "Thank you to all the enthusiasts who came to celebrate the 24 Hours of Le Mans! Your presence and enthusiasm make this event an unforgettable experience. We can't wait to see you again to experience the excitement together at each new edition!"
+      "p": "Thank you to all the enthusiasts who came to celebrate the 24 Hours of Le Mans! Your presence and your enthusiasm make this event an unforgettable experience. We look forward to seeing you again to experience the thrill together at each new edition!"
     },
-    "services": "Discover our <strong>ticketing offers</strong>, to guarantee your place at this iconic event. Whether you are a motorsport enthusiast or simply curious to have a unique experience, our tickets will <strong>give you access to the best seats</strong> and services to fully enjoy the 24 Hours of Le Mans.",
-    "link_to_billetterie": "Link to ticketing",
+    "services": "Discover our <strong>ticketing offers</strong>, to guarantee your place at this emblematic event. Whether you are passionate about motorsport or simply curious to have a unique experience, our tickets will <strong>give you access to the best seats</strong> and services to fully enjoy the 24 Hours of Le Mans.",
+    "link_to_billetterie": "Link to the ticket office",
     "prestataires": {
-      "discover": "Discover our service providers, who offer a wide range of services to enrich <strong>your experience</strong>. Each of them is delighted to share their expertise and contribute to making your event <strong>an unforgettable moment</strong>.",
+      "name": "Service Providers",
+      "discover": "Discover our service providers, who offer a wide range of services to enrich <strong>your experience</strong>. Each of them is delighted to share their know-how and contribute to making your event <strong>an unforgettable moment.</strong>",
       "search_by_name": "Search by name",
       "filter_by_ctg": "Filter by category",
-      "no_prestataires": "No service providers found",
-      "name_search": "No keyword added"
+      "no_prestataires": "No service provider found",
+      "name_search": "No word added."
     },
     "map": {
       "title": "Interactive Map",
-      "text": "Find all the information about the event <strong>thanks to our interactive map</strong>. Easily explore the places, services, and points of interest <strong>for an optimal experience</strong> on site."
+      "short": "Map",
+      "text": "Find all the information about the event <strong>thanks to our interactive map</strong>. Easily explore the places, services and points of interest <strong>for an optimal experience</strong> on site."
     }
   },
   "footer": {
-    "a_propos": "ABOUT",
-    "mentions_legales": "LEGAL NOTICES",
+    "a_propos": "ABOUT US",
+    "mentions_legales": "LEGAL NOTICE",
     "donnees_personnelles": "PERSONAL DATA",
-    "cgv_billeterie": "TICKETING TERMS AND CONDITIONS",
+    "cgv_billeterie": "TICKET SALES TERMS",
     "services": "SERVICES",
     "billetteries": "TICKET OFFICES",
     "visites_ecuries": "TEAM VISITS",
     "boutique": "SHOP",
-    "reseaux": "SOCIAL MEDIA",
+    "reseaux": "NETWORKS",
     "instagram": "INSTAGRAM",
     "facebook": "FACEBOOK",
     "youtube": "YOUTUBE",
-    "realise_par": "Developed by",
+    "realise_par": "Created by",
     "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
   },
   "selects": {
@@ -55,24 +61,375 @@
   "lists": {
     "billetteries": "List of ticket offices",
     "bi_click": "Click to access the ticket office",
-    "bi_empty": "No provider has a ticket office at the moment.",
-    "ecuries": "List of stables",
-    "ecu_click": "Click to access the stable",
-    "ecu_empty": "No stable available at the moment...",
+    "bi_empty": "No service provider has a ticket office at the moment.",
+    "ecuries": "List of teams",
+    "ecu_click": "Click to access the team",
+    "ecu_empty": "No team available at the moment...",
     "boutiques": "List of shops",
     "bo_click": "Click to access the shop",
-    "bo_empty": "No provider has a shop at the moment."
+    "bo_empty": "No service provider has a shop at the moment."
   },
   "navbar": {
-    "billetteries": "Ticket",
+    "billetteries": "Ticket offices",
     "boutiques": "Shops",
     "ecuries": "Teams",
     "map": "Map",
-    "prestataires": "Prestataires",
+    "prestataires": "Service Provider",
     "login": {
-      "connect": "Login",
+      "connect": "Log in",
       "profile": "My profile",
       "dashboard": "My dashboard"
+    }
+  },
+  "tools": {
+    "loading": {
+      "waiting": "Please wait"
+    }
+  },
+  "dashboards": {
+    "name": "Dashboard",
+    "users": "Users",
+    "stats": "Statistics",
+    "services": "Services",
+    "no_services": "No services...",
+    "client": {
+      "go_back_home": "Go back to the homepage",
+      "home": "Homepage",
+      "billets": "My tickets",
+      "karting": "My races",
+      "achats": "My purchases",
+      "no_commands": "You have not placed any orders.",
+      "deconnect": "Log out",
+      "hello": "Hello "
+    },
+    "profile": "My profile",
+    "presta_admin": {
+      "shop_name": "Shop",
+      "kart": "Karting",
+      "tickets": "Ticketing",
+      "ecuries": "Team visits",
+      "montgols": "Hot air balloons",
+      "some_stats": "Some statistics",
+      "map_editing": {
+        "place_name": "Place name",
+        "place_placeholder": "Enter the place name",
+        "logistic": "Logistics",
+        "logistic_placeholder": "Enter logistics",
+        "surface": "Area (m²)",
+        "surface_placeholder": "Enter the area in m²",
+        "description": "Description",
+        "description_placeholder": "Enter your text here..",
+        "category": "Category"
+      },
+      "shop": {
+        "name": "Shop",
+        "articles": {
+          "title": "List of items",
+          "no_article": "No item to display",
+          "create_article": "Create an item",
+          "initial_stock": "Initial product stock",
+          "selling_price": "Selling price",
+          "add_article": "Add item"
+        },
+        "categories": {
+          "title": "List of categories",
+          "no_category": "No category to display",
+          "articles_count": "Number of items",
+          "category_creation": "Create a category",
+          "category_name_placeholder": "Category name",
+          "add_category": "Add category"
+        },
+        "global_settings": {
+          "shop_online": "The shop is online",
+          "shop_offline": "The shop is not online",
+          "watch_shop": "View shop",
+          "visibility": {
+            "everyone": "Visible to everyone",
+            "only_presta": "Only visible to you"
+          },
+          "access": {
+            "public": "Accessible to the public",
+            "text": "This setting controls the visibility of the shop to the public."
+          },
+          "tabs": {
+            "settings": "General settings",
+            "items": "Items",
+            "categories": "Categories"
+          }
+        }
+      },
+      "presta_home": {
+        "hello": "I am a dashboard"
+      },
+      "karting": {
+        "name": "Karting"
+      },
+      "tickets_obj": {
+        "name": "Ticketing"
+      },
+      "ecuries_obj": {
+        "name": "Garage visits"
+      },
+      "montgolfieres": {
+        "name": "Hot air balloons"
+      },
+      "prestataires": {
+        "copy_success": "You have successfully copied the service providers",
+        "delete": {
+          "confirmation_text": "You are about to delete the service provider",
+          "text": "Are you sure you want to delete this service provider"
+        }
+      }
+    },
+    "presta": "Service Provider",
+    "presta_multi": "Service Providers",
+    "available_services": "Available services",
+    "statistics": {
+      "not_available": "Statistics for the <strong>{activeTab}</strong> category are not yet available.",
+      "shop": {
+        "clients": "clients",
+        "benef": "of profit",
+        "commands": "orders",
+        "turnover": "Turnover",
+        "gains_graph": "Money earned in €",
+        "sells_by_ctg": "Distribution of sales by product category",
+        "sells_by_article": "Distribution of sales by article"
+      }
+    }
+  },
+  "login": {
+    "title": "Login",
+    "login": {
+      "title": "Identifier",
+      "email": "Email"
+    },
+    "password": {
+      "title": "Password",
+      "placeholder": "password",
+      "confirm_password": "Confirm password"
+    },
+    "signup": "Create account",
+    "login_btn": "Log in",
+    "register_link": "I don't have an account yet",
+    "invalid": "Invalid identifier or password"
+  },
+  "cart": {
+    "title": "Your cart",
+    "price": "Price",
+    "resume": "Summary",
+    "ttc": "Incl. tax",
+    "add": "Add to cart",
+    "payment": "The system for entering bank information is fictitious. No information is processed or recorded.",
+    "make_order": "Pay",
+    "stock_rest": "Only {stock} items left in stock"
+  },
+  "prestataire_edit": {
+    "update": "Update name",
+    "create_link": "Create link"
+  },
+  "global": {
+    "id": "ID",
+    "settings": "Settings",
+    "name": "Name",
+    "services": "Services",
+    "services_lowercase": "services",
+    "url": "URL",
+    "stock": "Stock",
+    "price_detailed": "Price (€)",
+    "description": "Description",
+    "update": "Update",
+    "category": "Category",
+    "save": "Save",
+    "reset": "Reset",
+    "next": "Next",
+    "still": "still",
+    "register": "Register",
+    "hello_day": "Hello",
+    "hello_night": "Good evening",
+    "free_zone": "Release",
+    "see": "See",
+    "delete": "Delete",
+    "close": "Close"
+  },
+  "cancel": "Cancel",
+  "services": {
+    "billetterie": {
+      "date_title": "Date selection",
+      "reserve": "Pay and reserve",
+      "type_billet": {
+        "title": "Ticket type",
+        "select": "Select ticket type"
+      },
+      "select_persons": "Select people",
+      "date_selection": "Select dates",
+      "step": "Step {n}",
+      "resume": {
+        "type": "Ticket type:",
+        "not_selected": "Not selected",
+        "not_given": "Not given",
+        "dates_selected": "Date(s) chosen:",
+        "persons_number": "Number of people:"
+      }
+    },
+    "shop": {
+      "no_visual": "No visual",
+      "in_stock": "products in stock",
+      "no_more_in_stock": "Out of stock",
+      "article_doesnt_exist_title": "This article does not exist",
+      "article_doesnt_exist": "You are trying to access an article that does not exist.",
+      "go_back_to_shop": "Go back to the shop",
+      "shop_name": "Shop of {name}",
+      "shop_doesnt_exist_title": "This shop does not exist",
+      "shop_doesnt_exist": "You are trying to access a shop that does not exist.",
+      "go_back_to_prestataire_profile": "Go back to the service provider's page",
+      "prestataire_doesnt_exist_title": "This service provider does not exist",
+      "prestataire_doesnt_exist": "You are trying to access the shop of a service provider that does not exist.",
+      "go_back_to_prestataires_list": "Go back to the list of service providers",
+      "filters": {
+        "selection": "Our selection",
+        "keywords": "Keywords",
+        "categories": "Categories",
+        "active_filters": "Active filters"
+      },
+      "stock_lasting": "{stock} products remaining"
+    },
+    "ecurie": {
+      "title": "Draw",
+      "rules": {
+        "title": "Rules for participating in the draw",
+        "one": "The participant must be of legal age to participate.",
+        "two": "One ticket per participant.",
+        "three": "The information provided must be accurate and verifiable.",
+        "four": "Participation in the draw is open until <strong class=\"text-white\">June 25, 2025</strong>.",
+        "five": "The winners will be notified by email on <strong class=\"text-white\">June 26, 2025</strong>."
+      },
+      "sign": {
+        "title": "Registration for the draw",
+        "lastname": "Last name:",
+        "firstname": "First name:",
+        "firstname_simple": "First name",
+        "family_name": "Last name",
+        "email": "E-mail:",
+        "email_simple": "Email",
+        "phone": "Phone:",
+        "ticket_number": "Ticket number:"
+      }
+    }
+  },
+  "payment": {
+    "title": "Payment",
+    "warning": "The system for entering bank information is fictitious. No information is processed or recorded.",
+    "card_number": "Card number",
+    "expiration": "Expiration (mm/yy)",
+    "security_code": "Security code"
+  },
+  "bonuses": {
+    "cgv": {
+      "title": "General terms and conditions of ticket sales",
+      "text": "Link to the PDF document:"
+    },
+    "mentions": {
+      "title": "Legal notice",
+      "editor": {
+        "title": "Site editor",
+        "text": "This site is published by a group of students from <strong>The University Institute of Technology of North Franche-Comté</strong> as part of a university project.",
+        "responsables": "The publication managers are:",
+        "cedric": "Cic",
+        "colin": "COLIN"
+      },
+      "host": {
+        "title": "Host",
+        "name": "Host name:",
+        "address": "Address:",
+        "address_line1": "19 avenue du Maréchal Juin",
+        "address_line2": "BP 527",
+        "address_line3": "90016 Belfort cedex"
+      },
+      "intellectual": {
+        "title": "Intellectual property",
+        "text1": "This entire site is governed by French and international legislation on copyright and intellectual property.",
+        "text2": "The images and videos on this site are the property of their respective authors and are used for strictly informational and non-commercial purposes.",
+        "text3": "The brands mentioned on this site are the property of their respective owners. All reproduction rights are reserved, including downloadable documents and iconographic and photographic representations.",
+        "text4": "The reproduction of all or part of this site on any electronic medium whatsoever is strictly prohibited, unless expressly authorized by the publication manager.",
+        "contact": "Anyone wishing to contest the use of an image or video is asked to contact the publication manager,",
+        "email": "cedric.colin35@gmail.com"
+      },
+      "personal": {
+        "title": "Personal data",
+        "link": "See the page"
+      },
+      "hyperlinks": {
+        "title": "Hyperlinks",
+        "text": "This site may contain hyperlinks to other websites. We are not responsible for the content of these sites and cannot guarantee their availability."
+      },
+      "warning": {
+        "title": "Warning",
+        "text1": "The information contained on this site is provided for informational purposes only and does not engage the responsibility of the students",
+        "text2": "We strive to keep this site up to date, but cannot guarantee the accuracy, completeness and timeliness of the information disseminated on it."
+      },
+      "law": {
+        "title": "Applicable law",
+        "text": "This site is subject to French law. In the event of a dispute, only the French courts will be competent."
+      }
+    },
+    "personal_data": {
+      "title": "Privacy policy",
+      "introduction": {
+        "title": "1. Introduction",
+        "text": "This privacy policy aims to inform you about how we collect, use, store and protect the personal data you provide to us when you use our website."
+      },
+      "data_collection": {
+        "title": "2. Data collection and use",
+        "collected_data": "Collected data:",
+        "collected_data_text": "We collect the personal data you voluntarily provide to us when you interact with our site (for example, your name, your email address if you contact us). We may also collect browsing data through the use of cookies and similar technologies.",
+        "data_use": "Use of data:",
+        "site_functionality": "Site functionality:",
+        "site_functionality_text": "Ensure the proper functioning of our website and provide you with the services you request.",
+        "personalization": "Personalization:",
+        "personalization_text": "Improve your user experience by remembering your preferences (language, items in the cart, etc.)."
+      },
+      "cookies": {
+        "title": "3. Cookies",
+        "text": "We use functional cookies to improve your browsing experience. These cookies do not collect any personal data that can identify you. You can choose to disable cookies at any time by changing your browser settings. However, this action may affect certain features of the site."
+      },
+      "data_storage": {
+        "title": "4. Data storage",
+        "text": "The personal data we collect is stored on secure servers located within the European Union. We keep your personal data only for the time necessary to achieve the purposes for which it was collected."
+      },
+      "data_sharing": {
+        "title": "5. Data sharing",
+        "text": "We do not share, sell or rent your personal data to third parties."
+      },
+      "data_security": {
+        "title": "6. Data security",
+        "text": "We implement appropriate technical and organizational security measures to protect your personal data against any loss, alteration, destruction or unauthorized access."
+      },
+      "your_rights": {
+        "title": "7. Your rights",
+        "text": "In accordance with the regulations in force, you have the following rights:",
+        "access_right": "Right of access:",
+        "access_right_text": "You can request access to the personal data we hold about you.",
+        "rectification_right": "Right of rectification:",
+        "rectification_right_text": "You can request to correct any inaccurate personal data.",
+        "erasure_right": "Right to erasure:",
+        "erasure_right_text": "You can request to delete your personal data, under certain conditions.",
+        "opposition_right": "Right of opposition:",
+        "opposition_right_text": "You can object to the processing of your personal data for certain purposes.",
+        "limitation_right": "Right to limitation:",
+        "limitation_right_text": "You can request to limit the processing of your personal data.",
+        "portability_right": "Right to portability:",
+        "portability_right_text": "You can request to receive your personal data in a structured, commonly used and machine-readable format.",
+        "contact_text": "To exercise your rights, please contact us at the following address:"
+      },
+      "policy_changes": {
+        "title": "8. Changes to the privacy policy",
+        "text": "We reserve the right to modify this privacy policy at any time. Any modification will be effective upon its publication on our website."
+      },
+      "contact": {
+        "title": "9. Contact",
+        "text": "If you have any questions regarding this privacy policy, you can contact us at the following address:"
+      },
+      "edited": "Edited on January 8, 2025 at 4:53 PM French Time"
     }
   }
 }

@@ -1,25 +1,31 @@
-<script setup>
+<script>
 import PrestataireDashboardWithTabsTemplate
 	from "@/components/dashboard/prestataire/PrestataireDashboardWithTabsTemplate.vue";
-import {ref} from "vue";
 import PrestataireShopStats from "@/components/dashboard/prestataire/stats/PrestataireShopStats.vue";
+import i from '@/i18n'
 
-const tabs = [
-	{id: "shop", name: "Boutique"},
-	{id: "karting", name: "Karting"},
-	{id: "billeterie", name: "Billeterie"},
-	{id: "ecuries", name: "Visites de garage"},
-	{id: "montgol", name: "Montgolfières"}
-];
-const activeTab = ref(tabs[0].id);
-
-function changeTab(newTab) {
-	console.log(`New tab. activeTab = ${newTab}`)
-	activeTab.value = newTab;
-	console.log(activeTab.value);
+export default {
+	components: {PrestataireDashboardWithTabsTemplate, PrestataireShopStats},
+	data() {
+		const tabs = [
+			{id: "shop", name: i.t('dashboards.presta_admin.shop.name')},
+			{id: "karting", name: i.t('dashboards.presta_admin.karting.name')},
+			{id: "billeterie", name: i.t('dashboards.presta_admin.tickets_obj.name')},
+			{id: "ecuries", name: i.t('dashboards.presta_admin.ecuries_obj.name')},
+			{id: "montgol", name: i.t('dashboards.presta_admin.montgolfieres.name')}
+		];
+		return {
+			tabs,
+			activeTab: tabs[0].id
+		}
+	},
+	methods: {
+		changeTab(newTab) {
+			console.log(`New tab. activeTab = ${newTab}`)
+			this.activeTab = newTab;
+		}
+	}
 }
-
-console.log(activeTab)
 </script>
 
 <template>
@@ -35,8 +41,7 @@ console.log(activeTab)
 					<path
 							d="M12.884 2.532c-.346-.654-1.422-.654-1.768 0l-9 17A.999.999 0 0 0 3 21h18a.998.998 0 0 0 .883-1.467L12.884 2.532zM13 18h-2v-2h2v2zm-2-4V9h2l.001 5H11z"></path>
 				</svg>
-				<p>Les statistiques pour la catégorie <strong>{{ activeTab }}</strong> ne sont pas
-					encore disponibles.</p>
+				<p v-html="$t('dashboards.statistics.not_available', {activeTab})"></p>
 			</div>
 		</div>
 		<!--		<div v-if="activeTab === 'karting'">karting</div>-->

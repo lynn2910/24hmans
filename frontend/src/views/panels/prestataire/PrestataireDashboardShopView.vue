@@ -33,7 +33,7 @@ import Loading from "@/components/dashboard/Loading.vue";
 import PrestataireShopSettings from "@/views/panels/prestataire/shop/PrestataireShopSettings.vue";
 import PrestataireShopCategories from "@/views/panels/prestataire/shop/PrestataireShopCategories.vue";
 import BoutiqueService from "@/services/boutique.service";
-
+import i from '@/i18n'
 
 export default {
 	components: {
@@ -43,9 +43,9 @@ export default {
 	data() {
 		return {
 			tabs: [
-				{id: "settings", name: "Paramètres généraux"},
-				{id: "items", name: "Articles"},
-				{id: "categories", name: "Catégories"},
+				{id: "settings", name: i.t('dashboards.presta_admin.shop.global_settings.tabs.settings')},
+				{id: "items", name: i.t('dashboards.presta_admin.shop.global_settings.tabs.items')},
+				{id: "categories", name: i.t('dashboards.presta_admin.shop.global_settings.tabs.categories')},
 			],
 			activeTab: "settings",
 			showImportLoadingAnimation: false

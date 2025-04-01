@@ -9,16 +9,16 @@ Page de gestion des prestataires du dashboard admin
 		<div class="flex flex-row items-center content-center justify-start gap-5 h-[90%] w-full mt-[2.5%]">
 			<div class="w-full bg-blue-400 bg-opacity-5 m-5 mr-0 p-5 h-full border border-gray-700 rounded-2xl">
 				<div class="flex flex-row content-center items-center justify-between w-full mb-5">
-					<h2 class="text-2xl font-bold">Prestataires</h2>
+					<h2 class="text-2xl font-bold">{{ $t('dashboards.presta_multi') }}</h2>
 				</div>
-				
+
 				<table class="w-full text-left table-auto min-w-max">
 					<thead>
 
 					<tr class="text-left">
-						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Id</th>
-						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Name</th>
-						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Services</th>
+						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">{{ $t('global.id') }}</th>
+						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">{{ $t('global.name') }}</th>
+						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">{{ $t('global.services') }}</th>
 						<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50"></th>
 					</tr>
 
@@ -43,7 +43,7 @@ Page de gestion des prestataires du dashboard admin
 									{{
 										services.find((s) => s.id === prestataire.id)?.nb_services || 0
 									}}
-								</strong> services
+								</strong> {{ $t('services_lowercase') }}
 							</p>
 						</td>
 						<td class="p-4 py-2 border-b border-blue-gray-50 flex flex-row items-center justify-evenly">
@@ -53,7 +53,7 @@ Page de gestion des prestataires du dashboard admin
 									:to="`/prestataire/${prestataire.referencer}`"
 									target="_blank"
 									class="flex flex-row items-center content-center py-2 px-3 bg-dark rounded hover:bg-opacity-50 cursor-pointer">
-								<p class="mr-2">Voir</p>
+								<p class="mr-2">{{ $t('global.see') }}</p>
 								<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" width="24" height="24" viewBox="0 0 24 24">
 									<path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path>
 								</svg>
@@ -147,23 +147,26 @@ Page de gestion des prestataires du dashboard admin
 
 			<!-- Delete -->
 			<Popup title="Supprimer un prestataire" v-if="showDeletePopup" @close="closePopup">
-				<p>Vous êtes sur le point de supprimer le prestataire <strong>{{ popupPrestataire.name }}</strong>.</p>
-				<p class="mt-1">Êtes-vous sûr de vouloir supprimer ce prestataire?</p>
+				<p>{{ $t('confirmation_text') }} <strong>{{ popupPrestataire.name }}</strong>.</p>
+				<p class="mt-1">{{ $t('dashboards.presta_admin.prestataires.delete.text') }}?</p>
 
 				<div class="flex flex-row items-center content-center justify-start mt-5">
 					<button class="bg-red-500 hover:bg-red-800 py-2 px-3 rounded mr-5"
 									@click="deletePrestataire(popupPrestataire.id)">
-						Supprimer
+						{{ $t('global.delete') }}
 					</button>
-					<button class="bg-gray-500 hover:bg-gray-800 py-2 px-3 rounded" @click="closePopup">Annuler</button>
+					<button class="bg-gray-500 hover:bg-gray-800 py-2 px-3 rounded" @click="closePopup">{{
+							$t('cancel')
+						}}
+					</button>
 				</div>
 			</Popup>
 
 			<!-- Copy popup -->
 			<Popup title="Copie des prestataires" v-if="showCopyPopup" @close="showCopyPopup = false;">
-				<p class="mt-1 mb-3">Vous avez copié avec succès les prestataires</p>
+				<p class="mt-1 mb-3">{{ $t('dashboards.presta_admin.prestataires.copy_success') }}</p>
 				<button class="ml-auto bg-gray-500 hover:bg-gray-800 py-2 px-3 rounded" @click="showCopyPopup = false;">
-					Fermer
+					{{ $t('global.close') }}
 				</button>
 			</Popup>
 

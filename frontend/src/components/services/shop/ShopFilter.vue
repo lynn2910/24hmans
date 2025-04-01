@@ -2,23 +2,23 @@
 	<div>
 		<!-- Titre top -->
 		<div class="w-full border-b-2 border-gray-500 py-5">
-			<h2 class="font-extrabold italic text-xl uppercase">Notre sélection</h2>
+			<h2 class="font-extrabold italic text-xl uppercase">{{ $t('services.shop.filters.selection') }}</h2>
 		</div>
 		<!-- Filtres -->
 		<div class="w-full py-4 flex flex-row align-middle">
 			<!-- Mots clés -->
 			<div class="flex flex-row align-middle px-5 text-sm">
-				<p class="uppercase font-semibold text-sm my-auto">Mots-clés</p>
+				<p class="uppercase font-semibold text-sm my-auto">{{ $t('services.shop.filters.keywords') }}</p>
 				<input
 						v-model="searchKeywords"
 						class="ml-3 my-auto h-10 py-1 px-2 bg-dark border-2 border-blue-400 border-opacity-50 rounded outline-none focus:border-opacity-100"
 						type="text"
 						@change="updateActiveFilters"
-						placeholder="Mots-clés">
+						:placeholder="$t('services.shop.filters.keywords')">
 			</div>
 			<!-- Categories -->
 			<div class="flex flex-row align-middle content-center px-5 min-w-96">
-				<p class="uppercase font-semibold text-sm my-auto mr-5">Catégories</p>
+				<p class="uppercase font-semibold text-sm my-auto mr-5">{{ $t('services.shop.filters.categories') }}</p>
 				<!-- Sélection multiples -->
 				<MultipleSelect
 						ref="categoriesSelection"
@@ -28,7 +28,7 @@
 		</div>
 		<!-- Filtres actifs -->
 		<div v-if="activeFilters.length > 0" class="p-4 m-4 mt-0 border-2 border-gray-500 rounded-xl">
-			<h2 class="font-extrabold text-xl uppercase">Filtres actifs</h2>
+			<h2 class="font-extrabold text-xl uppercase">{{ $t('services.shop.filters.active_filters') }}</h2>
 			<div class="p-5 flex flex-row align-middle">
 				<div class="flex flex-row bg-blue-600 bg-opacity-50 rounded-3xl py-1 px-2 ml-2"
 						 v-for="(filter, index) in activeFilters"
@@ -50,6 +50,7 @@
 
 <script>
 import MultipleSelect from "@/components/selects/MultipleSelect.vue";
+import i from '@/i18n'
 
 export default {
 	name: "ShopFilter",
@@ -81,13 +82,21 @@ export default {
 
 			// mots-clés
 			if (this.searchKeywords.length > 0) {
-				newFilters.push({value: this.searchKeywords, name: "Mots-clés", id: "keywords"})
+				newFilters.push({
+					value: this.searchKeywords,
+					name: i.t('services.shop.filters.keywords'),
+					id: "keywords"
+				})
 			}
 
 			// catégories
 			if (this.selectedCategories.length > 0) {
 				this.selectedCategories.forEach((ctg) => {
-					newFilters.push({value: ctg, name: "Catégorie", id: `category_${ctg.toLowerCase().replace(/\s+/g, '')}`})
+					newFilters.push({
+						value: ctg,
+						name: i.t('services.shop.filters.categories'),
+						id: `category_${ctg.toLowerCase().replace(/\s+/g, '')}`
+					})
 				})
 			}
 

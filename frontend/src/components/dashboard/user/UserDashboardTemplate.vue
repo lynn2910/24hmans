@@ -92,6 +92,7 @@
 <script>
 import {mapActions, mapState} from "vuex";
 import {Selected} from "@/utils";
+import i from "@/i18n"
 
 export default {
 	name: "UserDashboardTemplate",
@@ -99,7 +100,7 @@ export default {
 		...mapState('login', ['loggedInUser', 'userType']),
 		bonjourOuBonsoir() {
 			const hour = (new Date()).getHours();
-			return hour < 8 || hour >= 19 ? "Bonsoir" : "Bonjour"
+			return hour < 8 || hour >= 19 ? i.t('global.hello_night') : i.t('global.hello_day')
 		}
 	},
 	async beforeMount() {

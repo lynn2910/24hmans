@@ -4,18 +4,18 @@
 		<div class="bg-blue-400 bg-opacity-5 m-5 mr-0 p-5 h-full border border-gray-700 rounded-2xl ml-0 mt-0 w-full">
 
 			<div class="flex flex-row items-start content-center justify-between">
-				<h1 class="font-bold text-xl">Liste des articles</h1>
+				<h1 class="font-bold text-xl">{{ $t('dashboards.presta_admin.shop.articles.title') }}</h1>
 			</div>
 
 			<table class="block overflow-x-scroll overflow-y-scroll w-full whitespace-nowrap">
 				<thead>
 				<tr class="text-left border-b-2 border-blue-gray-100">
 					<!--					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-5">Id</th>-->
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52">Nom</th>
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52 max-w-52">Catégorie</th>
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-24">Stock</th>
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-24">Prix (€)</th>
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-full">Description</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52">{{ $t('global.name') }}</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-52 max-w-52">{{ $t('global.category') }}</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-24">{{ $t('global.stock') }}</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 min-w-24">{{ $t('global.price_detailed') }}</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-full">{{ $t('global.description') }}</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50"></th>
 				</tr>
 				</thead>
@@ -87,7 +87,7 @@
 
 			</table>
 
-			<p v-if="articles?.length < 1" class="mx-1 my-3">Aucun article à afficher</p>
+			<p v-if="articles?.length < 1" class="mx-1 my-3">{{ $t('dashboards.presta_admin.shop.articles.no_article') }}</p>
 		</div>
 		<!-- Création -->
 		<div
@@ -101,7 +101,9 @@
 					<path
 							d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM5 5h3v14H5zm5 14V5h9v14z"></path>
 				</svg>
-				<h2 class="font-bold" v-if="expends.creation">Création d'un article</h2>
+				<h2 class="font-bold" v-if="expends.creation">{{
+						$t('dashboards.presta_admin.shop.articles.create_article')
+					}}</h2>
 			</div>
 
 			<!-- Form -->
@@ -118,35 +120,36 @@
 				</div>
 
 				<div>
-					<p class="my-1">Catégorie</p>
-					<Select placeholder="Catégorie" :items="[NO_CTG_SELECTED, ...categories.map((c) => c.category_label)]"
+					<p class="my-1">{{ $t('global.category') }}</p>
+					<Select :placeholder="$t('global.category')"
+									:items="[NO_CTG_SELECTED, ...categories.map((c) => c.category_label)]"
 									@selectionChange="changeCategorySelectedCreation"></Select>
 				</div>
 
 				<div>
-					<p class="my-1">Stock</p>
+					<p class="my-1">{{ $t('global.stock') }}</p>
 					<input
 							class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 							v-model="creationForm.stock"
 							type="number"
-							placeholder="Stock initial du produit"
+							:placeholder="$t('dashboards.presta_admin.shop.articles.initial_stock')"
 							minlength="1">
 				</div>
 
 				<div>
-					<p class="my-1">Prix (en €)</p>
+					<p class="my-1">{{ $t('global.price_detailed') }}</p>
 					<input
 							class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 							v-model="creationForm.price"
 							type="number"
-							placeholder="Prix de vente"
+							:placeholder="$t('dashboards.presta_admin.shop.articles.selling_price')"
 							minlength="1">
 				</div>
 
 				<button class="py-2 px-3 rounded mt-5"
 								:class="isItemCreationValid ? 'bg-blue-500 hover:bg-blue-600 cursor-pointer': 'bg-gray-500 cursor-not-allowed'"
 								@click="createArticle">
-					Ajouter l'article
+					{{ $t('dashboards.presta_admin.shop.articles.add_article') }}
 				</button>
 
 			</div>

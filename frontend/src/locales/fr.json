@@ -1,7 +1,11 @@
 {
   "hello": "Bonjour",
   "name": "24 Heures du Mans",
+  "presta": "Prestataire",
+  "user": "Utilisateur",
+  "admin": "Administrateur",
   "home": {
+    "dates": "11 AU 15 JUIN 2025",
     "title": "24h du Mans, prenez le départ du plus grand évènement automobile de France",
     "date": "11 AU 15 JUIN 2025",
     "tondeuse": {
@@ -22,6 +26,7 @@
     "services": "Découvrez nos <strong>offres de billetterie</strong>, pour garantir votre place lors de cet événement emblématique. Que vous soyez passionné de sport automobile ou simplement curieux de vivre une expérience unique, nos billets vous <strong>donneront accès aux meilleures places</strong> et services pour profiter pleinement des 24 Heures du Mans.",
     "link_to_billetterie": "Lien vers la billetterie",
     "prestataires": {
+      "name": "Prestataires",
       "discover": "Découvrez nos prestataires, qui proposent une large gamme de services pour enrichir <strong>votre expérience</strong>. Chacun d’eux est ravi de partager son savoir-faire et de contribuer à faire de votre événement <strong>un moment inoubliable.</strong>",
       "search_by_name": "Rechercher par nom",
       "filter_by_ctg": "Filtrer par catégorie",
@@ -30,6 +35,7 @@
     },
     "map": {
       "title": "Carte Interactive",
+      "short": "Carte",
       "text": "Retrouvez toutes les informations sur l'événement <strong>grâce à notre carte interactive</strong>. Explorez facilement les lieux, services et points d'intérêt <strong>pour une expérience optimale</strong> sur place."
     }
   },
@@ -81,22 +87,349 @@
     }
   },
   "dashboards": {
+    "name": "Tableau de bord",
+    "users": "Utilisateurs",
+    "stats": "Statistiques",
+    "services": "Services",
+    "no_services": "Aucun service...",
     "client": {
       "go_back_home": "Retourner à la page d'accueil",
       "home": "Page d'accueil",
       "billets": "Mes billets",
       "karting": "Mes courses",
       "achats": "Mes achats",
-      "deconnect": "Se déconnecter"
+      "no_commands": "Vous n'avez passé aucune commande.",
+      "deconnect": "Se déconnecter",
+      "hello": "Bonjour "
+    },
+    "profile": "Mon profil",
+    "presta_admin": {
+      "shop_name": "Boutique",
+      "kart": "Karting",
+      "tickets": "Billeterie",
+      "ecuries": "Visites des écuries",
+      "montgols": "Montgolfières",
+      "some_stats": "Quelques statistiques",
+      "map_editing": {
+        "place_name": "Nom de l'emplacement",
+        "place_placeholder": "Entrez le nom de l'emplacement",
+        "logistic": "Logistique",
+        "logistic_placeholder": "Entrez la logistique",
+        "surface": "Surface (m²)",
+        "surface_placeholder": "Entrez la surface en m²",
+        "description": "Description",
+        "description_placeholder": "Entrez votre texte ici..",
+        "category": "Catégorie"
+      },
+      "shop": {
+        "name": "Boutique",
+        "articles": {
+          "title": "Liste des articles",
+          "no_article": "Aucun article à afficher",
+          "create_article": "Création d'un article",
+          "initial_stock": "Stock initial du produit",
+          "selling_price": "Prix de vente",
+          "add_article": "Ajouter l'article"
+        },
+        "categories": {
+          "title": "Liste des catégories",
+          "no_category": "Aucune catégorie à afficher",
+          "articles_count": "Nombre d'articles",
+          "category_creation": "Création d'une catégorie",
+          "category_name_placeholder": "Nom de la catégorie",
+          "add_category": "Ajouter la catégorie"
+        },
+        "global_settings": {
+          "shop_online": "La boutique est en ligne",
+          "shop_offline": "La boutique n'est pas en ligne",
+          "watch_shop": "Voir la boutique",
+          "visibility": {
+            "everyone": "Visible pour tous",
+            "only_presta": "Uniquement visible pour vous"
+          },
+          "access": {
+            "public": "Accessible au public",
+            "text": "Ce paramètre permet de contrôler la visibilité de la boutique aux yeux du publique."
+          },
+          "tabs": {
+            "settings": "Paramètres généraux",
+            "items": "Articles",
+            "categories": "Catégories"
+          }
+        }
+      },
+      "presta_home": {
+        "hello": "Je suis un dashboard"
+      },
+      "karting": {
+        "name": "Karting"
+      },
+      "tickets_obj": {
+        "name": "Billetterie"
+      },
+      "ecuries_obj": {
+        "name": "Visites de garage"
+      },
+      "montgolfieres": {
+        "name": "Montgolfières"
+      },
+      "prestataires": {
+        "copy_success": "Vous avez copié avec succès les prestataires",
+        "delete": {
+          "confirmation_text": "Vous êtes sur le point de supprimer le prestataire",
+          "text": "Êtes-vous sûr de vouloir supprimer ce prestataire"
+        }
+      }
+    },
+    "presta": "Prestataire",
+    "presta_multi": "Prestataires",
+    "available_services": "Services disponibles",
+    "statistics": {
+      "not_available": "Les statistiques pour la catégorie <strong>{activeTab}</strong>s ne sont pas encore disponibles.",
+      "shop": {
+        "clients": "clients",
+        "benef": "de bénéfices",
+        "commands": "commandes",
+        "turnover": "Chiffre d'affaire",
+        "gains_graph": "Argent gagnée en €",
+        "sells_by_ctg": "Répartition des ventes par catégorie de produit",
+        "sells_by_article": "Répartition des ventes par article"
+      }
     }
+  },
+  "login": {
+    "title": "Connexion",
+    "login": {
+      "title": "Identifiant",
+      "email": "Email"
+    },
+    "password": {
+      "title": "Mot de passe",
+      "placeholder": "mot de passe",
+      "confirm_password": "Confirmer le mot de passe"
+    },
+    "signup": "Créer le compte",
+    "login_btn": "Se connecter",
+    "register_link": "Je n'ai pas encore de comptes",
+    "invalid": "Identifiant ou mot de passe invalide"
   },
   "cart": {
     "title": "Votre panier",
     "price": "Prix",
     "resume": "Résumé",
     "ttc": "TTC",
+    "add": "Ajouter au panier",
     "payment": "Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni enregistrée.",
     "make_order": "Payer",
     "stock_rest": "Il ne reste plus que {stock} articles en stock"
+  },
+  "prestataire_edit": {
+    "update": "Mettre à jour le nom",
+    "create_link": "Créer le lien"
+  },
+  "global": {
+    "id": "ID",
+    "settings": "Paramètres",
+    "name": "Nom",
+    "services": "Services",
+    "services_lowercase": "services",
+    "url": "URL",
+    "stock": "Stock",
+    "price_detailed": "Prix (€)",
+    "description": "Description",
+    "update": "Mettre à jour",
+    "category": "Catégorie",
+    "save": "Sauvegarder",
+    "reset": "Réinitialiser",
+    "next": "Suivant",
+    "still": "encore",
+    "register": "S'inscrire",
+    "hello_day": "Bonjour",
+    "hello_night": "Bonsoir",
+    "free_zone": "Libérer",
+    "see": "Voir",
+    "delete": "Supprimer",
+    "close": "Fermer"
+  },
+  "cancel": "Annuler",
+  "services": {
+    "billetterie": {
+      "date_title": "Sélection de la date",
+      "reserve": "Payer et réserver",
+      "type_billet": {
+        "title": "Type billet",
+        "select": "Sélectionner le type de billet"
+      },
+      "select_persons": "Sélectionner les personnes",
+      "date_selection": "Sélectionner les dates",
+      "step": "Étape {n}",
+      "resume": {
+        "type": "Type de billet:",
+        "not_selected": "Non sélectionné",
+        "not_given": "Non renseigné",
+        "dates_selected": "Date(s) choisi(s):",
+        "persons_number": "Nombre de personnes:"
+      }
+    },
+    "shop": {
+      "no_visual": "Aucun visuel",
+      "in_stock": "produits en stock",
+      "no_more_in_stock": "Stock épuise",
+      "article_doesnt_exist_title": "Cet article n'existe pas",
+      "article_doesnt_exist": "Vous tentez d'accéder à un article qui n'existe pas.",
+      "go_back_to_shop": "Retourner à la boutique",
+      "shop_name": "Boutique de {name}",
+      "shop_doesnt_exist_title": "Cette boutique n'existe pas",
+      "shop_doesnt_exist": "Vous tentez d'accéder à une boutique qui n'existe pas.",
+      "go_back_to_prestataire_profile": "Retourner à la page du prestataire",
+      "prestataire_doesnt_exist_title": "Ce prestataire n'existe pas",
+      "prestataire_doesnt_exist": "Vous tentez d'accéder à la boutique d'un prestataire qui n'existe pas.",
+      "go_back_to_prestataires_list": "Retourner à la liste des prestataires",
+      "filters": {
+        "selection": "Notre sélection",
+        "keywords": "Mots-clés",
+        "categories": "Catégories",
+        "active_filters": "Filtres actifs"
+      },
+      "stock_lasting": "{stock} produits restant"
+    },
+    "ecurie": {
+      "title": "Tirage au sort",
+      "rules": {
+        "title": "Règles pour participer au tirage au sort",
+        "one": "Le participant doit être majeur pour participer.",
+        "two": "Un seul billet par participant.",
+        "three": "Les informations fournies doivent être exactes et vérifiables.",
+        "four": "La participation au tirage au sort est ouverte jusqu'au <strong class=\"text-white\">25 juin 2025</strong>.",
+        "five": "Les gagnants seront informés par mail le <strong class=\"text-white\">26 juin 2025</strong>."
+      },
+      "sign": {
+        "title": "Inscription au tirage au sort",
+        "lastname": "Nom :",
+        "firstname": "Prénom :",
+        "firstname_simple": "Prénom",
+        "family_name": "Nom de famille",
+        "email": "E-mail :",
+        "email_simple": "Email",
+        "phone": "Téléphone :",
+        "ticket_number": "Numéro de billet :"
+      }
+    }
+  },
+  "payment": {
+    "title": "Paiement",
+    "warning": "Le système de rentrée des informations bancaires est factice. Aucune information n'est traitée, ni enregistrée.",
+    "card_number": "Numéro de carte",
+    "expiration": "Expiration (mm/yy)",
+    "security_code": "Code de sécurité"
+  },
+  "bonuses": {
+    "cgv": {
+      "title": "Conditions générales de ventes de la billeterie",
+      "text": "Lien vers le document PDF :"
+    },
+    "mentions": {
+      "title": "Mentions légales",
+      "editor": {
+        "title": "Éditeur du site",
+        "text": "Ce site est édité par un groupe d'étudiants de <strong>L'Institut Universitaire Technologique de Nord Franche-Comté</strong> dans le cadre d'un projet universitaire.",
+        "responsables": "Les responsables de la publication sont :",
+        "cedric": "Cic",
+        "colin": "COLIN"
+      },
+      "host": {
+        "title": "Hébergeur",
+        "name": "Nom de l'hébergeur :",
+        "address": "Adresse:",
+        "address_line1": "19 avenue du Maréchal Juin",
+        "address_line2": "BP 527",
+        "address_line3": "90016 Belfort cedex"
+      },
+      "intellectual": {
+        "title": "Propriété intellectuelle",
+        "text1": "L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle.",
+        "text2": "Les images et vidéos présentes sur ce site sont la propriété de leurs auteurs respectifs et sont utilisées dans un but strictement informatif et non commercial.",
+        "text3": "Les marques citées sur ce site sont la propriété de leurs détenteurs respectifs. Tous les droits de reproduction sont réservés, y compris les documents téléchargeables et les représentations iconographiques et photographiques.",
+        "text4": "La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite, sauf autorisation expresse du responsable de la publication.",
+        "contact": "Toute personne souhaitant contester l'utilisation d'une image ou d'une vidéo est priée de contacter le responsable de la publication ,",
+        "email": "cedric.colin35@gmail.com"
+      },
+      "personal": {
+        "title": "Donnersonnelles",
+        "link": "Voir la page"
+      },
+      "hyperlinks": {
+        "title": "Liens hypertextes",
+        "text": "Ce site peut contenir des liens hypertextes vers d'autres sites web. Nous ne sommes pas responsables du contenu de ces sites et ne pouvons en garantir la disponibilité."
+      },
+      "warning": {
+        "title": "Avertissement",
+        "text1": "Les informations contenues sur ce site sont fournies à titre indicatif et ne sauraient engager la responsabilité des étudiants",
+        "text2": "Nous nous efforçons de maintenir ce site à jour, mais ne pouvons garantir l'exactitude, la complétude et l'actualité des informations qui y sont diffusées."
+      },
+      "law": {
+        "title": "Loi applicable",
+        "text": "Le présent site est soumis à la loi française. En cas de litige, seuls les tribunaux français seront compétents."
+      }
+    },
+    "personal_data": {
+      "title": "Politique de confidentialité",
+      "introduction": {
+        "title": "1. Introduction",
+        "text": "La présente politique de confidentialité a pour objet de vous informer sur la manière dont nous collectons, utilisons, stockons et protégeons les données personnelles que vous nous fournissez lorsque vous utilisez notre site web."
+      },
+      "data_collection": {
+        "title": "2. Collecte et utilisation des données",
+        "collected_data": "Données collectées :",
+        "collected_data_text": "Nous collectons les données personnelles que vous nous fournissez volontairement lorsque vous interagissez avec notre site (par exemple, votre nom, votre adresse électronique si vous nous contactez). Nous pouvons également collecter des données de navigation grâce à l'utilisation de cookies et de technologies similaires.",
+        "data_use": "Utilisation des données :",
+        "site_functionality": "Fonctionnalité du site :",
+        "site_functionality_text": "Assurer le bon fonctionnement de notre site web et vous fournir les services que vous demandez.",
+        "personalization": "Personnalisation :",
+        "personalization_text": "Améliorer votre expérience utilisateur en mémorisant vos préférences (langue, articles dans le panier, etc.)."
+      },
+      "cookies": {
+        "title": "3. Cookies",
+        "text": "Nous utilisons des cookies fonctionnels pour améliorer votre expérience de navigation. Ces cookies ne collectent aucune donnée personnelle permettant de vous identifier. Vous pouvez à tout moment choisir de désactiver les cookies en modifiant les paramètres de votre navigateur. Toutefois, cette action peut affecter certaines fonctionnalités du site."
+      },
+      "data_storage": {
+        "title": "4. Stockage des données",
+        "text": "Les données personnelles que nous collectons sont stockées sur des serveurs sécurisés situés au sein de l'Union Européenne. Nous conservons vos données personnelles uniquement le temps nécessaire à la réalisation des finalités pour lesquelles elles ont été collectées."
+      },
+      "data_sharing": {
+        "title": "5. Partage des données",
+        "text": "Nous ne partageons, ne vendons ni ne louons vos données personnelles à des tiers."
+      },
+      "data_security": {
+        "title": "6. Sécurité des données",
+        "text": "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données personnelles contre toute perte, altération, destruction ou accès non autorisé."
+      },
+      "your_rights": {
+        "title": "7. Vos droits",
+        "text": "Conformément à la réglementation en vigueur, vous disposez des droits suivants :",
+        "access_right": "Droit d'accès :",
+        "access_right_text": "Vous pouvez demander à accéder aux données personnelles que nous détenons à votre sujet.",
+        "rectification_right": "Droit de rectification :",
+        "rectification_right_text": "Vous pouvez demander à rectifier toute donnée personnelle inexacte.",
+        "erasure_right": "Droit à l'effacement :",
+        "erasure_right_text": "Vous pouvez demander à supprimer vos données personnelles, dans certaines conditions.",
+        "opposition_right": "Droit d'opposition :",
+        "opposition_right_text": "Vous pouvez vous opposer au traitement de vos données personnelles pour certaines finalités.",
+        "limitation_right": "Droit à la limitation :",
+        "limitation_right_text": "Vous pouvez demander à limiter le traitement de vos données personnelles.",
+        "portability_right": "Droit à la portabilité :",
+        "portability_right_text": "Vous pouvez demander à recevoir vos données personnelles dans un format structuré, couramment utilisé et lisible par machine.",
+        "contact_text": "Pour exercer vos droits, veuillez nous contacter à l'adresse suivante :"
+      },
+      "policy_changes": {
+        "title": "8. Modifications de la politique de confidentialité",
+        "text": "Nous nous réservons le droit de modifier la présente politique de confidentialité à tout moment. Toute modification sera effective dès sa publication sur notre site web. "
+      },
+      "contact": {
+        "title": "9. Contact",
+        "text": "Pour toute question relative à la présente politique de confidentialité, vous pouvez nous contacter à l'adresse suivante :"
+      },
+      "edited": "Edité le 8 Janvier 2025 à 16:53 Heure Française"
+    }
   }
 }

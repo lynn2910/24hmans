@@ -2,7 +2,7 @@
 	<div>
 		<!-- Si le prestataire et la boutique existent -->
 		<div v-if="prestataire && shopExists" class="w-full mt-36">
-			<h1 class="font-bold text-4xl text-center">Boutique de {{ prestataire.name }}</h1>
+			<h1 class="font-bold text-4xl text-center">{{ $t('services.shop.shop_name', {name: prestataire.name}) }}</h1>
 
 			<div class="w-3/4 min-w-80 mx-auto my-10">
 				<ShopFilter :categories="categories.map(c => c.category_label)"
@@ -18,19 +18,17 @@
 		</div>
 
 
-		<!-- Si la boutique n'existe pas -->
-		<NotExists v-else-if="prestataire && !shopExists" title="Cette boutique n'existe pas"
+		<NotExists v-else-if="prestataire && !shopExists"
+							 :title="$t('services.shop.shop_doesnt_exist_title')"
+							 :description="$t('services.shop.shop_doesnt_exist')"
 							 :route-back-u-r-l="{name: 'prestataire_profile', params: {prestataire_name: prestataire.referencer}}"
-							 route-back="Retourner à la
-					page du prestataire"
-							 description="Vous tentez d'accéder à une boutique qui n'existe pas."></NotExists>
+							 :route-back="$t('services.shop.go_back_to_prestataire_profile')"></NotExists>
 
-		<!-- Si le prestataire n'existe pas -->
-		<NotExists v-else-if="fetchedPrestataire" title="Ce prestataire n'existe pas"
+		<NotExists v-else-if="fetchedPrestataire"
+							 :title="$t('services.shop.prestataire_doesnt_exist_title')"
+							 :description="$t('services.shop.prestataire_doesnt_exist')"
 							 :route-back-u-r-l="{path:'/#prestataires'}"
-							 route-back="Retourner à la
-					liste des prestataires"
-							 description="Vous tentez d'accéder à la boutique d'un prestataire qui n'existe pas."></NotExists>
+							 :route-back="$t('services.shop.go_back_to_prestataires_list')"></NotExists>
 	</div>
 </template>
 
@@ -80,15 +78,19 @@ export default {
 		}
 	},
 	async beforeMount() {
-		let prestataire = await PrestataireService.getPrestataireFromName(this.$route.params.prestataire_name);
+		try {
+			let prestataire = await PrestataireService.getPrestataireFromName(this.$route.params.prestataire_name);
 
-		this.fetchedPrestataire = false;
+			this.fetchedPrestataire = true;
 
-		if (!prestataire.error) {
-			this.prestataire = prestataire.data;
-			await store.dispatch("prestataire/boutique/getShop", prestataire.data.id);
-		} else {
-			console.error(prestataire.data);
+			if (prestataire && !prestataire.error) {
+				this.prestataire = prestataire.data;
+				await store.dispatch("prestataire/boutique/getShop", prestataire.data.id);
+			} else {
+				console.error(prestataire.data);
+			}
+		} catch (e) {
+			console.log("No prestataire or shop")
 		}
 	}
 }

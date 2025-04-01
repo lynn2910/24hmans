@@ -12,7 +12,7 @@
 				<circle cx="10.5" cy="19.5" r="1.5"></circle>
 				<circle cx="17.5" cy="19.5" r="1.5"></circle>
 			</svg>
-			<h2 class="font-bold mx-5">Ajouter au panier</h2>
+			<h2 class="font-bold mx-5">{{ $t('cart.add') }}</h2>
 		</div>
 
 		<!-- Counter -->

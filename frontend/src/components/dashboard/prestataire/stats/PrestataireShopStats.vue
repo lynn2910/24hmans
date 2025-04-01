@@ -5,12 +5,15 @@
 
 		<!-- Top -->
 		<InfoCard classes="col-span-1">
-			<h2><strong>{{ clients_count }}</strong> clients</h2>
+			<h2>
+				<strong>{{ $n(clients_count) }}</strong>
+				{{ $t('dashboards.statistics.shop.clients') }}
+			</h2>
 		</InfoCard>
 
 		<InfoCard classes="col-span-1">
 			<h2 class="text-xl font-extrabold">{{ Intl.NumberFormat('fr-FR').format(total_gains) }} €</h2>
-			<p class="text-gray-300 text-sm font-medium">de bénéfices</p>
+			<p class="text-gray-300 text-sm font-medium">{{ $t('dashboards.statistics.shop.benef') }}</p>
 		</InfoCard>
 
 		<InfoCard classes="col-span-4 row-span-2">
@@ -19,7 +22,7 @@
 		</InfoCard>
 
 		<InfoCard classes="col-span-1">
-			<h2><strong>{{ commands }}</strong> commandes</h2>
+			<h2><strong>{{ commands }}</strong> {{ $t('dashboards.statistics.shop.commands') }}</h2>
 		</InfoCard>
 
 		<div></div>
@@ -41,6 +44,8 @@
 <script>
 import InfoCard from "@/components/dashboard/stats/InfoCard.vue";
 import BoutiqueService from "@/services/boutique.service";
+import i from '@/i18n'
+
 import {mapState} from "vuex";
 import ApexCharts from "apexcharts";
 
@@ -69,7 +74,7 @@ export default {
 					markers: {size: 0,},
 					stroke: {curve: 'smooth'},
 					title: {
-						text: 'Chiffre d\'affaire',
+						text: i.t('dashboards.statistics.shop.turnover'),
 						align: 'left'
 					},
 					grid: {
@@ -83,7 +88,7 @@ export default {
 					},
 					yaxis: {
 						title: {
-							text: "Argent gagnée en €"
+							text: i.t('dashboards.statistics.shop.gains_graph')
 						},
 						labels: {
 							formatter: function (value) {
@@ -106,7 +111,7 @@ export default {
 						position: 'right',
 					},
 					title: {
-						text: 'Répartition des ventes par catégorie de produit',
+						text: i.t('dashboards.statistics.shop.sells_by_ctg'),
 					},
 					dataLabels: {
 						enabled: true,
@@ -128,7 +133,7 @@ export default {
 						type: 'treemap'
 					},
 					title: {
-						text: 'Répartition des ventes par article'
+						text: i.t('dashboards.statistics.shop.sells_by_article')
 					}
 				},
 			},

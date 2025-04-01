@@ -13,7 +13,7 @@
 							+ (omit_logins.includes(Selected.User) ? 'text-gray-600 cursor-not-allowed' : '')
 						"
 						@click="changedSelectedLogin(Selected.User)">
-					Utilisateur
+					{{ $t('user') }}
 				</h2>
 				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
 						:class="
@@ -21,7 +21,7 @@
 							+ (omit_logins.includes(Selected.Prestataire) ? 'text-gray-600 cursor-not-allowed' : '')
 						"
 						@click="changedSelectedLogin(Selected.Prestataire)">
-					Prestataire
+					{{ $t('presta') }}
 				</h2>
 				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
 						:class="
@@ -29,7 +29,7 @@
 							+ (omit_logins.includes(Selected.Admin) ? 'text-gray-600 cursor-not-allowed' : '')
 						"
 						@click="changedSelectedLogin(Selected.Admin)">
-					Administrateur
+					{{ $t('admin') }}
 				</h2>
 			</div>
 
@@ -56,28 +56,29 @@
 					class="flex flex-col items-center h-full justify-between">
 				<!-- Champs -->
 				<div>
-					<h1 class="font-bold text-xl text-center mb-3">Connexion</h1>
+					<h1 class="font-bold text-xl text-center mb-3">{{ $t('login.title') }}</h1>
 
 					<div class="mb-3">
-						<p class="font-semibold my-2" v-if="selected !== Selected.User">Login</p>
-						<p class="font-semibold my-2" v-else>Email</p>
+						<p class="font-semibold my-2" v-if="selected !== Selected.User">{{ $t('login.login.title') }}</p>
+						<p class="font-semibold my-2" v-else>{{ $t('login.login.email') }}</p>
 						<input
 								class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 								v-model="login_id"
 								@change="login_id = transformPrestataireName(login_id)"
 								type="text"
-								placeholder="login"
+								:placeholder="selected !== Selected.User ? $t('login.login.title') : $t('login.login.email')"
 								minlength="1">
 					</div>
 
 					<div class="mb-3">
-						<p class="font-semibold my-2">Mot de passe</p>
+						<p class="font-semibold my-2">{{ $t('login.password.title') }}</p>
 						<div class="flex flex-row items-center content-center justify-between">
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500"
 									v-model="password"
 									:type="show_password ? 'text' : 'password'"
-									placeholder="mot de passe" minlength="1">
+									:placeholder="$t('login.password.title')"
+									minlength="1">
 
 							<div
 									class="bg-dark w-10 h-10 flex flex-col rounded ml-5 border border-gray-400 cursor-pointer hover:border-blue-500"
@@ -104,11 +105,11 @@
 							class="py-3 px-4 mx-auto cursor-pointer bg-blue-600 hover:bg-blue-700 rounded disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:cursor-not-allowed"
 							:disabled="!isAllowedToLogin"
 							@click="loginUser">
-						Se connecter
+						{{ $t('login.login_btn') }}
 					</button>
 					<p v-if="selected === Selected.User" class="italic text-gray-300 mt-2 hover:underline cursor-pointer"
 						 @click="changeAccountCreationSelection">
-						Je n'ai pas encore de comptes
+						{{ $t('login.register_link') }}
 					</p>
 				</div>
 			</div>
@@ -120,42 +121,42 @@
 					<!-- first_name & last_name -->
 					<div class="flex flex-row items-center content-center">
 						<div class="mr-2">
-							<p>Prénom</p>
+							<p>{{ $t('services.ecurie.sign.firstname_simple') }}</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									v-model="account_creation_data.first_name"
 									type="text"
-									placeholder="Prénom"
+									:placeholder="$t('services.ecurie.sign.firstname_simple')"
 									minlength="1">
 						</div>
 						<div>
-							<p>Nom</p>
+							<p>{{ $t('global.name') }}</p>
 							<input
 									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 									v-model="account_creation_data.last_name"
 									type="text"
-									placeholder="Nom de famille"
+									:placeholder="$t('services.ecurie.sign.family_name')"
 									minlength="1">
 						</div>
 					</div>
 					<!-- email -->
 					<div class="my-2">
-						<p>Email</p>
+						<p>{{ $t('services.ecurie.sign.email_simple') }}</p>
 						<input
 								class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 								v-model="account_creation_data.email"
 								type="email"
-								placeholder="Email"
+								:placeholder="$t('services.ecurie.sign.email_simple')"
 								minlength="1">
 					</div>
 					<div>
-						<p>Mot de passe</p>
+						<p>{{ $t('login.password.title') }}</p>
 						<div class="flex flex-row items-center content-center justify-between">
 							<input
 									class="w-full outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500"
 									v-model="account_creation_data.password"
 									:type="show_password ? 'text' : 'password'"
-									placeholder="mot de passe" minlength="1">
+									:placeholder="$t('login.password.title')" minlength="1">
 
 							<div
 									class="bg-dark w-12 h-10 flex flex-col rounded ml-5 border border-gray-400 cursor-pointer hover:border-blue-500"
@@ -173,14 +174,14 @@
 								</svg>
 							</div>
 						</div>
-						<p>Confirmer le mot de passe</p>
+						<p>{{ $t('login.password.confirm_password') }}</p>
 						<div class="flex flex-row items-center content-center justify-between">
 							<input
 									class="w-full outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:border-gray-500 disabled:hover:border-gray-500"
 									v-model="account_creation_data.confirm_password"
 									:disabled="account_creation_data.password?.length < 1"
 									:type="show_password ? 'text' : 'password'"
-									placeholder="mot de passe" minlength="1">
+									:placeholder="$t('login.password.title')" minlength="1">
 
 							<div
 									class="bg-dark w-12 h-10 flex flex-col rounded ml-5 border border-gray-400 hover:border-blue-500"
@@ -208,7 +209,7 @@
 							class="mt-5 py-3 px-4 mx-auto cursor-pointer bg-blue-600 hover:bg-blue-700 rounded disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:cursor-not-allowed"
 							:disabled="!isAllowedToSignup"
 							@click="signupUser">
-						Créer le compte
+						{{ $t('login.signup') }}
 					</button>
 				</div>
 			</div>
@@ -230,6 +231,7 @@
 import {mapActions, mapState} from "vuex";
 import {Selected, transformPrestataireName} from "@/utils";
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
+import i from "@/i18n"
 
 export default {
 	name: "Login",
@@ -255,9 +257,6 @@ export default {
 		}
 	},
 	async mounted() {
-		// TODO en réalité c'est très mauvais; ca ne vérifie pas si on a de bons identifiants :o
-
-		// TODO détecter la query 'sessionId' pour pouvoir se login directement avec cet sessionId
 		if (this.loggedInUser && this.userType) {
 			this.redirectUser(this.userType);
 		}
@@ -316,7 +315,7 @@ export default {
 			await this.login({id: this.login_id, password: this.password, type: this.selected});
 
 			if (!this.loggedInUser) {
-				this.box_message = "Identifiant ou mot de passe invalide"
+				this.box_message = i.t('login.invalid');
 			} else this.redirectUser(this.selected)
 		},
 		async signupUser() {

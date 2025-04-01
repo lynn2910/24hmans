@@ -4,14 +4,16 @@
 		<div class="bg-blue-400 bg-opacity-5 m-5 mr-0 p-5 h-full border border-gray-700 rounded-2xl ml-0 mt-0 w-full">
 
 			<div class="flex flex-row items-start content-center justify-between">
-				<h1 class="font-bold text-xl">Liste des articles</h1>
+				<h1 class="font-bold text-xl">{{ $t('dashboards.presta_admin.shop.categories.title') }}</h1>
 			</div>
 
 			<table class="block overflow-x-scroll overflow-y-scroll w-full whitespace-nowrap">
 				<thead>
 				<tr class="text-left border-b-2 border-blue-gray-100 w-full">
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-1/2">Nom</th>
-					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-1/2">Nombre d'articles</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-1/2">{{ $t('global.name') }}</th>
+					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50 w-1/2">
+						{{ $t('dashboards.presta_admin.shop.categories.articles_count') }}
+					</th>
 					<th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50"></th>
 				</tr>
 				</thead>
@@ -56,7 +58,9 @@
 
 			</table>
 
-			<p v-if="articles?.length < 1" class="mx-1 my-3">Aucune catégorie à afficher</p>
+			<p v-if="articles?.length < 1" class="mx-1 my-3">{{
+					$t('dashboards.presta_admin.shop.categories.no_category')
+				}}</p>
 		</div>
 		<!-- Création -->
 		<div
@@ -70,26 +74,27 @@
 					<path
 							d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM5 5h3v14H5zm5 14V5h9v14z"></path>
 				</svg>
-				<h2 class="font-bold" v-if="expends.creation">Création d'un article</h2>
+				<h2 class="font-bold" v-if="expends.creation">
+					{{ $t('dashboards.presta_admin.shop.categories.category_creation') }}</h2>
 			</div>
 
 			<!-- Form -->
 			<div v-if="expends.creation" class="flex flex-col justify-start">
 
 				<div>
-					<p class="my-1">Nom</p>
+					<p class="my-1">{{ $t('global.name') }}</p>
 					<input
 							class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 							v-model="creationForm.name"
 							type="text"
-							placeholder="Nom de la catégorie"
+							:placeholder="$t('dashboards.presta_admin.shop.categories.category_name_placeholder')"
 							minlength="1">
 				</div>
 
 				<button class="py-2 px-3 rounded mt-5"
 								:class="isCategoryCreationValid ? 'bg-blue-500 hover:bg-blue-600 cursor-pointer': 'bg-gray-500 cursor-not-allowed'"
 								@click="createCategory">
-					Ajouter l'article
+					{{ $t('dashboards.presta_admin.shop.categories.add_category') }}
 				</button>
 
 			</div>

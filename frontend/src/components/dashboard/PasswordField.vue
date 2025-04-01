@@ -6,7 +6,7 @@
 					v-model="password"
 					@keyup="keyUp"
 					:type="showPassword ? 'text' : 'password'"
-					placeholder="mot de passe" minlength="1">
+					:placeholder="$t('login.password.placeholder')" minlength="1">
 
 			<!-- Security level -->
 			<div
