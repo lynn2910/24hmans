@@ -8,9 +8,8 @@ const {
     updatePrestataireLink,
     deletePrestataireLink, getPrestataireService
 } = require("../services/prestataire.service");
-const adminMiddleware = require("../middlewares/admin.middleware");
-const prestataireMiddleware = require("../middlewares/prestataire.middleware");
 const {createRule, User, Permission, Method} = require("../permissions")
+const {authenticateToken} = require("../middlewares/auth.middleware");
 
 const routerPresta = new Router();
 
@@ -262,7 +261,7 @@ routerPresta.get(
  */
 routerPresta.patch(
     "/:prestataire_id",
-    prestataireMiddleware,
+    authenticateToken,
     async (req, res) => {
         const {prestataire_id} = req.params;
 
@@ -285,7 +284,7 @@ createRule("/prestataire", [Method.PATCH], User.Prestataire, [Permission.Prestat
 
 routerPresta.delete(
     "/:prestataire_id",
-    adminMiddleware,
+    authenticateToken,
     async (req, res) => {
         const {prestataire_id} = req.params;
 
@@ -583,7 +582,7 @@ routerPresta.post(
  */
 routerPresta.patch(
     "/:prestataire_name/link/:link_id",
-    prestataireMiddleware,
+    authenticateToken,
     async (req, res) => {
         const {prestataire_name, link_id} = req.params;
         const {name, url} = req.body;
@@ -670,6 +669,7 @@ routerPresta.patch(
  */
 routerPresta.delete(
     "/:prestataire_name/link/:link_id",
+    authenticateToken,
     async (req, res) => {
         const {prestataire_name, link_id} = req.params;
         let presta = await getPrestataireFromName(prestataire_name);

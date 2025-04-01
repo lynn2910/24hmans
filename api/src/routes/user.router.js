@@ -95,7 +95,6 @@ const router = express.Router();
  *         - password
  */
 
-const userMiddleware = require("../middlewares/user.middleware");
 const {createRule, Method, User, Permission} = require("../permissions");
 const {getUserOrders, createNewOrder} = require("../services/user.service");
 const {get_user_reservations, delete_reservation, update_reservation} = require("../services/karting.service");
@@ -169,7 +168,7 @@ router.get('/@me', authenticateToken, async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-router.get('/@me/orders', userMiddleware, async (req, res) => {
+router.get('/@me/orders', authenticateToken, async (req, res) => {
     let user = req.session?.user_id;
 
     getUserOrders(user).then(
@@ -259,7 +258,7 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *                   type: string
  *                   description: The error message.
  */
-router.post("/@me/orders", userMiddleware, async (req, res) => {
+router.post("/@me/orders", authenticateToken, async (req, res) => {
     // On attend d'avoir ces infos dans le body:
     // {
     //     user_id: string,
@@ -463,15 +462,15 @@ router.post("/@me/orders", userMiddleware, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/@me/karting", userMiddleware, async (req, res) => {
+router.get("/@me/karting", authenticateToken, async (req, res) => {
     const reservations = await get_user_reservations(req.session.userId);
     res.status(200).json(reservations);
 })
-router.patch("/@me/karting/:reservation_id", userMiddleware, async (req, res) => {
+router.patch("/@me/karting/:reservation_id", authenticateToken, async (req, res) => {
     const reservation = await update_reservation(req.params.reservation_id, req.session.userId, req.body?.pseudo);
     res.status(200).json(reservation);
 })
-router.delete("/@me/karting/:reservation_id", userMiddleware, async (req, res) => {
+router.delete("/@me/karting/:reservation_id", authenticateToken, async (req, res) => {
     const reservation = await delete_reservation(req.session.userId, req.params.reservation_id);
     res.status(200).json(reservation);
 })

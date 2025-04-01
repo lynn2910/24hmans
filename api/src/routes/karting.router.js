@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const prestataireMiddleware = require('../middlewares/prestataire.middleware');
-const userMiddleware = require('../middlewares/user.middleware');
 const KartingService = require("../services/karting.service");
 const {createRule, Method, Permission, User} = require("../permissions");
 const {
@@ -12,6 +10,7 @@ const {
     delete_circuit,
     get_karting_sessions, create_session, get_karting_session, update_session, delete_session, create_reservation
 } = require("../services/karting.service");
+const {authenticateToken} = require("../middlewares/auth.middleware");
 
 /**
  * @swagger
@@ -112,7 +111,7 @@ const {
  */
 router.get("/available", async (req, res) => {
     if (req.query.sessionId) {
-        await prestataireMiddleware(req, res, async () => {
+        await authenticateToken(req, res, async () => {
             let available_karts = await KartingService.get_available_kartings(req.session.userId)
             res.status(200).json(available_karts);
         })
@@ -168,7 +167,7 @@ router.get("/available", async (req, res) => {
  */
 router.get("/:karting_id/", async (req, res) => {
     if (req.query.sessionId) {
-        await prestataireMiddleware(req, res, async () => {
+        await authenticateToken(req, res, async () => {
             KartingService.get_karting(req.params.karting_id, req.session.userId)
                 .then(
                     (karting) => res.status(200).json(karting),
@@ -258,7 +257,7 @@ router.get("/:karting_id/", async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-router.post("/:karting_id/circuit", prestataireMiddleware, async (req, res) => {
+router.post("/:karting_id/circuit", authenticateToken, async (req, res) => {
     let fields = ['minAge', 'circuit_name', 'kart_power'];
     if (typeof req.body !== "object" || Array.isArray(req.body) || fields.some(k => !(k in req.body))) {
         res.status(400).json({message: "Invalid body field"});
@@ -323,7 +322,7 @@ router.post("/:karting_id/circuit", prestataireMiddleware, async (req, res) => {
  */
 router.get("/:karting_id/circuit/:circuit_id", async (req, res) => {
     if (req.query.sessionId) {
-        await prestataireMiddleware(req, res, async () => {
+        await authenticateToken(req, res, async () => {
             await KartingService.get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId).then(
                 (circuit) => res.status(200).json(circuit),
                 ({status, message}) => res.status(status).json({message})
@@ -443,7 +442,7 @@ router.get("/:karting_id/circuit/:circuit_id", async (req, res) => {
  *               example:
  *                 message: "Circuit not found"
  */
-router.patch("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (req, res) => {
+router.patch("/:karting_id/circuit/:circuit_id", authenticateToken, async (req, res) => {
     let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
     if (!karting) {
         // access denied
@@ -460,7 +459,7 @@ router.patch("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (r
     res.status(200).json(new_circuit);
 })
 
-router.delete("/:karting_id/circuit/:circuit_id", prestataireMiddleware, async (req, res) => {
+router.delete("/:karting_id/circuit/:circuit_id", authenticateToken, async (req, res) => {
     let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
 
     if (!karting) {
@@ -605,7 +604,7 @@ router.get("/:karting_id/sessions", async (req, res) => {
     }
 })
 
-router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => {
+router.post("/:karting_id/sessions", authenticateToken, async (req, res) => {
     let karting = await get_karting(req.params.karting_id, req.session?.userId || null);
     if (!karting) {
         res.status(404).json({message: "karting not found"});
@@ -737,7 +736,7 @@ router.post("/:karting_id/sessions", prestataireMiddleware, async (req, res) => 
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.patch("/:karting_id/sessions/:session_id", prestataireMiddleware, async (req, res) => {
+router.patch("/:karting_id/sessions/:session_id", authenticateToken, async (req, res) => {
     let karting = await get_karting_session(req.params.karting_id, req.params.session_id);
     if (!karting) {
         // access denied
@@ -758,7 +757,7 @@ router.patch("/:karting_id/sessions/:session_id", prestataireMiddleware, async (
 
     res.status(200).json(new_session);
 })
-router.delete("/:karting_id/sessions/:session_id", prestataireMiddleware, async (req, res) => {
+router.delete("/:karting_id/sessions/:session_id", authenticateToken, async (req, res) => {
     let karting = await get_karting_session(req.params.karting_id, req.params.session_id);
     if (!karting) {
         // access denied
@@ -841,7 +840,7 @@ createRule("/karting/:karting_id/sessions/:session_id", [Method.PATCH, Method.DE
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post("/:karting_id/sessions/:session_id/register", userMiddleware, async (req, res) => {
+router.post("/:karting_id/sessions/:session_id/register", authenticateToken, async (req, res) => {
     try {
         const karting = await get_karting(req.params.karting_id, null);
 
