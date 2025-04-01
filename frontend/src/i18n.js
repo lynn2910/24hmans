@@ -8,19 +8,25 @@ export default new VueI18n({
     globalInjection: true,
     messages: {"fr": fr},
     numberFormats: {
-        'en-US': {
+        'en': {
             currency: {
                 style: 'currency',
                 currency: 'USD'
             }
         },
-        'fr-FR': {
+        'fr': {
             currency: {
                 style: 'currency',
                 currency: 'EUR'
             }
-        }
+        },
+        'tr': {
+            currency: {
+                style: 'currency',
+                currency: 'TRY'
+            }
+        },
     }
 })
 
-export const SUPPORTED_LOCALES = ['fr', 'en']
+export const SUPPORTED_LOCALES = ['fr', 'en', 'tr']
