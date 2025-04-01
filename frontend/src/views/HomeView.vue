@@ -19,7 +19,7 @@
 
 		<section class="absolute bg-dark text-white">
 			<div class="p-5 mx-36">
-				<h2 class="font-bold italic text-5xl text-center m-14">{{ $t('name') }}s</h2>
+				<h2 class="font-bold italic text-5xl text-center m-14">{{ $t('name') }}</h2>
 
 				<div class="flex flex-row">
 					<div class="mx-auto mt-10">
