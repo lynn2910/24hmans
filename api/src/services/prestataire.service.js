@@ -28,7 +28,7 @@ function getPrestataireService(presta_id) {
             let presta = await prisma.prestataire.findUnique({
                 select: {
                     boutique: true,
-                    Ecurie: true,
+                    ecurie: true,
                     Billetterie: true,
                     karting: true,
                     // TODO montgolfieres
@@ -38,9 +38,11 @@ function getPrestataireService(presta_id) {
                 },
             });
 
+            console.log(presta)
+
             return resolve(
                 Object.entries(presta)
-                    .filter(([_, v]) => v && v.enabled)
+                    .filter(([_, v]) => v && ("enabled" in v ? v.enabled : true))
                     .map(([s, _]) => s.toLowerCase())
             );
         } catch (err) {
@@ -165,7 +167,9 @@ async function deletePrestataireLink(presta_id, link_id) {
         return {error: 1, status: 500, data: "Internal server error."};
     }
 }
+ async function DeleteSelection(){
 
+ }
 
 module.exports = {
     getPrestataire,
