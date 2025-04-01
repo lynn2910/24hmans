@@ -481,25 +481,11 @@ routerPresta.get(
  */
 routerPresta.post(
     "/:prestataire_id/link",
+    authenticateToken,
     async (req, res) => {
-        const {prestataire_id} = req.params;
-        const {sessionId} = req.query;
         const {name, url} = req.body;
 
-        if (!sessionId) {
-            return res.status(400).json({
-                message: "Session ID is required."
-            });
-        }
-
-        let presta = await getPrestataire(prestataire_id);
-        if (!presta) {
-            return res.status(404).json({
-                message: "Prestataire not found."
-            });
-        }
-
-        const newLink = await createPrestataireLink(presta.id, {name, url});
+        const newLink = await createPrestataireLink(req.user.id, {name, url});
         return res.status(201).json(newLink);
     }
 );
