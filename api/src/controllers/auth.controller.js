@@ -1,5 +1,7 @@
 const authService = require('../services/auth.service');
 const jwtUtils = require('../utils');
+const {addMailRequest} = require("../services/mail/mail.service");
+const {getHostName} = require("../utils");
 
 async function login(req, res) {
     try {
@@ -27,6 +29,18 @@ async function register(req, res) {
 
         user.role = 1;
         user.userType = user.role;
+
+        await addMailRequest({
+            subject: "Inscription",
+            htmlPath: "signup/signup_html.ejs",
+            plainPath: "signup/signup_plain.ejs",
+            sendTo: user.email,
+            args: {
+                user,
+                dashboardURL: `${getHostName()}/login?userType=${user.userType}`,
+                host: getHostName()
+            }
+        })
 
         res.status(201).json(user);
     } catch (error) {
