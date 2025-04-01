@@ -51,8 +51,11 @@
 
 			<!-- Contenu direct de l'étape -->
 			<div class="p-11 pt-0">
-				<BilletterieTypeBillet v-if="currentStep === Etape.TypeBillet" @category="typeBilletSelected(categories)"
-															 :categories="categories"></BilletterieTypeBillet>
+				<BilletterieTypeBillet
+						v-if="currentStep === Etape.TypeBillet"
+						@category="typeBilletSelected"
+				:categories="categories">
+				</BilletterieTypeBillet>
 				<BilletterieDateSelection v-if="currentStep === Etape.Date" @forfaits="datesSelected"
 																	:forfaits="forfaits"></BilletterieDateSelection>
 				<BilletteriePersonneSelection v-if="currentStep === Etape.Personne" @submit="personnesSelected"
@@ -68,7 +71,7 @@
 			<p>
 				<strong>Type :</strong>
 				<span v-if="selectedTypeBillet">
-            {{ selectedTypeBillet.category_label || selectedTypeBillet.name }}
+            {{ selectedTypeBillet.category_label }}
         </span>
 				<span v-else class="text-gray-500">Non sélectionné</span>
 			</p>
