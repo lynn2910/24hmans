@@ -132,13 +132,13 @@ export default {
 	data() {
 
 		const sakuraImagesList = [
-			{url: '/flowers/yellow.png', prob: 2},
-			{url: '/flowers/fish.png', prob: 5},
-			{url: '/flowers/green.png', prob: 2},
-			{url: '/flowers/medium1.png', prob: 23},
-			{url: '/flowers/medium2.png', prob: 23},
-			{url: '/flowers/pink.png', prob: 22},
-			{url: '/flowers/white.png', prob: 23},
+			{url: '/flowers/yellow.png', prob: 1},
+			{url: '/flowers/fish.png', prob: 0.5},
+			{url: '/flowers/green.png', prob: 1},
+			{url: '/flowers/medium1.png', prob: 25},
+			{url: '/flowers/medium2.png', prob: 25},
+			{url: '/flowers/pink.png', prob: 23},
+			{url: '/flowers/white.png', prob: 24.5},
 		];
 
 		return {
@@ -242,8 +242,11 @@ export default {
 			this.height = window.innerHeight;
 		},
 		translateSakuraBlossom(sakuraBlossom) {
-			sakuraBlossom.y += sakuraBlossom.speed;
-			sakuraBlossom.x += sakuraBlossom.wind;
+			sakuraBlossom.wind += this.getRandom(-0.001, 0.001)
+			sakuraBlossom.speed += this.getRandom(0, 0.001)
+
+			sakuraBlossom.y += sakuraBlossom.speed + (Math.random());
+			sakuraBlossom.x += sakuraBlossom.wind + (Math.random());
 			sakuraBlossom.rotation = (sakuraBlossom.rotation + sakuraBlossom.rotationSpeed) % 360;
 		},
 		onDown(s) {

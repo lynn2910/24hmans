@@ -38,9 +38,11 @@ function getPrestataireService(presta_id) {
                 },
             });
 
+            console.log(presta)
+
             return resolve(
                 Object.entries(presta)
-                    .filter(([_, v]) => v && v.enabled)
+                    .filter(([_, v]) => v && ("enabled" in v ? v.enabled : true))
                     .map(([s, _]) => s.toLowerCase())
             );
         } catch (err) {
@@ -166,6 +168,9 @@ async function deletePrestataireLink(presta_id, link_id) {
     }
 }
 
+async function DeleteSelection() {
+
+}
 
 module.exports = {
     getPrestataire,

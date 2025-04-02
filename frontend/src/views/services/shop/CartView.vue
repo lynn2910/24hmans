@@ -27,7 +27,7 @@
 							class="text-sm ml-1">{{ $t("cart.ttc") }}</span></p>
 
 					<p class="italic col-span-2 mt-5 text-gray-400">
-						{{ $t("payment") }}
+						{{ $t("payment.warning") }}
 					</p>
 				</div>
 

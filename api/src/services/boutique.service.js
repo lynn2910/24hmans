@@ -327,9 +327,143 @@ function deleteItem(shop_id, item_id) {
     })
 }
 
+//
+//
+//      STATISTIQUES
+//
+//
+
+async function getBoutiqueCategoriesSellsStats(shop_id) {
+    const categoriesWithArticleCounts = await prisma.boutiqueCategory.findMany({
+        include: {
+            _count: {
+                select: {articles: true},
+            },
+        },
+    });
+
+    const labels = [];
+    const series = [];
+
+    categoriesWithArticleCounts.forEach(category => {
+        labels.push(category.category_label)
+        series.push(category._count.articles)
+    });
+
+    return {labels, series};
+}
+
+
+async function getBoutiqueStats() {
+    const clientCount = await prisma.userOrder.aggregate({
+        _count: {
+            user_id: true,
+        },
+    });
+
+    const orderCount = await prisma.userOrder.count();
+
+    const totalGains = await prisma.userOrder.aggregate({
+        _sum: {
+            total_price: true,
+        },
+    });
+
+    return {
+        "clients": clientCount._count.user_id || 0,
+        "commands": orderCount,
+        "total_gains": totalGains._sum.total_price || 0,
+    };
+}
+
+async function getBoutiqueChiffreAffaireSerie() {
+    const orders = await prisma.userOrder.findMany({
+        select: {
+            date: true,
+            total_price: true,
+        },
+    });
+
+    const monthlyGains = {};
+
+    orders.forEach(order => {
+        const orderDate = new Date(order.date);
+        const year = orderDate.getFullYear().toString();
+        const month = (orderDate.getMonth() + 1).toString().padStart(2, '0');
+
+        if (!monthlyGains[year]) {
+            monthlyGains[year] = {};
+        }
+
+        if (!monthlyGains[year][month]) {
+            monthlyGains[year][month] = 0;
+        }
+        monthlyGains[year][month] += Number(order.total_price);
+    });
+
+    const lastYear = Object.keys(monthlyGains).sort().pop();
+    const monthlyGainsArray = [];
+    const categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    if (lastYear) {
+        for (let i = 1; i <= 12; i++) {
+            const month = i.toString().padStart(2, '0');
+            monthlyGainsArray.push(monthlyGains[lastYear] ? (monthlyGains[lastYear][month] || 0) : 0);
+        }
+    } else {
+        for (let i = 1; i <= 12; i++) {
+            monthlyGainsArray.push(0);
+        }
+    }
+
+    return {
+        "serie": monthlyGainsArray,
+        "categories": categories,
+    };
+}
+
+async function getBoutiqueArticleSellsStats() {
+    const articleSales = await prisma.userOrderArticle.findMany({
+        include: {
+            article: {
+                select: {
+                    name: true,
+                },
+            },
+        },
+    });
+
+    const articleSalesData = [];
+    const aggregatedData = {};
+
+    articleSales.forEach(sale => {
+        const articleName = sale.article.name;
+        const amount = sale.amount;
+
+        if (aggregatedData[articleName]) {
+            aggregatedData[articleName] += amount;
+        } else {
+            aggregatedData[articleName] = amount;
+        }
+    });
+
+    for (const articleName in aggregatedData) {
+        articleSalesData.push({
+            x: articleName,
+            y: aggregatedData[articleName],
+        });
+    }
+
+    return articleSalesData;
+}
+
+
 module.exports = {
     getAllShops, getShop, editShop,
     getShopItems, getShopItemByName,
     createItem, editItem, deleteItem,
     getShopCategories, addCategory, editCategoryLabel, deleteCategory,
+
+    getBoutiqueCategoriesSellsStats, getBoutiqueStats, getBoutiqueChiffreAffaireSerie,
+    getBoutiqueArticleSellsStats
 }

@@ -444,8 +444,6 @@ function getBoutiqueCategoriesSellsStats(presta_id) {
             series[ctg_index] = article.amount;
         });
 
-    console.log(JSON.stringify({labels, series}, null, 2));
-
     return {error: 0, status: 200, data: {labels, series}}
 }
 
@@ -464,6 +462,7 @@ function getBoutiqueArticleSellsStats(presta_id) {
             series[article.article_id].y += article.amount;
         });
 
+
     return {error: 0, status: 200, data: [{data: Object.values(series)}]}
 }
 
@@ -475,10 +474,10 @@ function updateArea(updatedData) {
     const index = shapes.findIndex(shape => shape.shape_id === updatedData.shape_id);
 
     if (index !== -1) {
-        shapes[index] = { ...shapes[index], ...updatedData };
-        return { error: 0, status: 200, data: shapes[index] };
+        shapes[index] = {...shapes[index], ...updatedData};
+        return {error: 0, status: 200, data: shapes[index]};
     }
-    return { error: 1, status: 404, data: "Shape not found" };
+    return {error: 1, status: 404, data: "Shape not found"};
 }
 
 

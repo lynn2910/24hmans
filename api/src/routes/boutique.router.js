@@ -3,8 +3,8 @@ let uuid = require("uuid").v4;
 const BoutiqueService = require("../services/boutique.service");
 
 const routerBoutique = new Router();
-const prestataireMiddleware = require("../middlewares/prestataire.middleware");
 const {createRule, Permission, Method, User} = require("../permissions");
+const {authenticateToken} = require("../middlewares/auth.middleware");
 
 /**
  * @swagger
@@ -205,7 +205,7 @@ routerBoutique.get("/:shop_id", (req, res) => {
 })
 
 
-routerBoutique.patch("/:shop_id", prestataireMiddleware, (req, res) => {
+routerBoutique.patch("/:shop_id", authenticateToken, (req, res) => {
     console.log("Editing shop")
     console.log(req.params.shop_id)
     console.log(req.session)
@@ -318,7 +318,7 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
  *       500:
  *         description: "Internal Server Error - Unexpected error during category creation"
  */
-routerBoutique.post("/:shop_id/categories", prestataireMiddleware, (req, res) => {
+routerBoutique.post("/:shop_id/categories", authenticateToken, (req, res) => {
     BoutiqueService.addCategory(
         req.session.userId,
         req.body['category_label'].trim(),
@@ -433,7 +433,7 @@ createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method
  *              500:
  *                 description: "Internal Server Error - Unexpected error during category deletion"
  */
-routerBoutique.delete("/:shop_id/categories/:category_id", prestataireMiddleware, (req, res) => {
+routerBoutique.delete("/:shop_id/categories/:category_id", authenticateToken, (req, res) => {
     BoutiqueService.deleteCategory(req.params.category_id, req.params.shop_id).then(
         (ctg) => res.status(200).json({message: "Category deleted", category: ctg}),
         (err) => {
@@ -445,7 +445,7 @@ routerBoutique.delete("/:shop_id/categories/:category_id", prestataireMiddleware
     )
 })
 
-routerBoutique.patch("/:shop_id/categories/:category_id", prestataireMiddleware, async (req, res) => {
+routerBoutique.patch("/:shop_id/categories/:category_id", authenticateToken, async (req, res) => {
     BoutiqueService.editCategoryLabel(req.body['category_label'], req.params.category_id, req.params.shop_id).then(
         (category) => res.status(200).json({message: "Category updated", category: category}),
         (err) => {
@@ -745,7 +745,7 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
     )
 })
 
-routerBoutique.post("/:shop_id/items/", prestataireMiddleware, async (req, res) => {
+routerBoutique.post("/:shop_id/items/", authenticateToken, async (req, res) => {
     BoutiqueService.createItem(
         req.params.shop_id,
         req.body
@@ -758,7 +758,7 @@ routerBoutique.post("/:shop_id/items/", prestataireMiddleware, async (req, res) 
     )
 })
 
-routerBoutique.patch("/:shop_id/items/:item_id", prestataireMiddleware, async (req, res) => {
+routerBoutique.patch("/:shop_id/items/:item_id", authenticateToken, async (req, res) => {
     BoutiqueService.editItem(
         req.params.shop_id,
         req.params.item_id,
@@ -772,7 +772,7 @@ routerBoutique.patch("/:shop_id/items/:item_id", prestataireMiddleware, async (r
     )
 })
 
-routerBoutique.delete("/:shop_id/items/:item_id", prestataireMiddleware, async (req, res) => {
+routerBoutique.delete("/:shop_id/items/:item_id", authenticateToken, async (req, res) => {
     BoutiqueService.deleteItem(
         req.params.shop_id,
         req.params.item_id,
@@ -785,5 +785,50 @@ routerBoutique.delete("/:shop_id/items/:item_id", prestataireMiddleware, async (
     )
 })
 
+
+routerBoutique.get("/:shop_id/stats/categories", async (req, res) => {
+    BoutiqueService.getBoutiqueCategoriesSellsStats(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
+
+routerBoutique.get("/:shop_id/stats/general", async (req, res) => {
+    BoutiqueService.getBoutiqueStats(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
+
+
+routerBoutique.get("/:shop_id/stats/gains", async (req, res) => {
+    BoutiqueService.getBoutiqueChiffreAffaireSerie(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
+
+routerBoutique.get("/:shop_id/stats/sells", async (req, res) => {
+    BoutiqueService.getBoutiqueArticleSellsStats(req.params.shop_id)
+        .then(
+            (stats) => res.status(200).json(stats),
+            (e) => {
+                console.error(e)
+                res.status(500).json({error: e.toString()})
+            }
+        )
+})
 
 module.exports = routerBoutique;

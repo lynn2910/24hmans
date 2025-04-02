@@ -19,7 +19,7 @@
 
 		<section class="absolute bg-dark text-white">
 			<div class="p-5 mx-36">
-				<h2 class="font-bold italic text-5xl text-center m-14">{{ $t('name') }}s</h2>
+				<h2 class="font-bold italic text-5xl text-center m-14">{{ $t('name') }}</h2>
 
 				<div class="flex flex-row">
 					<div class="mx-auto mt-10">
@@ -107,7 +107,7 @@
 
 				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0" v-html="$t('home.services')">
 				</p>
-				<router-link to="/billetterie/24hdumans">
+				<router-link :to="{ name: 'billetterie', params: {prestataire_name: '24hdumans'}}">
 					<div class="mx-auto mt-10 content-center contain-content relative group">
 						<!-- L'image avec transition pour l'opacité au hover -->
 						<img

@@ -53,7 +53,7 @@ INSERT INTO billetterieCategories (`category_label`, `category_id`, `billetterie
 INSERT INTO billetterieForfaits (`forfait_label`, `forfait_id`, `billetterie_id`)
                VALUES('Mercredi 11 juin 2025', 1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Jeudi 12 juin 2025', 2, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Vendredi 13 juin 2025', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Samedi 14 juin 2025', 4, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Dimanche 15 juin 2025', 5, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
 INSERT INTO billetteriePersonnes (`personne_label`, `personne_id`, `billetterie_id`)
-               VALUES('Famille (x2 adulte) nombre d\enfants : ', 1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Étudiant nombre de places : ', 2, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Sénior nombre de places : ', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Adulte nombre de places : ', 4, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Mineur nombre de places : ', 5, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
+               VALUES('Famille (x2 adulte) nombre d\enfants (jusqu\à 13 ans) : ', 1, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Étudiant nombre de places : ', 2, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Sénior nombre de places : ', 3, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Adulte nombre de places : ', 4, 'dab91561-09f1-47cb-8d91-e21e873d6b4e'),('Enfant (jusqu\à 13 ans) nombre de places : ', 5, 'dab91561-09f1-47cb-8d91-e21e873d6b4e');
 INSERT INTO ecurie (`id`, `name`, `prestataire_id`)
                VALUES('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
 INSERT INTO formulaireEcurie (`id`, `ecurie_id`, `prenom`, `nom`, `email`, `tel`, `num_billet`, `submitted_at`, `is_winner`, `year`)

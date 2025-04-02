@@ -28,5 +28,11 @@ export default [
         name: "presta_carte",
         component: () => import( '../views/panels/prestataire/PrestataireMapView.vue'),
         meta: {hideNavbar: true}
+    },
+    {
+        path: "/prestataire/panel/editProfile",
+        name: "presta_edit_profile",
+        component: () => import( '../views/panels/prestataire/PrestataireEdit.vue'),
+        meta: {hideNavbar: true}
     }
 ]

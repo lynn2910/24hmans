@@ -48,6 +48,7 @@ import i from '@/i18n'
 
 import {mapState} from "vuex";
 import ApexCharts from "apexcharts";
+import PrestataireService from "@/services/prestataire.service";
 
 export default {
 	name: "PrestataireShopStats",
@@ -115,14 +116,11 @@ export default {
 					},
 					dataLabels: {
 						enabled: true,
-						// formatter: function (val, {seriesIndex, w}) {
-						// 	return Math.floor(val) + "% - " + w.config.series[seriesIndex] + " achats";
-						// }
 					},
 				},
 			},
 			articles_chart: {
-				series: [{data: []}],
+				series: [],
 				chartOptions: {
 					legend: {
 						show: false
@@ -139,18 +137,24 @@ export default {
 			},
 		};
 	},
+	props: {
+		prestataire_id: String
+	},
 	computed: {
 		...mapState('login', ['loggedInUser']),
 	},
 	async beforeMount() {
-		await this.getBoutiqueCategoriesSellsStats();
-		await this.getBoutiqueStats();
-		await this.getBoutiqueChiffreAffaireSerie();
-		await this.getBoutiqueArticleSellsStats();
+		const shop = await PrestataireService.getPrestataire(this.prestataire_id);
+		if (shop.error) throw new Error("cannot get shop")
+
+		await this.getBoutiqueCategoriesSellsStats(shop.data.shop_id);
+		await this.getBoutiqueStats(shop.data.shop_id);
+		await this.getBoutiqueChiffreAffaireSerie(shop.data.shop_id);
+		await this.getBoutiqueArticleSellsStats(shop.data.shop_id);
 	},
 	methods: {
-		async getBoutiqueChiffreAffaireSerie() {
-			let res = await BoutiqueService.getBoutiqueChiffreAffaireSerie(this.loggedInUser?.id);
+		async getBoutiqueChiffreAffaireSerie(shop_id) {
+			let res = await BoutiqueService.getBoutiqueChiffreAffaireSerie(shop_id);
 
 			if (!res.error) {
 				this.gains_chart_infos.series[0].data = res.data.serie;
@@ -158,8 +162,8 @@ export default {
 				console.error(res.data);
 			}
 		},
-		async getBoutiqueStats() {
-			let res = await BoutiqueService.getBoutiqueStats(this.loggedInUser?.id);
+		async getBoutiqueStats(shop_id) {
+			let res = await BoutiqueService.getBoutiqueStats(shop_id);
 
 			if (!res.error) {
 				this.clients_count = res.data.clients;
@@ -169,14 +173,12 @@ export default {
 				console.error(res.data);
 			}
 		},
-		async getBoutiqueCategoriesSellsStats() {
-			let res = await BoutiqueService.getBoutiqueCategoriesSellsStats(this.loggedInUser?.id);
+		async getBoutiqueCategoriesSellsStats(shop_id) {
+			let res = await BoutiqueService.getBoutiqueCategoriesSellsStats(shop_id);
 
 			if (!res.error) {
 				this.categories_chart.series = res.data.series;
 				this.categories_chart.chartOptions.labels = res.data.labels;
-
-				console.log(JSON.stringify(res.data));
 
 				ApexCharts.exec('shop_categories', 'updateOptions', {
 					labels: res.data.labels,
@@ -184,15 +186,14 @@ export default {
 				})
 			}
 		},
-		async getBoutiqueArticleSellsStats() {
-			let res = await BoutiqueService.getBoutiqueArticleSellsStats(this.loggedInUser?.id);
+		async getBoutiqueArticleSellsStats(shop_id) {
+			let res = await BoutiqueService.getBoutiqueArticleSellsStats(shop_id);
 
 			if (!res.error) {
-				this.articles_chart.series = res.data;
+				// Correctly format the data for the treemap
+				this.articles_chart.series = [{data: res.data}];
 
-				ApexCharts.exec('shop_articles', 'updateOptions', {
-					series: res.data
-				})
+				ApexCharts.exec('shop_articles', 'updateSeries', [{data: res.data}]);
 			}
 		}
 	}

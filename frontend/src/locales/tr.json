@@ -1,0 +1,432 @@
+{
+  "hello": "Merhaba",
+  "name": "24 Saat Le Mans",
+  "home": {
+    "dates": "11-15 HAZİRAN 2025",
+    "title": "24 Saat Le Mans, Fransa'nın en büyük otomobil etkinliğinin başlangıcını yapın",
+    "date": "11-15 HAZİRAN 2025",
+    "tondeuse": {
+      "h1": "Sembolik bir yarış",
+      "p1": "Efsanevi dayanıklılık yarışı 24 Saat Le Mans'a hoş geldiniz! 1923'ten beri her yıl, en iyi sürücüler Bugatti pisti ve halk yollarını birleştiren eşsiz bir pistte 24 saat boyunca yarışıyor. Hız, strateji ve performans bir arada!",
+      "h2": "Sarthe'de eşsiz bir pist",
+      "p2": "İster tutkulu ister meraklı olun, 24 Saat Le Mans, Monako ve Indianapolis ile birlikte en prestijli üç yarıştan biridir. Taraftarların tutkusunu, arabaların hızını ve stratejisini aksiyon halinde yaşayın."
+    },
+    "numbers": {
+      "title": "Bazı rakamlar",
+      "h1": "Büyük bir adım",
+      "p1": "24 Saat Le Mans 2023'ün yüzüncü yılı için rekor katılım! Yüz binlerce meraklıya katılın ve bu efsanevi yarışın eşsiz atmosferini yaşayın. Bir sonraki etkinliği kaçırmayın ve tarihin bir parçası olun!"
+    },
+    "thanks": {
+      "title": "Ve büyük bir teşekkür",
+      "p": "24 Saat Le Mans'ı kutlamaya gelen tüm meraklılara teşekkür ederiz! Varlığınız ve coşkunuz, bu etkinliği unutulmaz bir deneyim haline getiriyor. Her yeni etkinlikte heyecanı birlikte yaşamak için sizi tekrar aramızda görmeyi dört gözle bekliyoruz!"
+    },
+    "services": "Bu sembolik etkinlikte yerinizi garantilemek için <strong>bilet tekliflerimizi</strong> keşfedin. İster motor sporları tutkunu olun, ister sadece benzersiz bir deneyim yaşamakla ilgileniyor olun, biletlerimiz 24 Saat Le Mans'ın tadını sonuna kadar çıkarmanız için size <strong>en iyi yerlere</strong> ve hizmetlere erişim sağlayacaktır.",
+    "link_to_billetterie": "Bilet ofisine bağlantı",
+    "prestataires": {
+      "name": "Hizmet Sağlayıcılar",
+      "discover": "<strong>Deneyiminizi</strong> zenginleştirmek için çok çeşitli hizmetler sunan hizmet sağlayıcılarımızı keşfedin. Her biri bilgi birikimini paylaşmaktan ve etkinliğinizi <strong>unutulmaz bir an</strong> haline getirmeye katkıda bulunmaktan mutluluk duyuyor.",
+      "search_by_name": "İsme göre ara",
+      "filter_by_ctg": "Kategoriye göre filtrele",
+      "no_prestataires": "Hizmet sağlayıcı bulunamadı",
+      "name_search": "Hiçbir kelime eklenmedi."
+    },
+    "map": {
+      "title": "İnteraktif Harita",
+      "short": "Harita",
+      "text": "<strong>İnteraktif haritamız</strong> sayesinde etkinlik hakkında tüm bilgilere ulaşın. Yerinde <strong>en iyi deneyim</strong> için yerleri, hizmetleri ve ilgi çekici yerleri kolayca keşfedin."
+    }
+  },
+  "footer": {
+    "a_propos": "HAKKIMIZDA",
+    "mentions_legales": "YASAL UYARI",
+    "donnees_personnelles": "KİŞİSEL VERİLER",
+    "cgv_billeterie": "BİLET SATIŞ ŞARTLARI",
+    "services": "HİZMETLER",
+    "billetteries": "BİLET OFİSLERİ",
+    "visites_ecuries": "TAKIM ZİYARETLERİ",
+    "boutique": "MAĞAZA",
+    "reseaux": "AĞLAR",
+    "instagram": "INSTAGRAM",
+    "facebook": "FACEBOOK",
+    "youtube": "YOUTUBE",
+    "realise_par": "Tarafından oluşturuldu",
+    "developpeurs": "Cédric COLIN - Marvyn LEVIN - Leslie MERAT - Anna GAIFFE - Sugdenaz EKICI"
+  },
+  "selects": {
+    "no_item_selected": "Hiçbir öğe seçilmedi"
+  },
+  "lists": {
+    "billetteries": "Bilet ofisleri listesi",
+    "bi_click": "Bilet ofisine erişmek için tıklayın",
+    "bi_empty": "Şu anda hiçbir hizmet sağlayıcının bilet ofisi bulunmamaktadır.",
+    "ecuries": "Takım listesi",
+    "ecu_click": "Takıma erişmek için tıklayın",
+    "ecu_empty": "Şu anda hiçbir takım mevcut değil...",
+    "boutiques": "Mağaza listesi",
+    "bo_click": "Mağazaya erişmek için tıklayın",
+    "bo_empty": "Şu anda hiçbir hizmet sağlayıcının mağazası bulunmamaktadır."
+  },
+  "navbar": {
+    "billetteries": "Bilet ofisleri",
+    "boutiques": "Mağazalar",
+    "ecuries": "Takımlar",
+    "map": "Harita",
+    "prestataires": "Hizmet Sağlayıcı",
+    "login": {
+      "connect": "Giriş yap",
+      "profile": "Profilim",
+      "dashboard": "Gösterge panelim"
+    }
+  },
+  "tools": {
+    "loading": {
+      "waiting": "Lütfen bekleyin"
+    }
+  },
+  "dashboards": {
+    "name": "Gösterge Paneli",
+    "users": "Kullanıcılar",
+    "stats": "İstatistikler",
+    "services": "Hizmetler",
+    "no_services": "Hiçbir hizmet yok...",
+    "client": {
+      "go_back_home": "Ana sayfaya dön",
+      "home": "Ana sayfa",
+      "billets": "Biletlerim",
+      "karting": "Yarışlarım",
+      "achats": "Satın alımlarım",
+      "no_commands": "Hiçbir sipariş vermediniz.",
+      "deconnect": "Çıkış yap",
+      "hello": "Merhaba "
+    },
+    "profile": "Profilim",
+    "presta_admin": {
+      "shop_name": "Mağaza",
+      "kart": "Karting",
+      "tickets": "Biletleme",
+      "ecuries": "Takım ziyaretleri",
+      "montgols": "Sıcak hava balonları",
+      "some_stats": "Bazı istatistikler",
+      "map_editing": {
+        "place_name": "Yer adı",
+        "place_placeholder": "Yer adını girin",
+        "logistic": "Lojistik",
+        "logistic_placeholder": "Lojistik girin",
+        "surface": "Alan (m²)",
+        "surface_placeholder": "Alanı m² cinsinden girin",
+        "description": "Açıklama",
+        "description_placeholder": "Metninizi buraya girin..",
+        "category": "Kategori"
+      },
+      "shop": {
+        "name": "Mağaza",
+        "articles": {
+          "title": "Ürün listesi",
+          "no_article": "Görüntülenecek ürün yok",
+          "create_article": "Ürün oluştur",
+          "initial_stock": "Ürünün ilk stoğu",
+          "selling_price": "Satış fiyatı",
+          "add_article": "Ürün ekle"
+        },
+        "categories": {
+          "title": "Kategori listesi",
+          "no_category": "Görüntülenecek kategori yok",
+          "articles_count": "Ürün sayısı",
+          "category_creation": "Kategori oluştur",
+          "category_name_placeholder": "Kategori adı",
+          "add_category": "Kategori ekle"
+        },
+        "global_settings": {
+          "shop_online": "Mağaza çevrimiçi",
+          "shop_offline": "Mağaza çevrimdışı",
+          "watch_shop": "Mağazayı görüntüle",
+          "visibility": {
+            "everyone": "Herkes tarafından görülebilir",
+            "only_presta": "Sadece sizin tarafınızdan görülebilir"
+          },
+          "access": {
+            "public": "Herkese açık",
+            "text": "Bu ayar, mağazanın halk tarafından görünürlüğünü kontrol eder."
+          },
+          "tabs": {
+            "settings": "Genel ayarlar",
+            "items": "Ürünler",
+            "categories": "Kategoriler"
+          }
+        }
+      },
+      "presta_home": {
+        "hello": "Ben bir gösterge paneliyim"
+      },
+      "karting": {
+        "name": "Karting"
+      },
+      "tickets_obj": {
+        "name": "Biletleme"
+      },
+      "ecuries_obj": {
+        "name": "Garaj ziyaretleri"
+      },
+      "montgolfieres": {
+        "name": "Sıcak hava balonları"
+      },
+      "prestataires": {
+        "copy_success": "Hizmet sağlayıcıları başarıyla kopyaladınız",
+        "delete": {
+          "confirmation_text": "Hizmet sağlayıcıyı silmek üzeresiniz",
+          "text": "Bu hizmet sağlayıcıyı silmek istediğinizden emin misiniz?"
+        }
+      }
+    },
+    "presta": "Hizmet Sağlayıcı",
+    "presta_multi": "Hizmet Sağlayıcılar",
+    "available_services": "Mevcut hizmetler",
+    "statistics": {
+      "not_available": "<strong>{activeTab}</strong> kategorisi için istatistikler henüz mevcut değil.",
+      "shop": {
+        "clients": "müşteri",
+        "benef": "kârından",
+        "commands": "sipariş",
+        "turnover": "Ciro",
+        "gains_graph": "€ cinsinden kazanılan para",
+        "sells_by_ctg": "Satışların ürün kategorisine göre dağılımı",
+        "sells_by_article": "Satışların ürüne göre dağılımı"
+      }
+    }
+  },
+  "login": {
+    "title": "Giriş",
+    "login": {
+      "title": "Kimlik",
+      "email": "E-posta"
+    },
+    "password": {
+      "title": "Şifre",
+      "placeholder": "şifre",
+      "confirm_password": "Şifreyi onayla"
+    },
+    "signup": "Hesap oluştur",
+    "login_btn": "Giriş yap",
+    "register_link": "Henüz bir hesabım yok",
+    "invalid": "Geçersiz kimlik veya şifre"
+  },
+  "cart": {
+    "title": "Sepetiniz",
+    "price": "Fiyat",
+    "resume": "Özet",
+    "ttc": "KDV dahil",
+    "add": "Sepete ekle",
+    "payment": "Banka bilgilerini girme sistemi hayalidir. Hiçbir bilgi işlenmez veya kaydedilmez.",
+    "make_order": "Ödeme yap",
+    "stock_rest": "Stokta sadece {stock} ürün kaldı"
+  },
+  "prestataire_edit": {
+    "update": "Adı güncelle",
+    "create_link": "Bağlantı oluştur"
+  },
+  "global": {
+    "id": "Kimlik",
+    "settings": "Ayarlar",
+    "name": "Adı",
+    "services": "Hizmetler",
+    "services_lowercase": "hizmetler",
+    "url": "URL",
+    "stock": "Stok",
+    "price_detailed": "Fiyat (€)",
+    "description": "Açıklama",
+    "update": "Güncelle",
+    "category": "Kategori",
+    "save": "Kaydet",
+    "reset": "Sıfırla",
+    "next": "Sonraki",
+    "still": "hala",
+    "register": "Kaydol",
+    "hello_day": "Merhaba",
+    "hello_night": "İyi akşamlar",
+    "free_zone": "Serbest bırak",
+    "see": "Gör",
+    "delete": "Sil",
+    "close": "Kapat"
+  },
+  "cancel": "İptal",
+  "services": {
+    "billetterie": {
+      "date_title": "Tarih seçimi",
+      "reserve": "Öde ve rezerve et",
+      "type_billet": {
+        "title": "Bilet türü",
+        "select": "Bilet türünü seçin"
+      },
+      "select_persons": "Kişileri seçin",
+      "date_selection": "Tarihleri seçin",
+      "step": "{n}. Adım",
+      "resume": {
+        "type": "Bilet türü:",
+        "not_selected": "Seçilmedi",
+        "not_given": "Verilmedi",
+        "dates_selected": "Seçilen tarih(ler):",
+        "persons_number": "Kişi sayısı:"
+      }
+    },
+    "shop": {
+      "no_visual": "Görsel yok",
+      "in_stock": "stokta ürünler",
+      "no_more_in_stock": "Stok tükendi",
+      "article_doesnt_exist_title": "Bu ürün mevcut değil",
+      "article_doesnt_exist": "Mevcut olmayan bir ürüne erişmeye çalışıyorsunuz.",
+      "go_back_to_shop": "Mağazaya geri dön",
+      "shop_name": "{name} Mağazası",
+      "shop_doesnt_exist_title": "Bu mağaza mevcut değil",
+      "shop_doesnt_exist": "Mevcut olmayan bir mağazaya erişmeye çalışıyorsunuz.",
+      "go_back_to_prestataire_profile": "Hizmet sağlayıcının sayfasına geri dön",
+      "prestataire_doesnt_exist_title": "Bu hizmet sağlayıcı mevcut değil",
+      "prestataire_doesnt_exist": "Mevcut olmayan bir hizmet sağlayıcının mağazasına erişmeye çalışıyorsunuz.",
+      "go_back_to_prestataires_list": "Hizmet sağlayıcıların listesine geri dön",
+      "filters": {
+        "selection": "Seçimimiz",
+        "keywords": "Anahtar kelimeler",
+        "categories": "Kategoriler",
+        "active_filters": "Aktif filtreler"
+      },
+      "stock_lasting": "{stock} ürün kaldı"
+    },
+    "ecurie": {
+      "title": "Çekiliş",
+      "rules": {
+        "title": "Çekilişe katılma kuralları",
+        "one": "Katılımcı, katılmak için yasal yaşta olmalıdır.",
+        "two": "Katılımcı başına bir bilet.",
+        "three": "Verilen bilgiler doğru ve doğrulanabilir olmalıdır.",
+        "four": "Çekilişe katılım <strong class=\"text-white\">25 Haziran 2025</strong> tarihine kadar açıktır.",
+        "five": "Kazananlar <strong class=\"text-white\">26 Haziran 2025</strong> tarihinde e-posta ile bilgilendirilecektir."
+      },
+      "sign": {
+        "title": "Çekilişe kayıt",
+        "lastname": "Soyadı:",
+        "firstname": "Adı:",
+        "firstname_simple": "Adı",
+        "family_name": "Soyadı",
+        "email": "E-posta:",
+        "email_simple": "E-posta",
+        "phone": "Telefon:",
+        "ticket_number": "Bilet numarası:"
+      }
+    }
+  },
+  "payment": {
+    "title": "Ödeme",
+    "warning": "Banka bilgilerini girme sistemi hayalidir. Hiçbir bilgi işlenmez veya kaydedilmez.",
+    "card_number": "Kart numarası",
+    "expiration": "Son kullanma tarihi (aa/yy)",
+    "security_code": "Güvenlik kodu"
+  },
+  "bonuses": {
+    "cgv": {
+      "title": "Bilet satışının genel şartları ve koşulları",
+      "text": "PDF belgesine bağlantı:"
+    },
+    "mentions": {
+      "title": "Yasal uyarı",
+      "editor": {
+        "title": "Site editörü",
+        "text": "Bu site, bir üniversite projesi kapsamında <strong>Kuzey Franche-Comté Üniversite Teknoloji Enstitüsü</strong>'nden bir grup öğrenci tarafından yayınlanmaktadır.",
+        "responsables": "Yayın yöneticileri şunlardır:",
+        "cedric": "Cic",
+        "colin": "COLIN"
+      },
+      "host": {
+        "title": "Barındırıcı",
+        "name": "Barındırıcı adı:",
+        "address": "Adres:",
+        "address_line1": "19 avenue du Maréchal Juin",
+        "address_line2": "BP 527",
+        "address_line3": "90016 Belfort cedex"
+      },
+      "intellectual": {
+        "title": "Fikri mülkiyet",
+        "text1": "Bu sitenin tamamı, telif hakkı ve fikri mülkiyetle ilgili Fransız ve uluslararası mevzuat tarafından yönetilmektedir.",
+        "text2": "Bu sitedeki resimler ve videolar, ilgili yazarlarının mülkiyetindedir ve kesinlikle bilgilendirme amaçlı ve ticari olmayan amaçlar için kullanılmaktadır.",
+        "text3": "Bu sitede belirtilen markalar, ilgili sahiplerinin mülkiyetindedir. İndirilebilir belgeler ve ikonografik ve fotoğrafik temsiller dahil olmak üzere tüm çoğaltma hakları saklıdır.",
+        "text4": "Bu sitenin tamamının veya bir kısmının herhangi bir elektronik ortamda çoğaltılması, yayın yöneticisinin açık izni olmadan kesinlikle yasaktır.",
+        "contact": "Bir resmin veya videonun kullanımına itiraz etmek isteyen herkesin yayın yöneticisi ile iletişime geçmesi rica olunur,",
+        "email": "cedric.colin35@gmail.com"
+      },
+      "personal": {
+        "title": "Kişisel veriler",
+        "link": "Sayfaya bakın"
+      },
+      "hyperlinks": {
+        "title": "Köprüler",
+        "text": "Bu site, diğer web sitelerine köprüler içerebilir. Bu sitelerin içeriğinden sorumlu değiliz ve kullanılabilirliklerini garanti edemeyiz."
+      },
+      "warning": {
+        "title": "Uyarı",
+        "text1": "Bu sitede yer alan bilgiler sadece bilgilendirme amaçlıdır ve öğrencilerin sorumluluğunu üstlenmez",
+        "text2": "Bu siteyi güncel tutmak için çabalıyoruz, ancak burada yayınlanan bilgilerin doğruluğunu, eksiksizliğini ve güncelliğini garanti edemeyiz."
+      },
+      "law": {
+        "title": "Uygulanabilir hukuk",
+        "text": "Bu site Fransız hukukuna tabidir. Bir anlaşmazlık durumunda, yalnızca Fransız mahkemeleri yetkili olacaktır."
+      }
+    },
+    "personal_data": {
+      "title": "Gizlilik politikası",
+      "introduction": {
+        "title": "1. Giriş",
+        "text": "Bu gizlilik politikası, web sitemizi kullandığınızda bize sağladığınız kişisel verileri nasıl topladığımızı, kullandığımızı, sakladığımızı ve koruduğumuzu size bildirmeyi amaçlamaktadır."
+      },
+      "data_collection": {
+        "title": "2. Veri toplama ve kullanımı",
+        "collected_data": "Toplanan veriler:",
+        "collected_data_text": "Sitemizle etkileşimde bulunduğunuzda (örneğin, bizimle iletişime geçerseniz adınız, e-posta adresiniz) bize gönüllü olarak sağladığınız kişisel verileri topluyoruz. Çerezlerin ve benzer teknolojilerin kullanımıyla tarama verilerini de toplayabiliriz.",
+        "data_use": "Veri kullanımı:",
+        "site_functionality": "Site işlevselliği:",
+        "site_functionality_text": "Web sitemizin düzgün çalışmasını sağlamak ve size talep ettiğiniz hizmetleri sunmak.",
+        "personalization": "Kişiselleştirme:",
+        "personalization_text": "Tercihlerinizi (dil, sepetteki ürünler vb.) hatırlayarak kullanıcı deneyiminizi iyileştirin."
+      },
+      "cookies": {
+        "title": "3. Çerezler",
+        "text": "Tarama deneyiminizi iyileştirmek için işlevsel çerezler kullanıyoruz. Bu çerezler, sizi tanımlayabilecek herhangi bir kişisel veri toplamaz. Tarayıcı ayarlarınızı değiştirerek çerezleri istediğiniz zaman devre dışı bırakmayı seçebilirsiniz. Ancak bu işlem, sitenin bazı özelliklerini etkileyebilir."
+      },
+      "data_storage": {
+        "title": "4. Veri saklama",
+        "text": "Topladığımız kişisel veriler, Avrupa Birliği içinde bulunan güvenli sunucularda saklanır. Kişisel verilerinizi yalnızca toplandıkları amaçları gerçekleştirmek için gerekli olan süre boyunca saklarız."
+      },
+      "data_sharing": {
+        "title": "5. Veri paylaşımı",
+        "text": "Kişisel verilerinizi üçüncü taraflarla paylaşmıyor, satmıyor veya kiralamıyoruz."
+      },
+      "data_security": {
+        "title": "6. Veri güvenliği",
+        "text": "Kişisel verilerinizi herhangi bir kayıp, değişiklik, imha veya yetkisiz erişime karşı korumak için uygun teknik ve organizasyonel güvenlik önlemleri uyguluyoruz."
+      },
+      "your_rights": {
+        "title": "7. Haklarınız",
+        "text": "Yürürlükteki düzenlemelere uygun olarak, aşağıdaki haklara sahipsiniz:",
+        "access_right": "Erişim hakkı:",
+        "access_right_text": "Sizin hakkınızda tuttuğumuz kişisel verilere erişim talep edebilirsiniz.",
+        "rectification_right": "Düzeltme hakkı:",
+        "rectification_right_text": "Yanlış kişisel verileri düzeltmemizi talep edebilirsiniz.",
+        "erasure_right": "Silme hakkı:",
+        "erasure_right_text": "Belirli koşullar altında kişisel verilerinizi silmemizi talep edebilirsiniz.",
+        "opposition_right": "İtiraz hakkı:",
+        "opposition_right_text": "Kişisel verilerinizin belirli amaçlar için işlenmesine itiraz edebilirsiniz.",
+        "limitation_right": "Sınırlama hakkı:",
+        "limitation_right_text": "Kişisel verilerinizin işlenmesini sınırlandırmamızı talep edebilirsiniz.",
+        "portability_right": "Taşınabilirlik hakkı:",
+        "portability_right_text": "Kişisel verilerinizi yapılandırılmış, yaygın olarak kullanılan ve makine tarafından okunabilir bir biçimde almayı talep edebilirsiniz.",
+        "contact_text": "Haklarınızı kullanmak için lütfen aşağıdaki adresten bizimle iletişime geçin:"
+      },
+      "policy_changes": {
+        "title": "8. Gizlilik politikasında değişiklikler",
+        "text": "Bu gizlilik politikasını herhangi bir zamanda değiştirme hakkımızı saklı tutuyoruz. Herhangi bir değişiklik, web sitemizde yayınlandığı anda geçerli olacaktır."
+      },
+      "contact": {
+        "title": "9. İletişim",
+        "text": "Bu gizlilik politikasıyla ilgili herhangi bir sorunuz varsa, aşağıdaki adresten bizimle iletişime geçebilirsiniz:"
+      },
+      "edited": "8 Ocak 2025 tarihinde 16:53 Fransız Saati'nde düzenlendi"
+    }
+  }
+}

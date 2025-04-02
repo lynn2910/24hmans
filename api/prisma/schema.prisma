@@ -30,7 +30,8 @@ model User {
   tickets Tickets[]
   orders  UserOrder[]
 
-  karting_sessions UserKartingSession[]
+  karting_sessions        UserKartingSession[]
+  UserMontgolfiereSession UserMontgolfiereSession[]
 }
 
 //
@@ -68,10 +69,11 @@ model Prestataire {
   links PrestataireLink[]
   Shape Shape[]
 
-  boutique    Boutique?
-  Ecurie      Ecurie?
-  Billetterie Billetteries?
-  karting     Karting?
+  boutique     Boutique?
+  Ecurie       Ecurie?
+  Billetterie  Billetteries?
+  karting      Karting?
+  Montgolfiere Montgolfiere?
 
   @@index([name])
 }
@@ -393,4 +395,76 @@ model KartingCircuit {
   kart_power   Int
 
   sessions UserKartingSession[]
+}
+
+//
+//
+//    Système de réservations des montgolfières
+//
+//
+
+model MontgolfiereReservationApp {
+  app_id String @id @db.VarChar(36)
+
+  reservation_slots MontgolfiereReservationSlot[]
+
+  Montgolfieres Montgolfiere[]
+}
+
+model MontgolfiereReservationSlot {
+  reservation_id String                     @id @db.VarChar(36)
+  app_id         String                     @db.VarChar(36)
+  app            MontgolfiereReservationApp @relation(fields: [app_id], references: [app_id], onDelete: Cascade)
+
+  from DateTime
+  to   DateTime
+
+  maxSize Int // 10 personnes max par montgolfière
+
+  montgolfiere_sessions MontgolfiereSessionSlot[]
+}
+
+//
+//
+//    MONTGOLFIÈRES
+//
+//
+
+model Montgolfiere {
+  montgolfiere_id String      @id @db.VarChar(36)
+  prestataire_id  String      @unique @db.VarChar(36)
+  prestataire     Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
+
+  // Pour lier aux réservations
+  reservation_app_id String                     @unique @db.VarChar(36)
+  reservations       MontgolfiereReservationApp @relation(fields: [reservation_app_id], references: [app_id], onDelete: Cascade)
+
+  enabled Boolean @default(false)
+
+  sessions MontgolfiereSessionSlot[]
+}
+
+// Sessions de vol pour les montgolfières
+model MontgolfiereSessionSlot {
+  session_id String @id @db.VarChar(36)
+
+  montgolfiere_id String       @db.VarChar(36)
+  montgolfiere    Montgolfiere @relation(fields: [montgolfiere_id], references: [montgolfiere_id], onDelete: Cascade)
+
+  session_slot_id String                      @db.VarChar(36)
+  session_slot    MontgolfiereReservationSlot @relation(fields: [session_slot_id], references: [reservation_id], onDelete: Cascade)
+
+  users UserMontgolfiereSession[]
+}
+
+// Les utilisateurs qui réservent une place en montgolfière
+model UserMontgolfiereSession {
+  session_id Int     @id @default(autoincrement())
+  pseudo     String?
+
+  user_id String @db.VarChar(36)
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  reservation_slot_id String                  @db.VarChar(36)
+  reservation_slot    MontgolfiereSessionSlot @relation(fields: [reservation_slot_id], references: [session_id], onDelete: Cascade)
 }
