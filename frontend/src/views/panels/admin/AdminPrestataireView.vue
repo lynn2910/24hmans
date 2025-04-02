@@ -43,7 +43,7 @@ Page de gestion des prestataires du dashboard admin
 									{{
 										services.find((s) => s.id === prestataire.id)?.nb_services || 0
 									}}
-								</strong> {{ $t('services_lowercase') }}
+								</strong> {{ $t('global.services_lowercase') }}
 							</p>
 						</td>
 						<td class="p-4 py-2 border-b border-blue-gray-50 flex flex-row items-center justify-evenly">
