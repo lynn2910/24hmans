@@ -112,6 +112,7 @@ async function addPrestataireLink(presta_id, name, url) {
         .send()
 }
 
+
 async function getAllCategoryTicket(prestataire_id) {
     return LocalSource.getAllCategoryTicket(prestataire_id);
 }

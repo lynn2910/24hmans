@@ -1,6 +1,4 @@
 import {Request} from "./axios.service"
-import LocalSource from "@/datasource/controller"
-
 
 async function getShopInformations(prestataire_id, is_presta = false) {
     // return LocalSource.getBoutiqueInfos(prestataire_id, is_presta)

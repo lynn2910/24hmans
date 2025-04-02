@@ -1,4 +1,3 @@
-import LocalSource from '../datasource/controller'
 import {defineToken, removeSessionId, Request} from "@/services/axios.service";
 import {Selected} from "@/utils";
 
@@ -43,8 +42,7 @@ async function logoutUser(sessionId) {
 }
 
 async function getUserCount() {
-    // TODO stats
-    return LocalSource.getAllUsers();
+    return 0; //LocalSource.getAllUsers();
 }
 
 async function getUserOrders() {
