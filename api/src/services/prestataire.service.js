@@ -31,7 +31,7 @@ function getPrestataireService(presta_id) {
                     Ecurie: true,
                     Billetterie: true,
                     karting: true,
-                    // TODO montgolfieres
+                    Montgolfiere: true
                 },
                 where: {
                     id: presta_id,
