@@ -126,8 +126,6 @@
 					</div>
 				</router-link>
 
-				<div id="service"></div>
-
 				<h2 class="font-bold italic text-5xl text-center mt-52 m-14" v-html="$t('navbar.prestataires')"></h2>
 
 				<p class="font-normal text-2xl text-center m-auto ml-6 mr-6 mb-10 p-5 pt-0"
@@ -182,6 +180,8 @@
 
 
 				<p v-else>{{ $t('home.prestataires.no_prestataires') }}</p>
+
+				<div ref="service_tag" id="service"></div>
 
 				<!--        <h1 class="font-bold italic text-5xl text-center mt-52 m-14">Services</h1>-->
 
@@ -288,6 +288,21 @@ export default {
 		await store.dispatch("prestataire/getAllPrestataires");
 	},
 	mounted() {
+		this.$nextTick(() => {
+			console.log(this.$route.hash)
+			if (this.$route.hash === '#services') {
+				console.log("Scrolling to #services");
+				if (this.$refs.service_tag) {
+					this.$refs.service_tag.scrollIntoView({
+						behavior: 'smooth',
+						top: 0
+					});
+				} else {
+					console.error("Element with ref 'service_tag' not found.");
+				}
+			}
+		});
+
 		// Permet de gérer les animéations des images
 		const observer = new IntersectionObserver(
 				(entries) => {
