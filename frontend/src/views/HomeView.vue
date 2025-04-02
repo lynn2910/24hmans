@@ -206,13 +206,12 @@
 </template>
 
 <script>
-// TODO A changer quand on aura les X.service.js associés
-import {billetteries, boutiques, garages, karting, montgolfieres} from "@/datasource/prestataires";
 import MultipleSelect from "@/components/selects/MultipleSelect.vue";
 import {mapActions, mapGetters} from "vuex";
 import store from "@/store";
 import FooterComponent from "@/components/navigation/footer/FooterComponent.vue";
 import CarteInteractivePublic from "@/components/carteInteractive/CarteInteractivePublic.vue";
+import PrestataireService from "@/services/prestataire.service";
 
 export default {
 	name: 'HomeView',
@@ -221,6 +220,7 @@ export default {
 		return {
 			nameFilter: '',
 			selectedCategories: [],
+			servicesPerPrestataire: {}
 		};
 	},
 	computed: {
@@ -266,19 +266,29 @@ export default {
 			this.selectedCategories = selected;
 		},
 		isInGarages(prestataireId) {
-			return garages.some(garage => garage.prestataire_id === prestataireId);
+			return this.servicesPerPrestataire[prestataireId]
+					&& this.servicesPerPrestataire[prestataireId]?.includes('ecuries') || false;
+			// return garages.some(garage => garage.prestataire_id === prestataireId);
 		},
 		isInMontgolfieres(prestataireId) {
-			return montgolfieres.some(montgolfiere => montgolfiere.prestataire_id === prestataireId);
+			return this.servicesPerPrestataire[prestataireId]
+					&& this.servicesPerPrestataire[prestataireId]?.includes('montgolfiere') || false;
+			// return montgolfieres.some(montgolfiere => montgolfiere.prestataire_id === prestataireId);
 		},
 		isInKarting(prestataireId) {
-			return karting.some(kart => kart.prestataire_id === prestataireId);
+			return this.servicesPerPrestataire[prestataireId]
+					&& this.servicesPerPrestataire[prestataireId]?.includes('karting') || false;
+			// return karting.some(kart => kart.prestataire_id === prestataireId);
 		},
 		isInBilleterie(prestataireId) {
-			return billetteries.some(billet => billet.prestataire_id === prestataireId);
+			return this.servicesPerPrestataire[prestataireId]
+					&& this.servicesPerPrestataire[prestataireId]?.includes('billetterie') || false;
+			// return billetteries.some(billet => billet.prestataire_id === prestataireId);
 		},
 		isInBoutiques(prestataireId) {
-			return boutiques.some(boutique => boutique.prestataire_id === prestataireId);
+			return this.servicesPerPrestataire[prestataireId]
+					&& this.servicesPerPrestataire[prestataireId]?.includes('boutique') || false;
+			// return boutiques.some(boutique => boutique.prestataire_id === prestataireId);
 		},
 	},
 	actions: {
@@ -286,6 +296,12 @@ export default {
 	},
 	async beforeMount() {
 		await store.dispatch("prestataire/getAllPrestataires");
+		this.prestataires.forEach(p => this.servicesPerPrestataire[p.id] = []);
+
+		const fetchActions = this.prestataires.map(async ({id}) => {
+			this.servicesPerPrestataire[id] = (await PrestataireService.getPrestataireServices(id)).data || [];
+		})
+		await Promise.all(fetchActions)
 	},
 	mounted() {
 		this.$nextTick(() => {

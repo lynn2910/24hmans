@@ -13,7 +13,7 @@
 			<PrestataireShopCategories :prestataire="prestataire" :articles="items"
 																 :categories="categories"
 																 @createCategory="createCategory"
-																 @articleDelete="deleteArticle"> <!-- TODO updateCategory && deleteCategory -->
+																 @articleDelete="deleteCategory">
 			</PrestataireShopCategories>
 		</div>
 		<div v-else-if="activeTab === 'settings'">
@@ -87,6 +87,14 @@ export default {
 			console.log(res)
 			if (!res.error) {
 				this.addCategory(res.data.category);
+			} else {
+				console.error(res)
+			}
+		},
+		async deleteCategory(category_id) {
+			let res = await BoutiqueService.deleteShopCategory(this.shopId, category_id);
+			if (!res.error) {
+				this.removeCategory(category_id);
 			} else {
 				console.error(res)
 			}

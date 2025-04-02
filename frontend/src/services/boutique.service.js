@@ -72,6 +72,8 @@ async function createShopCategory(shop_id, category_label) {
 }
 
 
+// TODO API stats
+
 async function getBoutiqueChiffreAffaireSerie(shop_id) {
     // return LocalSource.getBoutiqueChiffreAffaireSerie(presta_id);
     return await Request.get('/boutique/{id}/stats/gains')
