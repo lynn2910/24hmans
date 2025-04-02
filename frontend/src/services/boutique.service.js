@@ -71,8 +71,11 @@ async function createShopCategory(shop_id, category_label) {
         .send()
 }
 
-
-// TODO API stats
+async function deleteShopCategory(shop_id, category_id) {
+    return await Request.delete("/boutique/:shop_id/categories/:category_id")
+        .args({shop_id, category_id})
+        .send()
+}
 
 async function getBoutiqueChiffreAffaireSerie(shop_id) {
     // return LocalSource.getBoutiqueChiffreAffaireSerie(presta_id);
@@ -109,6 +112,6 @@ export default {
     addArticleToBoutique,
     removeArticleFromBoutique,
     enableOrDisableShop,
-    createShopCategory,
+    createShopCategory, deleteShopCategory,
     getBoutiqueChiffreAffaireSerie, getBoutiqueStats, getBoutiqueCategoriesSellsStats, getBoutiqueArticleSellsStats
 }
