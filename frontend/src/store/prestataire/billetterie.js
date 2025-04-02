@@ -3,32 +3,48 @@ import BilletterieService from "@/services/billetterie.service";
 export default {
     namespaced: true,
     state: {
-        category : [],
+        category: [],
         date: [],
         nbPersonnes: [],
         prestataire: {}
     },
 
-    actions: {
-        /**
-         * Récupère la liste des items et des catégories
-         * @param commit
-         * @param {string} prestataire_id L'identifiant du prestataire
-         * @returns {Promise<void>}
-         */
-        async getShop({commit}, prestataire_id) {
-            console.log("Get billetterie informations");
-            let res = await BilletterieService.getBilletterieInformations(prestataire_id);
-
-            if (!res.error) {
-                commit(res.data.category);
-                commit(res.data.date);
-                commit(res.data.nbPersonnes)
-            } else {
-                console.error(res.data);
-                commit("updateShopExists", false);
-            }
+    mutations: {
+        set_category(state, category) {
+            state.category = category;
         },
+        set_date(state, date) {
+            state.date = date;
+        },
+        set_nbPersonnes(state, nbPersonnes) {
+            state.nbPersonnes = nbPersonnes;
+        },
+        set_prestataire(state, prestataire) {
+            state.prestataire = prestataire;
+        }
+    },
 
+    actions: {
+        async getShop({ commit }, prestataire_name) {  // Changé de prestataire_id à prestataire_name
+            console.log("Get billetterie informations for:", prestataire_name);
+
+            try {
+                let res = await BilletterieService.getBilletterieInformations(prestataire_name);
+
+                if (res.data) {
+                    commit("set_category", res.data.category || []);
+                    commit("set_date", res.data.date || []);
+                    commit("set_nbPersonnes", res.data.nbPersonnes || []);
+                    commit("set_prestataire", res.data.prestataire || {});
+                    return true; // Succès
+                } else {
+                    console.error("Erreur API:", res);
+                    return false;
+                }
+            } catch (error) {
+                console.error("Erreur lors de la récupération des données :", error);
+                throw error;
+            }
+        }
     }
-}
+};
