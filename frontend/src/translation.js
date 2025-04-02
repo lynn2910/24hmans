@@ -66,6 +66,8 @@ const actions = {
     },
 
     async routeMiddleware(to, _from, next) {
+        if (to.path.startsWith('/public')) return next();
+
         const paramLocale = to.params.locale
         if (!actions.isLocaleSupported(paramLocale)) {
             return next(actions.guessDefaultLocale())
