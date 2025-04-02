@@ -66,6 +66,7 @@ export class Request {
     constructor(method, route) {
         this.method = method;
         this.url = route;
+        this.paramsObj = {};
     }
 
     static get = (route) => new Request(Method.Get, route);
@@ -88,6 +89,11 @@ export class Request {
         return this;
     }
 
+    params(p) {
+        this.paramsObj = p;
+        return this;
+    }
+
     /**
      * Define a body for the request.
      * @param {any} body
@@ -107,25 +113,26 @@ export class Request {
     send(base_url = BASE_URL) {
         return new Promise((resolve, reject) => {
             let call = null;
+            const params = this.paramsObj;
             switch (this.method) {
                 case Method.Get: {
-                    call = axios_client.get(this.url);
+                    call = axios_client.get(this.url, {params});
                     break;
                 }
                 case Method.Post: {
-                    call = axios_client.post(this.url, this.body);
+                    call = axios_client.post(this.url, this.body, {params});
                     break;
                 }
                 case Method.Put: {
-                    call = axios_client.put(this.url, this.body);
+                    call = axios_client.put(this.url, this.body, {params});
                     break;
                 }
                 case Method.Delete: {
-                    call = axios_client.delete(this.url);
+                    call = axios_client.delete(this.url, {params});
                     break;
                 }
                 case Method.Patch: {
-                    call = axios_client.patch(this.url, this.body);
+                    call = axios_client.patch(this.url, this.body, {params});
                     break;
                 }
                 default: {
