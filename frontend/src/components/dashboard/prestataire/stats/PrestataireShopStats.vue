@@ -137,11 +137,14 @@ export default {
 			},
 		};
 	},
+	props: {
+		prestataire_id: String
+	},
 	computed: {
 		...mapState('login', ['loggedInUser']),
 	},
 	async beforeMount() {
-		const shop = await PrestataireService.getPrestataire(this.loggedInUser.id);
+		const shop = await PrestataireService.getPrestataire(this.prestataire_id);
 		if (shop.error) throw new Error("cannot get shop")
 
 		await this.getBoutiqueCategoriesSellsStats(shop.data.shop_id);

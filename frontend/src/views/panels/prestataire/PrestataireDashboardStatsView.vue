@@ -3,6 +3,7 @@ import PrestataireDashboardWithTabsTemplate
 	from "@/components/dashboard/prestataire/PrestataireDashboardWithTabsTemplate.vue";
 import PrestataireShopStats from "@/components/dashboard/prestataire/stats/PrestataireShopStats.vue";
 import i from '@/i18n'
+import {mapState} from "vuex";
 
 export default {
 	components: {PrestataireDashboardWithTabsTemplate, PrestataireShopStats},
@@ -19,6 +20,9 @@ export default {
 			activeTab: tabs[0].id
 		}
 	},
+	computed: {
+		...mapState('login', ['loggedInUser'])
+	},
 	methods: {
 		changeTab(newTab) {
 			console.log(`New tab. activeTab = ${newTab}`)
@@ -32,7 +36,7 @@ export default {
 	<PrestataireDashboardWithTabsTemplate :current-tab="activeTab" current-page="stats" :tabs="tabs"
 																				v-on:changeTab="changeTab">
 		<div v-if="activeTab === 'shop'">
-			<PrestataireShopStats></PrestataireShopStats>
+			<PrestataireShopStats :prestataire_id="loggedInUser.id"></PrestataireShopStats>
 		</div>
 		<div v-else>
 			<div
