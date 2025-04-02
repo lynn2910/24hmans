@@ -341,11 +341,11 @@ let billetteries = [
             {forfait_label: "Dimanche 15 juin 2025", forfait_id: 5}
         ],
         personnes: [
-            {personne_label: "Famille (x2 adulte) nombre d'enfants :", personne_id: 1},
+            {personne_label: "Famille (x2 adulte) nombre d'enfants (jusqu'à 13 ans) :", personne_id: 1},
             {personne_label: "Étudiant nombre de places : ", personne_id: 2},
             {personne_label: "Sénior nombre de places : ", personne_id: 3},
             {personne_label: "Adulte nombre de places : ", personne_id: 4},
-            {personne_label: "Mineur nombre de places : ", personne_id: 5}
+            {personne_label: "Enfants (jusqu'à 13 ans) nombre de places : ", personne_id: 5}
         ]
     }
 ]
