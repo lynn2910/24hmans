@@ -22,7 +22,6 @@ import LoginPopup from "@/components/dashboard/LoginPopup.vue";
 import { mapState } from "vuex";
 import UsersService from "@/services/users.service";
 
-
 export default {
 	name: "BilletteriePaiement",
 	components: { LoginPopup, PaymentInformations },
@@ -43,6 +42,12 @@ export default {
 	},
 
 	methods: {
+		showErrorNotification(message) {
+			// Implémentez votre système de notification ici
+			console.error("Notification:", message);
+			alert(message); // Solution temporaire
+		},
+
 		async buildNewOrder() {
 			if (!this.loggedInUser) {
 				this.showLoginPopup = true;
@@ -54,22 +59,47 @@ export default {
 				category: this.billetterieCategory,
 				date: this.billetterieDate,
 				nbPersonnes: this.billetterieNbPersonnes,
-				created_at: new Date(),
+				created_at: new Date().toISOString()
 			};
 
 			try {
-				const { data } = await UsersService.newOrder(preparation);
+				console.log("[DEBUG] Données envoyées au serveur:", JSON.stringify(preparation, null, 2));
 
-				if (data && data.order_id) {
-					await this.$router.push({
-						name: "client_panel_orders",
-						query: { order_id: data.order_id },
-					});
-				} else {
-					console.error("Erreur: Réponse inattendue du serveur", data);
+				const response = await UsersService.newOrder(preparation);
+				console.log("[DEBUG] Réponse du serveur:", response);
+
+				if (!response) {
+					throw new Error("Le serveur n'a pas renvoyé de réponse");
 				}
+
+				// Gestion des erreurs API
+				if (response.status >= 400) {
+					const errorMsg = response.data?.message || "Erreur lors de la création de commande";
+					throw new Error(errorMsg);
+				}
+
+				// Extraction robuste de l'ID de commande
+				const orderId = response.data?.order_id || response.data?.id;
+				if (!orderId) {
+					console.error("[ERROR] Structure de réponse inattendue:", response);
+					throw new Error("La commande a été créée mais aucun ID n'a été retourné");
+				}
+
+				await this.$router.push({
+					name: "client_panel_orders",
+					query: { order_id: orderId }
+				});
+
 			} catch (error) {
-				console.error("Erreur lors de la communication avec le serveur :", error);
+				console.error("[ERROR] Erreur lors de la création de commande:", {
+					error: error.message,
+					stack: error.stack,
+					response: error.response?.data
+				});
+
+				this.showErrorNotification(
+						error.message || "Une erreur est survenue lors de la création de votre commande"
+				);
 			}
 		},
 

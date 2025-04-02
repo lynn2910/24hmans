@@ -127,37 +127,40 @@ export default {
 	},
 	async beforeMount() {
 		let res = await PrestataireService.getPrestataireFromName(this.$route.params['prestataire_name']);
+		console.log("Prestataire:", res);
 		if (!res.error) {
 			this.prestataire = res.data;
 
-			console.log(this.prestataire)
-
 			res = await PrestataireService.getAllCategoryTicket(this.prestataire.id);
-			console.log(res)
+			console.log("Categories:", res);
 			if (!res.error) {
 				this.categories = res.data;
 			} else {
-				console.error(res.data);
+				console.error("Erreur categories:", res.data);
 			}
 
 			res = await PrestataireService.getAllForfaitTicket(this.prestataire.id);
+			console.log("Forfaits:", res);
 			if (!res.error) {
 				this.forfaits = res.data;
 			} else {
-				console.error(res.data);
+				console.error("Erreur forfaits:", res.data);
 			}
 
 			res = await PrestataireService.getAllPersonneTicket(this.prestataire.id);
+			console.log("Personnes:", res);
 			if (!res.error) {
 				this.personnes = res.data;
 			} else {
-				console.error(res.data);
+				console.error("Erreur personnes:", res.data);
 			}
 
 		} else {
-			console.error(`Cannot get prestataire: ${res.data}`);
+			console.error("Erreur prestataire:", res.data);
 		}
 	},
+
+
 	methods: {
 		changeStep(new_step) {
 			this.currentStep = new_step;
