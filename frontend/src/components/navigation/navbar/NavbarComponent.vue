@@ -18,7 +18,6 @@
 				<router-link class="hover:underline" :to="{ name: 'ecurie_list' }"><p>{{ $t("navbar.ecuries") }}</p>
 				</router-link>
 				<router-link class="hover:underline" :to="{ name: 'Carte' }"><p>{{ $t("navbar.map") }}</p></router-link>
-				<!-- TODO rediriger vers '/:locale/#service' -->
 				<router-link class="hover:underline" :to="`/${$route.params.locale}/#services`">
 					{{ $t('navbar.prestataires') }}
 				</router-link>
