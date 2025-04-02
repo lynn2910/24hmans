@@ -9,7 +9,7 @@
 			}"
 			class="group bg-white bg-opacity-5 hover:bg-opacity-10 m-4 p-6 rounded-lg h-auto cursor-pointer w-56">
 
-		<img v-if="item.image" class="h-20 w-auto mx-auto text-center mb-2" :src="item.image"
+		<img v-if="item.image" class="h-40 w-auto mx-auto text-center mb-2 rounded-full" :src="item.image"
 				 alt="Aucune image">
 		<img v-else class="h-20 w-20 mx-auto text-center opacity-90 mb-2" src="@/assets/images/no_image.png"
 				 alt="Aucune image">
