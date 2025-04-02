@@ -4,11 +4,11 @@
 		<div v-if="prestataire && shopExists" class="w-full mt-36">
 			<h1 class="font-bold text-4xl text-center">{{ $t('services.shop.shop_name', {name: prestataire.name}) }}</h1>
 
-			<div class="w-3/4 min-w-80 mx-auto my-10">
+			<div class="w-3/4 min-w-80 mx-auto my-8">
 				<ShopFilter :categories="categories.map(c => c.category_label)"
 										v-on:newFilters="(f) => filters = f"></ShopFilter>
 
-				<div class="mt-10 flex flex-row flex-wrap">
+				<div class="mt-3 flex flex-row flex-wrap">
 					<ShopItem v-for="item in filteredItems"
 										:key="item.item_id"
 										:item="item"
