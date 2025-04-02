@@ -1,7 +1,9 @@
 import LocalSource from "@/datasource/controller"
-async function getAllEcurieParticipants(presta_id){
+
+async function getAllEcurieParticipants(presta_id) {
     return LocalSource.getAllEcurieParticipants(presta_id);
 }
+
 async function tirageAuSort(presta_id, year, count = 10) {
     try {
         // Récupérer tous les participants de l'écurie
