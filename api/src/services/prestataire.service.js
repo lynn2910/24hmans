@@ -9,6 +9,19 @@ function getPrestataire(prestataire_id) {
     });
 }
 
+function createPrestataire({name, password}) {
+    return prisma.prestataire.create({
+        data: {
+            name,
+            password,
+            id: require("uuid").v4(),
+            referencer: name.toLowerCase().replace(/\s+/g, "-"),
+            email: `${name.toLowerCase().replace(/\s+/g, "-")}@24hmans.fr`,
+        },
+    });
+
+}
+
 function getPrestataireFromName(prestataire_name) {
     return prisma.prestataire.findFirst({
         where: {
@@ -174,6 +187,7 @@ async function DeleteSelection() {
 
 module.exports = {
     getPrestataire,
+    createPrestataire,
     getPrestataireFromName,
     getPrestataireService,
     updatePrestataire,

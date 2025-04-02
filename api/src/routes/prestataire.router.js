@@ -6,7 +6,7 @@ const {
     getPrestataireLink,
     createPrestataireLink,
     updatePrestataireLink,
-    deletePrestataireLink, getPrestataireService
+    deletePrestataireLink, getPrestataireService, createPrestataire
 } = require("../services/prestataire.service");
 const {createRule, User, Permission, Method} = require("../permissions")
 const {authenticateToken} = require("../middlewares/auth.middleware");
@@ -351,6 +351,69 @@ routerPresta.get("/:prestataire_id/services", async (req, res) => {
     }
 })
 
+/**
+ * @swagger
+ * /prestataire:
+ *   post:
+ *     summary: Create a new Prestataire
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Prestataire
+ *     description: Creates a new prestataire. Requires admin privileges.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The name of the prestataire.
+ *               email:
+ *                 type: string
+ *                 description: The email of the prestataire.
+ *               referencer:
+ *                 type: string
+ *                 description: The referencer of the prestataire.
+ *               banner:
+ *                 type: string
+ *                 description: The banner URL of the prestataire.
+ *               accentColor:
+ *                 type: string
+ *                 description: The accent color of the prestataire.
+ *               description:
+ *                 type: string
+ *                 description: The description of the prestataire.
+ *     responses:
+ *       200:
+ *         description: Prestataire created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Prestataire'
+ *       403:
+ *         description: Access denied, you are not an admin.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Access denied, you are not an admin"
+ */
+routerPresta.post("/", authenticateToken, async (req, res) => {
+    if (req.user.userType !== 3) return res.status(403).json({message: "Access denied, you are not an admin"})
+
+    try {
+        const newPresta = await createPrestataire(req.body);
+        res.status(200).json(newPresta)
+    } catch (err) {
+        res.status(500).json({message: "Error creating prestataire"})
+    }
+})
 
 // liens prestas
 /**

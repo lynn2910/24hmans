@@ -79,13 +79,11 @@ async function deletePrestataire(id) {
 }
 
 async function createPrestataireWithHashing(name, password) {
-    // TODO
-    return LocalSource.createPrestataire({name, password})
-}
+    // return LocalSource.createPrestataire({name, password})
 
-async function importPrestataire(name, password) {
-    // TODO
-    return LocalSource.createPrestataireInternal({name, password})
+    return await Request.post("/prestataire")
+        .body({name, password})
+        .send()
 }
 
 async function updatePrestataire(presta_id, data) {
@@ -114,9 +112,6 @@ async function addPrestataireLink(presta_id, name, url) {
         .send()
 }
 
-
-// TODO C4EST QUOI CA 👹👹👹👹👹 MAUVAIS SERVICE!!!!!
-
 async function getAllCategoryTicket(prestataire_id) {
     return LocalSource.getAllCategoryTicket(prestataire_id);
 }
@@ -139,7 +134,6 @@ export default {
     getPrestataireServices,
     deletePrestataire,
     createPrestataireWithHashing,
-    importPrestataire,
     updatePrestataireLink,
     addPrestataireLink,
     getAllCategoryTicket,
