@@ -1,9 +1,7 @@
-<!-- TODO faire les traductions -->
-
 <script>
 import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
 import EcurieService from "@/services/ecurie.service";
-import {mapState} from "vuex";
+import index, {mapState} from "vuex";
 import {transformPrestataireName} from "@/utils";
 
 export default {
@@ -14,33 +12,59 @@ export default {
 	data() {
 		return {
 			participantsByYear: {},
-			selectedYear: new Date().getFullYear(),
+			selectedYear: 2025,
+			years: [],
 			archiveYears: [],
 			archivedParticipants: [],
 			selectedParticipants: []
 		};
 	},
+	async created() {
+		try {
+			const response = await EcurieService.YearsRecup();
+			this.years = response.data;
+			console.log(this.years, 'fbjlqebfgvjleqbfjlqbfljabqflaeljfbjlbBJLFBZLAEFBLAB');
+		} catch (error) {
+			console.error("Erreur lors de la récupération des années:", error);
+		}
+	},
 	async beforeMount() {
-		await this.fetchAllParticipants();
-		this.loadArchivedYears();
-		this.loadArchivedParticipants(this.selectedYear);
+		console.log('aaaaaaaaaaaaaaaaaa')
+		if (this.loggedInUser){
+			await this.fetchAllParticipants();
+			this.loadArchivedYears();
+			this.loadArchivedParticipants(this.selectedYear);
+		}
 	},
 	watch: {
-		selectedYear(newYear) {
+		async loggedInUser(nv){
+			console.log(nv)
+			if (nv){
+				await this.fetchAllParticipants();
+				this.loadArchivedYears();
+				this.loadArchivedParticipants(this.selectedYear);
+			}
+		},
+		async selectedYear(newYear) {
+			console.log("Année sélectionnée :", newYear);
+			await this.fetchAllParticipants();
 			this.loadArchivedParticipants(newYear);
 		}
 	},
 	methods: {
 		async fetchAllParticipants() {
 			try {
-				const res = await EcurieService.getAllEcurieParticipants(transformPrestataireName(this.loggedInUser.name));
+				const res = await EcurieService.getAllEcurieParticipants(this.loggedInUser.id, this.selectedYear);
 				if (!res.error) {
 					this.participantsByYear = res.data.reduce((acc, participant) => {
-						const year = new Date(participant.time).getFullYear();
+						console.log(this.participantsByYear, 555)
+						let year = new Date(participant.submitted_at).getFullYear();
+						year = parseInt(year)
 						if (!acc[year]) acc[year] = [];
 						acc[year].push(participant);
 						return acc;
 					}, {});
+					console.log("participantsByYear :", this.participantsByYear);
 				} else {
 					console.error(`Erreur récupération participants: ${res.data}`);
 				}
@@ -48,11 +72,19 @@ export default {
 				console.error("Erreur API :", error);
 			}
 		},
+		async deleteSelection() {
+			const prestataireKey = `archivedParticipants_${transformPrestataireName(this.loggedInUser.name)}_${this.selectedYear}`;
+			localStorage.removeItem(prestataireKey);
+			this.selectedParticipants = [];
+			this.loadArchiavedParticipants(this.selectedYear);
+		},
 		async handleTirage() {
+			console.log(1)
 			this.selectedParticipants = await EcurieService.tirageAuSort(
 					transformPrestataireName(this.loggedInUser.name),
 					this.selectedYear
 			);
+			console.log(JSON.stringify(this.selectedParticipants, null,2))
 			const prestataireKey = `archivedParticipants_${transformPrestataireName(this.loggedInUser.name)}_${this.selectedYear}`;
 			localStorage.setItem(prestataireKey, JSON.stringify(this.selectedParticipants));
 			this.loadArchivedParticipants(this.selectedYear);
@@ -96,7 +128,7 @@ export default {
 					<label for="year-select" class="text-blue-400 font-semibold">Sélectionner une année :</label>
 					<select v-model="selectedYear" id="year-select"
 									class="p-2 border rounded bg-gray-800 text-white border-blue-400">
-						<option v-for="year in Object.keys(participantsByYear).sort((a, b) => b - a)" :key="year" :value="year"
+						<option v-for="year in years.slice().sort((a, b) => b - a)" :key="year" :value="year"
 										class="text-black">
 							{{ year }}
 						</option>
@@ -107,8 +139,8 @@ export default {
 				<ul v-if="participantsByYear[selectedYear] && participantsByYear[selectedYear].length > 0" class="space-y-3">
 					<li v-for="participant in participantsByYear[selectedYear]" :key="participant.email"
 							class="p-3 bg-gray-700 rounded-lg">
-						<div class="font-semibold text-lg">{{ participant.lastname }} - {{ participant.name }}</div>
-						<div class="text-sm">{{ new Date(participant.time).toLocaleString() }}</div>
+						<div class="font-semibold text-lg">{{ participant.nom }} - {{ participant.prenom }}</div>
+						<div class="text-sm">{{ participant.submitted_at }}</div>
 					</li>
 				</ul>
 				<p v-else class="mt-4 text-gray-400">Aucun participant trouvé pour {{ selectedYear }}.</p>
@@ -119,17 +151,17 @@ export default {
 				<h3 v-if="selectedParticipants.length > 0"
 						class="text-2xl font-semibold text-gray-800 mb-6 flex items-center justify-between">
 					Participants sélectionnés
-					<button @click=""
+					<button @click="deleteSelection()"
 									v-if="selectedParticipants.length > 0"
 									class="bg-red-500 text-white py-2 px-4 rounded-full font-semibold text-sm transition-all hover:bg-red-600 transform hover:scale-105 shadow-md ml-4">
 						Effacer la sélection
 					</button>
 				</h3>
 				<ul v-if="selectedParticipants.length > 0" class="space-y-3">
-					<li v-for="participant in selectedParticipants" :key="participant.email"
+					<li v-for="(participant, index) in selectedParticipants" :key="index"
 							class="bg-gray-100 hover:bg-gray-200 p-3 rounded-lg transition-all">
-						<div class="font-semibold text-gray-800">{{ participant.lastname }} - {{ participant.name }}</div>
-						<div class="text-sm text-gray-600">{{ participant.email }} - {{ participant.phone }}</div>
+						<div class="font-semibold text-gray-800">{{ participant.nom }} - {{ participant.prenom }}</div>
+						<div class="text-sm text-gray-600">{{ participant.email }} - {{ participant.tel }}</div>
 					</li>
 				</ul>
 

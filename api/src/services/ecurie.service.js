@@ -3,7 +3,7 @@ const prisma = require("../db")
 const e = require("express");
 const {addMailRequest} = require("./mail/mail.service");
 
-async function getParticipants(ecurie_id, year) {
+async function getParticipants(presta_id, year) {
     return prisma.formulaireEcurie.findMany({
         select: {
             id: true,
@@ -15,7 +15,9 @@ async function getParticipants(ecurie_id, year) {
             submitted_at: true,
         },
         where: {
-            ecurie_id: ecurie_id,
+            ecurie: {
+                prestataire_id: presta_id
+            },
             year: year,
         },
     });
@@ -144,11 +146,27 @@ async function getRandomWinners() {
     const winners = shuffledParticipants.slice(0, 10);
     await registerWinners(winners, 'Nom de l\'écurie');
 }
+async function getAllYears() {
+    try {
+        const years = await prisma.formulaireEcurie.findMany({
+            distinct: ['year'],
+            select: { year: true },
+            orderBy: { year: 'desc' } // Trie par ordre décroissant
+        });
+
+        return years.map(y => y.year);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des années :", error);
+        throw new Error("Impossible de récupérer les années.");
+    }
+}
+
 
 
 module.exports = {
     getParticipants,
     deleteParticipants,
     getRandomParticipants,
-    registerWinners
+    registerWinners,
+    getAllYears
 }
