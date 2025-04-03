@@ -17,9 +17,8 @@
 			</div>
 		</div>
 
-		<div class="flex flex-row flex-1 overflow-auto">
-			<div class="w-3 bg-gray-900"></div>
-			<div class="flex-1 overflow-auto p-6">
+		<div class="flex flex-row flex-1 overflow-auto min-h-[calc(100vw-40rem)]">
+			<div class="flex-1 overflow-auto py-6">
 				<slot></slot>
 			</div>
 		</div>
