@@ -54,7 +54,7 @@
 				<BilletterieTypeBillet
 						v-if="currentStep === Etape.TypeBillet"
 						@category="typeBilletSelected"
-				:categories="categories">
+						:categories="categories">
 				</BilletterieTypeBillet>
 				<BilletterieDateSelection v-if="currentStep === Etape.Date" @forfaits="datesSelected"
 																	:forfaits="forfaits"></BilletterieDateSelection>
@@ -134,7 +134,7 @@ export default {
 			res = await PrestataireService.getAllCategoryTicket(this.prestataire.id);
 			if (!res.error) {
 				this.categories = res.data;
-				await this.setBilletterieData({
+				this.setBilletterieData({
 					category: res.data,
 					date: this.forfaits,
 					nbPersonnes: this.personnes
@@ -144,7 +144,7 @@ export default {
 			res = await PrestataireService.getAllForfaitTicket(this.prestataire.id);
 			if (!res.error) {
 				this.forfaits = res.data;
-				await this.setBilletterieData({
+				this.setBilletterieData({
 					category: this.categories,
 					date: res.data,
 					nbPersonnes: this.personnes
@@ -154,7 +154,7 @@ export default {
 			res = await PrestataireService.getAllPersonneTicket(this.prestataire.id);
 			if (!res.error) {
 				this.personnes = res.data;
-				await this.setBilletterieData({
+				this.setBilletterieData({
 					category: this.categories,
 					date: this.forfaits,
 					nbPersonnes: res.data
@@ -164,8 +164,8 @@ export default {
 	},
 
 
-		methods: {
-			...mapActions('billetterie', ['setBilletterieData']),
+	methods: {
+		...mapActions('billetterie', ['setBilletterieData','updateSelectedPersonnes','updateSelectedDates','updateSelectedCategory']),
 
 
 		changeStep(new_step) {
@@ -173,17 +173,17 @@ export default {
 		},
 		typeBilletSelected(category) {
 			this.selectedTypeBillet = category;
-			console.log(this.selectedTypeBillet)
+			this.updateSelectedCategory(category);
 			this.changeStep(Etape.Date);
 		},
 		datesSelected(selectedForfaits) {
 			this.selectedDates = selectedForfaits;
-			console.log(this.selectedDates);
+			this.updateSelectedDates(selectedForfaits);
 			this.changeStep(Etape.Personne);
 		},
 		personnesSelected(personnesInputs) {
 			this.selectedPersonnes = personnesInputs;
-			console.log(this.selectedPersonnes);
+			this.updateSelectedPersonnes(personnesInputs);
 			this.changeStep(Etape.Paiement);
 		}
 	}

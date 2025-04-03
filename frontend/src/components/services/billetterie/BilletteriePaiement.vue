@@ -28,11 +28,7 @@ export default {
 
 	computed: {
 		...mapState("login", ["loggedInUser"]),
-		...mapState('billetterie', {
-			selectedCategory: state => state.selectedCategory,
-			selectedDates: state => state.selectedDates,
-			selectedPersonnes: state => state.selectedPersonnes
-		}),
+		...mapState('billetterie', ["selectedDates", "selectedCategory", "selectedPersonnes"]),
 	},
 
 	data() {
@@ -54,7 +50,8 @@ export default {
 				return;
 			}
 
-			console.log("les info : ",this.selectedCategory,this.selectedDates,this.selectedPersonnes)
+
+			console.log("les info : ",this.selectedCategory,this.selectedDates,this.selectedPersonnes) // Retourne "les info : null
 
 
 			if (!this.selectedCategory || this.selectedDates.length === 0 || this.selectedPersonnes.length === 0) {
