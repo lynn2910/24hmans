@@ -55,7 +55,7 @@
 				</router-link>
 			</div>
 
-			<div class="mt-7">
+			<div class="mt-5">
 				<h2 class="uppercase font-bold mt-5 mb-5 ml-4 text-sm text-gray-400">Services</h2>
 				<router-link
 						:to="{ name:'prestataire_dashboard_shop' }"
