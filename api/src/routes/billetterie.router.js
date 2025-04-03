@@ -226,17 +226,16 @@ routerBilletterie.get("/:prestataire_name", async (req, res) => {
  *                   description: The error message.
  */
 
-routerBilletterie.post("/@me/orders", authenticateToken, async (req, res) => {
+routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (req, res) => {
     if (req.user?.userType !== User.User) {
-        return res.status(401).json({message: "You are not a user"});
+        return res.status(401).json({ message: "You are not a user" });
     }
 
     let raw_order = req.body;
-
-    console.log("raw_order:", raw_order); // Inspectez la requête
+    const billetterieId = req.params.billetterie_id;
 
     let is_body_invalid = (
-        typeof raw_order.billetterie_id !== 'string' ||
+        typeof billetterieId !== 'string' ||
         typeof raw_order.category !== 'object' ||
         typeof raw_order.category.category_id !== 'number' ||
         !Array.isArray(raw_order.date) ||
@@ -245,17 +244,16 @@ routerBilletterie.post("/@me/orders", authenticateToken, async (req, res) => {
         raw_order.nbPersonnes.some(p => typeof p.personne_type_id !== 'number' || typeof p.quantity !== 'number')
     );
 
-    console.log("is_body_invalid:", is_body_invalid); // Vérifiez le résultat de la validation
-
     if (!is_body_invalid) {
-        return res.status(400).json({code: "INVALID_BODY", message: "The body doesn't have the proper required structure"});
+        return res.status(400).json({ code: "INVALID_BODY", message: "The body doesn't have the proper required structure" });
     }
 
     try {
+        raw_order.billetterie_id = billetterieId;
         const order = await createNewOrder(req.user.id, raw_order);
         res.status(200).json(order);
     } catch (err) {
-        res.status(err.status || 500).json({message: err.message || "Internal Server Error"});
+        res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
     }
 });
 

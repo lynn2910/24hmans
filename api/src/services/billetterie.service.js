@@ -23,22 +23,32 @@ async function createNewOrder(userId, orderData) {
     try {
         const ticket = await prisma.tickets.create({
             data: {
-                user_id: userId,
+                User: {
+                    connect: {
+                        id: userId,
+                    },
+                },
                 billetterie: {
                     connect: {
                         billetterie_id: orderData.billetterie_id,
                     },
                 },
-                category_id: orderData.category.category_id,
+                category: {
+                    connect: {
+                        category_id: orderData.category.category_id,
+                    },
+                },
                 forfait: {
                     create: orderData.date.map(forfait => ({
                         forfait_id: forfait.forfait_id,
                     })),
                 },
-                personnes: orderData.nbPersonnes.map(personne => ({
-                    personne_type_id: personne.personne_type_id,
-                    quantity: personne.quantity,
-                })),
+                personnes: {
+                    create: orderData.nbPersonnes.map(personne => ({
+                        personne_type_id: personne.personne_type_id,
+                        quantity: personne.quantity !== null ? personne.quantity : 0,
+                    })),
+                },
             },
             include: {
                 forfait: true,

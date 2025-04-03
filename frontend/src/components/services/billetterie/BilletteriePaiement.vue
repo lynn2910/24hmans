@@ -71,7 +71,7 @@ export default {
 			try {
 				console.log("Données envoyées au serveur:", JSON.stringify(preparation, null, 2));
 
-				const response = await BilletterieService.newOrder(preparation);
+				const response = await BilletterieService.newOrder(this.loggedInUser.id,preparation);
 				console.log("Réponse du serveur:", response);
 
 				if (!response) {

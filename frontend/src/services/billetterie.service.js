@@ -16,8 +16,8 @@ async function getBilletterieInformations(prestataire_name) {
     }
 }
 
-async function newOrder( order) {
-    return await Request.post(`/billetterie/@me/orders`)
+async function newOrder(billetterie_id, order) {
+    return await Request.post(`/billetterie/${billetterie_id}/@me/orders`)
         .body(order)
         .send();
 }
