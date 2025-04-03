@@ -156,7 +156,7 @@ routerCarte.get("/shapes", async (req, res) => {
         const areas = await CarteService.getAllAreas();
 
         if (!areas || areas.length === 0) {
-            res.status(404).json({message: "Aucune zone trouvée."});
+            return res.status(404).json({message: "Aucune zone trouvée."});
         }
 
         res.status(200).json(areas)
