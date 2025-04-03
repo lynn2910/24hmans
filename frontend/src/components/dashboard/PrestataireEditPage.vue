@@ -48,7 +48,7 @@
 								class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mr-2 focus:outline-none focus:shadow-outline"
 								@click="updateName()"
 						>
-							{{ $t("prestataire_edit") }}
+							{{ $t("prestataire_edit.update") }}
 						</button>
 						<button
 								class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
