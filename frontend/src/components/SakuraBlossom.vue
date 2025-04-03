@@ -41,8 +41,10 @@
 				</svg>
 			</div>
 
-			<div class="text-gray-800 p-4 bg-pink-50 rounded-tl-lg shadow-md md:w-auto flex flex-row gap-5 w-auto"
-					 v-if="showEditPopup">
+			<div
+					class="text-gray-800 p-4 bg-pink-50 rounded-tl-lg shadow-md md:w-auto flex flex-row gap-5 w-auto"
+					v-if="showEditPopup"
+			>
 				<div class="flex flex-col gap-3">
 					<div class="flex flex-col space-y-2">
 						<h3 class="font-semibold text-sm">Probabilités des fleurs</h3>
@@ -62,7 +64,7 @@
 									min="0"
 									max="100"
 									step="1"
-									v-model="form.sakuraImages[index].prob"
+									v-model.sync="form.sakuraImages[index].prob"
 									class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 							/>
 						</div>
@@ -77,6 +79,7 @@
 									max="50"
 									step="0.1"
 									v-model="form.windMin"
+									@change="updateFormWindMin"
 									class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 							/>
 							<input
@@ -84,7 +87,7 @@
 									min="-50"
 									max="50"
 									step="0.1"
-									v-model="form.windMin"
+									v-model.sync="form.windMin"
 									class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 							/>
 						</div>
@@ -96,6 +99,7 @@
 									max="50"
 									step="0.1"
 									v-model="form.windMax"
+									@change="updateFormWindMax"
 									class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 							/>
 							<input
@@ -103,7 +107,7 @@
 									min="-50"
 									max="50"
 									step="0.1"
-									v-model="form.windMax"
+									v-model.sync="form.windMax"
 									class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 							/>
 						</div>
@@ -122,6 +126,7 @@
 										max="50"
 										step="0.1"
 										v-model="form.speedMin"
+										@change="updateFormSpeedMin"
 										class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 								/>
 								<input
@@ -129,7 +134,7 @@
 										min="0"
 										max="50"
 										step="0.1"
-										v-model="form.speedMin"
+										v-model.sync="form.speedMin"
 										class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 								/>
 							</div>
@@ -141,6 +146,7 @@
 										max="50"
 										step="0.1"
 										v-model="form.speedMax"
+										@change="updateFormSpeedMax"
 										class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 								/>
 								<input
@@ -148,7 +154,7 @@
 										min="0"
 										max="50"
 										step="0.1"
-										v-model="form.speedMax"
+										v-model.sync="form.speedMax"
 										class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 								/>
 							</div>
@@ -160,17 +166,18 @@
 								<input
 										type="range"
 										min="0.1"
-										max="50"
+										max="100"
 										step="0.1"
 										v-model="form.radiusMin"
+										@change="updateFormRadiusMin"
 										class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 								/>
 								<input
 										type="number"
 										min="0.1"
-										max="50"
+										max="100"
 										step="0.1"
-										v-model="form.radiusMin"
+										v-model.sync="form.radiusMin"
 										class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 								/>
 							</div>
@@ -179,17 +186,18 @@
 								<input
 										type="range"
 										min="0.1"
-										max="50"
+										max="100"
 										step="0.1"
 										v-model="form.radiusMax"
+										@change="updateFormRadiusMax"
 										class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 								/>
 								<input
 										type="number"
 										min="0.1"
-										max="50"
+										max="100"
 										step="0.1"
-										v-model="form.radiusMax"
+										v-model.sync="form.radiusMax"
 										class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 								/>
 							</div>
@@ -204,6 +212,7 @@
 										max="180"
 										step="1"
 										v-model="form.rotationMin"
+										@change="updateFormRotationMin"
 										class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 								/>
 								<input
@@ -211,7 +220,7 @@
 										min="-180"
 										max="180"
 										step="1"
-										v-model="form.rotationMin"
+										v-model.sync="form.rotationMin"
 										class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 								/>
 							</div>
@@ -223,6 +232,7 @@
 										max="180"
 										step="1"
 										v-model="form.rotationMax"
+										@change="updateFormRotationMax"
 										class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 								/>
 								<input
@@ -230,7 +240,7 @@
 										min="-180"
 										max="180"
 										step="1"
-										v-model="form.rotationMax"
+										v-model.sync="form.rotationMax"
 										class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 								/>
 							</div>
@@ -245,6 +255,7 @@
 										max="500"
 										step="10"
 										v-model="form.amount"
+										@change="updateFormAmount"
 										class="w-full sm:w-36 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
 								/>
 								<input
@@ -252,13 +263,12 @@
 										min="10"
 										max="500"
 										step="10"
-										v-model="form.amount"
+										v-model.sync="form.amount"
 										class="w-16 p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs"
 								/>
 							</div>
 						</div>
 					</div>
-
 				</div>
 
 				<div class="flex flex-col items-center content-center justify-start gap-3 pt-3 mt-3">
@@ -273,7 +283,8 @@
 								@click="stopStartBtnClicked"
 						>
 							<path
-									d="M12 21c4.411 0 8-3.589 8-8 0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z"></path>
+									d="M12 21c4.411 0 8-3.589 8-8 0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z"
+							></path>
 							<path d="M11 2h2v10h-2z"></path>
 						</svg>
 						<svg
@@ -285,7 +296,8 @@
 								@click="createSakuraBlossoms"
 						>
 							<path
-									d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path>
+									d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"
+							></path>
 						</svg>
 					</div>
 					<button
@@ -359,7 +371,18 @@ export default {
 			this.applied.radius = [this.form.radiusMin, this.form.radiusMax].sort((a, b) => a - b);
 			this.applied.amount = this.form.amount;
 			this.applied.rotation = [this.form.rotationMin, this.form.rotationMax].sort((a, b) => a - b);
-			this.applied.sakuraImages = [...this.form.sakuraImages]; // Copy the array
+			this.applied.sakuraImages = [...this.form.sakuraImages];
+
+			if (this.applied.radius[0] < 0.1) {
+				this.applied.radius[0] = 0.1;
+			}
+			if (this.applied.radius[1] < 0.1) {
+				this.applied.radius[1] = 0.1;
+			}
+			if (this.applied.radius[0] > this.applied.radius[1]) {
+				this.applied.radius[0] = this.applied.radius[1];
+			}
+
 			this.createSakuraBlossoms();
 		},
 		resetToDefaultValues() {
@@ -414,7 +437,7 @@ export default {
 		},
 
 		getRandom(a, b) {
-			return a + Math.floor(Math.random() * (b - a + 1)); // Corrected Math.random() range
+			return a + Math.random() * (b - a);
 		},
 		documentDimChange() {
 			this.width = window.innerWidth;
@@ -452,6 +475,33 @@ export default {
 
 			window.requestAnimationFrame(this.loop);
 		},
+		updateFormWindMin(event) {
+			this.form.windMin = parseFloat(event.target.value);
+		},
+		updateFormWindMax(event) {
+			this.form.windMax = parseFloat(event.target.value);
+		},
+		updateFormSpeedMin(event) {
+			this.form.speedMin = parseFloat(event.target.value);
+		},
+		updateFormSpeedMax(event) {
+			this.form.speedMax = parseFloat(event.target.value);
+		},
+		updateFormRadiusMin(event) {
+			this.form.radiusMin = parseFloat(event.target.value);
+		},
+		updateFormRadiusMax(event) {
+			this.form.radiusMax = parseFloat(event.target.value);
+		},
+		updateFormRotationMin(event) {
+			this.form.rotationMin = parseFloat(event.target.value);
+		},
+		updateFormRotationMax(event) {
+			this.form.rotationMax = parseFloat(event.target.value);
+		},
+		updateFormAmount(event) {
+			this.form.amount = parseInt(event.target.value);
+		}
 	},
 	beforeMount() {
 		this.createSakuraBlossoms();
