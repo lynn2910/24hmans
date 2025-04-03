@@ -1,7 +1,8 @@
 <script>
 import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
 import EcurieService from "@/services/ecurie.service";
-
+import index, {mapState} from "vuex";
+import {transformPrestataireName} from "@/utils";
 
 export default {
 	components: {PrestataireDashboardTemplate},
@@ -114,7 +115,7 @@ export default {
 			const archivedData =  EcurieService.tirageAuSort(this.loggedInUser.id, this.selectedYear);
 			console.log('Archived Data:', archivedData);
 			this.archivedParticipants = archivedData ? JSON.parse(archivedData) : [];
-			console.log('Participants archivés:', this.archivedParticipants);
+			console.log('Participants archivés:', this.archivedParticipants); 
 		}
 	}
 }
