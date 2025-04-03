@@ -471,8 +471,6 @@ router.delete("/:karting_id/circuit/:circuit_id", authenticateToken, async (req,
     let deleted_circuit = await delete_circuit(req.params.karting_id, req.params.circuit_id);
     res.status(200).json(deleted_circuit);
 })
-createRule("/karting/:karting_id/circuit", Method.All, User.Prestataire, [Permission.Prestataire]);
-createRule("/karting/:karting_id/circuit/:circuit_id", [Method.PATCH, Method.DELETE], User.Prestataire, [Permission.Prestataire]);
 
 
 // Sessions
@@ -773,8 +771,6 @@ router.delete("/:karting_id/sessions/:session_id", authenticateToken, async (req
         res.status(500).json({message: e.message});
     }
 })
-createRule("/karting/:karting_id/sessions", Method.All, User.Prestataire, [Permission.Prestataire]);
-createRule("/karting/:karting_id/sessions/:session_id", [Method.PATCH, Method.DELETE], User.Prestataire, [Permission.Prestataire]);
 
 // Sessions (user)
 
@@ -796,13 +792,6 @@ createRule("/karting/:karting_id/sessions/:session_id", [Method.PATCH, Method.DE
  *         schema:
  *           type: string
  *         description: The ID of the karting.
- *       - in: path
- *         name: session_id
- *         example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
- *         required: true
- *         schema:
- *           type: string
- *         description: The ID of the session.
  *     requestBody:
  *       content:
  *         application/json:
@@ -862,7 +851,5 @@ router.post("/:karting_id/sessions/:session_id/register", authenticateToken, asy
         res.status(500).json({message: e.message});
     }
 })
-
-createRule("/karting/:karting_id/sessions/:session_id/register", [Method.POST], User.User, [Permission.User]);
 
 module.exports = router;
