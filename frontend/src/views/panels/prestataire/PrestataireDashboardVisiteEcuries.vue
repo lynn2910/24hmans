@@ -13,10 +13,20 @@ export default {
 		return {
 			participantsByYear: {},
 			selectedYear: 2025,
+			years: [],
 			archiveYears: [],
 			archivedParticipants: [],
 			selectedParticipants: []
 		};
+	},
+	async created() {
+		try {
+			const response = await EcurieService.YearsRecup();
+			this.years = response.data;  // Ici, on accède à la propriété "data" de la réponse
+			console.log(this.years, 'fbjlqebfgvjleqbfjlqbfljabqflaeljfbjlbBJLFBZLAEFBLAB');  // Vérifie bien que tu récupères les années
+		} catch (error) {
+			console.error("Erreur lors de la récupération des années:", error);
+		}
 	},
 	async beforeMount() {
 		console.log('aaaaaaaaaaaaaaaaaa')
@@ -35,7 +45,9 @@ export default {
 				this.loadArchivedParticipants(this.selectedYear);
 			}
 		},
-		selectedYear(newYear) {
+		async selectedYear(newYear) {
+			console.log("Année sélectionnée :", newYear);
+			await this.fetchAllParticipants();  // Ajoute cette ligne pour relancer la requête API
 			this.loadArchivedParticipants(newYear);
 		}
 	},
@@ -45,12 +57,14 @@ export default {
 				const res = await EcurieService.getAllEcurieParticipants(this.loggedInUser.id, this.selectedYear);
 				if (!res.error) {
 					this.participantsByYear = res.data.reduce((acc, participant) => {
+						console.log(this.participantsByYear, 555)
 						let year = new Date(participant.submitted_at).getFullYear();
 						year = parseInt(year)
 						if (!acc[year]) acc[year] = [];
 						acc[year].push(participant);
 						return acc;
 					}, {});
+					console.log("participantsByYear :", this.participantsByYear); // 👀 Voir toutes les années stockées
 				} else {
 					console.error(`Erreur récupération participants: ${res.data}`);
 				}
@@ -114,9 +128,9 @@ export default {
 					<label for="year-select" class="text-blue-400 font-semibold">Sélectionner une année :</label>
 					<select v-model="selectedYear" id="year-select"
 									class="p-2 border rounded bg-gray-800 text-white border-blue-400">
-						<option v-for="year in Object.keys(participantsByYear).sort((a, b) => b - a)" :key="year" :value="year"
+						<option v-for="year in years.slice().sort((a, b) => b - a)" :key="year" :value="year"
 										class="text-black">
-							{{ selectedYear }}
+							{{ year }}
 						</option>
 					</select>
 				</div>

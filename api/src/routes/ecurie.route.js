@@ -13,7 +13,7 @@ const {registerWinners} = require("../services/ecurie.service");
  *     security:
  *       - bearerAuth: []
  *     tags:
- *       - Participants
+ *       - Ecurie
  *     parameters:
  *       - name: presta_id
  *         in: path
@@ -95,7 +95,7 @@ routerEcurie.get('/:presta_id/participants', async (req, res) => {
  *     security:
  *       - bearerAuth: []
  *     tags:
- *       - Participants
+ *       - Ecurie
  *     parameters:
  *       - name: ecurie_id
  *         in: path
@@ -131,7 +131,7 @@ routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
  *   post:
  *     summary: Sélectionne 10 gagnants aléatoires parmi les participants d'une écurie, les enregistre et envoie un email aux gagnants et aux participants sélectionnés.
  *     tags:
- *       - Participants
+ *       - Ecurie
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -167,6 +167,38 @@ routerEcurie.post('/:ecurie_id/winner', async (req, res) => {
         res.status(500).json({message: "Erreur serveur, impossible d'enregistrer les gagnants."});
     }
 });
+
+/**
+ * @swagger
+ * /ecurie/participants/years:
+ *   get:
+ *     summary: Récupère toutes les années archivée
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Ecurie
+ *     responses:
+ *       200:
+ *         description: Liste des années archivée
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: integer
+ *       500:
+ *         description: Erreur serveur
+ */
+routerEcurie.get('/participants/years', async (req, res) => {
+    try {
+        const years = await EcurieService.getAllYears();
+        res.status(200).json(years);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des années :", error);
+        res.status(500).json({ message: "Erreur serveur, impossible de récupérer les années disponibles." });
+    }
+});
+
 
 
 module.exports = routerEcurie;

@@ -146,11 +146,27 @@ async function getRandomWinners() {
     const winners = shuffledParticipants.slice(0, 10);
     await registerWinners(winners, 'Nom de l\'écurie');
 }
+async function getAllYears() {
+    try {
+        const years = await prisma.formulaireEcurie.findMany({
+            distinct: ['year'],
+            select: { year: true },
+            orderBy: { year: 'desc' } // Trie par ordre décroissant
+        });
+
+        return years.map(y => y.year);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des années :", error);
+        throw new Error("Impossible de récupérer les années.");
+    }
+}
+
 
 
 module.exports = {
     getParticipants,
     deleteParticipants,
     getRandomParticipants,
-    registerWinners
+    registerWinners,
+    getAllYears
 }

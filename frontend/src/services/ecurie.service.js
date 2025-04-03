@@ -8,6 +8,12 @@ async function getAllEcurieParticipants(presta_id, year){
         .params({year})
         .send()
 }
+
+async function YearsRecup(){
+    return await Request.get('ecurie/participants/years')
+        .send()
+}
+
 async function tirageAuSort(presta_id, year, count = 10) {
     try {
         // Récupérer tous les participants de l'écurie
@@ -47,5 +53,6 @@ async function tirageAuSort(presta_id, year, count = 10) {
 
 export default {
     getAllEcurieParticipants,
-    tirageAuSort
+    tirageAuSort,
+    YearsRecup
 }
