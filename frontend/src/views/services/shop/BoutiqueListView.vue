@@ -19,7 +19,7 @@ export default {
 					}
 				}
 			} else {
-				console.error(prestatairesRes.data);
+				console.error(prestatairesRes);
 			}
 		} catch (error) {
 			console.error("Erreur lors du chargement des boutiques :", error);
