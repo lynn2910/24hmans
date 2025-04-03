@@ -30,7 +30,7 @@ model User {
   tickets Tickets[]
   orders  UserOrder[]
 
-  karting_sessions        UserKartingSession[]
+  karting_sessions        UserKartingReservation[]
   UserMontgolfiereSession UserMontgolfiereSession[]
 }
 
@@ -304,34 +304,6 @@ model FormulaireEcurie {
 
 //
 //
-//    Système de réservations
-//
-//
-
-model ReservationApp {
-  app_id String @id @db.VarChar(36)
-
-  reservation_slots ReservationSlot[]
-
-  Karting Karting[]
-}
-
-model ReservationSlot {
-  reservation_id String         @id @db.VarChar(36)
-  app_id         String         @db.VarChar(36)
-  app            ReservationApp @relation(fields: [app_id], references: [app_id], onDelete: Cascade)
-
-  from DateTime
-  to   DateTime
-
-  // Le nombre maximal de personnes pouvant réserver
-  maxSize Int
-
-  karting_sessions KartingSessionSlot[]
-}
-
-//
-//
 //    Karting
 //
 //
@@ -341,46 +313,10 @@ model Karting {
   prestataire_id String      @unique @db.VarChar(36)
   prestataire    Prestataire @relation(fields: [prestataire_id], references: [id], onDelete: Cascade)
 
-  // Ca sera utile pour récupérer facilement toutes les réservations du karting
-  reservation_app_id String         @unique @db.VarChar(36)
-  reservations       ReservationApp @relation(fields: [reservation_app_id], references: [app_id], onDelete: Cascade)
-
   enabled Boolean @default(false)
 
   // La liste des circuits
   circuits KartingCircuit[]
-
-  sessions KartingSessionSlot[]
-}
-
-// Les sessions créées par le karting
-model KartingSessionSlot {
-  session_id String @id @db.VarChar(36)
-
-  karting_id String  @db.VarChar(36)
-  karting    Karting @relation(fields: [karting_id], references: [karting_id], onDelete: Cascade)
-
-  session_slot_id String          @db.VarChar(36)
-  session_slot    ReservationSlot @relation(fields: [session_slot_id], references: [reservation_id], onDelete: Cascade)
-
-  circuit_id String         @db.VarChar(36)
-  circuit    KartingCircuit @relation(fields: [circuit_id], references: [circuit_id])
-
-  users UserKartingSession[]
-}
-
-model UserKartingSession {
-  session_id Int     @id @default(autoincrement())
-  pseudo     String?
-
-  user_id String @db.VarChar(36)
-  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  reservation_slot_id String             @db.VarChar(36)
-  reservation_slot    KartingSessionSlot @relation(fields: [reservation_slot_id], references: [session_id], onDelete: Cascade)
-
-  circuit_id String?         @db.VarChar(36)
-  circuit    KartingCircuit? @relation(fields: [circuit_id], references: [circuit_id], onDelete: SetNull)
 }
 
 // Chaque circuit possède:
@@ -399,8 +335,39 @@ model KartingCircuit {
   // Exemple: 160 pour "Kart 160 CC" ou 270 pour "Kart 270 CC", ou encore 390 pour "Kart 390 CC"
   kart_power   Int
 
-  sessions           UserKartingSession[]
+  sessions           UserKartingReservation[]
   KartingSessionSlot KartingSessionSlot[]
+}
+
+// Les sessions créées par le karting
+model KartingSessionSlot {
+  session_id String @id @db.VarChar(36)
+
+  circuit_id String         @db.VarChar(36)
+  circuit    KartingCircuit @relation(fields: [circuit_id], references: [circuit_id])
+
+  from_date DateTime
+  to_date   DateTime
+
+  // Le nombre maximal de personnes pouvant réserver
+  maxSize Int @default(10)
+
+  user_reservations UserKartingReservation[]
+}
+
+model UserKartingReservation {
+  reservation_id Int @id @default(autoincrement())
+
+  pseudo String?
+
+  session_id String             @db.VarChar(36)
+  session    KartingSessionSlot @relation(fields: [session_id], references: [session_id], onDelete: Cascade)
+
+  user_id String @db.VarChar(36)
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  circuit_id String         @db.VarChar(36)
+  circuit    KartingCircuit @relation(fields: [circuit_id], references: [circuit_id])
 }
 
 //
