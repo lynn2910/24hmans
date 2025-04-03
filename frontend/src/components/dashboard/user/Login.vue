@@ -1,241 +1,311 @@
 <template>
 	<div
-			:class="hideContainerDecorations ? '' : 'bg-dark border border-black rounded-xl '"
-			class="p-5 h-full  w-2/6 min-w-[500px] bg-opacity-65 backdrop-blur flex flex-col items-center content-center justify-between">
-
-		<!-- Sélection prestataire <> user <> prestataire -->
-		<div class="flex flex-row content-center justify-between">
-			<div
-					class="flex flex-row content-center justify-center border border-gray-500 rounded-3xl w-fit p-1 select-none">
-				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
-						:class="
-							(omit_logins.includes(Selected.User) ? '' : (selected === Selected.User ? 'bg-blue-600 cursor-pointer' : 'hover:bg-blue-600 hover:bg-opacity-20 cursor-pointer'))
-							+ (omit_logins.includes(Selected.User) ? 'text-gray-600 cursor-not-allowed' : '')
-						"
-						@click="changedSelectedLogin(Selected.User)">
-					{{ $t('user') }}
+			:class="hideContainerDecorations ? '' : 'bg-gray-900 border border-gray-800 rounded-xl shadow-lg'"
+			class="p-6 w-full max-w-md bg-opacity-65 backdrop-blur-md flex flex-col justify-between space-y-8"
+	>
+		<div class="flex justify-between">
+			<div class="flex rounded-full border border-gray-700 p-1 select-none">
+				<h2
+						class="flex flex-row items-center text-center px-3 py-2 rounded-full cursor-pointer transition-colors duration-200"
+						:class="[
+            omit_logins.includes(Selected.User)
+              ? 'text-gray-500 cursor-not-allowed'
+              : selected === Selected.User
+              ? 'bg-blue-500 text-white'
+              : 'hover:bg-blue-500/20 text-gray-300',
+          ]"
+						@click="changedSelectedLogin(Selected.User)"
+				>
+					{{ $t("user") }}
 				</h2>
-				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
-						:class="
-							(omit_logins.includes(Selected.Prestataire) ? '' : (selected === Selected.Prestataire ? 'bg-blue-600 cursor-pointer' : 'hover:bg-blue-600 hover:bg-opacity-20 cursor-pointer'))
-							+ (omit_logins.includes(Selected.Prestataire) ? 'text-gray-600 cursor-not-allowed' : '')
-						"
-						@click="changedSelectedLogin(Selected.Prestataire)">
-					{{ $t('presta') }}
+				<h2
+						class="flex flex-row items-center text-center px-3 py-2 rounded-full cursor-pointer transition-colors duration-200"
+						:class="[
+            omit_logins.includes(Selected.Prestataire)
+              ? 'text-gray-500 cursor-not-allowed'
+              : selected === Selected.Prestataire
+              ? 'bg-blue-500 text-white'
+              : 'hover:bg-blue-500/20 text-gray-300',
+          ]"
+						@click="changedSelectedLogin(Selected.Prestataire)"
+				>
+					{{ $t("presta") }}
 				</h2>
-				<h2 class="w-[8rem] text-center px-3 py-2 rounded-3xl"
-						:class="
-							(omit_logins.includes(Selected.Admin) ? '' : (selected === Selected.Admin ? 'bg-blue-600 cursor-pointer' : 'hover:bg-blue-600 hover:bg-opacity-20 cursor-pointer'))
-							+ (omit_logins.includes(Selected.Admin) ? 'text-gray-600 cursor-not-allowed' : '')
-						"
-						@click="changedSelectedLogin(Selected.Admin)">
-					{{ $t('admin') }}
+				<h2
+						class="flex flex-row items-center text-center px-3 py-2 rounded-full cursor-pointer transition-colors duration-200"
+						:class="[
+            omit_logins.includes(Selected.Admin)
+              ? 'text-gray-500 cursor-not-allowed'
+              : selected === Selected.Admin
+              ? 'bg-blue-500 text-white'
+              : 'hover:bg-blue-500/20 text-gray-300',
+          ]"
+						@click="changedSelectedLogin(Selected.Admin)"
+				>
+					{{ $t("admin") }}
 				</h2>
 			</div>
 
-			<div
-					class="ml-3 border border-gray-500 fill-white rounded-3xl flex flex-row items-center content-center justify-center w-14 hover:bg-gray-500 hover:bg-opacity-50"
-					:class="selected === Selected.User ? 'cursor-pointer' : 'cursor-not-allowed opacity-50 hover:bg-transparent'"
-					@click="changeAccountCreationSelection">
-				<svg v-if="account_creation" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24">
+			<button
+					class="ml-3 rounded-full border border-gray-700 w-14 h-14 flex items-center justify-center transition-colors duration-200"
+					:class="
+          selected === Selected.User
+            ? 'cursor-pointer hover:bg-gray-500/20'
+            : 'cursor-not-allowed opacity-50'
+        "
+					@click="changeAccountCreationSelection"
+					:disabled="selected !== Selected.User"
+			>
+
+				<svg
+						v-if="account_creation"
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-7 w-7 text-white"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+				>
 					<path
-							d="M20.29 8.29 16 12.58l-1.3-1.29-1.41 1.42 2.7 2.7 5.72-5.7zM4 8a3.91 3.91 0 0 0 4 4 3.91 3.91 0 0 0 4-4 3.91 3.91 0 0 0-4-4 3.91 3.91 0 0 0-4 4zm6 0a1.91 1.91 0 0 1-2 2 1.91 1.91 0 0 1-2-2 1.91 1.91 0 0 1 2-2 1.91 1.91 0 0 1 2 2zM4 18a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3v1h2v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v1h2z"></path>
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+					/>
 				</svg>
-				<svg v-else xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24">
-					<path
-							d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a3.91 3.91 0 0 0 4 4 3.91 3.91 0 0 0 4-4 3.91 3.91 0 0 0-4-4 3.91 3.91 0 0 0-4 4zm6 0a1.91 1.91 0 0 1-2 2 1.91 1.91 0 0 1-2-2 1.91 1.91 0 0 1 2-2 1.91 1.91 0 0 1 2 2zM4 18a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3v1h2v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v1h2z"></path>
+				<svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+						 class="h-7 w-7 fill-white">
+					<path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
 				</svg>
+			</button>
+		</div>
+
+		<div
+				v-if="
+        selected === Selected.Prestataire ||
+        selected === Selected.Admin ||
+        (selected === Selected.User && !account_creation)
+      "
+				class="w-full space-y-6"
+		>
+			<h1 class="font-bold text-2xl text-center text-white">
+				{{ $t("login.title") }}
+			</h1>
+
+			<div class="space-y-2">
+				<label
+						for="login_id"
+						class="block text-sm font-semibold text-gray-200"
+						:class="{'text-gray-200': selected !== Selected.User,}"
+				>
+					{{
+						selected !== Selected.User
+								? $t("login.login.title")
+								: $t("login.login.email")
+					}}
+				</label>
+				<input
+						id="login_id"
+						v-model="login_id"
+						@change="login_id = transformPrestataireName(login_id)"
+						type="text"
+						:placeholder="selected !== Selected.User ? $t('login.login.title') : $t('login.login.email')"
+						minlength="1"
+						class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+				/>
+			</div>
+
+			<div class="space-y-2">
+				<label for="password" class="block text-sm font-semibold text-gray-200">
+					{{ $t("login.password.title") }}
+				</label>
+				<div class="flex items-center">
+					<input
+							id="password"
+							v-model="password"
+							:type="show_password ? 'text' : 'password'"
+							:placeholder="$t('login.password.title')"
+							minlength="1"
+							class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+					/>
+					<button
+							type="button"
+							class="ml-3 p-2 rounded-md bg-gray-800 border border-gray-700 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							@click="show_password = !show_password"
+					>
+						<Unlocked v-if="show_password"/>
+						<Locked v-else/>
+					</button>
+				</div>
 			</div>
 		</div>
 
-		<!-- body -->
-		<div class="flex flex-col items-center content-center justify-between mt-10 w-full h-full">
-			<!-- Login (pour tout les types de comptes) -->
-			<div
-					v-if="selected === Selected.Prestataire || selected === Selected.Admin || (selected === Selected.User && !account_creation)"
-					class="flex flex-col items-center h-full justify-between">
-				<!-- Champs -->
-				<div>
-					<h1 class="font-bold text-xl text-center mb-3">{{ $t('login.title') }}</h1>
+		<div
+				v-if="
+        selected === Selected.Prestataire ||
+        selected === Selected.Admin ||
+        (selected === Selected.User && !account_creation)
+      "
+				class="w-full"
+		>
+			<button
+					@click="loginUser"
+					:disabled="!isAllowedToLogin"
+					class="w-full py-3 px-4 rounded-md bg-blue-500 text-white font-semibold transition-colors duration-200 disabled:bg-gray-500 disabled:cursor-not-allowed hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+			>
+				{{ $t("login.login_btn") }}
+			</button>
+			<p
+					v-if="selected === Selected.User"
+					class="mt-4 text-center text-gray-400 text-sm cursor-pointer hover:underline"
+					@click="changeAccountCreationSelection"
+			>
+				{{ $t("login.register_link") }}
+			</p>
+		</div>
 
-					<div class="mb-3">
-						<p class="font-semibold my-2" v-if="selected !== Selected.User">{{ $t('login.login.title') }}</p>
-						<p class="font-semibold my-2" v-else>{{ $t('login.login.email') }}</p>
+		<div v-if="selected === Selected.User && account_creation" class="w-full space-y-6">
+			<h1 class="font-bold text-2xl text-center text-white">
+				Création d'un compte client
+			</h1>
+			<div class="space-y-4">
+				<div class="flex space-x-4">
+					<div class="flex-1 space-y-2">
+						<label for="first_name" class="block text-sm font-semibold text-gray-200">
+							{{ $t("services.ecurie.sign.firstname_simple") }}
+						</label>
 						<input
-								class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
-								v-model="login_id"
-								@change="login_id = transformPrestataireName(login_id)"
+								id="first_name"
+								v-model="account_creation_data.first_name"
 								type="text"
-								:placeholder="selected !== Selected.User ? $t('login.login.title') : $t('login.login.email')"
-								minlength="1">
+								placeholder="Prénom"
+								minlength="1"
+								class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+						/>
 					</div>
-
-					<div class="mb-3">
-						<p class="font-semibold my-2">{{ $t('login.password.title') }}</p>
-						<div class="flex flex-row items-center content-center justify-between">
-							<input
-									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500"
-									v-model="password"
-									:type="show_password ? 'text' : 'password'"
-									:placeholder="$t('login.password.title')"
-									minlength="1">
-
-							<div
-									class="bg-dark w-10 h-10 flex flex-col rounded ml-5 border border-gray-400 cursor-pointer hover:border-blue-500"
-									@click="show_password = !show_password">
-								<svg v-if="show_password" class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24"
-										 height="24"
-										 viewBox="0 0 24 24">
-									<path
-											d="M17 8V7c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2H9V7c0-1.654 1.346-3 3-3s3 1.346 3 3v1h2zm1 4 .002 8H6v-8h12z"></path>
-								</svg>
-								<svg v-else class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-										 viewBox="0 0 24 24">
-									<path
-											d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm6 10 .002 8H6v-8h12zm-9-2V7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9z"></path>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Bouton de connexion -->
-				<div class="flex flex-col items-center content-center text-center">
-					<button
-							class="py-3 px-4 mx-auto cursor-pointer bg-blue-600 hover:bg-blue-700 rounded disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:cursor-not-allowed"
-							:disabled="!isAllowedToLogin"
-							@click="loginUser">
-						{{ $t('login.login_btn') }}
-					</button>
-					<p v-if="selected === Selected.User" class="italic text-gray-300 mt-2 hover:underline cursor-pointer"
-						 @click="changeAccountCreationSelection">
-						{{ $t('login.register_link') }}
-					</p>
-				</div>
-			</div>
-
-			<!-- Création compte utilisateur -->
-			<div v-if="selected === Selected.User && account_creation">
-				<h1 class="font-bold text-xl text-center mb-3">Création d'un compte client</h1>
-				<div>
-					<!-- first_name & last_name -->
-					<div class="flex flex-row items-center content-center">
-						<div class="mr-2">
-							<p>{{ $t('services.ecurie.sign.firstname_simple') }}</p>
-							<input
-									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
-									v-model="account_creation_data.first_name"
-									type="text"
-									:placeholder="$t('services.ecurie.sign.firstname_simple')"
-									minlength="1">
-						</div>
-						<div>
-							<p>{{ $t('global.name') }}</p>
-							<input
-									class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
-									v-model="account_creation_data.last_name"
-									type="text"
-									:placeholder="$t('services.ecurie.sign.family_name')"
-									minlength="1">
-						</div>
-					</div>
-					<!-- email -->
-					<div class="my-2">
-						<p>{{ $t('services.ecurie.sign.email_simple') }}</p>
+					<div class="flex-1 space-y-2">
+						<label for="last_name" class="block text-sm font-semibold text-gray-200">
+							{{ $t("global.name") }}
+						</label>
 						<input
-								class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
-								v-model="account_creation_data.email"
-								type="email"
-								:placeholder="$t('services.ecurie.sign.email_simple')"
-								minlength="1">
-					</div>
-					<div>
-						<p>{{ $t('login.password.title') }}</p>
-						<div class="flex flex-row items-center content-center justify-between">
-							<input
-									class="w-full outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500"
-									v-model="account_creation_data.password"
-									:type="show_password ? 'text' : 'password'"
-									:placeholder="$t('login.password.title')" minlength="1">
-
-							<div
-									class="bg-dark w-12 h-10 flex flex-col rounded ml-5 border border-gray-400 cursor-pointer hover:border-blue-500"
-									@click="show_password = !show_password">
-								<svg v-if="show_password" class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24"
-										 height="24"
-										 viewBox="0 0 24 24">
-									<path
-											d="M17 8V7c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2H9V7c0-1.654 1.346-3 3-3s3 1.346 3 3v1h2zm1 4 .002 8H6v-8h12z"></path>
-								</svg>
-								<svg v-else class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-										 viewBox="0 0 24 24">
-									<path
-											d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm6 10 .002 8H6v-8h12zm-9-2V7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9z"></path>
-								</svg>
-							</div>
-						</div>
-						<p>{{ $t('login.password.confirm_password') }}</p>
-						<div class="flex flex-row items-center content-center justify-between">
-							<input
-									class="w-full outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 disabled:cursor-not-allowed disabled:border-gray-500 disabled:hover:border-gray-500"
-									v-model="account_creation_data.confirm_password"
-									:disabled="account_creation_data.password?.length < 1"
-									:type="show_password ? 'text' : 'password'"
-									:placeholder="$t('login.password.title')" minlength="1">
-
-							<div
-									class="bg-dark w-12 h-10 flex flex-col rounded ml-5 border border-gray-400 hover:border-blue-500"
-									:class="account_creation_data.password?.length < 1 ? 'border-gray-500 cursor-not-allowed hover:border-gray-500' : 'cursor-pointer'"
-									@click="() => {if (account_creation_data.password?.length > 0) show_password = !show_password}">
-								<svg v-if="show_password" class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24"
-										 height="24"
-										 viewBox="0 0 24 24">
-									<path
-											d="M17 8V7c0-2.757-2.243-5-5-5S7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2H9V7c0-1.654 1.346-3 3-3s3 1.346 3 3v1h2zm1 4 .002 8H6v-8h12z"></path>
-								</svg>
-								<svg v-else class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-										 viewBox="0 0 24 24">
-									<path
-											d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm6 10 .002 8H6v-8h12zm-9-2V7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9z"></path>
-								</svg>
-							</div>
-						</div>
+								id="last_name"
+								v-model="account_creation_data.last_name"
+								type="text"
+								placeholder="Nom"
+								minlength="1"
+								class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+						/>
 					</div>
 				</div>
-
-				<!-- Bouton de connexion -->
-				<div class="flex flex-col items-center content-center text-center">
-					<button
-							class="mt-5 py-3 px-4 mx-auto cursor-pointer bg-blue-600 hover:bg-blue-700 rounded disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:cursor-not-allowed"
-							:disabled="!isAllowedToSignup"
-							@click="signupUser">
-						{{ $t('login.signup') }}
-					</button>
+				<div class="space-y-2">
+					<label for="email" class="block text-sm font-semibold text-gray-200">
+						{{ $t("services.ecurie.sign.email_simple") }}
+					</label>
+					<input
+							id="email"
+							v-model="account_creation_data.email"
+							type="email"
+							placeholder="Email"
+							minlength="1"
+							class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+					/>
+				</div>
+				<div class="space-y-2">
+					<label for="new_password" class="block text-sm font-semibold text-gray-200">
+						{{ $t("login.password.title") }}
+					</label>
+					<div class="flex items-center">
+						<input
+								id="new_password"
+								v-model="account_creation_data.password"
+								:type="show_password ? 'text' : 'password'"
+								placeholder="Mot de passe"
+								minlength="1"
+								class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+						/>
+						<button
+								type="button"
+								class="ml-3 p-2 rounded-md bg-gray-800 border border-gray-700 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+								@click="show_password = !show_password"
+						>
+							<Unlocked v-if="show_password"/>
+							<Locked v-else/>
+						</button>
+					</div>
+				</div>
+				<div class="space-y-2">
+					<label for="confirm_password" class="block text-sm font-semibold text-gray-200">
+						{{ $t("login.password.confirm_password") }}
+					</label>
+					<div class="flex items-center">
+						<input
+								id="confirm_password"
+								v-model="account_creation_data.confirm_password"
+								:disabled="account_creation_data.password?.length < 1"
+								:type="show_password ? 'text' : 'password'"
+								placeholder="Confirmer le mot de passe"
+								minlength="1"
+								class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+						/>
+						<button
+								type="button"
+								class="ml-3 p-2 rounded-md bg-gray-800 border border-gray-700 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+								:class="{
+                'opacity-50 cursor-not-allowed':
+                  account_creation_data.password?.length < 1,
+              }"
+								@click="
+                () => {
+                  if (account_creation_data.password?.length > 0)
+                    show_password = !show_password;
+                }
+              "
+								:disabled="account_creation_data.password?.length < 1"
+						>
+							<Unlocked v-if="show_password"/>
+							<Locked v-else/>
+						</button>
+					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="flex flex-row items-center justify-between px-7 w-full my-auto h-20">
-				<router-link :to="{name:'home'}" class="mr-5" v-if="!hideHomeIcon">
-					<IconEvent width="50" height="50"></IconEvent>
-				</router-link>
-				<div v-if="box_message && box_message.length > 0"
-						 class="border-2 border-red-600 rounded-xl bg-red-800 bg-opacity-20 backdrop-blur py-2 px-3 my-2 w-full">
-					<p>{{ box_message }}</p>
-				</div>
+		<div v-if="selected === Selected.User && account_creation" class="w-full">
+			<button
+					@click="signupUser"
+					:disabled="!isAllowedToSignup"
+					class="w-full py-3 px-4 rounded-md bg-blue-500 text-white font-semibold transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+			>
+				{{ $t("login.signup") }}
+			</button>
+		</div>
+
+		<div class="flex items-center justify-between w-full">
+			<router-link :to="{ name: 'home' }" class="mr-5" v-if="!hideHomeIcon">
+				<IconEvent width="50" height="50" class="text-white"></IconEvent>
+			</router-link>
+			<div
+					v-if="box_message && box_message.length > 0"
+					class="text-red-400 text-sm"
+			>
+				{{ box_message }}
 			</div>
 		</div>
 	</div>
 </template>
+
 
 <script>
 import {mapActions, mapState} from "vuex";
 import {Selected, transformPrestataireName} from "@/utils";
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 import i from "@/i18n"
+import Locked from "@/views/Locked.vue";
+import Unlocked from "@/views/Unlocked.vue";
+
 
 export default {
 	name: "Login",
-	components: {IconEvent},
+	components: {Unlocked, Locked, IconEvent},
 	data() {
 		return {
 			selected: Number.parseInt(this.$route.query.userType) || Selected.User,
