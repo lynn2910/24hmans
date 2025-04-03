@@ -1,41 +1,3 @@
-<script>
-import PrestataireService from "@/services/prestataire.service";
-import mapMethods from "@/components/carteInteractive/mapMethods";
-import {mapActions, mapState} from "vuex";
-
-export default {
-  name: "KartingListView",
-  async beforeMount() {
-    await this.getAllPrestataires()
-    try {
-      for (const prestataire of this.prestataires) {
-        const servicesRes = await PrestataireService.getPrestataireServices(prestataire.id);
-        if (!servicesRes.error) {
-          const services = servicesRes.data;
-          if (services.some(service => service.toLowerCase() === "karting")) {
-            this.ecuries.push(prestataire);
-          }
-        }
-      }
-    } catch (error) {
-      console.error("Erreur lors du chargement des écuries :", error);
-    }
-  },
-  methods: {
-    ...mapActions('prestataire', ['getAllPrestataires'])
-  },
-  computed: {
-    ...mapState('prestataire', ['prestataires'])
-  },
-  data() {
-    return {
-      ecuries: [],
-      publicPath: process.env.BASE_URL,
-    };
-  },
-};
-</script>
-
 <template>
   <div class="w-full mt-28 bg-dark">
     <h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-4 mb-3">{{ $t('lists.karting') }}</h1>
@@ -82,6 +44,44 @@ export default {
     </p>
   </div>
 </template>
+
+<script>
+import PrestataireService from "@/services/prestataire.service";
+import {mapActions, mapState} from "vuex";
+
+export default {
+  name: "KartingListView",
+
+  async beforeMount() {
+    await this.getAllPrestataires()
+    try {
+      for (const prestataire of this.prestataires) {
+        const servicesRes = await PrestataireService.getPrestataireServices(prestataire.id);
+        if (!servicesRes.error) {
+          const services = servicesRes.data;
+          if (services.some(service => service.toLowerCase() === "karting")) {
+            this.ecuries.push(prestataire);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Erreur lors du chargement des écuries :", error);
+    }
+  },
+  methods: {
+    ...mapActions('prestataire', ['getAllPrestataires'])
+  },
+  computed: {
+    ...mapState('prestataire', ['prestataires'])
+  },
+  data() {
+    return {
+      ecuries: [],
+      publicPath: process.env.BASE_URL,
+    };
+  },
+};
+</script>
 
 <style scoped>
 .group:hover .blur-md {

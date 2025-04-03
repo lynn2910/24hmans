@@ -4,6 +4,7 @@ export default {
     namespaced: true,
     state: {
         circuits: [],
+        sessionsDate: [],
     },
 
     mutations: {
@@ -15,6 +16,10 @@ export default {
                 age_minimum: circuit.minAge
             }));
         },
+
+        sessionsDate(state, sessions) {
+            state.sessionsDate = sessions;
+        }
     },
 
     actions: {
@@ -28,6 +33,15 @@ export default {
                 console.error("Erreur lors de la récupération des circuits:", error);
             }
         },
+
+        async getAllSessions({commit}, {kartingId, circuitId}) {
+            try {
+                const res = await KartingService.getKartingSessions(kartingId, circuitId);
+                commit('sessionsDate', res.data);
+            } catch (error) {
+                console.error("Erreur lors de la récupération des sessions:", error);
+            }
+        }
     },
 
     getters: {

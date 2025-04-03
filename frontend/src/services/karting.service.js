@@ -8,7 +8,6 @@ async function getAvailableKartings() {
 }
 
 async function getAllCircuits(presta_id) {
-    console.log(presta_id)
     return await Request.get('/karting/:presta_id/circuits')
         .args({presta_id})
         .send();
@@ -49,7 +48,7 @@ async function deleteCircuit(karting_id, circuit_id) {
 async function getKartingSessions(karting_id, circuit_id) {
     if (!circuit_id) alert('getKartingSessions with circuit_id == null')
     return await Request.get('/karting/:karting_id/circuit/:circuit_id/sessions')
-        .args({karting_id})
+        .args({karting_id, circuit_id})
         .send();
 }
 

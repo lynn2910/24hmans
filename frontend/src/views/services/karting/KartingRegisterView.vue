@@ -26,37 +26,67 @@
 
             <ul class="flex-1 space-y-3 mb-6">
               <li class="flex items-center text-gray-400">
-                <span class="mr-2 animate-pulse"
-                      :class="{
+                <span
+                    class="mr-2 animate-pulse"
+                    :class="{
                     'text-green-500': index === 0,
                     'text-blue-500': index === 1,
                     'text-red-500': index === 2
-                  }">•</span>
+                  }"
+                >•</span>
                 Circuit adapté aux pilotes de {{ circuit.age_minimum }} ans et plus
               </li>
-              <!-- Ajout des points supplémentaires -->
-              <li v-for="(point, pointIndex) in additionalPoints[index]" :key="'point-' + pointIndex"
-                  class="flex items-center text-gray-400">
-                <span class="mr-2 animate-pulse"
-                      :class="{
+              <li
+                  v-for="(point, pointIndex) in additionalPoints[index]"
+                  :key="'point-' + pointIndex"
+                  class="flex items-center text-gray-400"
+              >
+                <span
+                    class="mr-2 animate-pulse"
+                    :class="{
                     'text-green-500': index === 0,
                     'text-blue-500': index === 1,
                     'text-red-500': index === 2
-                  }">•</span>
+                  }"
+                >•</span>
                 {{ point }}
               </li>
             </ul>
 
             <button
+                @click="goToReservation(circuit.id)"
                 class="mt-auto text-white font-semibold py-3 px-6 rounded-lg
-                     transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+          transition-all duration-300 overflow-hidden relative"
                 :class="{
-                'bg-green-600 hover:bg-green-700': index === 0,
-                'bg-blue-600 hover:bg-blue-700': index === 1,
-                'bg-red-600 hover:bg-red-700': index === 2
-              }"
+      'bg-green-600 hover:bg-green-700': index === 0,
+      'bg-blue-600 hover:bg-blue-700': index === 1,
+      'bg-red-600 hover:bg-red-700': index === 2
+    }"
+                @mouseenter="hoverButton = index"
+                @mouseleave="hoverButton = null"
             >
-              Réserver
+              <div class="relative inline-block overflow-hidden">
+                <span
+                    class="inline-block transition-all duration-300"
+                    :class="{ 'translate-y-full opacity-0': hoverButton === index }"
+                >
+                  Réserver
+                </span>
+                <span
+                    class="absolute left-0 inline-block w-full transition-all duration-300 text-gray-200"
+                    :class="{ '-translate-y-1/2 opacity-100': hoverButton === index, 'translate-y-0 opacity-0': hoverButton !== index }"
+                    style="top: 50%; transform: translateY(-50%);"
+                >
+                  Réserver
+                </span>
+              </div>
+
+              <div
+                  class="absolute inset-0 bg-gradient-to-r from-white/20 via-white/0 to-white/20
+                       opacity-0 transition-opacity duration-300"
+                  :class="{ 'opacity-100': hoverButton === index }"
+                  style="transform: translateX(-100%) skewX(-20deg); animation: shine 1.5s infinite;"
+              ></div>
             </button>
           </div>
         </div>
@@ -74,6 +104,7 @@ export default {
 
   data() {
     return {
+      hoverButton: null,
       additionalPoints: [
         ["Piste adaptée aux enfants", "Circuit sécurisé avec des virages serrés", "Réservation en ligne possible"],
         ["Circuit pour pilotes expérimentés", "Vitesse max : 70 km/h", "Accès au parcours en groupe"],
@@ -88,6 +119,18 @@ export default {
 
   methods: {
     ...mapActions("karting", ["getAllCircuits"]),
+
+    async goToReservation(circuitId) {
+      const presta_id = await PrestataireService.getPrestataireFromName(this.$route.params.prestataire_name);
+      this.$router.push({
+        name: 'karting-date',
+        params: {
+          prestataire_name: this.$route.params.prestataire_name,
+          circuitId: circuitId,
+          kartingId: presta_id.data.id,
+        }
+      });
+    }
   },
 
   async mounted() {
@@ -103,3 +146,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@keyframes shine {
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+}
+
+button {
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+</style>

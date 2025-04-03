@@ -46,4 +46,15 @@ export default [
         name: "karting_view",
         component: () => import( '../views/services/karting/KartingRegisterView.vue'),
     },
+    {
+        path: '/prestataire/:prestataire_name/circuit/:circuitId/reservation/:kartingId',
+        name: 'karting-date',
+        component: () => import( '../views/services/karting/KartingDateView.vue'),
+        props: true
+    },
+    {
+        path: '/prestataire/:prestataire_name/circuit/:circuitId/reservation/:kartingId/session/:sessionId',
+        name: 'karting-resume',
+        component: () => import('../views/services/karting/KartingResumeView.vue')
+    }
 ]
