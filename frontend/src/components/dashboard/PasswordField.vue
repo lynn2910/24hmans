@@ -2,7 +2,7 @@
 	<div class="flex flex-row items-center content-center justify-between">
 		<div class="w-5/6">
 			<input
-					class="outline-none border border-gray-400 rounded bg-dark py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
+					class="outline-none border border-gray-700 rounded bg-gray-800 py-2 px-3 hover:border-blue-500 focus:border-blue-500 w-full"
 					v-model="password"
 					@keyup="keyUp"
 					:type="showPassword ? 'text' : 'password'"
