@@ -45,10 +45,9 @@ app.get("/", function (req, res) {
     res.send("Hello World");
 });
 
-app.get("/hello/:name", require("./middlewares/prestataire.middleware"), function (req, res) {
+app.get("/hello/:name", function (req, res) {
     res.send(`Hello ${req.params.name}`);
 });
-createRule("/hello/:name", Method.All, User.Prestataire, [Permission.Prestataire]);
 
 //
 //
