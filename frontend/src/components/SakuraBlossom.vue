@@ -5,15 +5,15 @@
 					v-for="(s, index) in sakuraBlossoms"
 					:key="index"
 					:style="{
-          top: `${s.y}px`,
-          left: `${s.x}px`,
-          height: `${s.radius}px`,
-          width: `${s.radius}px`,
-          backgroundImage: `url(${sakuraImages[s.type].url})`,
-          backgroundSize: 'cover',
-          animationDelay: `${s.delay}s`,
-          transform: `rotate(${s.rotation}deg)`,
-        }"
+          	top: `${s.y}px`,
+          	left: `${s.x}px`,
+          	height: `${s.radius}px`,
+          	width: `${s.radius}px`,
+          	backgroundImage: `url(${sakuraImages[s.type].url})`,
+          	backgroundSize: 'cover',
+          	animationDelay: `${s.delay}s`,
+          	transform: `rotate(${s.rotation}deg)`,
+        	}"
 					class="fixed rounded-full"
 					style="z-index: 9998; pointer-events: none;"
 			>
@@ -452,10 +452,10 @@ export default {
 			sakuraBlossom.rotation = (sakuraBlossom.rotation + sakuraBlossom.rotationSpeed) % 360;
 		},
 		onDown(s) {
-			if (s.y < this.height && (s.x > -20 && s.x < window.innerWidth + 20)) return;
+			if (s.y < this.height && (s.x > -this.width && s.x < this.width * 2)) return;
 
-			s.x = this.getRandom(0, this.width);
-			s.y = this.getRandom(-this.height, 0);
+			s.x = this.getRandom(-this.width, this.width * 2);
+			s.y = this.getRandom(-(this.height / 2), 0);
 			s.speed = this.getRandom(...this.applied.speed);
 			s.wind = this.getRandom(...this.applied.wind);
 			s.rotation = 0;
