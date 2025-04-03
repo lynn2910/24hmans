@@ -5,8 +5,8 @@
 				{{ greetings }}, {{ loggedInUser.name }}
 			</h1>
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-7">
-				<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-7">
+				<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 col-span-2">
 					<h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
 						{{ $t('home.prestataires.name') }}
 					</h2>
