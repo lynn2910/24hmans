@@ -1,7 +1,10 @@
 const {Router} = require("express");
-const {getBilletterieFromName, getBilletterie} = require("../services/billetterie.service");
+const {getBilletterie} = require("../services/billetterie.service");
 
 const routerBilletterie = new Router();
+const { User} = require("../permissions");
+const {authenticateToken} = require("../middlewares/auth.middleware");
+const {createNewOrder} = require("../services/billetterie.service");
 
 
 /**
@@ -96,6 +99,161 @@ routerBilletterie.get("/:prestataire_name", async (req, res) => {
         res.status(200).json(billetterie);
     } else {
         res.status(404).json({message: "billetterie not found"});
+    }
+});
+
+/**
+ * @swagger
+ * /billetterie/{billetterie_name}/@me/orders:
+ *   post:
+ *     tags:
+ *       - Billetterie
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Create a new order in the billetterie
+ *     description: Creates a new order for the authenticated user in the specified billetterie.
+ *     parameters:
+ *       - in: path
+ *         name: billetterie_name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The name of the billetterie.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               {
+ *                 "user_id": "6c0996c1-d692-4051-9cf5-25cc91e0eb7b",
+ *                 "category": {
+ *                   "category_label": "Tribune",
+ *                   "category_id": 1
+ *                 },
+ *                 "date": [
+ *                   {
+ *                     "forfait_label": "Jeudi 12 juin 2025",
+ *                     "forfait_id": 2
+ *                   }
+ *                 ],
+ *                 "nbPersonnes": [
+ *                   "5", "", "", "", ""
+ *                 ],
+ *                 "created_at": "2025-04-03T10:54:19.651Z"
+ *               }
+ *             properties:
+ *               user_id:
+ *                 type: string
+ *                 description: The ID of the user creating the order.
+ *               category:
+ *                 type: object
+ *                 properties:
+ *                   category_label:
+ *                     type: string
+ *                     description: The label of the category.
+ *                   category_id:
+ *                     type: integer
+ *                     description: The ID of the category.
+ *               date:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     forfait_label:
+ *                       type: string
+ *                       description: The label of the forfait.
+ *                     forfait_id:
+ *                       type: integer
+ *                       description: The ID of the forfait.
+ *               nbPersonnes:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: The number of persons included in the order.
+ *               created_at:
+ *                 type: string
+ *                 format: date-time
+ *                 description: The date and time when the order was created.
+ *     responses:
+ *       200:
+ *         description: Order created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 {
+ *                   "user_id": "6c0996c1-d692-4051-9cf5-25cc91e0eb7b",
+ *                   "category": {
+ *                     "category_label": "Tribune",
+ *                     "category_id": 1
+ *                   },
+ *                   "date": [
+ *                     {
+ *                       "forfait_label": "Jeudi 12 juin 2025",
+ *                       "forfait_id": 2
+ *                     }
+ *                   ],
+ *                   "nbPersonnes": [
+ *                     "5", "", "", "", ""
+ *                   ],
+ *                   "created_at": "2025-04-03T10:54:19.651Z"
+ *                 }
+ *       400:
+ *         description: Invalid request body.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: string
+ *                   description: The error code.
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *       500:
+ *         description: An error occurred while creating the order.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ */
+
+routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (req, res) => {
+    if (req.user?.userType !== User.User) {
+        return res.status(401).json({ message: "You are not a user" });
+    }
+
+    let raw_order = req.body;
+    const billetterieId = req.params.billetterie_id;
+
+    let is_body_invalid = (
+        typeof billetterieId !== 'string' ||
+        typeof raw_order.category !== 'object' ||
+        typeof raw_order.category.category_id !== 'number' ||
+        !Array.isArray(raw_order.date) ||
+        raw_order.date.some(d => typeof d.forfait_id !== 'number') ||
+        !Array.isArray(raw_order.nbPersonnes) ||
+        raw_order.nbPersonnes.some(p => typeof p.personne_type_id !== 'number' || typeof p.quantity !== 'number')
+    );
+
+    if (!is_body_invalid) {
+        return res.status(400).json({ code: "INVALID_BODY", message: "The body doesn't have the proper required structure" });
+    }
+
+    try {
+        raw_order.billetterie_id = billetterieId;
+        const order = await createNewOrder(req.user.id, raw_order);
+        res.status(200).json(order);
+    } catch (err) {
+        res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
     }
 });
 

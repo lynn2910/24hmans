@@ -238,7 +238,7 @@ model Tickets {
   user_id String @db.VarChar(36)
   User    User?  @relation(fields: [user_id], references: [id])
 
-  ticket_id Int @id
+  ticket_id Int @id @default(autoincrement())
 
   billetterie_id String       @db.VarChar(36)
   billetterie    Billetteries @relation(fields: [billetterie_id], references: [billetterie_id], onDelete: Cascade)
