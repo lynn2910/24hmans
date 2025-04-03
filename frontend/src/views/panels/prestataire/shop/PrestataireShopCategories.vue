@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col lg:flex-row gap-6 h-full w-full">
-		<div class="bg-blue-50/10 p-6 rounded-xl border border-gray-700 w-full lg:w-full overflow-auto">
+		<div class="bg-blue-50/10 p-6 rounded-xl border border-gray-700 w-full overflow-auto">
 			<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
 				<h1 class="font-bold text-xl text-white">
 					{{ $t("dashboards.presta_admin.shop.categories.title") }}
@@ -64,9 +64,8 @@
 			</p>
 		</div>
 
-		<div
-				class="bg-blue-50/10 p-6 rounded-xl border border-gray-700 w-full lg:w-1/4 transition-all duration-300"
-				:class="expends.creation ? 'lg:min-w-[350px]' : 'lg:w-20'"
+		<div class="bg-blue-50/10 p-6 rounded-xl border border-gray-700 w-full lg:w-1/4 transition-all duration-300"
+				 :class="expends.creation ? 'lg:min-w-[350px]' : 'lg:w-20'"
 		>
 			<div class="flex items-center justify-between gap-4 mb-6">
 				<button
