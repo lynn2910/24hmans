@@ -363,6 +363,9 @@ model KartingSessionSlot {
   session_slot_id String          @db.VarChar(36)
   session_slot    ReservationSlot @relation(fields: [session_slot_id], references: [reservation_id], onDelete: Cascade)
 
+  circuit_id String         @db.VarChar(36)
+  circuit    KartingCircuit @relation(fields: [circuit_id], references: [circuit_id])
+
   users UserKartingSession[]
 }
 
@@ -396,7 +399,8 @@ model KartingCircuit {
   // Exemple: 160 pour "Kart 160 CC" ou 270 pour "Kart 270 CC", ou encore 390 pour "Kart 390 CC"
   kart_power   Int
 
-  sessions UserKartingSession[]
+  sessions           UserKartingSession[]
+  KartingSessionSlot KartingSessionSlot[]
 }
 
 //
