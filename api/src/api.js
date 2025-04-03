@@ -64,8 +64,6 @@ app.use("/users", require("./routes/user.router"));
 app.use("/auth", require("./routes/auth.router"));
 app.use("/carte", require("./routes/carte.router"));
 app.use("/karting", require("./routes/karting.router"));
-app.use("/cdn", require("./routes/cdn.router"));
-
 
 //
 //
