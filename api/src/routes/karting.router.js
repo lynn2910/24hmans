@@ -171,23 +171,26 @@ router.get("/available", async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-router.get("/:karting_id/", async (req, res) => {
-    if (req.headers.authorization) {
-        await authenticateToken(req, res, async () => {
-            KartingService.get_karting(req.params.karting_id, req.session.userId)
+router.get(
+    "/:karting_id/",
+    async (req, res) => {
+        if (req.headers.authorization) {
+            await authenticateToken(req, res, async () => {
+                KartingService.get_karting(req.params.karting_id, req.session.userId)
+                    .then(
+                        (karting) => res.status(200).json(karting),
+                        ({status, message}) => res.status(status).json({message})
+                    );
+            })
+        } else {
+            KartingService.get_karting(req.params.karting_id)
                 .then(
-                    (karting) => res.status(200).json(karting),
+                    (d) => res.status(200).json(d),
                     ({status, message}) => res.status(status).json({message})
                 );
-        })
-    } else {
-        KartingService.get_karting(req.params.karting_id)
-            .then(
-                (d) => res.status(200).json(d),
-                ({status, message}) => res.status(status).json({message})
-            );
+        }
     }
-})
+)
 
 //
 //
@@ -195,12 +198,14 @@ router.get("/:karting_id/", async (req, res) => {
 //
 //
 
-router.get("/:presta_id/circuits", async (req, res) => {
-    await KartingService.get_all_circuits(req.params.presta_id).then(
-        (circuit) => res.status(200).json(circuit),
-        ({status, message}) => res.status(status).json({message})
-    );
-})
+router.get("/:presta_id/circuits",
+    async (req, res) => {
+        await KartingService.get_all_circuits(req.params.presta_id).then(
+            (circuit) => res.status(200).json(circuit),
+            ({status, message}) => res.status(status).json({message})
+        );
+    }
+)
 
 /**
  * @swagger
@@ -270,18 +275,21 @@ router.get("/:presta_id/circuits", async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-router.post("/:karting_id/circuit", authenticateToken, async (req, res) => {
-    let fields = ['minAge', 'circuit_name', 'kart_power'];
-    if (typeof req.body !== "object" || Array.isArray(req.body) || fields.some(k => !(k in req.body))) {
-        res.status(400).json({message: "Invalid body field"});
-        return;
-    }
+router.post("/:karting_id/circuit",
+    authenticateToken,
+    async (req, res) => {
+        let fields = ['minAge', 'circuit_name', 'kart_power'];
+        if (typeof req.body !== "object" || Array.isArray(req.body) || fields.some(k => !(k in req.body))) {
+            res.status(400).json({message: "Invalid body field"});
+            return;
+        }
 
-    KartingService.create_circuit(req.params.karting_id, req.session.userId, req.body).then(
-        (circuit) => res.status(200).json(circuit),
-        ({status, message}) => res.status(status).json({message})
-    )
-})
+        KartingService.create_circuit(req.params.karting_id, req.session.userId, req.body).then(
+            (circuit) => res.status(200).json(circuit),
+            ({status, message}) => res.status(status).json({message})
+        )
+    }
+)
 
 /**
  * @swagger
@@ -334,21 +342,23 @@ router.post("/:karting_id/circuit", authenticateToken, async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-router.get("/:karting_id/circuit/:circuit_id", async (req, res) => {
-    if (req.query.sessionId) {
-        await authenticateToken(req, res, async () => {
-            await KartingService.get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId).then(
+router.get("/:karting_id/circuit/:circuit_id",
+    async (req, res) => {
+        if (req.query.sessionId) {
+            await authenticateToken(req, res, async () => {
+                await KartingService.get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId).then(
+                    (circuit) => res.status(200).json(circuit),
+                    ({status, message}) => res.status(status).json({message})
+                );
+            })
+        } else {
+            await KartingService.get_karting_circuit(req.params.karting_id, req.params.circuit_id).then(
                 (circuit) => res.status(200).json(circuit),
                 ({status, message}) => res.status(status).json({message})
             );
-        })
-    } else {
-        await KartingService.get_karting_circuit(req.params.karting_id, req.params.circuit_id).then(
-            (circuit) => res.status(200).json(circuit),
-            ({status, message}) => res.status(status).json({message})
-        );
+        }
     }
-})
+)
 
 /**
  * @swagger
@@ -456,36 +466,43 @@ router.get("/:karting_id/circuit/:circuit_id", async (req, res) => {
  *               example:
  *                 message: "Circuit not found"
  */
-router.patch("/:karting_id/circuit/:circuit_id", authenticateToken, async (req, res) => {
-    let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
-    if (!karting) {
-        // access denied
-        res.status(401).json({message: "Access denied"});
-        return;
+router.patch("/:karting_id/circuit/:circuit_id",
+    authenticateToken,
+    async (req, res) => {
+        let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
+        if (!karting) {
+            // access denied
+            res.status(401).json({message: "Access denied"});
+            return;
+        }
+
+        let new_circuit = await update_circuit(
+            req.params.karting_id,
+            req.params.circuit_id,
+            req.body
+        );
+
+        res.status(200).json(new_circuit);
     }
-
-    let new_circuit = await update_circuit(
-        req.params.karting_id,
-        req.params.circuit_id,
-        req.body
-    );
-
-    res.status(200).json(new_circuit);
-})
+)
 
 // TODO: SWAGGER
-router.delete("/:karting_id/circuit/:circuit_id", authenticateToken, async (req, res) => {
-    let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
+router.delete(
+    "/:karting_id/circuit/:circuit_id",
+    authenticateToken,
+    async (req, res) => {
+        let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
 
-    if (!karting) {
-        // access denied
-        res.status(404).json({message: "Circuit not found"});
-        return;
+        if (!karting) {
+            // access denied
+            res.status(404).json({message: "Circuit not found"});
+            return;
+        }
+
+        let deleted_circuit = await delete_circuit(req.params.karting_id, req.params.circuit_id);
+        res.status(200).json(deleted_circuit);
     }
-
-    let deleted_circuit = await delete_circuit(req.params.karting_id, req.params.circuit_id);
-    res.status(200).json(deleted_circuit);
-})
+)
 
 
 // Sessions
