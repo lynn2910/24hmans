@@ -22,8 +22,8 @@ export default {
 	async created() {
 		try {
 			const response = await EcurieService.YearsRecup();
-			this.years = response.data;  // Ici, on accède à la propriété "data" de la réponse
-			console.log(this.years, 'fbjlqebfgvjleqbfjlqbfljabqflaeljfbjlbBJLFBZLAEFBLAB');  // Vérifie bien que tu récupères les années
+			this.years = response.data;
+			console.log(this.years, 'fbjlqebfgvjleqbfjlqbfljabqflaeljfbjlbBJLFBZLAEFBLAB');
 		} catch (error) {
 			console.error("Erreur lors de la récupération des années:", error);
 		}
@@ -47,7 +47,7 @@ export default {
 		},
 		async selectedYear(newYear) {
 			console.log("Année sélectionnée :", newYear);
-			await this.fetchAllParticipants();  // Ajoute cette ligne pour relancer la requête API
+			await this.fetchAllParticipants();
 			this.loadArchivedParticipants(newYear);
 		}
 	},
@@ -64,7 +64,7 @@ export default {
 						acc[year].push(participant);
 						return acc;
 					}, {});
-					console.log("participantsByYear :", this.participantsByYear); // 👀 Voir toutes les années stockées
+					console.log("participantsByYear :", this.participantsByYear);
 				} else {
 					console.error(`Erreur récupération participants: ${res.data}`);
 				}
