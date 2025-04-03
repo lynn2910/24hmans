@@ -334,10 +334,11 @@ export default {
 			sakuraBlossoms: [],
 			width: window.innerWidth,
 			height: window.innerHeight,
-			showEditPopup: true,
+			showEditPopup: false,
 			showSakura: true,
 			looping: false,
 			sakuraImages: sakuraImagesList,
+			oldUpdateTime: Date.now(),
 			form: {
 				speedMin: this.speed[0],
 				speedMax: this.speed[1],
@@ -443,13 +444,13 @@ export default {
 			this.width = window.innerWidth;
 			this.height = window.innerHeight;
 		},
-		translateSakuraBlossom(sakuraBlossom) {
-			sakuraBlossom.wind += this.getRandom(-0.001, 0.001);
-			sakuraBlossom.speed += this.getRandom(0, 0.001);
+		translateSakuraBlossom(sakuraBlossom, delta) {
+			sakuraBlossom.wind += this.getRandom(-0.001, 0.001) * delta;
+			sakuraBlossom.speed += this.getRandom(0, 0.001) * delta;
 
-			sakuraBlossom.y += sakuraBlossom.speed + (Math.random());
-			sakuraBlossom.x += sakuraBlossom.wind + (Math.random());
-			sakuraBlossom.rotation = (sakuraBlossom.rotation + sakuraBlossom.rotationSpeed) % 360;
+			sakuraBlossom.y += (sakuraBlossom.speed + (Math.random())) * 2;
+			sakuraBlossom.x += (sakuraBlossom.wind + (Math.random())) * 2;
+			sakuraBlossom.rotation = ((sakuraBlossom.rotation + sakuraBlossom.rotationSpeed) % 360) * 2;
 		},
 		onDown(s) {
 			if (s.y < this.height && (s.x > -this.width && s.x < this.width * 2)) return;
@@ -468,11 +469,15 @@ export default {
 				return;
 			}
 
+			let delta = 1 / (Date.now() - this.oldUpdateTime)
+
 			this.sakuraBlossoms.forEach((s) => {
-				this.translateSakuraBlossom(s);
+				this.translateSakuraBlossom(s, delta);
 				this.onDown(s);
 			});
 
+			// Set last update time and go to next frame
+			this.oldUpdateTime = Date.now();
 			window.requestAnimationFrame(this.loop);
 		},
 		updateFormWindMin(event) {
@@ -507,6 +512,7 @@ export default {
 		this.createSakuraBlossoms();
 	},
 	mounted() {
+		this.oldUpdateTime = Date.now();
 		this.loop();
 	},
 	props: {
