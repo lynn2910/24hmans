@@ -18,7 +18,6 @@ async function getParticipants(presta_id, year) {
             ecurie: {
                 prestataire_id: presta_id
             },
-            year: year,
         },
     });
 }
@@ -36,14 +35,28 @@ async function deleteParticipants(ecurie_id) {
     }
 }
 
-async function getRandomParticipants(ecurie_id) {
+async function getRandomParticipants(presta_id) {
     try {
+        // Récupérer l'écurie en fonction de l'ID du prestataire
+        const ecurie = await prisma.ecurie.findUnique({
+            where: { prestataire_id: presta_id }, // Utilise le prestataire_id pour récupérer l'écurie
+            select: { id: true } // On récupère uniquement l'ID de l'écurie
+        });
+
+        if (!ecurie) {
+            throw { status: 404, message: "Aucune écurie trouvée pour ce prestataire." };
+        }
+
+        const ecurie_id = ecurie.id; // ID de l'écurie associée
+
         const totalParticipants = await prisma.formulaireEcurie.count({
             where: { ecurie_id: ecurie_id }, // Filtre par écurie
         });
+
         if (totalParticipants === 0) {
             return []; // Aucun participant pour cette écurie
         }
+
         const randomOffsets = [];
         while (randomOffsets.length < Math.min(10, totalParticipants)) {
             const randomIndex = Math.floor(Math.random() * totalParticipants);
@@ -51,6 +64,7 @@ async function getRandomParticipants(ecurie_id) {
                 randomOffsets.push(randomIndex);
             }
         }
+
         const participants = await prisma.formulaireEcurie.findMany({
             where: { ecurie_id: ecurie_id }, // Filtre par écurie
             take: 10,
@@ -72,30 +86,31 @@ async function getRandomParticipants(ecurie_id) {
         throw new Error("Impossible de récupérer les participants aléatoires.");
     }
 }
-async function registerWinners(winners, ecurie_id) {
+
+async function registerWinners(winners, presta_id) {
     try {
         if (!Array.isArray(winners) || winners.length !== 10) {
             throw { status: 400, message: "Exactly 10 winners must be provided" };
         }
 
-        // Récupérer le nom de l'écurie à partir de l'ID
+        // Récupérer l'écurie en fonction de l'ID du prestataire
         const ecurie = await prisma.ecurie.findUnique({
-            where: { id: ecurie_id },
-            select: { name: true } // Récupère uniquement le nom
+            where: { prestataire_id: presta_id }, // Utilise le prestataire_id pour récupérer l'écurie
+            select: { name: true, prestataire_id: true } // Récupère le nom et prestataire_id
         });
 
         if (!ecurie) {
-            throw { status: 404, message: `Écurie introuvable avec l'ID : ${ecurie_id}` };
+            throw { status: 404, message: `Écurie introuvable pour le prestataire avec l'ID : ${presta_id}` };
         }
 
-        const ecurie_name = ecurie.name; // Récupération du vrai nom
-
+        const ecurie_name = ecurie.name; // Nom de l'écurie
         const winnerEntries = [];
+
         for (const winner of winners) {
             const { email } = winner;
 
             const tryToFindUser = await prisma.formulaireEcurie.findFirst({
-                where: { email: { equals: email }, ecurie_id }
+                where: { email: { equals: email }, ecurie_id: ecurie.id } // Recherche le participant dans l'écurie associée
             });
 
             if (!tryToFindUser) {
@@ -124,6 +139,7 @@ async function registerWinners(winners, ecurie_id) {
             });
         }
 
+        // Mettre à jour les participants pour les marquer comme gagnants
         for (const entry of winnerEntries) {
             await prisma.formulaireEcurie.update({
                 where: entry.where,

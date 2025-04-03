@@ -139,23 +139,19 @@ VALUES ('Famille (x2 adulte) nombre d''enfants : ', 1, 'dab91561-09f1-47cb-8d91-
 #
 #
 
-INSERT INTO Ecurie(id, name, prestataire_id)
-    VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
-select *
-from Ecurie;
-DELETE
-FROM FormulaireEcurie
-WHERE ecurie_id = 'd8d755cb-9aba-43f5-9546-14db654a1f06';
-SELECT *
-FROM FormulaireEcurie;
+    INSERT INTO Ecurie(id, name, prestataire_id)
+        VALUE ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Porsche', '45309281-fc24-4e02-ad47-a275c64f5327');
+    select  * from Ecurie;
+DELETE FROM FormulaireEcurie WHERE ecurie_id= 'd8d755cb-9aba-43f5-9546-14db654a1f06';
+SELECT * FROM FormulaireEcurie;
 INSERT INTO FormulaireEcurie(ecurie_id, prenom, nom, year, email, tel, num_billet, submitted_at, is_winner)
-VALUES ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Yanis', 'Blanc', 2024, 'yanis.blanc@gmail.com', '07 72 50 20 32', '01',
+VALUES ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Yanis', 'Blanc', 2024, 'Yanis.Blanc@gmail.com', '07 72 50 20 32', '01',
         '2024-11-28 12:40:24', false),
-       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Juliette', 'Richard', 2024, 'juliette@gmail.com', '+07 88 55 02 07',
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Juliette', 'Richard', 2024, 'Juliette.Richard@edu.univ-fcomte.fr', '+07 88 55 02 07',
         '02', '2024-11-28 12:40:24', false),
-       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Ethan', 'Durand', 2024, 'ethan@gmail.com', '07 15 10 20 00', '03',
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Ethan', 'Durand', 2024, 'ethan.durand@gmail.com', '07 15 10 20 00', '03',
         '2024-11-28 12:40:24', false),
-       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Sasha', 'LeFevre', 2024, 'sasha@gmail.com', '08 53 69 85 65',
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Sasha', 'LeFevre', 2024, 'sasha.lefevre@gmail.com', '08 53 69 85 65',
         '04',
         '2024-11-28 12:40:24', false),
        ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Sarah', 'Henry', 2024, 'sarah@gmail.com', '09 98 56 25 46', '05',
@@ -169,8 +165,27 @@ VALUES ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Yanis', 'Blanc', 2024, 'yanis.b
        ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Lea', 'Andre', 2024, 'lea@gmail.com', '08 45 95 86 54', '09',
         '2024-11-28 12:40:24', false),
        ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Camille', 'Rousseau', 2024, 'camille@gmail.com', '05 15 50 00 15',
-        '10', '2024-11-28 12:40:24', false);
+        '10', '2024-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Lucas', 'Martin', 2025, 'lucas.martin@gmail.com', '07 45 20 30 10', '01',
+        '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Emma', 'Dubois', 2025, 'emma.dubois@gmail.com', '06 88 55 02 07',
+        '02', '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Noah', 'Moreau', 2025, 'noah.moreau@gmail.com', '07 15 10 20 00', '03',
+        '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Alice', 'Lemoine', 2025, 'alice.lemoine@gmail.com', '08 53 69 85 65',
+        '04', '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Hugo', 'Leroy', 2025, 'hugo@gmail.com', '09 98 56 25 46', '05',
+        '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Manon', 'Garcia', 2025, 'maon@gmail.com', '07 10 12 15 14', '06',
+        '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Nathan', 'Robin', 2025, 'nathan.robin@gmail.com', '07 20 12 23 50', '07',
+        '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Clara', 'Bertrand', 2025, 'clara.bertrand@gmail.com', '03 42 15 78 89', '08',
+        '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Thomas', 'Perrin', 2025, 'thomas.perrin@gmail.com', '08 45 95 86 54', '09',
+        '2025-11-28 12:40:24', false),
+       ('d8d755cb-9aba-43f5-9546-14db654a1f06', 'Julie', 'Collet', 2025, 'julie.collet@gmail.com', '05 15 50 00 15',
+        '10', '2025-11-28 12:40:24', false);
 
-
-SELECT *
-FROM FormulaireEcurie;
+SELECT * FROM FormulaireEcurie;
+select  * from Boutique;
