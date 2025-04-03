@@ -8,19 +8,32 @@ Page de gestion de la carte interactive admin
   <AdminDashboardTemplate current-page="map" class="h-full w-2/3">
     <div
         class="flex flex-row items-center content-center justify-start gap-5 h-[90%] mt-[2.5%] w-full overflow-y-hidden overflow-x-auto">
-      <!--    Carte Interactive vue admin-->
+
+      <!--    Carte Interactive vue presta-->
       <div
-          class="w-full justify-start gap-4 m-5 mr-0 h-full bg-blue-400 bg-opacity-5 border border-gray-700 rounded-2xl m-0 p-2">
+          class="relative w-full justify-start gap-4 m-5 mr-0 h-full bg-blue-400 bg-opacity-5 border border-gray-700 rounded-2xl m-0 p-2">
         <CarteInteractiveAdmin
             ref="mapComponent"
             width="100%"
             height="100%"
             borderRadius="0px"
+            class="relative z-0"
             @zoneSelected="updateFormData"
             :categories="categories"
             :get-prestataire="getPrestataire"
         />
+
+        <!-- Image en superposition -->
+        <div class="absolute top-5 left-0 right-0 z-50 flex justify-center">
+          <img
+              src="@/assets/images/descriptionServices.png"
+              alt="description carte interactive"
+              class="w-4/5 object-contain mx-auto"
+              loading="lazy"
+          />
+        </div>
       </div>
+
       <!--    Formulaire de modification d'une zone spécifique-->
       <div
           class="min-w-[400px] w-96 p-4 m-5 ml-0 bg-blue-400 bg-opacity-5 border border-gray-700 gap-4 h-full rounded-2xl">
@@ -118,10 +131,11 @@ import {mapActions, mapGetters, mapState} from 'vuex';
 import AdminDashboardTemplate from "@/components/dashboard/admin/AdminDashboardTemplate.vue";
 import CarteInteractiveAdmin from "@/components/carteInteractive/CarteInteractiveAdmin.vue";
 import mapMethods from "@/components/carteInteractive/mapMethods";
+import CarteInteractivePresta from "@/components/carteInteractive/CarteInteractivePresta.vue";
 
 export default {
   name: 'AdminMapView',
-  components: {AdminDashboardTemplate, CarteInteractiveAdmin},
+  components: {CarteInteractivePresta, AdminDashboardTemplate, CarteInteractiveAdmin},
 
   data() {
     return {
@@ -175,17 +189,7 @@ export default {
         this.loadServices(newPrestataireId);
       }
     },
-
-    // "$store.state.shapes.shapesData": {
-    //   handler(newShapes) {
-    //     console.log("Mise à jour :", newShapes);
-    //     this.reloadShapesOnMap(this.getPrestataire);
-    //   },
-    //   deep: true,
-    //   // immediate: true,
-    // }
   },
-
 
   methods: {
     ...mapMethods,
