@@ -3,7 +3,7 @@ const prisma = require("../db")
 const e = require("express");
 const {addMailRequest} = require("./mail/mail.service");
 
-async function getParticipants(ecurie_id, year) {
+async function getParticipants(presta_id, year) {
     return prisma.formulaireEcurie.findMany({
         select: {
             id: true,
@@ -15,7 +15,9 @@ async function getParticipants(ecurie_id, year) {
             submitted_at: true,
         },
         where: {
-            ecurie_id: ecurie_id,
+            ecurie: {
+                prestataire_id: presta_id
+            },
             year: year,
         },
     });

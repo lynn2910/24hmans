@@ -1,9 +1,13 @@
 import LocalSource from "@/datasource/controller"
+import {Request} from "@/services/axios.service";
 
-async function getAllEcurieParticipants(presta_id) {
-    return LocalSource.getAllEcurieParticipants(presta_id);
+async function getAllEcurieParticipants(presta_id, year){
+    //return LocalSource.getAllEcurieParticipants(presta_id);
+    return await Request.get('/ecurie/:presta_id/participants')
+        .args({presta_id})
+        .params({year})
+        .send()
 }
-
 async function tirageAuSort(presta_id, year, count = 10) {
     try {
         // Récupérer tous les participants de l'écurie
@@ -21,8 +25,6 @@ async function tirageAuSort(presta_id, year, count = 10) {
             console.error(`Aucun participant trouvé pour l'année ${year}.`);
             return [];
         }
-
-        // Vérifier si le nombre demandé est supérieur au nombre de participants
         let tirage = [];
         let maxTirage = Math.min(count, participants.length);
 

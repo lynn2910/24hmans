@@ -7,15 +7,15 @@ const {registerWinners} = require("../services/ecurie.service");
 
 /**
  * @swagger
- * /ecurie/{ecurie_id}/participants:
- *   post:
+ * /ecurie/{presta_id}/participants:
+ *   get:
  *     summary: Récupère tous les participants d'une écurie pour une année spécifique
  *     security:
  *       - bearerAuth: []
  *     tags:
  *       - Participants
  *     parameters:
- *       - name: ecurie_id
+ *       - name: presta_id
  *         in: path
  *         required: true
  *         schema:
@@ -64,16 +64,16 @@ const {registerWinners} = require("../services/ecurie.service");
  *       500:
  *         description: Erreur serveur
  */
-routerEcurie.post('/:ecurie_id/participants', async (req, res) => {
-    const {ecurie_id} = req.params;
-    const {year} = req.body;
+routerEcurie.get('/:presta_id/participants', async (req, res) => {
+    const {presta_id} = req.params;
+    const year = Number.parseInt(req.query.year);
 
-    if (!year || typeof year !== 'number') {
+    if (!year || isNaN(year)) {
         return res.status(400).json({message: 'Veuillez fournir une année valide.'});
     }
 
     try {
-        const participants = await EcurieService.getParticipants(ecurie_id, year);
+        const participants = await EcurieService.getParticipants(presta_id, year);
 
         if (participants.length === 0) {
             return res.status(404).json({message: 'Aucun participant trouvé pour cette écurie et cette année.'});
