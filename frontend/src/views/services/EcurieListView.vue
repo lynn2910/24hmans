@@ -52,7 +52,7 @@ export default {
 						v-for="prestataire in ecuries"
 						:key="prestataire.id"
 						:to="{ name: 'visite_ecuries', params: {prestataire_name: prestataire.referencer} }"
-						class="relative group flex flex-col items-center text-center w-96 h-[40rem] p-8 bg-red-950-800 border border-green-950 rounded-lg shadow-lg overflow-hidden
+						class="relative group flex flex-col items-center text-center w-96 h-[30rem] p-8 bg-red-950-800 border border-green-950 rounded-lg shadow-lg overflow-hidden
                    transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_40px_2px_black]">
 					<!-- Bordures -->
 					<div
@@ -61,7 +61,7 @@ export default {
 					<!-- Informations prestataires -->
 					<div class="relative z-10 flex flex-col justify-between h-full">
 						<img
-								:src="`${publicPath}${prestataire.icon}`"
+								:src="`${publicPath === '/' ? '' : publicPath}${prestataire.icon}`"
 								alt="Logo du prestataire"
 								class="flex-wrap drop-shadow-all-white-700 w-60 h-60 rounded-full mb-6 border-4 border-white shadow-md"
 						/>
