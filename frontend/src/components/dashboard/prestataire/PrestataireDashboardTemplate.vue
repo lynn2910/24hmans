@@ -96,7 +96,8 @@
 								 :src="`${publicPath === '/' ? '' : publicPath}${loggedInUser?.icon}`" alt="icon">
 						<p class="font-bold text-white text-md">{{ loggedInUser?.name }}</p>
 					</div>
-					<button @click="logoutUser" class="text-gray-400 hover:text-white transition-colors">
+					<button @click="logoutUser"
+									class="text-gray-400 p-2 rounded-lg hover:bg-gray-700 hover:text-white transition-colors">
 						<svg class="h-6 w-6" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
 									d="M6.60689 8.8092V11.0115L16.5172 11.0115V14.3149L22.0229 9.91035L16.5172 5.50576V8.8092L6.60689 8.8092Z"
@@ -153,7 +154,7 @@ export default {
 		...mapActions('login', ['login', 'logout']),
 		async logoutUser() {
 			await this.logout();
-			await this.$router.push({name: "login"})
+			this.$router.push({name: 'login', query: {loggedOut: 1}})
 		}
 	}
 }

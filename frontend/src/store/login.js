@@ -81,6 +81,8 @@ export default {
             localStorage.removeItem("access_token");
             commit("updateToken", null);
             commit("logOut", null);
+            commit('updateLoggedInUser', null)
+            commit('updateUserType', null)
         },
         async getInformations({commit}) {
             console.log("Testing stored token...")

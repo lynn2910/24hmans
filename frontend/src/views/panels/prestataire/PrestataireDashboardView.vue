@@ -2,7 +2,6 @@
 import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
 import {mapState} from "vuex";
 import BoutiqueService from "@/services/boutique.service";
-import I18n from "@/i18n";
 
 export default {
 	components: {
@@ -23,9 +22,9 @@ export default {
 			services: [
 				{id: 'boutique', title: 'Boutique', icon: '🛒', link: {name: 'prestataire_dashboard_shop'}},
 				{id: 'visites', title: 'Visites des écuries', icon: '📸', link: {name: 'visite_ecuries_panel'}},
-				{id: 'karting', title: 'Karting', icon: '🏎️', link: {name: '#'}},
-				{id: 'billeterie', title: 'Billeterie', icon: '🎟️', link: {name: '#'}},
-				{id: 'montgolfieres', title: 'Montgolfières', icon: '🎈', link: {name: '#'}},
+				{id: 'karting', title: 'Karting', icon: '🏎️'},
+				{id: 'billeterie', title: 'Billeterie', icon: '🎟️'},
+				{id: 'montgolfieres', title: 'Montgolfières', icon: '🎈'},
 			],
 		};
 	},
@@ -117,11 +116,12 @@ export default {
 			<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
 				<h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Services</h2>
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-					<div v-for="service in services" :key="service.id"
-							 class="flex items-center gap-3 p-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+					<router-link v-for="service in services" :key="service.id"
+											 :to="service.link || {name: 'prestataire_dashboard'}"
+											 class="flex items-center gap-3 p-3 rounded-md select-none cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
 						<span class="text-xl">{{ service.icon }}</span>
 						<span class="text-gray-700 dark:text-gray-200 font-medium">{{ service.title }}</span>
-					</div>
+					</router-link>
 				</div>
 			</div>
 		</div>
