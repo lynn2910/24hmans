@@ -5,7 +5,7 @@
 					v-for="(t, index) in tabs"
 					:key="index"
 					@click="$emit('changeTab', t.id)"
-					class="px-6 py-3 rounded-t-lg font-semibold cursor-pointer transition-colors duration-200"
+					class="px-6 py-2 rounded-t-lg font-semibold cursor-pointer transition-colors duration-200"
 					:class="[
                     currentTab === t.id
                         ? 'bg-white text-gray-900 border-b-2 border-white'
@@ -13,7 +13,7 @@
                     'mr-4'
                 ]"
 			>
-				<h2 class="text-lg">{{ t.name }}</h2>
+				<h2 class="font-bold">{{ t.name }}</h2>
 			</div>
 		</div>
 
