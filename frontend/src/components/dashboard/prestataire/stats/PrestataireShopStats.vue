@@ -11,14 +11,14 @@
 		</InfoCard>
 
 		<InfoCard classes="col-span-full md:col-span-6 lg:col-span-3">
-			<h2 class="text-xl font-extrabold text-white text-2xl">
+			<h2 class="font-extrabold text-white text-2xl">
 				{{ Intl.NumberFormat("fr-FR").format(total_gains) }} €
 			</h2>
 			<p class="text-gray-400 text-sm font-medium">
 				{{ $t("dashboards.statistics.shop.benef") }}
 			</p>
 		</InfoCard>
-		
+
 		<InfoCard classes="col-span-full lg:col-span-6 row-span-3">
 			<apexchart
 					type="treemap"
