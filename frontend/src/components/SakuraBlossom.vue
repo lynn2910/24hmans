@@ -13,6 +13,7 @@
           	backgroundSize: 'cover',
           	animationDelay: `${s.delay}s`,
           	transform: `rotate(${s.rotation}deg)`,
+          	opacity: `${opacity}%`
         	}"
 					class="fixed rounded-full"
 					style="z-index: 9998; pointer-events: none;"
@@ -516,6 +517,10 @@ export default {
 		this.loop();
 	},
 	props: {
+		opacity: {
+			type: Number,
+			default: 100
+		},
 		flowersAmount: {
 			type: Number,
 			default: 150,

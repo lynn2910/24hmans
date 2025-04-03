@@ -144,3 +144,11 @@ INSERT INTO kartingCircuit (`circuit_id`, `karting_id`, `minAge`, `circuit_name`
                VALUES('1a945660-cef6-4e73-9456-60cef62e734f', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', 8, 'Piste Junior', 160),('45e11ba5-9136-48aa-a11b-a59136b8aa38', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', 16, 'Piste Amateur', 270),('7c9c6893-7402-48df-9c68-937402f8df02', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', 18, 'Piste Confirmé', 390);
 INSERT INTO kartingSessionSlot (`session_id`, `karting_id`, `session_slot_id`, `circuit_id`)
                VALUES('36c330cb-0b86-46ec-8330-cb0b86e6ecf6', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', '044d4dc3-4e35-4cea-8d4d-c34e35ccea50', '1a945660-cef6-4e73-9456-60cef62e734f'),('4b10ac14-9814-4ed4-90ac-149814aed423', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', 'fc12f957-05f6-471d-92f9-5705f6f71dc2', '1a945660-cef6-4e73-9456-60cef62e734f'),('4eb909e0-3356-4417-b909-e03356941746', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', '224cfa6f-aff1-4bad-8cfa-6faff17badcd', '45e11ba5-9136-48aa-a11b-a59136b8aa38'),('7072a9e2-9283-4148-b2a9-e292838148d7', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', '65a330ae-3f57-48da-a330-ae3f57c8dac5', '45e11ba5-9136-48aa-a11b-a59136b8aa38'),('cf0162b8-6b44-492c-8162-b86b44f92c14', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', '0546a17d-9f7e-416d-86a1-7d9f7e516d01', '7c9c6893-7402-48df-9c68-937402f8df02'),('fa4a8398-0d18-4211-8a83-980d1842110b', '1278aadd-b56a-458b-b8aa-ddb56a258bf8', 'ba45d304-6805-4197-85d3-046805619750', '7c9c6893-7402-48df-9c68-937402f8df02');
+INSERT INTO MontgolfiereReservationApp (app_id)
+                VALUES ('d524a60f-60d4-429e-a4a6-0f60d4b29e1e');
+INSERT INTO MontgolfiereReservationSlot (reservation_id, app_id, `from`, `to`, maxSize)
+                VALUES ('044d4dc3-4e35-4cea-8d4d-c34e35ccea51', 'd524a60f-60d4-429e-a4a6-0f60d4b29e1e', '2025-04-03 10:00:00', '2025-04-03 10:15:00', 10);
+INSERT INTO Montgolfiere (montgolfiere_id, prestataire_id, reservation_app_id, enabled)
+                VALUES ('1278aadd-b56a-458b-b8aa-ddb56a258bf9', '255da203-781d-4e50-924f-0423638cdb68','d524a60f-60d4-429e-a4a6-0f60d4b29e1e', 1);
+INSERT INTO MontgolfiereSessionSlot (session_id, montgolfiere_id, session_slot_id)
+                VALUES ('36c330cb-0b86-46ec-8330-cb0b86e6ecf7', '1278aadd-b56a-458b-b8aa-ddb56a258bf9', '044d4dc3-4e35-4cea-8d4d-c34e35ccea51');
