@@ -78,7 +78,7 @@
 					<span class="text-lg font-medium">Karting</span>
 				</div>
 				<div class="flex items-center py-3 px-4 opacity-50 cursor-not-allowed">
-					<span class="mr-2">🎟️</span>
+					<span class="mr-2">🎫</span>
 					<span class="text-lg font-medium">Billeterie</span>
 				</div>
 				<div class="flex items-center py-3 px-4 opacity-50 cursor-not-allowed">
