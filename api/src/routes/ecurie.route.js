@@ -21,17 +21,13 @@ const {registerWinners} = require("../services/ecurie.service");
  *         schema:
  *           type: string
  *         description: ID de l'écurie
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               year:
- *                 type: integer
- *                 description: Année des participants
- *                 example: 2024
+ *       - name: year
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Année des participants
+ *         example: 2025
  *     responses:
  *       200:
  *         description: Liste des participants
@@ -64,6 +60,7 @@ const {registerWinners} = require("../services/ecurie.service");
  *       500:
  *         description: Erreur serveur
  */
+
 routerEcurie.get('/:presta_id/participants', async (req, res) => {
     const {presta_id} = req.params;
     const year = Number.parseInt(req.query.year);
@@ -124,49 +121,84 @@ routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
         res.status(500).json({message: "Erreur serveur, impossible de supprimer les participants."});
     }
 });
-
 /**
  * @swagger
- * /ecurie/{ecurie_id}/winner:
+ * /ecurie/{presta_id}/winner:
  *   post:
- *     summary: Sélectionne 10 gagnants aléatoires parmi les participants d'une écurie, les enregistre et envoie un email aux gagnants et aux participants sélectionnés.
+ *     summary: Sélectionne 10 gagnants aléatoires parmi les participants d'un prestataire, les enregistre et envoie un email aux gagnants et aux participants sélectionnés.
  *     tags:
  *       - Ecurie
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: ecurie_id
+ *       - name: presta_id
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *         description: ID de l'écurie
+ *         description: ID du prestataire
  *     responses:
  *       200:
  *         description: Les gagnants ont été sélectionnés, enregistrés et les emails envoyés.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 winners:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       prenom:
+ *                         type: string
+ *                       nom:
+ *                         type: string
+ *                       email:
+ *                         type: string
  *       404:
- *         description: Aucun participant trouvé pour cette écurie.
+ *         description: Aucun participant trouvé pour ce prestataire ou pas assez de participants.
  *       500:
  *         description: Erreur serveur.
  */
-routerEcurie.post('/:ecurie_id/winner', async (req, res) => {
-    const {ecurie_id} = req.params;
+routerEcurie.post('/:presta_id/winner', async (req, res) => {
+    const {presta_id} = req.params;
 
     try {
-        const participants = await EcurieService.getRandomParticipants(ecurie_id);
+        // Utilisation de `presta_id` pour récupérer les participants
+        const participants = await EcurieService.getRandomParticipants(presta_id);
+
+        // Vérification qu'il y a suffisamment de participants
         if (participants.length < 10) {
             return res.status(404).json({message: "Pas assez de participants pour sélectionner 10 gagnants."});
         }
+
+        // Sélection aléatoire des 10 gagnants
         const winners = participants.sort(() => Math.random() - 0.5).slice(0, 10);
 
-        await registerWinners(winners, ecurie_id);
+        // Enregistrement des gagnants
+        await registerWinners(winners, presta_id);
 
-        res.status(200).json({message: "Les gagnants ont été sélectionnés et notifiés."});
+        // Réponse après la sélection, avec les gagnants inclus dans la réponse
+        res.status(200).json({
+            message: "Les gagnants ont été sélectionnés et notifiés.",
+            winners: winners.map(winner => ({
+                id: winner.id,
+                prenom: winner.prenom,
+                nom: winner.nom,
+                email: winner.email
+            }))
+        });
     } catch (error) {
         console.error("Erreur lors de la sélection des gagnants :", error);
         res.status(500).json({message: "Erreur serveur, impossible d'enregistrer les gagnants."});
     }
 });
+
 
 /**
  * @swagger

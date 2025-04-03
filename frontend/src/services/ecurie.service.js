@@ -15,40 +15,10 @@ async function YearsRecup(){
 }
 
 async function tirageAuSort(presta_id, year, count = 10) {
-    try {
-        // Récupérer tous les participants de l'écurie
-        let res = await LocalSource.getAllEcurieParticipants(presta_id);
-
-        if (res.error || !res.data || res.data.length === 0) {
-            console.error("Aucun participant trouvé.");
-            return [];
-        }
-
-        // Filtrer les participants par année
-        let participants = res.data.filter(p => new Date(p.time).getFullYear() === year);
-
-        if (participants.length === 0) {
-            console.error(`Aucun participant trouvé pour l'année ${year}.`);
-            return [];
-        }
-        let tirage = [];
-        let maxTirage = Math.min(count, participants.length);
-
-        for (let i = 0; i < maxTirage; i++) {
-            let notSelectedParticipants = participants.filter(p => !tirage.includes(p));
-
-            if (notSelectedParticipants.length === 0) break;
-
-            let randomIndex = Math.floor(Math.random() * notSelectedParticipants.length);
-            tirage.push(notSelectedParticipants[randomIndex]);
-        }
-
-        console.log(`Participants sélectionnés pour ${year}:`, tirage);
-        return tirage;
-    } catch (error) {
-        console.error("Erreur lors du tirage au sort :", error);
-        return [];
-    }
+    return Request.post('/ecurie/:presta_id/winner')
+        .args({ presta_id })
+        .params({ year })
+        .send();
 }
 
 export default {

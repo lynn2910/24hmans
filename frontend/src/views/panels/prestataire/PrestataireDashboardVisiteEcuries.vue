@@ -1,8 +1,7 @@
 <script>
 import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
 import EcurieService from "@/services/ecurie.service";
-import {mapState} from "vuex";
-import {transformPrestataireName} from "@/utils";
+
 
 export default {
 	components: {PrestataireDashboardTemplate},
@@ -29,17 +28,18 @@ export default {
 		}
 	},
 	async beforeMount() {
-		console.log('aaaaaaaaaaaaaaaaaa')
-		if (this.loggedInUser) {
+		console.log('aaaaaaaaaaaaaaaaaa');
+		if (!this.loggedInUser) return;
+		if (!this.participantsByYear[this.selectedYear]) {
 			await this.fetchAllParticipants();
-			this.loadArchivedYears();
-			this.loadArchivedParticipants(this.selectedYear);
 		}
+		this.loadArchivedYears();
+		this.loadArchivedParticipants(this.selectedYear);
 	},
 	watch: {
-		async loggedInUser(nv) {
+		async loggedInUser(nv){
 			console.log(nv)
-			if (nv) {
+			if (nv){
 				await this.fetchAllParticipants();
 				this.loadArchivedYears();
 				this.loadArchivedParticipants(this.selectedYear);
@@ -54,6 +54,7 @@ export default {
 	methods: {
 		async fetchAllParticipants() {
 			try {
+				this.participantsByYear = {};
 				const res = await EcurieService.getAllEcurieParticipants(this.loggedInUser.id, this.selectedYear);
 				if (!res.error) {
 					this.participantsByYear = res.data.reduce((acc, participant) => {
@@ -66,29 +67,34 @@ export default {
 					}, {});
 					console.log("participantsByYear :", this.participantsByYear);
 				} else {
-					console.error(`Erreur récupération participants: ${res.data}`);
+					console.error('Erreur récupération participants: ${res.data}');
 				}
 			} catch (error) {
 				console.error("Erreur API :", error);
 			}
 		},
-		async deleteSelection() {
-			const prestataireKey = `archivedParticipants_${transformPrestataireName(this.loggedInUser.name)}_${this.selectedYear}`;
-			localStorage.removeItem(prestataireKey);
-			this.selectedParticipants = [];
-			this.loadArchiavedParticipants(this.selectedYear);
-		},
 		async handleTirage() {
-			console.log(1)
-			this.selectedParticipants = await EcurieService.tirageAuSort(
-					transformPrestataireName(this.loggedInUser.name),
-					this.selectedYear
-			);
-			console.log(JSON.stringify(this.selectedParticipants, null, 2))
-			const prestataireKey = `archivedParticipants_${transformPrestataireName(this.loggedInUser.name)}_${this.selectedYear}`;
-			localStorage.setItem(prestataireKey, JSON.stringify(this.selectedParticipants));
-			this.loadArchivedParticipants(this.selectedYear);
-		},
+			console.log('Démarrage du tirage au sort');
+
+			const ecurie_id = this.loggedInUser.id;
+
+			try {
+				const response = await EcurieService.tirageAuSort(
+						ecurie_id,
+						this.selectedYear
+				);
+
+				if (response && response.data && Array.isArray(response.data.winners)) {
+					this.selectedParticipants = response.data.winners;
+					console.log("Participants sélectionnés:", JSON.stringify(this.selectedParticipants, null, 2));
+				} else {
+					console.error("Aucun gagnant trouvé dans la réponse:", response);
+				}
+			} catch (error) {
+				console.error("Erreur lors du tirage au sort :", error);
+			}
+	},
+
 		loadArchivedYears() {
 			this.archiveYears = [];
 			for (let key in localStorage) {
@@ -105,9 +111,10 @@ export default {
 			this.archiveYears.sort((a, b) => b - a);
 		},
 		loadArchivedParticipants(year) {
-			const prestataireKey = `archivedParticipants_${transformPrestataireName(this.loggedInUser.name)}_${year}`;
-			const archivedData = localStorage.getItem(prestataireKey);
+			const archivedData =  EcurieService.tirageAuSort(this.loggedInUser.id, this.selectedYear);
+			console.log('Archived Data:', archivedData);
 			this.archivedParticipants = archivedData ? JSON.parse(archivedData) : [];
+			console.log('Participants archivés:', this.archivedParticipants);
 		}
 	}
 }
