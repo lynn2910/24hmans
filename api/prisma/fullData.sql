@@ -57,14 +57,14 @@ FROM Admin;
 DELETE
 FROM User;
 
-INSERT INTO user (`id`, `email`, `first_name`, `last_name`, `password`)
+INSERT INTO User (`id`, `email`, `first_name`, `last_name`, `password`)
 VALUES ('e052f135-13db-4a0d-aa15-f9bffac00359', 'test@gmail.com', 'Test', 'Family',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO'),
        ('e752b8f4-a2a5-46d4-84dc-1cc5d54a43ff', 'test@test.com', 'Test', 't',
         '$2a$10$/1XMkYyXXwxTUlxJtkULu.GNzj.2fztjlrHfjiWxOhgo45KLf/ney'),
        ('f4f434b3-f256-484b-8935-29e13126c9e8', 'carla@gmail.com', 'Carla', 'Wilson',
         '$2y$10$UwdnOZGp863rcdvYvpkiKOB5Cc3DCt3LtYHvIILE4eWqOGINTgiQO');
-INSERT INTO admin (`admin_id`, `name`, `password`)
+INSERT INTO Admin (`admin_id`, `name`, `password`)
 VALUES (1, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja'),
        (3, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja'),
        (4, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja'),
@@ -72,7 +72,7 @@ VALUES (1, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja'
        (6, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja'),
        (7, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja'),
        (8, 'max', '$2y$10$tGQso6tm1fKzqcJyDarjbOLs9sWVYsJmv42537Kt3p7Rn.uiD3Oja');
-INSERT INTO prestataire (`id`, `icon`, `password`, `description`, `name`, `referencer`, `email`, `accentColor`,
+INSERT INTO Prestataire (`id`, `icon`, `password`, `description`, `name`, `referencer`, `email`, `accentColor`,
                          `banner`)
 VALUES ('0b7956e6-1262-49f7-aaab-c5ab60d16cba', '/public/prestataires_icons/codeky_presta.jpg',
         '$2a$10$eMcDHdcnvFWXlBiEYcKAy.9T9k7DrWXtkepZytO6Z9aLsisubKDYa', NULL, 'Codeky', 'codeky', 'codeky@codeky.com',
@@ -155,7 +155,7 @@ Les 24 Heures du Mans, cest une exp&eacute;rience unique, un m&eacute;lange dadr
 </table>
 <p>&nbsp;</p>', 'Porsche', 'porsche', 'porsche@gmail.com', NULL, NULL),
        ('524aaa51-09c1-48f1-85d3-ac878394e1ff', '/public/prestataires_icons/karting_presta.png',
-        '$2y$10$GnxVPi3XmfkM.2MyKgJNLfe/v3Qj7sLgVx1mqUC/vxeZXS7IE56j8i', NULL, 'Kart24', 'kart24', 'kart24@gmail.com',
+        '$2b$12$q2TiCEKu0SDWFE2nPq45He.gXueN20nlAPHYCsS5RQ.X8Z1dG5vFG', NULL, 'Kart24', 'kart24', 'kart24@gmail.com',
         NULL, NULL),
        ('af3a0f62-5b13-4b19-9d42-736870b268a0', '/public/prestataires_icons/organisateurs_presta.png',
         '$2y$10$NXLvYYnkO8Nvz7vnuE6GVuszoBjyTFyAH2.vINZ1OinJZC6tRi6D6', NULL, '24h du Mans', '24hdumans',
