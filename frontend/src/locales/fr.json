@@ -67,7 +67,10 @@
     "ecu_empty": "Aucune écurie disponible pour le moment...",
     "boutiques": "Liste des boutiques",
     "bo_click": "Cliquez pour accéder à la boutique",
-    "bo_empty": "Aucun prestataire ne possède de boutique pour le moment."
+    "bo_empty": "Aucun prestataire ne possède de boutique pour le moment.",
+    "karting": "Liste des kartings",
+    "kart_click": "Cliquez pour accéder au karting",
+    "kart_empty": "Aucun prestataire ne possède de karting"
   },
   "navbar": {
     "billetteries": "Billetteries",
@@ -75,6 +78,7 @@
     "ecuries": "Ecuries",
     "map": "Carte",
     "prestataires": "Prestataire",
+    "karting": "Karting",
     "login": {
       "connect": "Se connecter",
       "profile": "Mon profil",

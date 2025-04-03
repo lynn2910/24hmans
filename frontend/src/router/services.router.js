@@ -34,5 +34,11 @@ export default [
         path: "/boutiques",
         name: "shop_list",
         component: () => import('../views/services/shop/BoutiqueListView.vue')
+    },
+
+    {
+        path: "/kartings",
+        name: "karting_list",
+        component: () => import('../views/services/KartingListView.vue')
     }
 ]
