@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<!-- Si le prestataire et la boutique existent -->
-		<div v-if="prestataire && shopExists" class="w-full mt-36">
+		<div v-if="prestataire && shopExists" class="w-full mt-28">
 			<h1 class="font-bold text-4xl text-center">{{ $t('services.shop.shop_name', {name: prestataire.name}) }}</h1>
 
-			<div class="w-3/4 min-w-80 mx-auto my-8">
+			<div class="w-3/4 min-w-80 mx-auto my-5">
 				<ShopFilter :categories="categories.map(c => c.category_label)"
 										v-on:newFilters="(f) => filters = f"></ShopFilter>
 

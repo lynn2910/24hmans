@@ -7,7 +7,7 @@
 					item_name: item.referencer || item.name.trim().toLowerCase().replace(/\s+/, '-')
 				}
 			}"
-			class="group bg-white bg-opacity-5 hover:bg-opacity-10 m-4 p-6 rounded-lg h-auto cursor-pointer w-56">
+			class="group bg-white bg-opacity-5 hover:bg-opacity-10 m-2 p-6 rounded-lg h-auto cursor-pointer w-56">
 
 		<img v-if="item.image" class="h-40 w-auto mx-auto text-center mb-2 rounded-full" :src="item.image"
 				 alt="Aucune image">
