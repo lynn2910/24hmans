@@ -28,10 +28,10 @@ export default {
 
 	computed: {
 		...mapState("login", ["loggedInUser"]),
-		...mapState("billetterie", {
-			billetterieCategory: state => state.category,
-			billetterieDate: state => state.date,
-			billetterieNbPersonnes: state => state.nbPersonnes
+		...mapState('billetterie', {
+			selectedCategory: state => state.selectedCategory,
+			selectedDates: state => state.selectedDates,
+			selectedPersonnes: state => state.selectedPersonnes
 		}),
 	},
 
@@ -54,13 +54,22 @@ export default {
 				return;
 			}
 
+			console.log("les info : ",this.selectedCategory,this.selectedDates,this.selectedPersonnes)
+
+
+			if (!this.selectedCategory || this.selectedDates.length === 0 || this.selectedPersonnes.length === 0) {
+				this.showErrorNotification("Veuillez compléter toutes les étapes de réservation"); // Problème à ce niveau
+				return;
+			}
+
 			const preparation = {
 				user_id: this.loggedInUser.id,
-				category: this.billetterieCategory,
-				date: this.billetterieDate,
-				nbPersonnes: this.billetterieNbPersonnes,
+				category: this.selectedCategory,
+				date: this.selectedDates,
+				nbPersonnes: this.selectedPersonnes,
 				created_at: new Date().toISOString()
 			};
+
 
 			try {
 				console.log("[DEBUG] Données envoyées au serveur:", JSON.stringify(preparation, null, 2));
@@ -102,6 +111,7 @@ export default {
 				);
 			}
 		},
+
 
 		handlePaymentClick() {
 			if (!this.loggedInUser) {

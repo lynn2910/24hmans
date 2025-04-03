@@ -101,6 +101,7 @@ import BilletterieTypeBillet from "@/components/services/billetterie/Billetterie
 import BilletterieDateSelection from "@/components/services/billetterie/BilletterieDateSelection.vue";
 import BilletteriePersonneSelection from "@/components/services/billetterie/BilletteriePersonneSelection.vue";
 import BilletteriePaiement from "@/components/services/billetterie/BilletteriePaiement.vue";
+import { mapActions } from 'vuex';
 
 const Etape = {
 	TypeBillet: 0,
@@ -127,41 +128,46 @@ export default {
 	},
 	async beforeMount() {
 		let res = await PrestataireService.getPrestataireFromName(this.$route.params['prestataire_name']);
-		console.log("Prestataire:", res);
 		if (!res.error) {
 			this.prestataire = res.data;
 
 			res = await PrestataireService.getAllCategoryTicket(this.prestataire.id);
-			console.log("Categories:", res);
 			if (!res.error) {
 				this.categories = res.data;
-			} else {
-				console.error("Erreur categories:", res.data);
+				await this.setBilletterieData({
+					category: res.data,
+					date: this.forfaits,
+					nbPersonnes: this.personnes
+				});
 			}
 
 			res = await PrestataireService.getAllForfaitTicket(this.prestataire.id);
-			console.log("Forfaits:", res);
 			if (!res.error) {
 				this.forfaits = res.data;
-			} else {
-				console.error("Erreur forfaits:", res.data);
+				await this.setBilletterieData({
+					category: this.categories,
+					date: res.data,
+					nbPersonnes: this.personnes
+				});
 			}
 
 			res = await PrestataireService.getAllPersonneTicket(this.prestataire.id);
-			console.log("Personnes:", res);
 			if (!res.error) {
 				this.personnes = res.data;
-			} else {
-				console.error("Erreur personnes:", res.data);
+				await this.setBilletterieData({
+					category: this.categories,
+					date: this.forfaits,
+					nbPersonnes: res.data
+				});
 			}
-
-		} else {
-			console.error("Erreur prestataire:", res.data);
 		}
 	},
 
 
-	methods: {
+		methods: {
+			...mapActions('billetterie', ['setBilletterieData']),
+
+
 		changeStep(new_step) {
 			this.currentStep = new_step;
 		},
