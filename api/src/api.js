@@ -45,10 +45,9 @@ app.get("/", function (req, res) {
     res.send("Hello World");
 });
 
-app.get("/hello/:name", require("./middlewares/prestataire.middleware"), function (req, res) {
+app.get("/hello/:name", function (req, res) {
     res.send(`Hello ${req.params.name}`);
 });
-createRule("/hello/:name", Method.All, User.Prestataire, [Permission.Prestataire]);
 
 //
 //
@@ -64,8 +63,6 @@ app.use("/users", require("./routes/user.router"));
 app.use("/auth", require("./routes/auth.router"));
 app.use("/carte", require("./routes/carte.router"));
 app.use("/karting", require("./routes/karting.router"));
-app.use("/cdn", require("./routes/cdn.router"));
-
 
 //
 //
