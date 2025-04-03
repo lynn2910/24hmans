@@ -172,7 +172,7 @@ router.get("/available", async (req, res) => {
  *                   description: The error message.
  */
 router.get("/:karting_id/", async (req, res) => {
-    if (req.query.sessionId) {
+    if (req.headers.authorization) {
         await authenticateToken(req, res, async () => {
             KartingService.get_karting(req.params.karting_id, req.session.userId)
                 .then(
@@ -183,7 +183,7 @@ router.get("/:karting_id/", async (req, res) => {
     } else {
         KartingService.get_karting(req.params.karting_id)
             .then(
-                (res) => res.status(200).json(res),
+                (d) => res.status(200).json(d),
                 ({status, message}) => res.status(status).json({message})
             );
     }
@@ -196,7 +196,6 @@ router.get("/:karting_id/", async (req, res) => {
 //
 
 router.get("/:presta_id/circuits", async (req, res) => {
-    console.log(req.params.presta_id)
     await KartingService.get_all_circuits(req.params.presta_id).then(
         (circuit) => res.status(200).json(circuit),
         ({status, message}) => res.status(status).json({message})
@@ -492,7 +491,7 @@ router.delete("/:karting_id/circuit/:circuit_id", authenticateToken, async (req,
 // Sessions
 /**
  * @swagger
- * /karting/{karting_id}/sessions:
+ * /karting/{karting_id}/circuit/{circuit_id}/sessions:
  *   get:
  *     summary: Get Karting Sessions
  *     tags:
@@ -501,11 +500,18 @@ router.delete("/:karting_id/circuit/:circuit_id", authenticateToken, async (req,
  *     parameters:
  *       - in: path
  *         name: karting_id
- *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         example: "1278aadd-b56a-458b-b8aa-ddb56a258bf8"
  *         required: true
  *         schema:
  *           type: string
  *         description: The ID of the karting.
+ *       - in: path
+ *         name: circuit_id
+ *         example: "7c9c6893-7402-48df-9c68-937402f8df02"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the circuit.
  *     responses:
  *       200:
  *         description: Session slots retrieved successfully.
@@ -604,35 +610,41 @@ router.delete("/:karting_id/circuit/:circuit_id", authenticateToken, async (req,
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/:karting_id/sessions", async (req, res) => {
-    try {
-        const kart = await get_karting_sessions(req.params.karting_id);
-        res.status(200).json(kart);
-    } catch (err) {
-        if (err.code === 'P2025') {
-            return res.status(404).json({message: "karting not found"});
-        }
+router.get(
+    "/:karting_id/circuit/:circuit_id/sessions",
+    async (req, res) => {
+        try {
+            const kart = await get_karting_sessions(req.params.circuit_id);
+            res.status(200).json(kart);
+        } catch (err) {
+            if (err.code === 'P2025') {
+                return res.status(404).json({message: "karting not found"});
+            }
 
-        console.error(err);
-        res.status(500).json({message: err.message});
+            console.error(err);
+            res.status(500).json({message: err.message});
+        }
     }
-})
+)
 
 // TODO: SWAGGER
-router.post("/:karting_id/sessions", authenticateToken, async (req, res) => {
-    let karting = await get_karting(req.params.karting_id, req.session?.userId || null);
-    if (!karting) {
-        res.status(404).json({message: "karting not found"});
-    }
+router.post(
+    "/:karting_id/circuit/:circuit_id/sessions",
+    authenticateToken,
+    async (req, res) => {
+        let karting = await get_karting(req.params.karting_id, req.session?.userId || null);
+        if (!karting) {
+            res.status(404).json({message: "karting not found"});
+        }
 
-    let fields = ["fromDate", "toDate", "maxSize"];
-    if (!fields.some((f) => f in req.body)) {
-        return res.status(409).json({message: "Missing fields"});
-    }
+        let fields = ["fromDate", "toDate", "maxSize"];
+        if (!fields.some((f) => f in req.body)) {
+            return res.status(409).json({message: "Missing fields"});
+        }
 
-    const session = await create_session(req.params.karting_id, karting.reservation_app_id, req.body);
-    res.status(200).json(session);
-})
+        const session = await create_session(req.params.circuit_id, req.body);
+        res.status(200).json(session);
+    })
 
 /**
  * @swagger
@@ -751,47 +763,55 @@ router.post("/:karting_id/sessions", authenticateToken, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.patch("/:karting_id/sessions/:session_id", authenticateToken, async (req, res) => {
-    let karting = await get_karting_session(req.params.karting_id, req.params.session_id);
-    if (!karting) {
-        // access denied
-        res.status(401).json({message: "Access denied"});
-        return;
+router.patch(
+    "/:karting_id/circuit/:circuit_id/sessions/:session_id",
+    authenticateToken,
+    async (req, res) => {
+        let karting = await get_karting_session(req.params.circuit_id, req.params.circuit_id);
+        if (!karting) {
+            // access denied
+            res.status(401).json({message: "Access denied"});
+            return;
+        }
+
+        let fields = ["fromDate", "toDate", "maxSize"];
+        if (!fields.some((f) => f in req.body)) {
+            return res.status(409).json({message: "Missing fields"});
+        }
+
+        let new_session = await update_session(
+            req.params.circuit_id,
+            req.params.session_id,
+            req.body
+        );
+
+        res.status(200).json(new_session);
     }
-
-    let fields = ["fromDate", "toDate", "maxSize"];
-    if (!fields.some((f) => f in req.body)) {
-        return res.status(409).json({message: "Missing fields"});
-    }
-
-    let new_session = await update_session(
-        req.params.karting_id,
-        req.params.session_id,
-        req.body
-    );
-
-    res.status(200).json(new_session);
-})
+)
 
 // TODO: SWAGGER
-router.delete("/:karting_id/sessions/:session_id", authenticateToken, async (req, res) => {
-    let karting = await get_karting_session(req.params.karting_id, req.params.session_id);
-    if (!karting) {
-        // access denied
-        res.status(401).json({message: "Access denied"});
-        return;
-    }
+router.delete(
+    "/:karting_id/circuit/:circuit_id/sessions/:session_id",
+    authenticateToken,
+    async (req, res) => {
+        let karting = await get_karting_session(req.params.circuit_id, req.params.session_id);
+        if (!karting) {
+            // access denied
+            res.status(401).json({message: "Access denied"});
+            return;
+        }
 
-    try {
-        let old_session = await delete_session(req.params.karting_id, req.params.session_id);
-        res.status(200).json(old_session);
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({message: e.message});
+        try {
+            let old_session = await delete_session(req.params.circuit_id, req.params.session_id);
+            res.status(200).json(old_session);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({message: e.message});
+        }
     }
-})
+)
 
-// Sessions (user)
+// Registrations (user)
 
 /**
  * @swagger
@@ -848,27 +868,30 @@ router.delete("/:karting_id/sessions/:session_id", authenticateToken, async (req
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post("/:karting_id/sessions/:session_id/register", authenticateToken, async (req, res) => {
-    try {
-        const karting = await get_karting(req.params.karting_id, null);
+router.post(
+    "/:karting_id/circuit/:circuit_id/sessions/:session_id/register",
+    authenticateToken,
+    async (req, res) => {
+        try {
+            const karting = await get_karting(req.params.karting_id, null);
+            if (!karting) {
+                res.status(401).json({message: "Access denied"});
+                return;
+            }
 
-        if (!karting) {
-            res.status(401).json({message: "Access denied"});
-            return;
+            const reservation = await create_reservation(
+                req.params.circuit_id,
+                req.params.session_id,
+                req.user.id,
+                req.body.pseudo
+            );
+
+            res.status(200).json(reservation);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({message: e.message});
         }
-
-        const reservation = await create_reservation(
-            karting.reservation_app_id,
-            req.body.circuit_id,
-            req.session.userId,
-            req.body.pseudo
-        );
-
-        res.status(200).json(reservation);
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({message: e.message});
     }
-})
+)
 
 module.exports = router;

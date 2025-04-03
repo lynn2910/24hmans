@@ -2,21 +2,6 @@ const prisma = require("../db");
 const uuid = require("uuid");
 
 function get_all_circuits(presta_id) {
-    console.log(presta_id);
-    console.log(prisma.kartingCircuit.findMany({
-        select: {
-            circuit_id: true,
-            karting_id: true,
-            minAge: true,
-            circuit_name: true,
-            kart_power: true,
-        },
-        where: {
-            karting: {
-                prestataire_id: presta_id
-            }
-        }
-    }))
     return prisma.kartingCircuit.findMany({
         select: {
             circuit_id: true,
@@ -74,24 +59,18 @@ function get_available_kartings(prestataire_id = null) {
 function get_karting(karting_id, prestataire_id = null) {
     return new Promise(async (resolve, reject) => {
         try {
-            let karting = await prisma.karting.findUnique({
+            let karting = await prisma.karting.findMany({
                 where: {
                     karting_id,
                 },
                 include: {
                     circuits: true,
-                    reservations: {
-                        include: {
-                            reservation_slots: true,
-                        }
-                    }
                 }
             });
 
-            if (
-                !karting
-                || (!karting.enabled && karting.prestataire_id !== prestataire_id)
-            ) {
+            let filteredKarting = karting.filter(k => k.enabled || k.prestataire_id === prestataire_id)[0]
+
+            if (!filteredKarting) {
                 return reject({status: 401, message: "You don't have access to this karting"});
             }
 
@@ -219,67 +198,66 @@ function delete_circuit(karting_id, circuit_id) {
     })
 }
 
-function get_karting_sessions(karting_id) {
+/**
+ * @param {string} circuit_id
+ */
+function get_karting_sessions(circuit_id) {
     return prisma.kartingSessionSlot.findMany({
         where: {
-            karting_id
-        },
-        include: {
-            session_slot: true,
+            circuit: {
+                circuit_id: {equals: circuit_id}
+            }
         },
     })
 }
 
-function create_session(karting_id, reservation_app_id, body) {
+/**
+ * @param {string} circuit_id
+ * @param {{fromDate: string, toDate: string, maxSize: string}} body
+ */
+function create_session(circuit_id, body) {
     return prisma.kartingSessionSlot.create({
         data: {
             session_id: uuid.v4(),
-            karting: {
-                connect: {karting_id},
-            },
-            session_slot: {
-                create: {
-                    reservation_id: uuid.v4(),
-                    app: {
-                        connect: {
-                            app_id: reservation_app_id
-                        }
-                    },
-                    from: body.fromDate,
-                    to: body.toDate,
-                    maxSize: body.maxSize,
+            maxSize: body.maxSize,
+            from_date: body.fromDate,
+            to_date: body.toDate,
+            circuit: {
+                connect: {
+                    circuit_id
                 }
             }
         }
     })
 }
 
-function get_karting_session(karting_id, session_id) {
+function get_karting_session(circuit_id, session_id) {
     return prisma.kartingSessionSlot.findUnique({
         where: {
-            session_id, karting_id
+            circuit_id, session_id
         }
     })
 }
 
-function update_session(karting_id, session_id, data) {
+function update_session(circuit_id, session_id, data) {
     return prisma.kartingSessionSlot.update({
         data: {
-            session_slot: {
-                update: {
-                    from: data.fromDate,
-                    to: data.toDate,
-                    maxSize: data.maxSize,
-                }
+            maxSize: data.maxSize,
+            from_date: data.fromDate,
+            to_date: data.toDate
+        },
+        where: {
+            circuit: {
+                circuit_id
             }
         }
     })
 }
 
-function delete_session(karting_id, session_id) {
+function delete_session(circuit_id, session_id) {
     return prisma.kartingSessionSlot.delete({
         where: {
-            karting_id, session_id,
+            circuit_id, session_id,
         }
     })
 }
@@ -296,18 +274,18 @@ function get_user_reservations(user_id) {
     })
 }
 
-function create_reservation(reservation_id, circuit_id, user_id, pseudo) {
-    return prisma.userKartingSession.upsert({
+function create_reservation(circuit_id, session_id, user_id, pseudo) {
+    return prisma.userKartingReservation.upsert({
         create: {
             pseudo,
-            reservation_slot: {
-                connect: {session_id: reservation_id}
-            },
             circuit: {
                 connect: {circuit_id}
             },
+            session: {
+                connect: {session_id}
+            },
             user: {
-                connect: {user_id}
+                connect: {id: user_id}
             }
         },
         update: {
@@ -315,9 +293,8 @@ function create_reservation(reservation_id, circuit_id, user_id, pseudo) {
         },
         where: {
             user_id,
-            reservation_slot: {
-                session_id: reservation_id,
-            }
+            session_id,
+            circuit_id
         }
     })
 }
