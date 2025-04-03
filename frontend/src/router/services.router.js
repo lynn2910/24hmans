@@ -40,5 +40,10 @@ export default [
         path: "/kartings",
         name: "karting_list",
         component: () => import('../views/services/KartingListView.vue')
-    }
+    },
+    {
+        path: "/karting/:prestataire_name",
+        name: "karting_view",
+        component: () => import( '../views/services/karting/KartingRegisterView.vue'),
+    },
 ]

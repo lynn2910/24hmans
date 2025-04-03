@@ -8,9 +8,15 @@ const {
     update_circuit,
     get_karting_circuit,
     delete_circuit,
-    get_karting_sessions, create_session, get_karting_session, update_session, delete_session, create_reservation
+    get_karting_sessions,
+    create_session,
+    get_karting_session,
+    update_session,
+    delete_session,
+    create_reservation
 } = require("../services/karting.service");
 const {authenticateToken} = require("../middlewares/auth.middleware");
+
 
 /**
  * @swagger
@@ -189,6 +195,14 @@ router.get("/:karting_id/", async (req, res) => {
 //
 //
 
+router.get("/:presta_id/circuits", async (req, res) => {
+    console.log(req.params.presta_id)
+    await KartingService.get_all_circuits(req.params.presta_id).then(
+        (circuit) => res.status(200).json(circuit),
+        ({status, message}) => res.status(status).json({message})
+    );
+})
+
 /**
  * @swagger
  * /karting/{karting_id}/circuit:
@@ -269,6 +283,7 @@ router.post("/:karting_id/circuit", authenticateToken, async (req, res) => {
         ({status, message}) => res.status(status).json({message})
     )
 })
+
 /**
  * @swagger
  * /karting/{karting_id}/circuit/{circuit_id}:
@@ -459,6 +474,7 @@ router.patch("/:karting_id/circuit/:circuit_id", authenticateToken, async (req, 
     res.status(200).json(new_circuit);
 })
 
+// TODO: SWAGGER
 router.delete("/:karting_id/circuit/:circuit_id", authenticateToken, async (req, res) => {
     let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
 
@@ -602,6 +618,7 @@ router.get("/:karting_id/sessions", async (req, res) => {
     }
 })
 
+// TODO: SWAGGER
 router.post("/:karting_id/sessions", authenticateToken, async (req, res) => {
     let karting = await get_karting(req.params.karting_id, req.session?.userId || null);
     if (!karting) {
@@ -755,6 +772,8 @@ router.patch("/:karting_id/sessions/:session_id", authenticateToken, async (req,
 
     res.status(200).json(new_session);
 })
+
+// TODO: SWAGGER
 router.delete("/:karting_id/sessions/:session_id", authenticateToken, async (req, res) => {
     let karting = await get_karting_session(req.params.karting_id, req.params.session_id);
     if (!karting) {

@@ -20,7 +20,7 @@
 import PaymentInformations from "@/components/PaymentInformations.vue";
 import LoginPopup from "@/components/dashboard/LoginPopup.vue";
 import { mapState } from "vuex";
-import UsersService from "@/services/users.service";
+import BilletterieService from "@/services/billetterie.service";
 
 export default {
 	name: "BilletteriePaiement",
@@ -51,11 +51,11 @@ export default {
 			}
 
 
-			console.log("les info : ",this.selectedCategory,this.selectedDates,this.selectedPersonnes) // Retourne "les info : null
+			console.log("les info : ",this.selectedCategory,this.selectedDates,this.selectedPersonnes)
 
 
 			if (!this.selectedCategory || this.selectedDates.length === 0 || this.selectedPersonnes.length === 0) {
-				this.showErrorNotification("Veuillez compléter toutes les étapes de réservation"); // Problème à ce niveau
+				this.showErrorNotification("Veuillez compléter toutes les étapes de réservation");
 				return;
 			}
 
@@ -69,10 +69,10 @@ export default {
 
 
 			try {
-				console.log("[DEBUG] Données envoyées au serveur:", JSON.stringify(preparation, null, 2));
+				console.log("Données envoyées au serveur:", JSON.stringify(preparation, null, 2));
 
-				const response = await UsersService.newOrder(preparation);
-				console.log("[DEBUG] Réponse du serveur:", response);
+				const response = await BilletterieService.newOrder(this.loggedInUser.id,preparation);
+				console.log("Réponse du serveur:", response);
 
 				if (!response) {
 					throw new Error("Le serveur n'a pas renvoyé de réponse");
@@ -87,7 +87,7 @@ export default {
 				// Extraction robuste de l'ID de commande
 				const orderId = response.data?.order_id || response.data?.id;
 				if (!orderId) {
-					console.error("[ERROR] Structure de réponse inattendue:", response);
+					console.error("Structure de réponse inattendue:", response);
 					throw new Error("La commande a été créée mais aucun ID n'a été retourné");
 				}
 
@@ -97,7 +97,7 @@ export default {
 				});
 
 			} catch (error) {
-				console.error("[ERROR] Erreur lors de la création de commande:", {
+				console.error("Erreur lors de la création de commande:", {// Problème à ce niveau
 					error: error.message,
 					stack: error.stack,
 					response: error.response?.data

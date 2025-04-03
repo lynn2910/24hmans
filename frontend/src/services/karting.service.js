@@ -7,8 +7,15 @@ async function getAvailableKartings() {
     return await Request.get('/karting/available').send();
 }
 
+async function getAllCircuits(presta_id) {
+    console.log(presta_id)
+    return await Request.get('/karting/:presta_id/circuits')
+        .args({presta_id})
+        .send();
+}
+
 async function getKarting(karting_id) {
-    return await Request.get('karting/:karting_id')
+    return await Request.get('/karting/:karting_id')
         .args({karting_id})
         .send()
 }
@@ -72,9 +79,10 @@ async function registerUserInSession(karting_id, session_id, registering_details
         .send();
 }
 
-export {
+export default {
     getAvailableKartings,
     getKarting,
+    getAllCircuits,
     createKartingCircuit,
     getKartingCircuit,
     updateKartingCircuit,

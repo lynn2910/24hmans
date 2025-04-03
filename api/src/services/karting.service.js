@@ -1,6 +1,39 @@
 const prisma = require("../db");
 const uuid = require("uuid");
 
+function get_all_circuits(presta_id) {
+    console.log(presta_id);
+    console.log(prisma.kartingCircuit.findMany({
+        select: {
+            circuit_id: true,
+            karting_id: true,
+            minAge: true,
+            circuit_name: true,
+            kart_power: true,
+        },
+        where: {
+            karting: {
+                prestataire_id: presta_id
+            }
+        }
+    }))
+    return prisma.kartingCircuit.findMany({
+        select: {
+            circuit_id: true,
+            karting_id: true,
+            karting: true,
+            minAge: true,
+            circuit_name: true,
+            kart_power: true,
+        },
+        where: {
+            karting: {
+                prestataire_id: presta_id
+            }
+        }
+    })
+}
+
 function get_available_kartings(prestataire_id = null) {
     if (prestataire_id) {
         return prisma.karting.findMany({
@@ -314,6 +347,7 @@ module.exports = {
     get_available_kartings,
     get_karting,
 
+    get_all_circuits,
     create_circuit,
     get_karting_circuit,
     update_circuit,

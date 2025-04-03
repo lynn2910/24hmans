@@ -11,16 +11,27 @@ Page de gestion de la carte interactive presta
 
       <!--    Carte Interactive vue admin-->
       <div
-          class="w-full justify-start gap-4 m-5 mr-0 h-full bg-blue-400 bg-opacity-5 border border-gray-700 rounded-2xl m-0 p-2">
+          class="relative w-full justify-start gap-4 m-5 mr-0 h-full bg-blue-400 bg-opacity-5 border border-gray-700 rounded-2xl m-0 p-2">
         <CarteInteractivePresta
             ref="mapComponent"
             width="100%"
             height="100%"
             borderRadius="0px"
+            class="relative z-0"
             @zoneSelected="updateFormData"
             :categories="categories"
             :get-prestataire="getPrestataire"
         />
+
+        <!-- Image en superposition -->
+        <div class="absolute top-5 left-0 right-0 z-50 flex justify-center">
+          <img
+              src="@/assets/images/descriptionServices.png"
+              alt="description carte interactive"
+              class="w-4/5 object-contain mx-auto"
+              loading="lazy"
+          />
+        </div>
       </div>
 
       <!--    Formulaire de modification d'une zone spécifique-->

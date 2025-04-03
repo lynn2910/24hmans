@@ -5,8 +5,8 @@
 				{{ greetings }}, {{ loggedInUser.name }}
 			</h1>
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-7">
-				<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-7">
+				<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 col-span-2">
 					<h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
 						{{ $t('home.prestataires.name') }}
 					</h2>
@@ -20,7 +20,7 @@
 								<th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-left text-xs font-semibold uppercase tracking-wider">
 									{{ $t('global.services') }}
 								</th>
-								<th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-left text-xs font-semibold uppercase tracking-wider">
+								<th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-left text-xs font-semibold uppercase tracking-wider w-60">
 									Actions
 								</th>
 							</tr>
@@ -41,7 +41,7 @@
                 	</span>
 								</td>
 								<td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 text-sm">
-									<div class="flex space-x-2">
+									<div class="flex space-x-2 justify-end">
 										<router-link
 												:to="{name: 'prestataire_profile', params: {prestataire_name: prestataire.referencer}}"
 												target="_blank"
@@ -58,10 +58,10 @@
 												:to="`/fr/admin/panel/prestataires?edit&prestataire_id=${prestataire.id}`"
 												class="inline-flex items-center px-4 py-2 bg-yellow-500 text-white text-sm font-medium rounded-md hover:bg-yellow-600 transition-colors"
 										>
-											<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-													 stroke="currentColor">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-															d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 012.828 0L20 10l-8 8-2-2 8-8-7-7z"/>
+											<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+												<path d="m18.988 2.012 3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287-3-3L8 13z"></path>
+												<path
+														d="M19 19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2V19z"></path>
 											</svg>
 										</router-link>
 										<router-link
