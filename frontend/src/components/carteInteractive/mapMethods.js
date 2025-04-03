@@ -2,6 +2,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-draw';
+import * as turf from '@turf/turf';
+
 import {mapActions} from "vuex";
 
 
@@ -18,7 +20,7 @@ export default {
             maxBoundsViscosity: 0.7,
             minZoom: 12,
             maxZoom: 18,
-            zoomControl: false,  // Désactive le contrôle de zoom par défaut
+            zoomControl: false,
         }).setView([47.955, 0.212], 16);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -52,15 +54,13 @@ export default {
                 circle: false,
                 marker: true,
                 circlemarker: false,
-                polyline: true,
+                polyline: false,
                 rectangle: true,
             },
         });
 
-        // Définir la position en bas à gauche
         drawControl.setPosition('bottomleft');
 
-        // Ajouter le contrôle à la carte
         map.addControl(drawControl);
 
         const markerIcons = {
@@ -89,31 +89,104 @@ export default {
             this.updateMarkerIconSizes(map.getZoom());
         });
 
+        let originalEditStates = new Map();
+
+        map.on('draw:editstart', () => {
+            originalEditStates.clear();
+            this.featureGroup.eachLayer(layer => {
+                if (layer.shape_id) {
+                    originalEditStates.set(layer.shape_id, {
+                        latlngs: layer instanceof L.Marker ?
+                            layer.getLatLng() :
+                            JSON.parse(JSON.stringify(layer.getLatLngs()))
+                    });
+                }
+            });
+        });
+
         map.on('draw:created', (event) => {
             const layer = event.layer;
 
-            // ajouter un marker, appel méthode du component CategoryModal
             if (event.layerType === 'marker') {
-                    this.addMarker(event);
+                this.addMarker(event);
+            }
+
+            if (event.layerType !== 'marker') {
+                try {
+                    layer.getBounds();
+                } catch (e) {
+                    console.error("Nouvelle layer invalide:", e);
+                    map.removeLayer(layer);
+                    return;
+                }
+
+                let hasOverlap = false;
+                this.featureGroup.eachLayer((existingLayer) => {
+                    if (existingLayer && existingLayer.getBounds &&
+                        this.checkOverlap(layer, existingLayer)) {
+                        hasOverlap = true;
+                    }
+                });
+
+                if (hasOverlap) {
+                    map.removeLayer(layer);
+                    this.showStyledAlert("Les formes ne peuvent pas se chevaucher !");
+                    return;
+                }
             }
 
             this.featureGroup.addLayer(layer);
             this.applyCategoryStyle(layer);
-            this.saveShape(layer);
+            this.saveShape(layer, getPrestataire);
             this.addPopupToShape(layer, getPrestataire);
         });
 
         map.on('draw:deleted', (event) => {
             event.layers.eachLayer((layer) => {
-                this.removeShape(layer);
+                this.removeShape(layer, getPrestataire);
             });
         });
 
         map.on('draw:edited', (event) => {
-            event.layers.eachLayer((layer) => {
-                this.updatedShape(layer, getPrestataire);
-            })
-        })
+            let hasInvalidEdit = false;
+
+            event.layers.eachLayer((editedLayer) => {
+                let hasOverlap = false;
+
+                // Vérifier avec toutes les autres couches
+                this.featureGroup.eachLayer((otherLayer) => {
+                    if (otherLayer !== editedLayer && this.checkOverlap(editedLayer, otherLayer)) {
+                        hasOverlap = true;
+                    }
+                });
+
+                if (hasOverlap) {
+                    hasInvalidEdit = true;
+                    const original = originalEditStates.get(editedLayer.shape_id);
+
+                    if (original) {
+                        if (editedLayer instanceof L.Marker) {
+                            editedLayer.setLatLng(original.latlngs);
+                        } else {
+                            editedLayer.setLatLngs(original.latlngs);
+                        }
+
+                        editedLayer.redraw();
+
+                        this.applyCategoryStyle(editedLayer);
+                    }
+                }
+            });
+
+            if (hasInvalidEdit) {
+                this.showStyledAlert("Modification impossible - chevauchement détecté");
+                this.featureGroup.fire('update');
+            } else {
+                event.layers.eachLayer((layer) => {
+                    this.updatedShape(layer, getPrestataire);
+                });
+            }
+        });
 
         map.on('popupopen', (event) => {
             const layer = event.popup._source;
@@ -179,11 +252,11 @@ export default {
     },
 
     reloadShapesOnMap(getPrestataire) {
+        console.log("featureGroup", this.featureGroup)
         this.featureGroup.clearLayers();
 
         this.getShapes.forEach((shape) => {
             let layer = null;
-
 
             if (shape.type === 'marker') {
                 const isShortIcon = ["porsche_presta", "organisateurs_presta", "montgolfiere_presta", "karting_presta", "ferrari_presta", "codeky_presta"].some(keyword => shape.iconUrl.includes(keyword));
@@ -198,23 +271,18 @@ export default {
                 });
                 layer = L.marker(shape.coordinates, {icon});
 
-                // Vérification du type de forme
             } else if (Array.isArray(shape.coordinates[0])) {
-                // Si c'est un tableau d'array, on considère que c'est un polygone
                 layer = L.polygon(shape.coordinates);
             } else if (shape.coordinates.lat && shape.coordinates.lng) {
-                // Si ce sont des coordonnées de marker ou cercle
                 if (shape.radius) {
                     layer = L.circle([shape.coordinates.lat, shape.coordinates.lng], {radius: shape.radius});
                 } else {
                     layer = L.marker([shape.coordinates.lat, shape.coordinates.lng]);
                 }
             } else if (Array.isArray(shape.coordinates)) {
-                // Si ce sont des coordonnées d'une polyline
                 layer = L.polyline(shape.coordinates);
             }
 
-            // Vérification si la forme a été correctement créée
             if (layer) {
                 layer.shape_id = shape.shape_id || -1;
                 layer.coordinates = shape.coordinates;
@@ -227,14 +295,8 @@ export default {
                 layer.provider = shape.provider || '';
                 layer.service = shape.service || '';
 
-
-                // Ajouter la couche au groupe de caractéristiques
                 this.featureGroup.addLayer(layer);
-
-                // Appliquer le style basé sur la catégorie
                 this.applyCategoryStyle(layer);
-
-                // Ajouter un popup avec les informations
                 this.addPopupToShape(layer, getPrestataire);
             }
         });
@@ -252,6 +314,8 @@ export default {
     },
 
     addPopupToShape(layer, getPrestataire) {
+        if (!getPrestataire) throw new Error("getPrestataire must be a function");
+
         if (!layer.iconUrl && layer.iconUrl === "") {
             const popupContent = `
                 <h2 class="w-full p-1 text-sm font-extrabold"> ${layer.name || 'Emplacement vide'} </h2>
@@ -288,30 +352,37 @@ export default {
         });
     },
 
-    saveShape(layer) {
+    async saveShape(layer, getPrestataire) {
         const shapeData = {
-            type: layer instanceof L.Marker ? 'marker' : layer instanceof L.Circle ? 'circle' : 'polygon',
+            type: layer instanceof L.Marker ? 'marker' : 'shape',
             coordinates: layer.getLatLng ? layer.getLatLng() : layer.getLatLngs(),
             iconUrl: layer.iconUrl || '',
-            radius: layer instanceof L.Circle ? layer.getRadius() : undefined,
         };
-        this.addShape(shapeData);
+        await this.addShape(shapeData);
+        await this.getAllShapes();
+        this.reloadShapesOnMap(getPrestataire);
     },
 
     async updatedShape(layer, getPrestataire) {
         let updatedShape;
         if (layer.iconUrl !== '') {
-            // "type":"marker","coordinates":{"lat":47.953072376516126,"lng":0.2018051144841593},"iconUrl":"/markers/villageMarker.png","shape_id":70}
             updatedShape = {
                 type: 'marker',
                 coordinates: layer.getLatLng(),
                 iconUrl: layer.iconUrl,
                 shape_id: layer.shape_id,
+                name: layer.name || '',
+                logistics: layer.logistics || '',
+                surface: layer.surface || '',
+                description: layer.description || '',
+                provider: layer.provider || null,
+                service: layer.service || '',
+                category: layer.category || '',
             };
 
         } else {
-            // {"shape_id":62,"type":"shape","coordinates":[[{"lat":47.953746553497886,"lng":0.2087509632110596},{"lat":47.953746553497886,"lng":0.20850419998168948},{"lat":47.953484284757586,"lng":0.20850956439971924},{"lat":47.95348069202586,"lng":0.20857930183410647},{"lat":47.95353099024711,"lng":0.2085953950881958},{"lat":47.95352739751865,"lng":0.20874023437500003}]],"name":"Boutique Codeky","logistics":"Aire de jeu, Boutique, Fast Food","surface":"125","description":"Retrouvez tous ce qu'il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.","provider":"0b7956e6-1262-49f7-aaab-c5ab60d16cba","service":"","category":"boutique"}
             updatedShape = {
+                type: 'shape',
                 shape_id: layer.shape_id,
                 coordinates: layer.getLatLngs ?
                     (Array.isArray(layer.getLatLngs())
@@ -323,21 +394,23 @@ export default {
                 logistics: layer.logistics || '',
                 surface: layer.surface || '',
                 description: layer.description || '',
-                provider: layer.provider || '',
+                provider: layer.provider || null,
                 service: layer.service || '',
                 category: layer.category || 'default',
             };
         }
 
         try {
-            await this.updateShape(updatedShape);
-            this.reloadShapesOnMap(getPrestataire)
+            await this.updateShape(updatedShape)
+            await this.getAllShapes();
+            this.reloadShapesOnMap(getPrestataire);
         } catch (error) {
             console.error('Erreur lors de la mise à jour des coordonnées de la shape:', error);
         }
     },
 
     saveAllShapes() {
+        this.getAllShapes();
         const dataToSave = JSON.stringify(this.getShapes);
         const blob = new Blob([dataToSave], {type: 'application/json'});
         const link = document.createElement('a');
@@ -346,6 +419,9 @@ export default {
         link.click();
     },
 
+    // TODO: non fonctionnel car on envoie pas les data a l'api
+    //  (permet seulement la visualisation car si on touche a un
+    //  shape alors on va reload l'api)
     loadShapesFromFile(event, getPrestataire) {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -364,5 +440,73 @@ export default {
         if (shapeId) {
             this.deleteShape(shapeId);
         }
-    }
+    },
+
+    layerToTurfFeature(layer) {
+        if (!layer) return null;
+
+        try {
+            if (layer instanceof L.Polygon) {
+                const latLngs = layer.getLatLngs();
+                if (!latLngs || latLngs.length === 0) return null;
+
+                // Valider et corriger chaque anneau
+                const coordinates = latLngs.map(ring => {
+                    let points = ring.map(ll => [ll.lng, ll.lat]);
+
+                    // Fermer l'anneau si nécessaire
+                    if (points.length > 0 && !turf.booleanEqual(
+                        turf.point(points[0]),
+                        turf.point(points[points.length - 1])
+                    )) {
+                        points.push(points[0]);
+                    }
+
+                    // Vérifier le nombre minimum de points
+                    if (points.length < 4) {
+                        console.warn("Polygone invalide - moins de 4 points. Ajout de points fictifs.");
+                        while (points.length < 4) {
+                            points.push(points[0]);
+                        }
+                    }
+
+                    return points;
+                });
+
+                return turf.polygon(coordinates);
+            }
+        } catch (e) {
+            console.error("Erreur de conversion en feature Turf:", e);
+            return null;
+        }
+    },
+
+    checkOverlap(newLayer, existingLayer) {
+        // Vérifier d'abord si les layers sont valides
+        if (!newLayer || !existingLayer ||
+            !newLayer.getBounds || !existingLayer.getBounds) {
+            return false;
+        }
+
+        // Vérification rapide des bounding boxes
+        try {
+            if (!newLayer.getBounds().intersects(existingLayer.getBounds())) {
+                return false;
+            }
+        } catch (e) {
+            console.error("Erreur lors de la vérification des bounds:", e);
+            return false;
+        }
+
+        // Conversion en features Turf.js
+        const newFeature = this.layerToTurfFeature(newLayer);
+        const existingFeature = this.layerToTurfFeature(existingLayer);
+
+        if (!newFeature || !existingFeature) return false;
+
+        // Vérification précise du chevauchement
+        return turf.booleanOverlap(newFeature, existingFeature) ||
+            turf.booleanContains(newFeature, existingFeature) ||
+            turf.booleanContains(existingFeature, newFeature);
+    },
 };

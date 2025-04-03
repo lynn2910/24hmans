@@ -37,8 +37,8 @@
       <label
           for="file-input"
           class="z-50 pt-2 pb-2 pl-2 pr-2 w-9 border-neutral-400 border bg-white font-medium rounded-md hover:bg-gray-200 transition shadow-lg"
-          title="Importer les shapes"
-          aria-label="Importer les shapes"
+          title="Importer les shapes (Visualisation seule)"
+          aria-label="Importer les shapes (Visualisation seule)"
       >
         <svg width="18" height="18" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M45.3333 34.6667H29.3333V18.6667" stroke="black" stroke-width="5.33333" stroke-linecap="round"
@@ -58,12 +58,22 @@
       </label>
     </div>
 
+    <div v-if="showAlert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[1000]">
+      <div class="bg-gray-900 border border-slate-500 p-6 rounded-lg text-center min-w-[300px]">
+        <h2 class="text-2xl font-bold text-white mb-4">{{ alertMessage }}</h2>
+
+        <button @click="showAlert = false"
+                class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none text-lg">
+          OK
+        </button>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import mapMethods from '@/components/carteInteractive/mapMethods';
-// import initialShapes from '@/datasource/carteZones.json';
 import {mapActions, mapGetters} from 'vuex';
 import CategoryModal from "@/components/carteInteractive/CategoryModal.vue";
 
@@ -72,6 +82,8 @@ export default {
   components: {CategoryModal},
   data() {
     return {
+      showAlert: false,
+      alertMessage: '',
       showCategoryModal: false,
       pendingMarker: null,
       markerIcons: {
@@ -129,15 +141,6 @@ export default {
     },
   },
 
-  watch: {
-    shapes: {
-      handler(newShapes) {
-        this.reloadShapesOnMap(this.getPrestataire);
-      },
-      deep: true,
-    },
-  },
-
   async mounted() {
     this.initMap(this.onPopupOpen, this.getPrestataire);
     if (this.getShapes.length === 0) {
@@ -174,17 +177,26 @@ export default {
 
       const iconUrl = this.markerIcons[category] || this.markerIcons["village_service"];
       const iconSize = [30, 30];
-      const icon = L.icon({ iconUrl, iconSize });
+      const icon = L.icon({iconUrl, iconSize});
 
       this.pendingMarker.setIcon(icon);
       this.pendingMarker.iconUrl = iconUrl;
 
       this.featureGroup.addLayer(this.pendingMarker);
       this.applyCategoryStyle(this.pendingMarker);
-      this.saveShape(this.pendingMarker);
+      this.saveShape(this.pendingMarker, this.getPrestataire);
       this.addPopupToShape(this.pendingMarker, this.getPrestataire);
 
       this.pendingMarker = null;
+    },
+
+    publicReloadShapes() {
+      this.reloadShapesOnMap(this.getPrestataire);
+    },
+
+    showStyledAlert(message) {
+      this.alertMessage = message
+      this.showAlert = true
     },
 
     ...mapActions("prestataire", ["getAllPrestataires"]),

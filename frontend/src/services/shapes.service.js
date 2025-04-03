@@ -1,25 +1,34 @@
+import {Request} from "./axios.service"
 import LocalSource from "@/datasource/controller"
 
 async function getAllShapes() {
-    return LocalSource.getAllShapes()
+    return await Request.get("/carte/shapes")
+        .send();
 }
 
 async function updateShape(updateShapes) {
-    return LocalSource.updateArea(updateShapes);
+    console.log(updateShapes);
+    return await Request.put(`/carte/shapes/${updateShapes.shape_id}`)
+        .body(updateShapes)
+        .send();
 }
 
 async function addShape(newShape) {
-    return LocalSource.addArea(newShape);
+    return await Request.post("/carte/shapes")
+        .body(newShape)
+        .send();
 }
 
 async function removeShape(ShapeId) {
-    return LocalSource.removeArea(ShapeId);
+    return await Request.delete(`/carte/shapes/${ShapeId}`)
+        .send();
 }
 
-// TODO: faut rajouter ca dans l'api ! requete post qui prend des
-//  parametres différents en fonction de la personne qui supp des éléments d'une zone
 async function deleteInfosPost(infosShape) {
-    return LocalSource.deleteInfosPost(infosShape);
+    console.log("BEFORE", infosShape);
+    return await Request.post(`/carte/shapes/${infosShape.shape_id}`)
+        .body(infosShape)
+        .send();
 }
 
 export default {

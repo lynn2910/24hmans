@@ -27,7 +27,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -58,7 +58,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -89,7 +89,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -120,7 +120,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -167,7 +167,7 @@
     "surface": "125",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -202,7 +202,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -233,7 +233,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -264,7 +264,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -295,7 +295,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -326,7 +326,7 @@
     "surface": "85",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -357,7 +357,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -388,7 +388,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -419,7 +419,7 @@
     "surface": "100",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -514,7 +514,7 @@
     "surface": "780",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -545,7 +545,7 @@
     "surface": "200",
     "description": "Tribune accueillant les spectateurs des 24H du Mans.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "tribunes"
   },
   {
@@ -1033,7 +1033,7 @@
     "surface": "250",
     "description": "Reposez-vous au sein de notre domaine.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "emplacements"
   },
   {
@@ -1084,7 +1084,7 @@
     "surface": "550",
     "description": "Reposez-vous au sein de notre domaine.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "emplacements"
   },
   {
@@ -1167,7 +1167,7 @@
     "surface": "750",
     "description": "Reposez-vous au sein de notre domaine.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "emplacements"
   },
   {
@@ -1226,7 +1226,7 @@
     "surface": "425",
     "description": "Reposez-vous au sein de notre domaine.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "emplacements"
   },
   {
@@ -1265,7 +1265,7 @@
     "surface": "385",
     "description": "Reposez-vous au sein de notre domaine.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "emplacements"
   },
   {
@@ -1492,7 +1492,7 @@
     "surface": "250",
     "description": "Garage d'un sponsor.",
     "provider": "45309281-fc24-4e02-ad47-a275c64f5327",
-    "service": "Ecurie",
+    "service": "ecurie",
     "category": "garages"
   },
   {
@@ -2189,7 +2189,7 @@
     "surface": "800",
     "description": "Reposez-vous au sein de notre domaine.",
     "provider": "af3a0f62-5b13-4b19-9d42-736870b268a0",
-    "service": "Billetterie",
+    "service": "billetterie",
     "category": "emplacements"
   },
   {
@@ -2609,7 +2609,7 @@
     "surface": "125",
     "description": "Retrouvez tous ce qu'il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.",
     "provider": "45309281-fc24-4e02-ad47-a275c64f5327",
-    "service": "Boutique",
+    "service": "boutique",
     "category": "boutique"
   },
   {
@@ -4113,5 +4113,590 @@
     "provider": "524aaa51-09c1-48f1-85d3-ac878394e1ff",
     "service": "",
     "category": "pistes"
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94807747982196,
+      "lng": 0.205672119310032
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 71
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.958209049715265,
+      "lng": 0.20653314751764465
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 72
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.959703467780656,
+      "lng": 0.21039365888798403
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 73
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95856828877381,
+      "lng": 0.2119378634360958
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 74
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.957533673522974,
+      "lng": 0.21354640984037057
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 75
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.961312792738994,
+      "lng": 0.22109585429786807
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 76
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95807972304273,
+      "lng": 0.22067105289473424
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 77
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95437222077322,
+      "lng": 0.22189345468144775
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 78
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95339500533342,
+      "lng": 0.22024201370639768
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 79
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94028991066119,
+      "lng": 0.2168083392107434
+    },
+    "iconUrl": "/markers/campingMarker.png",
+    "shape_id": 80
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94733010805995,
+      "lng": 0.211315705198647
+    },
+    "iconUrl": "/markers/campingMarker.png",
+    "shape_id": 81
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95053510691206,
+      "lng": 0.21453399248103636
+    },
+    "iconUrl": "/markers/campingMarker.png",
+    "shape_id": 82
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.949600934944854,
+      "lng": 0.21893068598610735
+    },
+    "iconUrl": "/markers/campingMarker.png",
+    "shape_id": 83
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95484645101738,
+      "lng": 0.2176009542918722
+    },
+    "iconUrl": "/markers/campingMarker.png",
+    "shape_id": 84
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95572304697993,
+      "lng": 0.21903792241304568
+    },
+    "iconUrl": "/markers/campingMarker.png",
+    "shape_id": 85
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94488517466123,
+      "lng": 0.20520400994428203
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 86
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.941048287844616,
+      "lng": 0.20664167397626446
+    },
+    "iconUrl": "/markers/parkingMarker.png",
+    "shape_id": 87
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94867050119827,
+      "lng": 0.2026977537752828
+    },
+    "iconUrl": "/markers/ballonMarker.png",
+    "shape_id": 88
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.947942350876275,
+      "lng": 0.2218723297119141
+    },
+    "iconUrl": "/markers/ballonMarker.png",
+    "shape_id": 89
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95475887511937,
+      "lng": 0.20906639092572735
+    },
+    "iconUrl": "/markers/village_service.png",
+    "shape_id": 90
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95226834882291,
+      "lng": 0.21185159683227542
+    },
+    "iconUrl": "/markers/raceCarMarker.png",
+    "shape_id": 91
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94121554952592,
+      "lng": 0.21013498306274417
+    },
+    "iconUrl": "/markers/kartingMarker.png",
+    "shape_id": 92
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94559966929122,
+      "lng": 0.2057147026062012
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 93
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.948627098910094,
+      "lng": 0.20578122135702875
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 94
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.9416087357933,
+      "lng": 0.20700645440228982
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 95
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.957930045738976,
+      "lng": 0.20697212215964103
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 96
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95975750782311,
+      "lng": 0.21105980869833732
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 97
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95819880648558,
+      "lng": 0.21163916584555412
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 98
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.957709844913964,
+      "lng": 0.2140316962868383
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 99
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.96120871509491,
+      "lng": 0.22034016765628556
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 100
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95846487170803,
+      "lng": 0.22084442295108533
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 101
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95358090378899,
+      "lng": 0.22088956826337383
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 102
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.9546728155395,
+      "lng": 0.22249889367230935
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 103
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.948229837797655,
+      "lng": 0.22326707839965823
+    },
+    "iconUrl": "/markers/montgolfiere_presta.png",
+    "shape_id": 104
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94737691019997,
+      "lng": 0.20201539990011955
+    },
+    "iconUrl": "/markers/montgolfiere_presta.png",
+    "shape_id": 105
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.93971603000618,
+      "lng": 0.21214342114035392
+    },
+    "iconUrl": "/markers/karting_presta.png",
+    "shape_id": 106
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.93842080631041,
+      "lng": 0.21218526361735715
+    },
+    "iconUrl": "/markers/karting_presta.png",
+    "shape_id": 107
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94343736209269,
+      "lng": 0.21165418623240842
+    },
+    "iconUrl": "/markers/karting_presta.png",
+    "shape_id": 108
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94436782622631,
+      "lng": 0.2124963998630847
+    },
+    "iconUrl": "/markers/karting_presta.png",
+    "shape_id": 109
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.947650134109935,
+      "lng": 0.21198248859946037
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 110
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95077581780417,
+      "lng": 0.21545863148276115
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 111
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94943949243716,
+      "lng": 0.21972870823447013
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 112
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95592764069518,
+      "lng": 0.21862363812033442
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 113
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.954957875350686,
+      "lng": 0.21830177303854728
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 114
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95324914867069,
+      "lng": 0.20809650421142578
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 115
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95350886292003,
+      "lng": 0.2092026471927966
+    },
+    "iconUrl": "/markers/porsche_presta.png",
+    "shape_id": 116
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95232691800457,
+      "lng": 0.21031308172496213
+    },
+    "iconUrl": "/markers/porsche_presta.png",
+    "shape_id": 117
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.951813182565786,
+      "lng": 0.20919191835673703
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 118
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.950523475382724,
+      "lng": 0.20792591570170774
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 119
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94942386961144,
+      "lng": 0.20705687998088254
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 120
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94993395123936,
+      "lng": 0.20698714254649533
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 121
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.950336498417194,
+      "lng": 0.2069656848743762
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 122
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95095792424997,
+      "lng": 0.20698714254649533
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 123
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.951547295450915,
+      "lng": 0.2069227695301379
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 124
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95225511315994,
+      "lng": 0.20705687998088254
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 125
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95272565582237,
+      "lng": 0.20706224439891233
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 126
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.9531638672731,
+      "lng": 0.20708906648906125
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 127
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.953606041797734,
+      "lng": 0.2071051597431506
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 128
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.954019103031484,
+      "lng": 0.20723390577586545
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 129
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.9544287793062,
+      "lng": 0.20720708368571653
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 130
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95493175008685,
+      "lng": 0.20734119413646115
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 131
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95355211866061,
+      "lng": 0.20848917959483518
+    },
+    "iconUrl": "/markers/codeky_presta.png",
+    "shape_id": 132
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.95383599213293,
+      "lng": 0.20921874044688596
+    },
+    "iconUrl": "/markers/montgolfiere_presta.png",
+    "shape_id": 133
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.954123338149,
+      "lng": 0.20922410486491574
+    },
+    "iconUrl": "/markers/karting_presta.png",
+    "shape_id": 134
+  },
+  {
+    "type": "marker",
+    "coordinates": {
+      "lat": 47.94047756719348,
+      "lng": 0.21750783917013908
+    },
+    "iconUrl": "/markers/organisateurs_presta.png",
+    "shape_id": 135
   }
 ]

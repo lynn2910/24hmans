@@ -1,11 +1,7 @@
 const {Router} = require('express');
-// let uuidv4 = require("uuid").v4;
 const CarteService = require("../services/carte.service");
 
 const routerCarte = new Router();
-// const userMildelware = require("../middlewares/user.middleware");
-// const prestataireMildelware = require("../middlewares/prestataire.middleware");
-// const adminMildelware = require("../middlewares/admin.middleware");
 
 
 //
@@ -160,7 +156,7 @@ routerCarte.get("/shapes", async (req, res) => {
         const areas = await CarteService.getAllAreas();
 
         if (!areas || areas.length === 0) {
-            return res.status(404).json({message: "Aucune zone trouvée."});
+            res.status(404).json({message: "Aucune zone trouvée."});
         }
 
         res.status(200).json(areas)
@@ -320,6 +316,7 @@ routerCarte.get("/shapes", async (req, res) => {
 routerCarte.post("/shapes", async (req, res) => {
     try {
         const {
+            type,
             coordinates,
             name,
             logistics,
@@ -327,29 +324,54 @@ routerCarte.post("/shapes", async (req, res) => {
             description,
             provider,
             service,
-            category
+            category,
+            iconUrl
         } = req.body;
 
-        if (!coordinates || !Array.isArray(coordinates) || coordinates.length === 0 ||
-            !coordinates.every(coordGroup => Array.isArray(coordGroup) && coordGroup.every(point =>
-                point.lat && point.lng && typeof point.lat === "number" && typeof point.lng === "number"
-            )) ||
-            !name || !logistics || !surface || !description || !category) {
-            return res.status(400).json({
-                message: "Données manquantes ou incorrectes. Assurez-vous que tous les champs requis sont remplis et que les coordonnées sont correctement formatées."
-            });
+        if (!type || (type !== "shape" && type !== "marker")) {
+            return res.status(400).json({message: "Le champ 'type' est requis et doit être 'shape' ou 'marker'."});
         }
 
-        const flattenedCoordinates = coordinates.flat();
+        // if (
+        //     (type === "shape" && (
+        //         !Array.isArray(coordinates) || coordinates.length === 0 ||
+        //         !coordinates.every(coordGroup =>
+        //                 Array.isArray(coordGroup) && coordGroup.every(point =>
+        //                     typeof point.lat === "number" && typeof point.lng === "number"
+        //                 )
+        //         )
+        //     )) ||
+        //     (type === "marker" && (
+        //         !coordinates || typeof coordinates !== "object" ||
+        //         typeof coordinates.lat !== "number" || typeof coordinates.lng !== "number"
+        //     ))
+        // ) {
+        //     return res.status(400).json({
+        //         message: "Les coordonnées sont incorrectes. Assurez-vous qu'elles sont correctement formatées en fonction du type."
+        //     });
+        // }
 
-        const newArea = await CarteService.addArea(flattenedCoordinates, name, logistics, surface, description, provider, service, category);
+        const formattedCoordinates = type === "shape" ? coordinates.flat() : coordinates;
+
+        const newArea = await CarteService.addArea(
+            type,
+            formattedCoordinates,
+            name,
+            logistics,
+            surface,
+            description,
+            provider,
+            service,
+            category,
+            iconUrl
+        );
 
         if (!newArea) {
-            return res.status(404).json({
-                message: "Impossible de créer la zone. Veuillez vérifier vos données."
-            });
+            return res.status(404).json({message: "Impossible de créer la zone. Veuillez vérifier vos données."});
         }
+
         res.status(200).json(newArea);
+
     } catch (err) {
         res.status(500).json({message: "Erreur lors de l'ajout de la zone : " + err.message});
     }
@@ -700,68 +722,199 @@ routerCarte.delete("/shapes/:id", async (req, res) => {
  *         description: "Erreur interne du serveur"
  */
 routerCarte.put("/shapes/:id", async (req, res) => {
-    const {
-        name,
-        logistics,
-        surface,
-        description,
-        provider,
-        service,
-        category,
-        coordinates
-    } = req.body;
-
-    // Vérification de la présence des champs obligatoires
-    if (!name || !logistics || !surface || !description || !category) {
-        return res.status(400).json({
-            message: "Données manquantes ou incorrectes. Assurez-vous que tous les champs requis sont remplis."
-        });
-    }
-
-    if (coordinates) {
-        try {
-            const transformedCoordinates = coordinates.flat();
-            req.body.coordinates = transformedCoordinates;
-
-        } catch (err) {
-            return res.status(400).json({
-                message: "Erreur dans le format des coordonnées: " + err.message
-            });
-        }
-    }
-
     try {
-        // Construction des données de mise à jour
-        const updatedData = {
+        let {
             name,
+            type,
             logistics,
             surface,
             description,
             provider,
             service,
             category,
-            coordinates: req.body.coordinates,
+            coordinates,
+            shape_id
+        } = req.body;
+
+        coordinates = Array.isArray(coordinates[0]) ? coordinates.flat() : coordinates;
+
+        const infos = {
+            name,
+            type,
+            logistics,
+            surface,
+            description,
+            provider,
+            service,
+            category,
+            coordinates,
+            shape_id
         };
 
-        // Tentative de mise à jour de la zone
-        const updatedArea = await CarteService.updateArea(parseInt(req.params.id), updatedData);
+        const updatedShape = await CarteService.updateArea(shape_id, infos);
 
-        // Vérification si la mise à jour a échoué
-        if (!updatedArea) {
-            return res.status(404).json({
-                message: "Aucune zone trouvée avec l'identifiant donné."
-            });
+        if (!updatedShape) {
+            return res.status(404).json({message: "Impossible de créer la zone. Veuillez vérifier vos données."});
         }
 
-        // Retour de la réponse avec la zone mise à jour
-        res.status(200).json(updatedArea);
+        res.status(200).json(updatedShape);
 
     } catch (err) {
-        // Gestion des erreurs serveur
-        console.error("Error while updating area:", err);
-        res.status(500).json({
-            message: "Error while updating area: " + err.message
-        });
+        console.error(err);
+        res.status(500).json({message: "Erreur lors de l'ajout de la zone : " + err.message});
+    }
+});
+
+/**
+ * @swagger
+ * /carte/shapes/{id}:
+ *   post:
+ *     tags:
+ *       - Carte
+ *     security:
+ *       - bearerAuth: []
+ *     summary: "Met à jour les détails d'une zone existante"
+ *     description: |
+ *       Permet de mettre à jour les informations d'une zone existante sans modifier les coordonnées.
+ *       - Les administrateurs (role=1) peuvent modifier tous les champs, y compris provider.
+ *       - Les fournisseurs (role=2) ne peuvent modifier que les champs qui leur sont attribués.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: "Identifiant unique de la zone à mettre à jour"
+ *         schema:
+ *           type: integer
+ *           example: 42
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               logistics:
+ *                 type: string
+ *               surface:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               provider:
+ *                 type: string
+ *                 nullable: true
+ *               service:
+ *                 type: string
+ *               category:
+ *                 type: string
+ *               role:
+ *                 type: integer
+ *                 description: "Rôle de l'utilisateur (1=Admin, 2=Provider)"
+ *                 enum: [1, 2]
+ *               id_provider:
+ *                 type: string
+ *                 description: "Requis si role=2 pour vérifier les permissions"
+ *             required:
+ *               - role
+ *           examples:
+ *             adminExample:
+ *               summary: "Exemple de mise à jour par un administrateur"
+ *               value:
+ *                 name: "Zone Admin Updated"
+ *                 logistics: "Nouveau matériel"
+ *                 surface: "50 m3"
+ *                 description: "Description mise à jour par l'admin"
+ *                 provider: "provider123"
+ *                 service: "Service premium"
+ *                 category: "admin_category"
+ *                 role: 1
+ *             providerExample:
+ *               summary: "Exemple de mise à jour par un fournisseur"
+ *               value:
+ *                 name: "Zone Provider Updated"
+ *                 logistics: "Matériel fournisseur"
+ *                 surface: "30 m3"
+ *                 description: "Description mise à jour par le fournisseur"
+ *                 service: "Service standard"
+ *                 category: "default"
+ *                 role: 2
+ *                 id_provider: "provider123"
+ *     responses:
+ *       200:
+ *         description: "Détails de la zone mis à jour avec succès."
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 updatedShape:
+ *                   type: object
+ *                   properties:
+ *                     shape_id:
+ *                       type: integer
+ *                     name:
+ *                       type: string
+ *                     logistics:
+ *                       type: string
+ *                     surface:
+ *                       type: string
+ *                     description:
+ *                       type: string
+ *                     provider:
+ *                       type: string
+ *                       nullable: true
+ *                     service:
+ *                       type: string
+ *                     category:
+ *                       type: string
+ *       403:
+ *         description: "Accès refusé. Permissions insuffisantes."
+ *       404:
+ *         description: "Aucune zone trouvée avec l'identifiant donné."
+ *       500:
+ *         description: "Erreur interne du serveur"
+ */
+routerCarte.post("/shapes/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {name, logistics, surface, description, provider, service, category, role, id_provider} = req.body;
+
+        const isAdmin = role === 1;
+        const isProvider = role === 2;
+
+        if (isProvider) {
+            const shape = await CarteService.getShapeById(id);
+
+            if (id_provider) {
+                if (!shape || shape.provider !== id_provider) {
+                    return res.status(403).json({message: "Vous n'êtes pas autorisé à modifier cette zone."});
+                }
+            }
+        }
+
+        const updateData = {
+            name,
+            logistics,
+            surface,
+            description,
+            provider: isAdmin ? provider : null,
+            service,
+            category,
+        };
+
+        const updatedShape = await CarteService.updateShape(id, updateData);
+
+
+        if (!updatedShape) {
+            return res.status(404).json({message: "Impossible de mettre à jour la zone."});
+        }
+
+        res.status(200).json(updatedShape);
+    } catch (err) {
+        res.status(500).json({message: "Erreur lors de la mise à jour : " + err.message});
     }
 });
 
