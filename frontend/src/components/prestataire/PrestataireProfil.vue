@@ -37,7 +37,7 @@ export default {
 
 <template>
 	<div class="w-full mt-36 bg-dark">
-		<img v-if="prestataire?.icon" :src="`${publicPath}${prestataire?.icon}`" alt="Photo de profil"
+		<img v-if="prestataire?.icon" :src="`${publicPath === '/' ? '': '/'}${prestataire?.icon}`" alt="Photo de profil"
 				 class="mx-auto rounded-full w-44 h-44">
 		<h1 class="font-extrabold text-4xl text-center py-4">
 			{{ prestataire?.name || prestataire.referencer }}
