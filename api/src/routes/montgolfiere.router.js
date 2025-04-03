@@ -170,7 +170,7 @@ router.get("/:montgolfiere_id/", async (req, res) => {
 // Sessions
 /**
  * @swagger
- * /montgolfieres/{montgolfiere_id}/sessions:
+ * /montgolfiere/{montgolfiere_id}/sessions:
  *   get:
  *     summary: Get Montgolfiere Sessions
  *     tags:
@@ -284,6 +284,7 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  */
 
 router.get("/:montgolfiere_id/sessions", async (req, res) => {
+    console.log("Requête pour les sessions de la montgolfière :", req.params.montgolfiere_id);
     try {
         const sessions = await get_montgolfiere_sessions(req.params.montgolfiere_id);
         res.status(200).json(sessions);
@@ -427,7 +428,6 @@ router.delete("/:montgolfiere_id/sessions/:session_id", authenticateToken, async
     if (!session) {
         return res.status(401).json({message: "Access denied"});
     }
-
     try {
         let deletedSession = await delete_session(req.params.montgolfiere_id, req.params.session_id);
         res.status(200).json(deletedSession);
@@ -483,7 +483,6 @@ createRule("/montgolfiere/:montgolfiere_id/sessions/:session_id", [Method.PATCH,
  *                 description: The user's pseudo for the session.
  *                 example: "JohnDoe"
  *             required:
- *               - circuit_id
  *               - pseudo
  *     responses:
  *       200:
@@ -516,7 +515,6 @@ router.post("/:montgolfiere_id/sessions/:session_id/register", authenticateToken
 
         const reservation = await create_reservation(
             montgolfiere.reservation_app_id,
-            req.body.circuit_id,
             req.session.userId,
             req.body.pseudo
         );
