@@ -1,21 +1,25 @@
 <template>
-	<!-- On réutilise directement la template globale du dashboard -->
 	<PrestataireDashboardTemplate :current-page="currentPage">
-		<!-- Tabs -->
-		<div class="h-20 w-full bg-dark flex flex-row content-center align-baseline select-none">
-			<!-- Chaque onglet dans le for -->
-			<div v-for="(t, index) in tabs" :key="index"
-					 @click="$emit('changeTab', t.id)"
-					 class="mx-3 w-48 h-2/3 mt-auto rounded-lg p-3 text-center font-bold cursor-pointer"
-					 :class="(currentTab === t.id ? 'bg-white text-black' : 'text-white bg-transparent hover:bg-white hover:bg-opacity-15 hover:transition')">
-				<h2>{{ t.name }}</h2>
+		<div class="w-full bg-gray-900 flex flex-row items-center justify-start select-none border-b border-gray-700">
+			<div
+					v-for="(t, index) in tabs"
+					:key="index"
+					@click="$emit('changeTab', t.id)"
+					class="px-6 py-3 rounded-t-lg font-semibold cursor-pointer transition-colors duration-200"
+					:class="[
+                    currentTab === t.id
+                        ? 'bg-white text-gray-900 border-b-2 border-white'
+                        : 'text-gray-300 hover:bg-gray-800 hover:text-white border-b border-transparent',
+                    'mr-4'
+                ]"
+			>
+				<h2 class="text-lg">{{ t.name }}</h2>
 			</div>
 		</div>
 
-		<!-- Pages -->
-		<div class="flex flex-row pt-5 bg-dark" style="height: calc(100% - 5rem)">
-			<div class="w-3 h-full"></div>
-			<div class="overflow-auto h-full" style="width: calc(100% - 0.75rem)">
+		<div class="flex flex-row flex-1 overflow-auto">
+			<div class="w-3 bg-gray-900"></div>
+			<div class="flex-1 overflow-auto p-6">
 				<slot></slot>
 			</div>
 		</div>
@@ -29,28 +33,13 @@ export default {
 	name: "PrestataireDashboardWithTabsTemplate",
 	components: {PrestataireDashboardTemplate},
 	props: {
-		/**
-		 * La page actuelle où nous sommes.
-		 *
-		 * Peut-être :
-		 * - "home"
-		 * - "stats"
-		 * - "shop"
-		 * - "ecuries"
-		 * - "karting"
-		 * - "montgol"
-		 */
 		currentPage: String,
-		/**
-		 * [
-		 *   {
-		 *     name: "Visite des écuries",
-		 *     id: "garage"
-		 *   }
-		 * ]
-		 */
 		tabs: Array,
 		currentTab: String,
-	}
-}
+	},
+};
 </script>
+
+<style>
+/* You can add custom styles here if needed, or use Tailwind's classes */
+</style>
