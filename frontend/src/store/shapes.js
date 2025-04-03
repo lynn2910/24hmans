@@ -3,7 +3,7 @@ import ShapesService from "@/services/shapes.service";
 export default {
     namespaced: true,
     state: {
-        shapesData: [] // liste des shapes
+        shapesData: []
     },
 
     mutations: {
@@ -15,7 +15,6 @@ export default {
             const shapeIndex = state.shapesData.findIndex(shape => shape.shape_id === updateShape.shape_id);
             if (shapeIndex !== -1) {
                 Vue.set(state.shapesData, shapeIndex, updateShape);
-                // Object.assign(state.shapesData[shapeIndex], updateShape);
             }
         },
 
@@ -36,7 +35,7 @@ export default {
                 Object.keys(infosShape).forEach(key => {
                     if (infosShape[key] === null) {
                         Vue.set(state.shapesData[index], key, null);
-                        // state.shapesData[index][key] = null;
+                        state.shapesData[index][key] = null;
                     }
                 })
             }
@@ -60,6 +59,8 @@ export default {
         async getAllShapesFromFile({commit}, shapes) {
             try {
                 commit("setShapes", shapes);
+                // TODO: faudrait faire une req à l'api pour init un nouvelle db
+                //  entièrement (non implémenté)
             } catch (error) {
                 console.error('Erreur lors de l’appel au service :', error);
             }
@@ -69,12 +70,13 @@ export default {
             const res = await ShapesService.updateShape(updatedShape);
             if (res.error === 0) {
                 commit('updatedShape', res.data);
+
             } else {
                 console.error(res);
             }
         },
 
-        async deleteInfosPost({commit}, infosShape) {
+        async modifyingInfosPost({commit}, infosShape) {
             const res = await ShapesService.deleteInfosPost(infosShape);
             if (res.error === 0) {
                 commit('removeInfosPost', res.data);

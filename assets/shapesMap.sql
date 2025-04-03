@@ -1,211 +1,137 @@
-DELETE
-FROM Shape;
+DELETE FROM Shape;
 
-INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (1, 'Tribune 22', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (2, 'Tribune 21', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (3, 'Tribune 20', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (4, 'Tribune 19', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (5, 'Tribune 18', 'Sièges, Personnel', '125', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (6, 'Tribune 17', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (7, 'Tribune 16', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (8, 'Tribune 15', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (9, 'Tribune 14', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (10, 'Tribune 13', 'Sièges, Personnel', '85', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (11, 'Tribune 12', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (12, 'Tribune 11', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (13, 'Tribune 5', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (14, 'Tribune 34', 'Sièges, Personnel', '780', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (15, 'Tribune 23', 'Sièges, Personnel', '200', 'Tribune accueillant les spectateurs des 24H du Mans.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'tribunes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (16, 'Parking Nord-Ouest', 'Places, Bornes de recharge', '500', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (17, 'Parking Nord-Ouest', 'Places, Bornes de recharge', '1100', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (18, 'Parking Nord-Est', 'Places, Bornes de recharge', '785', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (19, 'Parking Nord-Est', 'Places, Bornes de recharge', '750', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (20, 'Parking Sud-Ouest', 'Places, Bornes de recharge', '850', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsBleu');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (21, 'Parking Sud-Ouest', 'Places, Bornes de recharge', '1700', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsBleu');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (22, 'Parking Sud-Ouest', 'Places, Bornes de recharge', '400', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsBleu');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (23, 'Base de campement', 'Electricité, Eau, Tentes, Personnel', '250', 'Reposez-vous au sein de notre domaine.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'emplacements');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (24, 'Base de campement', 'Electricité, Eau, Tentes, Personnel', '550', 'Reposez-vous au sein de notre domaine.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'emplacements');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (25, 'Base de campement', 'Electricité, Eau, Tentes, Personnel', '750', 'Reposez-vous au sein de notre domaine.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'emplacements');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (26, 'Base de campement', 'Electricité, Eau, Tentes, Personnel', '425', 'Reposez-vous au sein de notre domaine.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'emplacements');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (27, 'Base de campement', 'Electricité, Eau, Tentes, Personnel', '385', 'Reposez-vous au sein de notre domaine.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'emplacements');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (28, 'Ecuries piste des 24H du Mans', 'F1, F2, F3, F4, bolides', '1200', 'Garages avec tous les plus grands sponsors, tous au même endroit, rien que pour vous, vos yeux et vos coeurs.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (29, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (30, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (31, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (32, 'Garage Porsche', 'Voitures, Prototypes, F1, F2, F3, F4', '250', 'Garage d''un sponsor.',
-                                       '45309281-fc24-4e02-ad47-a275c64f5327', 'Ecurie', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (33, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (34, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (35, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (36, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (37, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (38, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (39, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (40, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (41, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (42, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (43, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (44, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (45, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (46, 'Garage Kart''24', 'Voitures, Prototypes, Karts', '300', 'Garage d''un sponsor.',
-                                       '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (47, 'Base de campement', 'Electricité, Eau, Tentes, Personnel', '800', 'Reposez-vous au sein de notre domaine.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', 'Billetterie', 'emplacements');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (48, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (49, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (50, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (51, 'Parking Nord-Ouest', 'Places, Bornes de recharge', '450', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (52, 'Parking Central', 'Places, Bornes de recharge', '850', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (53, 'Boutique Kart''24', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.',
-                                       '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (54, 'Boutique 24H du Mans', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.',
-                                       '255da203-781d-4e50-924f-0423638cdb68', '', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (55, 'Boutique Porsche', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.',
-                                       '45309281-fc24-4e02-ad47-a275c64f5327', 'Boutique', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (56, '', '', '', '',
-                                       NULL, '', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (57, 'Boutique 24H du Mans', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.',
-                                       'af3a0f62-5b13-4b19-9d42-736870b268a0', '', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (58, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (59, '', '', '', '',
-                                       NULL, '', 'garages');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (60, '', '', '', '',
-                                       NULL, '', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (61, '', '', '', '',
-                                       NULL, '', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (62, 'Boutique Codeky', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'boutique');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (63, 'Parking Nord-Est', 'Places, Bornes de recharge', '650', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (64, 'Parking Nord-Est', 'Places, Bornes de recharge', '350', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ',
-                                       '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (65, 'Site Est de départ de Montgolfière', 'Gaz, Montgolfière, Personnel', '200', 'Site de départ des montgolfières Est, grand tour au dessus des 24H Du Mans.',
-                                       '255da203-781d-4e50-924f-0423638cdb68', '', 'montgolfieres');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (66, 'Site Ouest de départ de Montgolfière', 'Gaz, Montgolfière, Personnel', '150', 'Site de départ des montgolfières Ouest, grand tour au dessus des 24H Du Mans.',
-                                       '255da203-781d-4e50-924f-0423638cdb68', '', 'montgolfieres');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (67, 'Piste Karting Pro', 'Essences, Karts, Personnels', '650', 'Piste avec Karts très puissants, réservé aux personnes qualifiés.',
-                                       '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'pistes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (68, 'Piste Karting Amateur', 'Essences, Karts, Personnels', '525', 'Piste avec Karts moyennement puissants, réservé aux personnes amateurs.',
-                                       '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'pistes');  INSERT INTO Shape (shape_id, name, logistics, surface, description, provider, service,
-                                                  category)
-                               VALUES (69, 'Piste Karting Débutant', 'Essences, Karts, Personnels', '350', 'Piste avec Karts de location, réservé aux personnes débutantes et tout type d''âge.',
-                                       '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'pistes');  
+INSERT INTO Shape (shape_id, name, type, logistics, surface, description, provider, service, category, iconUrl) VALUES
+(1, 'Tribune 22', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(2, 'Tribune 21', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(3, 'Tribune 20', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(4, 'Tribune 19', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(5, 'Tribune 18', 'shape', 'Sièges, Personnel', '125', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(6, 'Tribune 17', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(7, 'Tribune 16', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(8, 'Tribune 15', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(9, 'Tribune 14', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(10, 'Tribune 13', 'shape', 'Sièges, Personnel', '85', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(11, 'Tribune 12', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(12, 'Tribune 11', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(13, 'Tribune 5', 'shape', 'Sièges, Personnel', '100', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(14, 'Tribune 34', 'shape', 'Sièges, Personnel', '780', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(15, 'Tribune 23', 'shape', 'Sièges, Personnel', '200', 'Tribune accueillant les spectateurs des 24H du Mans.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'tribunes', ''),
+(16, 'Parking Nord-Ouest', 'shape', 'Places, Bornes de recharge', '500', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge', ''),
+(17, 'Parking Nord-Ouest', 'shape', 'Places, Bornes de recharge', '1100', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge', ''),
+(18, 'Parking Nord-Est', 'shape', 'Places, Bornes de recharge', '785', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip', ''),
+(19, 'Parking Nord-Est', 'shape', 'Places, Bornes de recharge', '750', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip', ''),
+(20, 'Parking Sud-Ouest', 'shape', 'Places, Bornes de recharge', '850', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsBleu', ''),
+(21, 'Parking Sud-Ouest', 'shape', 'Places, Bornes de recharge', '1700', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsBleu', ''),
+(22, 'Parking Sud-Ouest', 'shape', 'Places, Bornes de recharge', '400', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsBleu', ''),
+(23, 'Base de campement', 'shape', 'Electricité, Eau, Tentes, Personnel', '250', 'Reposez-vous au sein de notre domaine.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'emplacements', ''),
+(24, 'Base de campement', 'shape', 'Electricité, Eau, Tentes, Personnel', '550', 'Reposez-vous au sein de notre domaine.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'emplacements', ''),
+(25, 'Base de campement', 'shape', 'Electricité, Eau, Tentes, Personnel', '750', 'Reposez-vous au sein de notre domaine.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'emplacements', ''),
+(26, 'Base de campement', 'shape', 'Electricité, Eau, Tentes, Personnel', '425', 'Reposez-vous au sein de notre domaine.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'emplacements', ''),
+(27, 'Base de campement', 'shape', 'Electricité, Eau, Tentes, Personnel', '385', 'Reposez-vous au sein de notre domaine.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'emplacements', ''),
+(28, 'Ecuries piste des 24H du Mans', 'shape', 'F1, F2, F3, F4, bolides', '1200', 'Garages avec tous les plus grands sponsors, tous au même endroit, rien que pour vous, vos yeux et vos coeurs.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', '', 'garages', ''),
+(29, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(30, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(31, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(32, 'Garage Porsche', 'shape', 'Voitures, Prototypes, F1, F2, F3, F4', '250', 'Garage d''un sponsor.', '45309281-fc24-4e02-ad47-a275c64f5327', 'ecurie', 'garages', ''),
+(33, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(34, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(35, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(36, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(37, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(38, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(39, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(40, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(41, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(42, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(43, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(44, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(45, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(46, 'Garage Kart''24', 'shape', 'Voitures, Prototypes, Karts', '300', 'Garage d''un sponsor.', '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'garages', ''),
+(47, 'Base de campement', 'shape', 'Electricité, Eau, Tentes, Personnel', '800', 'Reposez-vous au sein de notre domaine.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', 'billetterie', 'emplacements', ''),
+(48, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(49, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(50, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(51, 'Parking Nord-Ouest', 'shape', 'Places, Bornes de recharge', '450', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip', ''),
+(52, 'Parking Central', 'shape', 'Places, Bornes de recharge', '850', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsVip', ''),
+(53, 'Boutique Kart''24', 'shape', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.', '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'boutique', ''),
+(54, 'Boutique 24H du Mans', 'shape', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.', '255da203-781d-4e50-924f-0423638cdb68', '', 'boutique', ''),
+(55, 'Boutique Porsche', 'shape', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.', '45309281-fc24-4e02-ad47-a275c64f5327', 'boutique', 'boutique', ''),
+(56, '', 'shape', '', '', '', NULL, '', 'boutique', ''),
+(57, 'Boutique 24H du Mans', 'shape', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.', 'af3a0f62-5b13-4b19-9d42-736870b268a0', '', 'boutique', ''),
+(58, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(59, '', 'shape', '', '', '', NULL, '', 'garages', ''),
+(60, '', 'shape', '', '', '', NULL, '', 'boutique', ''),
+(61, '', 'shape', '', '', '', NULL, '', 'boutique', ''),
+(62, 'Boutique Codeky', 'shape', 'Aire de jeu, Boutique, Fast Food', '125', 'Retrouvez tous ce qu''il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'boutique', ''),
+(63, 'Parking Nord-Est', 'shape', 'Places, Bornes de recharge', '650', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge', ''),
+(64, 'Parking Nord-Est', 'shape', 'Places, Bornes de recharge', '350', 'Parking pouvant accueillir un grand nombre de véhicules de tout genre, sauf les caravanes. ', '0b7956e6-1262-49f7-aaab-c5ab60d16cba', '', 'parkingsRouge', ''),
+(65, 'Site Est de départ de Montgolfière', 'shape', 'Gaz, Montgolfière, Personnel', '200', 'Site de départ des montgolfières Est, grand tour au dessus des 24H Du Mans.', '255da203-781d-4e50-924f-0423638cdb68', '', 'montgolfieres', ''),
+(66, 'Site Ouest de départ de Montgolfière', 'shape', 'Gaz, Montgolfière, Personnel', '150', 'Site de départ des montgolfières Ouest, grand tour au dessus des 24H Du Mans.', '255da203-781d-4e50-924f-0423638cdb68', '', 'montgolfieres', ''),
+(67, 'Piste Karting Pro', 'shape', 'Essences, Karts, Personnels', '650', 'Piste avec Karts très puissants, réservé aux personnes qualifiés.', '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'pistes', ''),
+(68, 'Piste Karting Amateur', 'shape', 'Essences, Karts, Personnels', '525', 'Piste avec Karts moyennement puissants, réservé aux personnes amateurs.', '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'pistes', ''),
+(69, 'Piste Karting Débutant', 'shape', 'Essences, Karts, Personnels', '350', 'Piste avec Karts de location, réservé aux personnes débutantes et tout type d''âge.', '524aaa51-09c1-48f1-85d3-ac878394e1ff', '', 'pistes', ''),
+(70, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(71, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(72, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(73, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(74, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(75, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(76, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(77, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(78, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(79, '', 'marker', '', '', '', NULL, '', '', '/markers/campingMarker.png'),
+(80, '', 'marker', '', '', '', NULL, '', '', '/markers/campingMarker.png'),
+(81, '', 'marker', '', '', '', NULL, '', '', '/markers/campingMarker.png'),
+(82, '', 'marker', '', '', '', NULL, '', '', '/markers/campingMarker.png'),
+(83, '', 'marker', '', '', '', NULL, '', '', '/markers/campingMarker.png'),
+(84, '', 'marker', '', '', '', NULL, '', '', '/markers/campingMarker.png'),
+(85, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(86, '', 'marker', '', '', '', NULL, '', '', '/markers/parkingMarker.png'),
+(87, '', 'marker', '', '', '', NULL, '', '', '/markers/ballonMarker.png'),
+(88, '', 'marker', '', '', '', NULL, '', '', '/markers/ballonMarker.png'),
+(89, '', 'marker', '', '', '', NULL, '', '', '/markers/village_service.png'),
+(90, '', 'marker', '', '', '', NULL, '', '', '/markers/raceCarMarker.png'),
+(91, '', 'marker', '', '', '', NULL, '', '', '/markers/kartingMarker.png'),
+(92, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(93, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(94, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(95, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(96, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(97, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(98, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(99, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(100, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(101, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(102, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(103, '', 'marker', '', '', '', NULL, '', '', '/markers/montgolfiere_presta.png'),
+(104, '', 'marker', '', '', '', NULL, '', '', '/markers/montgolfiere_presta.png'),
+(105, '', 'marker', '', '', '', NULL, '', '', '/markers/karting_presta.png'),
+(106, '', 'marker', '', '', '', NULL, '', '', '/markers/karting_presta.png'),
+(107, '', 'marker', '', '', '', NULL, '', '', '/markers/karting_presta.png'),
+(108, '', 'marker', '', '', '', NULL, '', '', '/markers/karting_presta.png'),
+(109, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(110, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(111, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(112, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(113, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(114, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(115, '', 'marker', '', '', '', NULL, '', '', '/markers/porsche_presta.png'),
+(116, '', 'marker', '', '', '', NULL, '', '', '/markers/porsche_presta.png'),
+(117, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(118, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(119, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(120, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(121, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(122, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(123, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(124, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(125, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(126, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(127, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(128, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(129, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(130, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png'),
+(131, '', 'marker', '', '', '', NULL, '', '', '/markers/codeky_presta.png'),
+(132, '', 'marker', '', '', '', NULL, '', '', '/markers/montgolfiere_presta.png'),
+(133, '', 'marker', '', '', '', NULL, '', '', '/markers/karting_presta.png'),
+(134, '', 'marker', '', '', '', NULL, '', '', '/markers/organisateurs_presta.png');

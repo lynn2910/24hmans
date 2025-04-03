@@ -466,6 +466,7 @@ function getBoutiqueArticleSellsStats(presta_id) {
     return {error: 0, status: 200, data: [{data: Object.values(series)}]}
 }
 
+
 function getAllShapes() {
     return {error: 0, status: 200, data: shapes};
 }
@@ -479,7 +480,6 @@ function updateArea(updatedData) {
     }
     return {error: 1, status: 404, data: "Shape not found"};
 }
-
 
 function addArea(newShape) {
     const maxId = shapes.length > 0 ? Math.max(...shapes.map(shape => shape.shape_id)) : 0;

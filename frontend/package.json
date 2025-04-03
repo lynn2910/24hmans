@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^3.2.8",
+    "@turf/turf": "^7.2.0",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "apexcharts": "^4.3.0",
     "axios": "^1.7.7",

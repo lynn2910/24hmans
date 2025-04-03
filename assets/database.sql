@@ -15,10 +15,6 @@ FROM Billetteries;
 DELETE
 FROM Tickets;
 DELETE
-FROM Point;
-DELETE
-FROM Shape;
-DELETE
 FROM Ecurie;
 DELETE
 FROM FormulaireEcurie;

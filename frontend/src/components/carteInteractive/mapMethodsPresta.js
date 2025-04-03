@@ -270,17 +270,23 @@ export default {
     async updatedShape(layer, getPrestataire) {
         let updatedShape;
         if (layer.iconUrl !== '') {
-            // "type":"marker","coordinates":{"lat":47.953072376516126,"lng":0.2018051144841593},"iconUrl":"/markers/villageMarker.png","shape_id":70}
             updatedShape = {
                 type: 'marker',
                 coordinates: layer.getLatLng(),
                 iconUrl: layer.iconUrl,
                 shape_id: layer.shape_id,
+                name: layer.name || '',
+                logistics: layer.logistics || '',
+                surface: layer.surface || '',
+                description: layer.description || '',
+                provider: layer.provider || null,
+                service: layer.service || '',
+                category: layer.category || '',
             };
 
         } else {
-            // {"shape_id":62,"type":"shape","coordinates":[[{"lat":47.953746553497886,"lng":0.2087509632110596},{"lat":47.953746553497886,"lng":0.20850419998168948},{"lat":47.953484284757586,"lng":0.20850956439971924},{"lat":47.95348069202586,"lng":0.20857930183410647},{"lat":47.95353099024711,"lng":0.2085953950881958},{"lat":47.95352739751865,"lng":0.20874023437500003}]],"name":"Boutique Codeky","logistics":"Aire de jeu, Boutique, Fast Food","surface":"125","description":"Retrouvez tous ce qu'il vous faut au sein du village des 24H du Mans, boutique, fast food, aire de repos et de jeux.","provider":"0b7956e6-1262-49f7-aaab-c5ab60d16cba","service":"","category":"boutique"}
             updatedShape = {
+                type: 'shape',
                 shape_id: layer.shape_id,
                 coordinates: layer.getLatLngs ?
                     (Array.isArray(layer.getLatLngs())
@@ -292,7 +298,7 @@ export default {
                 logistics: layer.logistics || '',
                 surface: layer.surface || '',
                 description: layer.description || '',
-                provider: layer.provider || '',
+                provider: layer.provider || null,
                 service: layer.service || '',
                 category: layer.category || 'default',
             };
@@ -300,6 +306,7 @@ export default {
 
         try {
             await this.updateShape(updatedShape);
+            await this.getAllShapes();
             this.reloadShapesOnMap(getPrestataire)
         } catch (error) {
             console.error('Erreur lors de la mise à jour des coordonnées de la shape:', error);
