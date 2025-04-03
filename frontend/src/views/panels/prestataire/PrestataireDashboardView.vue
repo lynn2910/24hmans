@@ -1,6 +1,8 @@
 <script>
 import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
 import {mapState} from "vuex";
+import BoutiqueService from "@/services/boutique.service";
+import I18n from "@/i18n";
 
 export default {
 	components: {
@@ -27,10 +29,38 @@ export default {
 			],
 		};
 	},
+	methods: {
+		async getBoutiqueStats() {
+			if (!this.loggedInUser) return;
+
+			let shop = await BoutiqueService.getShopInformations(this.loggedInUser.id, true)
+			if (shop.error) {
+				return console.error(shop)
+			}
+			shop = shop.data;
+
+			const res = await BoutiqueService.getBoutiqueStats(shop.id);
+			if (!res.error) {
+				this.stats[1].value = res.data.commands || 0;
+				this.stats[2].value = Intl.NumberFormat(
+						this.$route.params.locale || 'fr',
+						{style: 'currency', currencyDisplay: 'symbol', currency: 'EUR'}
+				)
+						.format(res.data.total_gains)
+			}
+		}
+	},
+	watch: {
+		loggedInUser(v) {
+			if (v) {
+				this.getBoutiqueStats()
+			}
+		}
+	},
 	computed: {
 		...mapState('login', ['loggedInUser'])
 	},
-	mounted() {
+	async mounted() {
 		const hour = new Date().getHours();
 		if (hour < 12) {
 			this.greetings = "Bonjour";
@@ -39,6 +69,8 @@ export default {
 		} else {
 			this.greetings = "Bonsoir";
 		}
+
+		await this.getBoutiqueStats()
 	},
 }
 </script>
