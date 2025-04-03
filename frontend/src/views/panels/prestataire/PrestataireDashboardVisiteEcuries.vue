@@ -1,7 +1,7 @@
 <script>
 import PrestataireDashboardTemplate from "@/components/dashboard/prestataire/PrestataireDashboardTemplate.vue";
 import EcurieService from "@/services/ecurie.service";
-import index, {mapState} from "vuex";
+import {mapState} from "vuex";
 import {transformPrestataireName} from "@/utils";
 
 export default {
@@ -30,16 +30,16 @@ export default {
 	},
 	async beforeMount() {
 		console.log('aaaaaaaaaaaaaaaaaa')
-		if (this.loggedInUser){
+		if (this.loggedInUser) {
 			await this.fetchAllParticipants();
 			this.loadArchivedYears();
 			this.loadArchivedParticipants(this.selectedYear);
 		}
 	},
 	watch: {
-		async loggedInUser(nv){
+		async loggedInUser(nv) {
 			console.log(nv)
-			if (nv){
+			if (nv) {
 				await this.fetchAllParticipants();
 				this.loadArchivedYears();
 				this.loadArchivedParticipants(this.selectedYear);
@@ -84,7 +84,7 @@ export default {
 					transformPrestataireName(this.loggedInUser.name),
 					this.selectedYear
 			);
-			console.log(JSON.stringify(this.selectedParticipants, null,2))
+			console.log(JSON.stringify(this.selectedParticipants, null, 2))
 			const prestataireKey = `archivedParticipants_${transformPrestataireName(this.loggedInUser.name)}_${this.selectedYear}`;
 			localStorage.setItem(prestataireKey, JSON.stringify(this.selectedParticipants));
 			this.loadArchivedParticipants(this.selectedYear);

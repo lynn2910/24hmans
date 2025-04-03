@@ -108,11 +108,9 @@ import UsersService from "@/services/users.service";
 import {mapActions, mapGetters, mapState} from "vuex";
 import store from "@/store";
 import PrestataireService from "@/services/prestataire.service";
-import {transformPrestataireName} from "@/utils";
 
 export default {
 	name: "AdminDashboardView",
-	methods: {transformPrestataireName},
 	components: {AdminDashboardTemplate},
 	data() {
 		return {

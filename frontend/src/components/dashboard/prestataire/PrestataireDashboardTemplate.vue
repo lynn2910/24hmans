@@ -121,7 +121,7 @@
 <script>
 import IconEvent from "@/components/navigation/navbar/icons/IconEvent.vue";
 import {mapActions, mapState} from 'vuex'
-import {Selected, transformPrestataireName} from "@/utils";
+import {Selected} from "@/utils";
 
 export default {
 	name: "PrestataireDashboardTemplate",
@@ -152,7 +152,6 @@ export default {
 		...mapState('login', ['loggedInUser', 'userType'])
 	},
 	methods: {
-		transformPrestataireName,
 		...mapActions('login', ['login', 'logout']),
 		async logoutUser() {
 			await this.logout();
