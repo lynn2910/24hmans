@@ -486,7 +486,73 @@ router.patch("/:karting_id/circuit/:circuit_id",
     }
 )
 
-// TODO: SWAGGER
+/**
+ * @swagger
+ * /karting/{karting_id}/circuit/{circuit_id}:
+ *   delete:
+ *     summary: Delete Circuit
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Karting
+ *     description: Deletes a specific circuit for a given karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: circuit_id
+ *         example: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the circuit.
+ *     responses:
+ *       200:
+ *         description: Circuit deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                  circuit_id:
+ *                     type: string
+ *                     description: The id of the deleted circuit
+ *       401:
+ *         description: Access denied.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *               example:
+ *                 message: "Access denied"
+ *       404:
+ *         description: Circuit not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The error message.
+ *               example:
+ *                 message: "Circuit not found"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *              $ref: '#/components/schemas/Error'
+ */
 router.delete(
     "/:karting_id/circuit/:circuit_id",
     authenticateToken,
@@ -644,7 +710,87 @@ router.get(
     }
 )
 
-// TODO: SWAGGER
+/**
+ * @swagger
+ * /karting/{karting_id}/circuit/{circuit_id}/sessions:
+ *   post:
+ *     summary: Create a Karting Session
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Karting
+ *     description: Creates a new session slot for a specific circuit in a karting.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: circuit_id
+ *         example: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the circuit.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fromDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: Start date and time of the session.
+ *                 example: "2024-10-28T14:00:00.000Z"
+ *               toDate:
+ *                 type: string
+ *                 format: date-time
+ *                 description: End date and time of the session.
+ *                 example: "2024-10-28T15:00:00.000Z"
+ *               maxSize:
+ *                 type: integer
+ *                 description: Maximum number of participants for the session.
+ *                 example: 12
+ *             required:
+ *               - fromDate
+ *               - toDate
+ *               - maxSize
+ *     responses:
+ *       200:
+ *         description: Session slot created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/KartingSessionSlot'
+ *       401:
+ *         description: Access denied (karting not found or unauthorized).
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Karting not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       409:
+ *         description: Missing required fields in the request body.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500: # It's good practice to include a 500 for general errors
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post(
     "/:karting_id/circuit/:circuit_id/sessions",
     authenticateToken,
@@ -806,7 +952,62 @@ router.patch(
     }
 )
 
-// TODO: SWAGGER
+/**
+ * @swagger
+ * /karting/{karting_id}/circuit/{circuit_id}/sessions/{session_id}:
+ *   delete:
+ *     summary: Delete a Karting Session
+ *     tags:
+ *       - Karting
+ *     security:
+ *       - bearerAuth: []
+ *     description: Deletes an existing session slot for a specific karting circuit.
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the karting.
+ *       - in: path
+ *         name: circuit_id
+ *         example: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the circuit.
+ *       - in: path
+ *         name: session_id
+ *         example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the session.
+ *     responses:
+ *       200:
+ *         description: Session slot deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *                type: object
+ *                properties:
+ *                  session_id:
+ *                    type: string
+ *                    description: The deleted session id.
+ *       401:
+ *         description: Access denied.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: An error occurred while deleting the session slot.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.delete(
     "/:karting_id/circuit/:circuit_id/sessions/:session_id",
     authenticateToken,
@@ -832,7 +1033,7 @@ router.delete(
 
 /**
  * @swagger
- * /karting/{karting_id}/sessions/{session_id}/register:
+ * /karting/{karting_id}/circuit/{circuit_id}/sessions/{session_id}/register:
  *   post:
  *     summary: Register for a Karting Session
  *     security:
@@ -848,22 +1049,31 @@ router.delete(
  *         schema:
  *           type: string
  *         description: The ID of the karting.
+ *       - in: path
+ *         name: circuit_id
+ *         example: "4db3c4e0-0504-4ac4-902a-dfc98d6455de"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the circuit to register for.
+ *       - in: path
+ *         name: session_id
+ *         example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the session.
  *     requestBody:
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               circuit_id:
- *                 type: string
- *                 description: The ID of the circuit to register for.
- *                 example: "circuit-123"
  *               pseudo:
  *                 type: string
  *                 description: The user's pseudo for the session.
  *                 example: "JohnDoe"
  *             required:
- *               - circuit_id
  *               - pseudo
  *     responses:
  *       200:
@@ -871,7 +1081,7 @@ router.delete(
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/UserKartingSession'  # Or a simplified version
+ *               $ref: '#/components/schemas/UserKartingReservation'  # Or a simplified version
  *       401:
  *         description: Access denied (karting not found or unauthorized).
  *         content:
