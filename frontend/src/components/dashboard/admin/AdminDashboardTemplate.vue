@@ -2,11 +2,10 @@
 	<div class="flex h-screen bg-gray-100 dark:bg-gray-900 w-full">
 		<div class="bg-gray-900 text-white w-64 flex flex-col">
 			<router-link :to="{ name: 'home' }" class="py-4 flex items-center justify-center">
-				<IconEvent class="mr-2" width="40" height="40"/>
-				<span class="text-xl font-semibold">Event</span>
+				<IconEvent class="mr-2" width="60" height="60"/>
 			</router-link>
 
-			<div class="mt-8">
+			<div class="mt-5">
 				<router-link
 						:to="{ name: 'admin_dashboard' }"
 						class="flex items-center py-3 px-4 hover:bg-gray-800 rounded-md transition-colors"
