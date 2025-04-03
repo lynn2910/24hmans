@@ -1,10 +1,10 @@
 const {Router} = require("express");
-const {getBilletterieFromName, getBilletterie} = require("../services/billetterie.service");
+const {getBilletterie} = require("../services/billetterie.service");
 
 const routerBilletterie = new Router();
-const {createRule, Method, User, Permission} = require("../permissions");
+const { User} = require("../permissions");
 const {authenticateToken} = require("../middlewares/auth.middleware");
-const {getUserOrders, createNewOrder} = require("../services/user.service");
+const {createNewOrder} = require("../services/billetterie.service");
 
 
 /**
@@ -226,45 +226,37 @@ routerBilletterie.get("/:prestataire_name", async (req, res) => {
  *                   description: The error message.
  */
 
-routerBilletterie.post("/:billetterie_name/@me/orders", authenticateToken, async (req, res) => {
-    // On attend d'avoir ces infos dans le body:
-    //{
-    //  "user_id":"6c0996c1-d692-4051-9cf5-25cc91e0eb7b",
-    //  "category":
-    //      {
-    //          "category_label":"Tribune",
-    //          "category_id":1
-    //       },
-    //   "date":
-    //      [
-    //          {
-    //              "forfait_label":"Jeudi 12 juin 2025",
-    //              "forfait_id":2
-    //           }
-    //       ],
-    //   "nbPersonnes":["5","","","",""],
-    //}
-
+routerBilletterie.post("/@me/orders", authenticateToken, async (req, res) => {
     if (req.user?.userType !== User.User) {
-        res.status(401).json({message: "You are not a user"});
-        return;
+        return res.status(401).json({message: "You are not a user"});
     }
 
     let raw_order = req.body;
 
-    // Check that the body corresponds to what we want
-    let is_body_invalid = ['user_id', 'category', 'date',"nbPersonnes","created_at"].some(k => !(k in raw_order))
-        || !Array.isArray(raw_order.articles)
-        || raw_order.articles.some((a) => !(('article_id' in a) && ('amount' in a)));
+    console.log("raw_order:", raw_order); // Inspectez la requête
 
-    if (is_body_invalid) {
-        res.status(400).json({code: "INVALID_BODY", message: "The body doesn't have the proper required structure"});
-        return;
+    let is_body_invalid = (
+        typeof raw_order.billetterie_id !== 'string' ||
+        typeof raw_order.category !== 'object' ||
+        typeof raw_order.category.category_id !== 'number' ||
+        !Array.isArray(raw_order.date) ||
+        raw_order.date.some(d => typeof d.forfait_id !== 'number') ||
+        !Array.isArray(raw_order.nbPersonnes) ||
+        raw_order.nbPersonnes.some(p => typeof p.personne_type_id !== 'number' || typeof p.quantity !== 'number')
+    );
+
+    console.log("is_body_invalid:", is_body_invalid); // Vérifiez le résultat de la validation
+
+    if (!is_body_invalid) {
+        return res.status(400).json({code: "INVALID_BODY", message: "The body doesn't have the proper required structure"});
     }
 
-    createNewOrder(req.user.id, raw_order)
-        .then((order) => res.status(200).json({order}))
-        .catch((err) => res.status(err.status).json({message: err.message}))
-})
+    try {
+        const order = await createNewOrder(req.user.id, raw_order);
+        res.status(200).json(order);
+    } catch (err) {
+        res.status(err.status || 500).json({message: err.message || "Internal Server Error"});
+    }
+});
 
 module.exports = routerBilletterie;

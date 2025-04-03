@@ -2,6 +2,7 @@ import {Request} from "./axios.service"
 
 
 async function getBilletterieInformations(prestataire_name) {
+    console.log(prestataire_name)
     try {
         const res = await Request.get(`/billetterie/${prestataire_name}`);
 
@@ -15,9 +16,8 @@ async function getBilletterieInformations(prestataire_name) {
     }
 }
 
-async function newOrder(billetterie_name, order) {
-    return await Request.post("/billetterie/:billetterie_name/@me/orders")
-        .args({billetterie_name})
+async function newOrder( order) {
+    return await Request.post(`/billetterie/@me/orders`)
         .body(order)
         .send();
 }
