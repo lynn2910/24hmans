@@ -48,7 +48,7 @@ export default {
 				{{ link.name }}</a>
 		</div>
 
-		<p class="w-[75%] mx-auto mt-12 mb-16 text-xl" style="white-space: pre-wrap"
+		<p id="prestataire_description" class="w-[75%] mx-auto mt-12 mb-16 text-xl" style="white-space: pre-wrap"
 			 v-html="prestataire?.description"></p>
 
 		<h1 class="font-extrabold text-4xl text-center py-4">{{ $t('dashboards.services') }}</h1>
@@ -88,4 +88,9 @@ export default {
 
 </template>
 
+<style>
+#prestataire_description img {
+	border-radius: 1rem;
+}
+</style>
 
