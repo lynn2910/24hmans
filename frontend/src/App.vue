@@ -8,8 +8,8 @@
 		<router-view/>
 
 		<!-- Santa is here -->
-		<SakuraBlossom :radius="[15.0, 25.5]" :flowers-amount="125" :speed="[0.5,1.27]"
-									 :rotation="[-2, 2]"></SakuraBlossom>
+		<SakuraBlossom :radius="[15.0, 25.5]" :flowers-amount="204" :speed="[0.2,1.07]"
+									 :rotation="[-0.5, 0.5]"></SakuraBlossom>
 	</div>
 </template>
 <script lang="ts">
