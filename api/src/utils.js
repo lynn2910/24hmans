@@ -34,9 +34,11 @@ function accessStringToInt(s) {
  * @param {"user"|"prestataire"|"admin"} accessType
  */
 function checkAccess(req, res, accessType) {
-    if (!req.user || req.user.role !== accessStringToInt(accessType)) {
-        return res.status(403).json({message: 'Forbidden'});
+    if (!req.user || (req.user.role || req.user.userType) !== accessStringToInt(accessType)) {
+        res.status(403).json({message: 'Forbidden'});
+        return false
     }
+    return true;
 }
 
 module.exports = {
