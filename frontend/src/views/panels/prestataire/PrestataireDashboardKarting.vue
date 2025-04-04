@@ -161,7 +161,7 @@ export default {
 
     formatSessions(sessions) {
       const formatted = sessions.map(session => {
-        console.log('Raw session dates:', session.from_date, session.to_date); // Ajoutez cette ligne
+        console.log('Raw session dates:', session.from_date, session.to_date);
 
         const start = new Date(session.from_date);
         const end = new Date(session.to_date);
@@ -185,10 +185,6 @@ export default {
 
       console.log('Événements formatés:', JSON.parse(JSON.stringify(formatted)));
       return formatted;
-    },
-
-    getCircuitSessions(circuitId) {
-      return this.circuitsSessions[circuitId] || [];
     },
 
     showEventDetails(event) {
