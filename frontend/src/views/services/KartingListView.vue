@@ -20,7 +20,7 @@
                    transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_40px_2px_black]">
           <!-- Bordures -->
           <div
-              class="absolute inset-0 bg-gradient-to-br from-green-950 to-green-400 opacity-30 blur-md transition-opacity duration-300 group-hover:opacity-50"></div>
+              class="absolute inset-0 bg-gradient-to-br from-purple-950 to-purple-400 opacity-30 blur-md transition-opacity duration-300 group-hover:opacity-50"></div>
 
           <!-- Informations prestataires -->
           <div class="relative z-10 flex flex-col justify-between h-full">
