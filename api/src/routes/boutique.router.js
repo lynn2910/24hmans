@@ -5,6 +5,7 @@ const BoutiqueService = require("../services/boutique.service");
 const routerBoutique = new Router();
 const {createRule, Permission, Method, User} = require("../permissions");
 const {authenticateToken} = require("../middlewares/auth.middleware");
+const {checkAccess} = require("../utils");
 
 /**
  * @swagger
@@ -206,9 +207,8 @@ routerBoutique.get("/:shop_id", (req, res) => {
 
 
 routerBoutique.patch("/:shop_id", authenticateToken, (req, res) => {
-    console.log("Editing shop")
-    console.log(req.params.shop_id)
-    console.log(req.session)
+    if (!checkAccess(req, res, 'prestataire')) return;
+
     BoutiqueService.editShop(req.params.shop_id, req.session.userId, req.body).then(
         (shop) => res.status(200).json(shop),
         (err) => res.status(500).json({message: err.message})
@@ -319,6 +319,8 @@ routerBoutique.get("/:shop_id/categories", (req, res) => {
  *         description: "Internal Server Error - Unexpected error during category creation"
  */
 routerBoutique.post("/:shop_id/categories", authenticateToken, (req, res) => {
+    if (!checkAccess(req, res, 'prestataire')) return;
+
     BoutiqueService.addCategory(
         req.session.userId,
         req.body['category_label'].trim(),
@@ -434,6 +436,8 @@ createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method
  *                 description: "Internal Server Error - Unexpected error during category deletion"
  */
 routerBoutique.delete("/:shop_id/categories/:category_id", authenticateToken, (req, res) => {
+    if (!checkAccess(req, res, 'prestataire')) return;
+
     BoutiqueService.deleteCategory(req.params.category_id, req.params.shop_id).then(
         (ctg) => res.status(200).json({message: "Category deleted", category: ctg}),
         (err) => {
@@ -446,6 +450,8 @@ routerBoutique.delete("/:shop_id/categories/:category_id", authenticateToken, (r
 })
 
 routerBoutique.patch("/:shop_id/categories/:category_id", authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, 'prestataire')) return;
+
     BoutiqueService.editCategoryLabel(req.body['category_label'], req.params.category_id, req.params.shop_id).then(
         (category) => res.status(200).json({message: "Category updated", category: category}),
         (err) => {
@@ -746,6 +752,8 @@ routerBoutique.get("/:shop_id/items/:item_id", async (req, res) => {
 })
 
 routerBoutique.post("/:shop_id/items/", authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, 'prestataire')) return;
+
     BoutiqueService.createItem(
         req.params.shop_id,
         req.body
@@ -759,6 +767,8 @@ routerBoutique.post("/:shop_id/items/", authenticateToken, async (req, res) => {
 })
 
 routerBoutique.patch("/:shop_id/items/:item_id", authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, 'prestataire')) return;
+
     BoutiqueService.editItem(
         req.params.shop_id,
         req.params.item_id,
@@ -773,6 +783,8 @@ routerBoutique.patch("/:shop_id/items/:item_id", authenticateToken, async (req, 
 })
 
 routerBoutique.delete("/:shop_id/items/:item_id", authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, 'prestataire')) return;
+
     BoutiqueService.deleteItem(
         req.params.shop_id,
         req.params.item_id,
