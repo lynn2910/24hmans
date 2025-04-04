@@ -6,7 +6,7 @@ async function run() {
     const schema = fs.readFileSync(path.join(__dirname, "prisma/schema.prisma"), "utf8")
 
     const tables = await get_tables(schema);
-    
+
 
     const order = buildTree(tables);
 
@@ -52,7 +52,7 @@ async function createInsertions(tables) {
  * @returns {Promise<string>} Either the `INSERT INTO` query or an empty string if there is no data;
  */
 async function createInsertDatas(table_name) {
-    const name = toCamelCase(table_name);
+    const name = table_name;
     const data = await prisma.$queryRawUnsafe(`SELECT *
                                                FROM ${name};`);
 
