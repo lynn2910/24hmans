@@ -31,10 +31,12 @@ function accessStringToInt(s) {
 /**
  * @param req
  * @param res
- * @param {"user"|"prestataire"|"admin"} accessType
+ * @param {("user"|"prestataire"|"admin")|Array<"user"|"prestataire"|"admin">} accessType
  */
 function checkAccess(req, res, accessType) {
-    if (!req.user || (req.user.role || req.user.userType) !== accessStringToInt(accessType)) {
+    const c = (s) => (req.user.role || req.user.userType) !== accessStringToInt(s)
+
+    if (!req.user || (Array.isArray(accessType) ? c(accessType) : accessType.some(s => c(s)))) {
         res.status(403).json({message: 'Forbidden'});
         return false
     }
