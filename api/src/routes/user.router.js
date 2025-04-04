@@ -95,7 +95,6 @@ const router = express.Router();
  *         - password
  */
 
-const {createRule, Method, User, Permission} = require("../permissions");
 const {getUserOrders, createNewOrder} = require("../services/user.service");
 const {get_user_reservations, delete_reservation, update_reservation} = require("../services/karting.service");
 const {authenticateToken} = require("../middlewares/auth.middleware");
@@ -286,11 +285,6 @@ router.post(
         //         }
         //     ]
         // }
-
-        if (req.user?.userType !== User.User) {
-            res.status(401).json({message: "You are not a user"});
-            return;
-        }
 
         let raw_order = req.body;
 

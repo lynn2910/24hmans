@@ -3,7 +3,6 @@ let uuid = require("uuid").v4;
 const BoutiqueService = require("../services/boutique.service");
 
 const routerBoutique = new Router();
-const {createRule, Permission, Method, User} = require("../permissions");
 const {authenticateToken} = require("../middlewares/auth.middleware");
 const {checkAccess} = require("../utils");
 
@@ -214,7 +213,6 @@ routerBoutique.patch("/:shop_id", authenticateToken, (req, res) => {
         (err) => res.status(500).json({message: err.message})
     )
 })
-createRule("/boutique/{shop_id}", Method.PATCH, User.Prestataire, [Permission.Prestataire, Permission.Admin])
 
 //
 //
@@ -340,7 +338,6 @@ routerBoutique.post("/:shop_id/categories", authenticateToken, (req, res) => {
         }
     )
 })
-createRule("/boutique/:shop_id/categories", [Method.PATCH, Method.DELETE, Method.POST], User.Prestataire, [Permission.Prestataire])
 
 /**
  * @swagger

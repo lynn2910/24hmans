@@ -2,7 +2,6 @@ const {Router} = require("express");
 const {getBilletterie} = require("../services/billetterie.service");
 
 const routerBilletterie = new Router();
-const {User} = require("../permissions");
 const {authenticateToken} = require("../middlewares/auth.middleware");
 const {createNewOrder} = require("../services/billetterie.service");
 const {checkAccess} = require("../utils");

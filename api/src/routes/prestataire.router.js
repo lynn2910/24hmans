@@ -8,7 +8,6 @@ const {
     updatePrestataireLink,
     deletePrestataireLink, getPrestataireService, createPrestataire
 } = require("../services/prestataire.service");
-const {createRule, User, Permission, Method} = require("../permissions")
 const {authenticateToken} = require("../middlewares/auth.middleware");
 const {checkAccess} = require("../utils");
 
