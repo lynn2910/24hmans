@@ -155,7 +155,7 @@
 		</div>
 
 		<Popup title="Modifier un prestataire" full-page v-if="showEditPopup" @close="closePopup" bg="bg-transparent">
-			<div class="w-[90vw] h-[90vh]">
+			<div class="w-full h-[90vh]">
 				<PrestataireEditPage :prestataire="popupPrestataire"></PrestataireEditPage>
 			</div>
 		</Popup>

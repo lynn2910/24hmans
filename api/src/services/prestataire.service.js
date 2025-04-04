@@ -19,7 +19,6 @@ function createPrestataire({name, password}) {
             email: `${name.toLowerCase().replace(/\s+/g, "-")}@24hmans.fr`,
         },
     });
-
 }
 
 function getPrestataireFromName(prestataire_name) {

@@ -17,9 +17,31 @@ function verifyToken(token) {
     return jwt.verify(token, process.env.SECRET);
 }
 
+function accessStringToInt(s) {
+    switch (s.trim().toLowerCase()) {
+        case "user":
+            return 1;
+        case "prestataire":
+            return 2;
+        case "admin":
+            return 3;
+    }
+}
+
+/**
+ * @param req
+ * @param res
+ * @param {"user"|"prestataire"|"admin"} accessType
+ */
+function checkAccess(req, res, accessType) {
+    if (!req.user || req.user.role !== accessStringToInt(accessType)) {
+        return res.status(403).json({message: 'Forbidden'});
+    }
+}
 
 module.exports = {
     getHostName,
     generateToken,
-    verifyToken
+    verifyToken,
+    checkAccess
 }

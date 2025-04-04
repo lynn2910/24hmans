@@ -90,7 +90,10 @@ async function startQueue() {
             continue;
         }
 
-        await sendMail(queue.pop())
+        try {
+            await sendMail(queue.pop())
+        } catch (e) {
+        }
     }
 }
 

@@ -21,6 +21,7 @@
     "uuid": "^11.0.3",
     "vue": "^2.6.14",
     "vue-apexcharts": "^1.7.0",
+    "vue-cal": "^3.11.0",
     "vue-router": "^3.5.1",
     "vue2-leaflet": "^2.7.1",
     "vuex": "^3.6.2"
