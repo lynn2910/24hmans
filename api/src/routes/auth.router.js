@@ -70,47 +70,6 @@ const router = express.Router();
 router.post("/login", authController.login)
 
 /**
- * @ swagger
- * /auth/logout:
- *   post:
- *     summary: Logout API
- *     tags:
- *        - Auth
- *     description: Logout API to destroy user session
- *     requestBody:
- *       required: false
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               token:
- *                 type: string
- *                 description: The session ID to be destroyed
- *     responses:
- *       202:
- *         description: Logout successful
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: The error message
- */
-// router.post("/logout", async (req, res) => {
-//     logout(req.body?.sessionId)
-//         .then(() => res.status(202).send())
-//         .catch((err) => {
-//             console.error(err);
-//             res.status(500).json({message: "An error occurred"})
-//         })
-// })
-
-/**
  * @swagger
  * /auth/signup:
  *   post:
