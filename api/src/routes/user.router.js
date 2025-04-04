@@ -95,10 +95,10 @@ const router = express.Router();
  *         - password
  */
 
-const {createRule, Method, User, Permission} = require("../permissions");
 const {getUserOrders, createNewOrder} = require("../services/user.service");
 const {get_user_reservations, delete_reservation, update_reservation} = require("../services/karting.service");
 const {authenticateToken} = require("../middlewares/auth.middleware");
+const {checkAccess} = require("../utils");
 
 /**
  * @swagger
@@ -130,13 +130,19 @@ const {authenticateToken} = require("../middlewares/auth.middleware");
  *                   type: string
  *                   description: The error message.
  */
-router.get('/@me', authenticateToken, async (req, res) => {
-    let user = req.user;
+router.get(
+    '/@me',
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, ["prestataire", "admin", "user"])) return;
 
-    delete user.password;
+        let user = req.user;
 
-    res.status(200).json(user);
-})
+        delete user.password;
+
+        res.status(200).json(user);
+    }
+)
 
 /**
  * @swagger
@@ -168,15 +174,19 @@ router.get('/@me', authenticateToken, async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-router.get('/@me/orders', authenticateToken, async (req, res) => {
-    let user = req.session?.user_id;
+router.get(
+    '/@me/orders',
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, ["user"])) return;
 
-    getUserOrders(user).then(
-        (u) => res.status(200).json(u),
-        (err) => res.status(500).json({message: err.message}),
-    )
-})
-createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
+        let user = req.session?.user_id;
+
+        getUserOrders(user).then(
+            (u) => res.status(200).json(u),
+            (err) => res.status(500).json({message: err.message}),
+        )
+    })
 
 /**
  * @swagger
@@ -258,40 +268,43 @@ createRule("/users/@me/orders", Method.All, User.User, [Permission.User])
  *                   type: string
  *                   description: The error message.
  */
-router.post("/@me/orders", authenticateToken, async (req, res) => {
-    // On attend d'avoir ces infos dans le body:
-    // {
-    //     user_id: string,
-    //     date: Date,
-    //     articles: [
-    //         {
-    //             article_id: int,
-    //             amount: int,
-    //         }
-    //     ]
-    // }
+router.post(
+    "/@me/orders",
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, ["user"])) return;
 
-    if (req.user?.userType !== User.User) {
-        res.status(401).json({message: "You are not a user"});
-        return;
-    }
+        // On attend d'avoir ces infos dans le body:
+        // {
+        //     user_id: string,
+        //     date: Date,
+        //     articles: [
+        //         {
+        //             article_id: int,
+        //             amount: int,
+        //         }
+        //     ]
+        // }
 
-    let raw_order = req.body;
+        let raw_order = req.body;
 
-    // Check that the body corresponds to what we want
-    let is_body_invalid = ['user_id', 'date', 'articles'].some(k => !(k in raw_order))
-        || !Array.isArray(raw_order.articles)
-        || raw_order.articles.some((a) => !(('article_id' in a) && ('amount' in a)));
+        // Check that the body corresponds to what we want
+        let is_body_invalid = ['user_id', 'date', 'articles'].some(k => !(k in raw_order))
+            || !Array.isArray(raw_order.articles)
+            || raw_order.articles.some((a) => !(('article_id' in a) && ('amount' in a)));
 
-    if (is_body_invalid) {
-        res.status(400).json({code: "INVALID_BODY", message: "The body doesn't have the proper required structure"});
-        return;
-    }
+        if (is_body_invalid) {
+            res.status(400).json({
+                code: "INVALID_BODY",
+                message: "The body doesn't have the proper required structure"
+            });
+            return;
+        }
 
-    createNewOrder(req.user.id, raw_order)
-        .then((order) => res.status(200).json({order}))
-        .catch((err) => res.status(err.status).json({message: err.message}))
-})
+        createNewOrder(req.user.id, raw_order)
+            .then((order) => res.status(200).json({order}))
+            .catch((err) => res.status(err.status).json({message: err.message}))
+    })
 
 /**
  * @swagger
@@ -462,18 +475,33 @@ router.post("/@me/orders", authenticateToken, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/@me/karting", authenticateToken, async (req, res) => {
-    const reservations = await get_user_reservations(req.session.userId);
-    res.status(200).json(reservations);
-})
-router.patch("/@me/karting/:reservation_id", authenticateToken, async (req, res) => {
-    const reservation = await update_reservation(req.params.reservation_id, req.session.userId, req.body?.pseudo);
-    res.status(200).json(reservation);
-})
-router.delete("/@me/karting/:reservation_id", authenticateToken, async (req, res) => {
-    const reservation = await delete_reservation(req.session.userId, req.params.reservation_id);
-    res.status(200).json(reservation);
-})
+router.get(
+    "/@me/karting",
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, ["user"])) return;
+        const reservations = await get_user_reservations(req.session.userId);
+        res.status(200).json(reservations);
+    }
+)
+router.patch(
+    "/@me/karting/:reservation_id",
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, ["user"])) return;
+        const reservation = await update_reservation(req.params.reservation_id, req.session.userId, req.body?.pseudo);
+        res.status(200).json(reservation);
+    }
+)
+router.delete(
+    "/@me/karting/:reservation_id",
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, ["user"])) return;
+        const reservation = await delete_reservation(req.session.userId, req.params.reservation_id);
+        res.status(200).json(reservation);
+    }
+)
 
 
 module.exports = router;

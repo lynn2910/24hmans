@@ -8,8 +8,8 @@ const {
     updatePrestataireLink,
     deletePrestataireLink, getPrestataireService, createPrestataire
 } = require("../services/prestataire.service");
-const {createRule, User, Permission, Method} = require("../permissions")
 const {authenticateToken} = require("../middlewares/auth.middleware");
+const {checkAccess} = require("../utils");
 
 const routerPresta = new Router();
 
@@ -263,6 +263,8 @@ routerPresta.patch(
     "/:prestataire_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, ["prestataire", "admin"])) return;
+
         const {prestataire_id} = req.params;
 
         try {
@@ -280,12 +282,12 @@ routerPresta.patch(
         }
     }
 )
-createRule("/prestataire", [Method.PATCH], User.Prestataire, [Permission.Prestataire, Permission.Admin]);
 
 routerPresta.delete(
     "/:prestataire_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "admin")) return;
         const {prestataire_id} = req.params;
 
         try {
@@ -340,16 +342,19 @@ routerPresta.delete(
  */
 
 
-routerPresta.get("/:prestataire_id/services", async (req, res) => {
-    try {
-        const services = await getPrestataireService(req.params.prestataire_id);
-        console.log(services);
+routerPresta.get(
+    "/:prestataire_id/services",
+    async (req, res) => {
+        try {
+            const services = await getPrestataireService(req.params.prestataire_id);
+            console.log(services);
 
-        res.status(200).json(services);
-    } catch (err) {
-        res.status(500).json({message: "prestataire not found.",});
+            res.status(200).json(services);
+        } catch (err) {
+            res.status(500).json({message: "prestataire not found.",});
+        }
     }
-})
+)
 
 /**
  * @swagger
@@ -404,16 +409,21 @@ routerPresta.get("/:prestataire_id/services", async (req, res) => {
  *                   type: string
  *                   example: "Access denied, you are not an admin"
  */
-routerPresta.post("/", authenticateToken, async (req, res) => {
-    if (req.user.userType !== 3) return res.status(403).json({message: "Access denied, you are not an admin"})
+routerPresta.post(
+    "/",
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, "admin")) return;
 
-    try {
-        const newPresta = await createPrestataire(req.body);
-        res.status(200).json(newPresta)
-    } catch (err) {
-        res.status(500).json({message: "Error creating prestataire"})
-    }
-})
+        if (req.user.userType !== 3) return res.status(403).json({message: "Access denied, you are not an admin"})
+
+        try {
+            const newPresta = await createPrestataire(req.body);
+            res.status(200).json(newPresta)
+        } catch (err) {
+            res.status(500).json({message: "Error creating prestataire"})
+        }
+    })
 
 // liens prestas
 /**
@@ -546,6 +556,8 @@ routerPresta.post(
     "/:prestataire_id/link",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, ["prestataire", "admin"])) return;
+
         const {name, url} = req.body;
 
         const newLink = await createPrestataireLink(req.user.id, {name, url});
@@ -633,6 +645,8 @@ routerPresta.patch(
     "/:prestataire_name/link/:link_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, ["prestataire", "admin"])) return;
+
         const {link_id} = req.params;
         const {name, url} = req.body;
 
@@ -714,6 +728,8 @@ routerPresta.delete(
     "/:prestataire_name/link/:link_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, ["prestataire", "admin"])) return;
+
         const {prestataire_name, link_id} = req.params;
         let presta = await getPrestataireFromName(prestataire_name);
         if (!presta) {

@@ -1,5 +1,7 @@
 const {Router} = require('express');
 const CarteService = require("../services/carte.service");
+const {authenticateToken} = require("../middlewares/auth.middleware");
+const {checkAccess} = require("../utils");
 
 const routerCarte = new Router();
 
@@ -313,7 +315,9 @@ routerCarte.get("/shapes", async (req, res) => {
  *       500:
  *         description: "Erreur interne du serveur - Impossible d'ajouter la zone."
  */
-routerCarte.post("/shapes", async (req, res) => {
+routerCarte.post("/shapes", authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, "admin")) return;
+
     try {
         const {
             type,
@@ -562,7 +566,9 @@ routerCarte.get("/shapes/:id", async (req, res) => {
  *       500:
  *         description: "Erreur interne du serveur - Impossible de supprimer la zone"
  */
-routerCarte.delete("/shapes/:id", async (req, res) => {
+routerCarte.delete("/shapes/:id", authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, "admin")) return;
+
     try {
         const areaId = parseInt(req.params.id);
 
@@ -721,7 +727,9 @@ routerCarte.delete("/shapes/:id", async (req, res) => {
  *       500:
  *         description: "Erreur interne du serveur"
  */
-routerCarte.put("/shapes/:id", async (req, res) => {
+routerCarte.put("/shapes/:id", authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, "admin")) return;
+
     try {
         let {
             name,
@@ -878,6 +886,8 @@ routerCarte.put("/shapes/:id", async (req, res) => {
  *         description: "Erreur interne du serveur"
  */
 routerCarte.post("/shapes/:id", async (req, res) => {
+    if (!checkAccess(req, res, "admin")) return;
+
     try {
         const {id} = req.params;
         const {name, logistics, surface, description, provider, service, category, role, id_provider} = req.body;

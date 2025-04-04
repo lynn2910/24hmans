@@ -5,7 +5,6 @@ const bodyParser = require("body-parser")
 
 // Initialize the database
 require("./db");
-const {createRule, User, Permission, Method} = require("./permissions");
 const {registerMailService} = require("./services/mail/mail.service");
 
 const app = express();

@@ -1,8 +1,7 @@
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
 
 const MontgolfiereService = require("../services/montgolfiere.service");
-const {createRule, Method, Permission, User} = require("../permissions");
 const {
     get_montgolfiere,
     create_montgolfiere,
@@ -437,9 +436,6 @@ router.delete("/:montgolfiere_id/sessions/:session_id", authenticateToken, async
     }
 });
 
-createRule("/montgolfiere/:montgolfiere_id/sessions", Method.All, User.Prestataire, [Permission.Prestataire]);
-createRule("/montgolfiere/:montgolfiere_id/sessions/:session_id", [Method.PATCH, Method.DELETE], User.Prestataire, [Permission.Prestataire]);
-
 
 // Sessions (user)
 
@@ -525,8 +521,6 @@ router.post("/:montgolfiere_id/sessions/:session_id/register", authenticateToken
         res.status(500).json({message: e.message});
     }
 })
-
-createRule("/montgolfiere/:montgolfiere_id/sessions/:session_id/register", [Method.POST], User.User, [Permission.User]);
 
 
 module.exports = router;

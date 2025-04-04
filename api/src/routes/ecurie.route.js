@@ -3,6 +3,8 @@ const EcurieService = require("../services/ecurie.service");
 
 const routerEcurie = new Router();
 const {registerWinners} = require("../services/ecurie.service");
+const {authenticateToken} = require("../middlewares/auth.middleware");
+const {checkAccess} = require("../utils");
 
 
 /**
@@ -61,7 +63,9 @@ const {registerWinners} = require("../services/ecurie.service");
  *         description: Erreur serveur
  */
 
-routerEcurie.get('/:presta_id/participants', async (req, res) => {
+routerEcurie.get('/:presta_id/participants', authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, "prestataire")) return;
+
     const {presta_id} = req.params;
     const year = Number.parseInt(req.query.year);
 
@@ -109,7 +113,9 @@ routerEcurie.get('/:presta_id/participants', async (req, res) => {
 
 
 // Route pour supprimer tous les participants d'une écurie
-routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
+routerEcurie.delete('/:ecurie_id/participants', authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, "prestataire")) return;
+
     const {ecurie_id} = req.params;
 
     try {
@@ -165,7 +171,9 @@ routerEcurie.delete('/:ecurie_id/participants', async (req, res) => {
  *       500:
  *         description: Erreur serveur.
  */
-routerEcurie.post('/:presta_id/winner', async (req, res) => {
+routerEcurie.post('/:presta_id/winner', authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, "prestataire")) return;
+
     const {presta_id} = req.params;
 
     try {
@@ -221,16 +229,17 @@ routerEcurie.post('/:presta_id/winner', async (req, res) => {
  *       500:
  *         description: Erreur serveur
  */
-routerEcurie.get('/participants/years', async (req, res) => {
+routerEcurie.get('/participants/years', authenticateToken, async (req, res) => {
+    if (!checkAccess(req, res, "prestataire")) return;
+
     try {
         const years = await EcurieService.getAllYears();
         res.status(200).json(years);
     } catch (error) {
         console.error("Erreur lors de la récupération des années :", error);
-        res.status(500).json({ message: "Erreur serveur, impossible de récupérer les années disponibles." });
+        res.status(500).json({message: "Erreur serveur, impossible de récupérer les années disponibles."});
     }
 });
-
 
 
 module.exports = routerEcurie;

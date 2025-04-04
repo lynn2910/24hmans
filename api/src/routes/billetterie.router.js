@@ -2,9 +2,9 @@ const {Router} = require("express");
 const {getBilletterie} = require("../services/billetterie.service");
 
 const routerBilletterie = new Router();
-const { User} = require("../permissions");
 const {authenticateToken} = require("../middlewares/auth.middleware");
 const {createNewOrder} = require("../services/billetterie.service");
+const {checkAccess} = require("../utils");
 
 
 /**
@@ -93,7 +93,7 @@ const {createNewOrder} = require("../services/billetterie.service");
  *                   example: billetterie not found*/
 routerBilletterie.get("/:prestataire_name", async (req, res) => {
     let billetterie = await getBilletterie(req.params.prestataire_id);
-    if(!billetterie) billetterie = await getBilletterie(req.params.prestataire_id);
+    if (!billetterie) billetterie = await getBilletterie(req.params.prestataire_id);
 
     if (billetterie) {
         res.status(200).json(billetterie);
@@ -227,9 +227,7 @@ routerBilletterie.get("/:prestataire_name", async (req, res) => {
  */
 
 routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (req, res) => {
-    if (req.user?.userType !== User.User) {
-        return res.status(401).json({ message: "You are not a user" });
-    }
+    if (!checkAccess(req, res, 'user')) return;
 
     let raw_order = req.body;
     const billetterieId = req.params.billetterie_id;
@@ -245,7 +243,10 @@ routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (
     );
 
     if (!is_body_invalid) {
-        return res.status(400).json({ code: "INVALID_BODY", message: "The body doesn't have the proper required structure" });
+        return res.status(400).json({
+            code: "INVALID_BODY",
+            message: "The body doesn't have the proper required structure"
+        });
     }
 
     try {
@@ -253,7 +254,7 @@ routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (
         const order = await createNewOrder(req.user.id, raw_order);
         res.status(200).json(order);
     } catch (err) {
-        res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
+        res.status(err.status || 500).json({message: err.message || "Internal Server Error"});
     }
 });
 
