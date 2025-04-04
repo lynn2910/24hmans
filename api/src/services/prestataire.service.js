@@ -10,10 +10,12 @@ function getPrestataire(prestataire_id) {
 }
 
 function createPrestataire({name, password}) {
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    
     return prisma.prestataire.create({
         data: {
             name,
-            password,
+            password: hashedPassword,
             id: require("uuid").v4(),
             referencer: name.toLowerCase().replace(/\s+/g, "-"),
             email: `${name.toLowerCase().replace(/\s+/g, "-")}@24hmans.fr`,
