@@ -45,7 +45,7 @@ import {mapActions, mapState} from 'vuex';
 export default {
   name: "KartingDateView",
   computed: {
-    ...mapState('karting', ['sessionsDate']),
+    ...mapState('karting', ['sessionsDate', 'circuits']),
 
     groupedDays() {
       const daysMap = {};
@@ -70,7 +70,19 @@ export default {
         }
       });
 
-      return Object.values(daysMap).sort((a, b) => a.date.localeCompare(b.date));
+      // Trier les jours par date réelle
+      const sortedDays = Object.values(daysMap).sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB; // Tri par ordre croissant
+      });
+
+      // Trier les sessions de chaque jour par horaire (session.from_date)
+      sortedDays.forEach(day => {
+        day.sessions.sort((a, b) => new Date(a.from_date) - new Date(b.from_date));
+      });
+
+      return sortedDays;
     }
   },
   methods: {
