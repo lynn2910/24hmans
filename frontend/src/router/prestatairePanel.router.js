@@ -24,6 +24,12 @@ export default [
         meta: {hideNavbar: true}
     },
     {
+        path: "/prestataire/panel/service/karting",
+        name: "karting_panel",
+        component: () => import( '../views/panels/prestataire/PrestataireDashboardKarting.vue'),
+        meta: {hideNavbar: true}
+    },
+    {
         path: "/prestataire/panel/map",
         name: "presta_carte",
         component: () => import( '../views/panels/prestataire/PrestataireMapView.vue'),
