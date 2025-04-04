@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const KartingService = require("../services/karting.service");
-const {createRule, Method, Permission, User} = require("../permissions");
 const {
     get_karting,
     update_circuit,
@@ -16,6 +15,7 @@ const {
     create_reservation
 } = require("../services/karting.service");
 const {authenticateToken} = require("../middlewares/auth.middleware");
+const {checkAccess} = require("../utils");
 
 
 /**
@@ -278,6 +278,8 @@ router.get("/:presta_id/circuits",
 router.post("/:karting_id/circuit",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "prestataire")) return;
+
         let fields = ['minAge', 'circuit_name', 'kart_power'];
         if (typeof req.body !== "object" || Array.isArray(req.body) || fields.some(k => !(k in req.body))) {
             res.status(400).json({message: "Invalid body field"});
@@ -469,6 +471,8 @@ router.get("/:karting_id/circuit/:circuit_id",
 router.patch("/:karting_id/circuit/:circuit_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "prestataire")) return;
+
         let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
         if (!karting) {
             // access denied
@@ -557,6 +561,8 @@ router.delete(
     "/:karting_id/circuit/:circuit_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "prestataire")) return;
+
         let karting = await get_karting_circuit(req.params.karting_id, req.params.circuit_id, req.session.userId);
 
         if (!karting) {
@@ -795,6 +801,8 @@ router.post(
     "/:karting_id/circuit/:circuit_id/sessions",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "prestataire")) return;
+
         let karting = await get_karting(req.params.karting_id, req.session?.userId || null);
         if (!karting) {
             res.status(404).json({message: "karting not found"});
@@ -930,6 +938,8 @@ router.patch(
     "/:karting_id/circuit/:circuit_id/sessions/:session_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "prestataire")) return;
+
         let karting = await get_karting_session(req.params.circuit_id, req.params.circuit_id);
         if (!karting) {
             // access denied
@@ -1012,6 +1022,8 @@ router.delete(
     "/:karting_id/circuit/:circuit_id/sessions/:session_id",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "prestataire")) return;
+
         let karting = await get_karting_session(req.params.circuit_id, req.params.session_id);
         if (!karting) {
             // access denied
@@ -1099,6 +1111,8 @@ router.post(
     "/:karting_id/circuit/:circuit_id/sessions/:session_id/register",
     authenticateToken,
     async (req, res) => {
+        if (!checkAccess(req, res, "user")) return;
+
         try {
             const karting = await get_karting(req.params.karting_id, null);
             if (!karting) {
