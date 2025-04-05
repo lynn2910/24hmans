@@ -8,6 +8,13 @@
     "dates": "JUNE 11 TO 15, 2025",
     "title": "24h of Le Mans, take the start of the biggest car event in France",
     "date": "JUNE 11 TO 15, 2025",
+    "countdown": {
+      "title": "Countdown to 24 Hours of Le Mans 2025",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
     "tondeuse": {
       "h1": "An emblematic race",
       "p1": "Welcome to the 24 Hours of Le Mans, the mythical endurance race! Every year since 1923, the best drivers have competed for 24 hours on a unique circuit combining the Bugatti circuit and public roads. Speed, strategy and performance guaranteed!",

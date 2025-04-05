@@ -8,6 +8,13 @@
     "dates": "11 AU 15 JUIN 2025",
     "title": "24h du Mans, prenez le départ du plus grand évènement automobile de France",
     "date": "11 AU 15 JUIN 2025",
+    "countdown": {
+      "title": "Temps restant avant les 24 Heures du Mans 2025",
+      "days": "JOURS",
+      "hours": "HEURES",
+      "minutes": "MIN",
+      "seconds": "SEC"
+    },
     "tondeuse": {
       "h1": "Une course emblématique",
       "p1": "Bienvenue aux 24 Heures du Mans, l'épreuve d'endurance mythique ! Chaque année depuis 1923, les meilleurs pilotes s'affrontent pendant 24 heures sur un circuit unique combinant tracé Bugatti et routes publiques. Vitesse, stratégie performance au rendez-vous !",
