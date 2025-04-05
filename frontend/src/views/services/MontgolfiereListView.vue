@@ -1,6 +1,6 @@
 <template>
     <div class="w-full mt-28 bg-dark">
-        <h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-4 mb-3">{{ $t('lists.montgolfieres') }}</h1>
+        <h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-4 mb-3">{{ $t('lists.montgolfiere') }}</h1>
 
         <!-- Affichage des montgolfières-->
         <div class="flex justify-center">
@@ -20,7 +20,7 @@
                    transition-transform duration-300 transform hover:scale-105 hover:shadow-[0px_0px_40px_2px_black]">
                     <!-- Bordures -->
                     <div
-                        class="absolute inset-0 bg-gradient-to-br from-blue-950 to-indigo-400 opacity-30 blur-md transition-opacity duration-300 group-hover:opacity-50"></div>
+                        class="absolute inset-0 bg-gradient-to-br from-yellow-600 to-yellow-300 opacity-30 blur-md transition-opacity duration-300 group-hover:opacity-50"></div>
 
                     <!-- Informations prestataires -->
                     <div class="relative z-10 flex flex-col justify-between h-full">
