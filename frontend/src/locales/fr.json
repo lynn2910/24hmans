@@ -313,8 +313,8 @@
         "one": "Le participant doit être majeur pour participer.",
         "two": "Un seul billet par participant.",
         "three": "Les informations fournies doivent être exactes et vérifiables.",
-        "four": "La participation au tirage au sort est ouverte jusqu'au <strong class=\"text-white\">25 juin 2025</strong>.",
-        "five": "Les gagnants seront informés par mail le <strong class=\"text-white\">26 juin 2025</strong>."
+        "four": "La participation au tirage au sort est ouverte jusqu'au 25 juin 2025.",
+        "five": "Les gagnants seront informés par mail le 26 juin 2025."
       },
       "sign": {
         "title": "Inscription au tirage au sort",
