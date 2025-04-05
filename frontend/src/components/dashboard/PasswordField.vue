@@ -19,7 +19,7 @@
     </div>
 
     <div
-        class="border-gray-700 border border-gray-700 w-10 h-10 flex flex-col rounded ml-5 cursor-pointer hover:border-blue-500"
+        class="border-gray-700 border w-10 h-10 flex flex-col rounded ml-5 cursor-pointer hover:border-blue-500"
         @click="showPassword = !showPassword">
       <svg v-if="showPassword" class="fill-white m-auto" xmlns="http://www.w3.org/2000/svg"
            width="24"
