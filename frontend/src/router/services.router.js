@@ -56,5 +56,15 @@ export default [
         path: '/prestataire/:prestataire_name/circuit/:circuitId/reservation/:kartingId/session/:sessionId',
         name: 'karting-resume',
         component: () => import('../views/services/karting/KartingResumeView.vue')
+    },
+    {
+        path: '/montgolfieres',
+        name: 'montgolfiere_list',
+        component: () => import('../views/services/MontgolfiereListView.vue')
+    },
+    {
+        path: '/montgolfiere/:prestataire_name',
+        name: "montgolfiere_view",
+        component: () => import('../views/services/montgolfiere/MontgolfiereDateView.vue')
     }
 ]
