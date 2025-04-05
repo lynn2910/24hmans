@@ -79,7 +79,10 @@
     "bo_empty": "Aucun prestataire ne possède de boutique pour le moment.",
     "karting": "Liste des kartings",
     "kart_click": "Cliquez pour accéder au karting",
-    "kart_empty": "Aucun prestataire ne possède de karting"
+    "kart_empty": "Aucun prestataire ne possède de karting",
+    "montgolfiere": "Montgolfières",
+    "montgolfiere_click": "Cliquez pour voir les vols proposés",
+    "montgolfiere_empty": "Aucune montgolfière disponible pour le moment."
   },
   "navbar": {
     "billetteries": "Billetteries",
@@ -88,6 +91,7 @@
     "map": "Carte",
     "prestataires": "Prestataires",
     "karting": "Kartings",
+    "montgolfieres": "Montgolfières",
     "login": {
       "connect": "Se connecter",
       "profile": "Mon profil",
