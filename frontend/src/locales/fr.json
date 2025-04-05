@@ -338,9 +338,9 @@
       "title": "Mentions légales",
       "editor": {
         "title": "Éditeur du site",
-        "text": "Ce site est édité par un groupe d'étudiants de <strong>L'Institut Universitaire Technologique de Nord Franche-Comté</strong> dans le cadre d'un projet universitaire.",
+        "text": "Ce site est édité par un groupe d'étudiants de L'Institut Universitaire Technologique de Nord Franche-Comté dans le cadre d'un projet universitaire.",
         "responsables": "Les responsables de la publication sont :",
-        "cedric": "Cic",
+        "cedric": "Cédric",
         "colin": "COLIN"
       },
       "host": {
@@ -361,7 +361,7 @@
         "email": "cedric.colin35@gmail.com"
       },
       "personal": {
-        "title": "Donnersonnelles",
+        "title": "Données personnelles",
         "link": "Voir la page"
       },
       "hyperlinks": {
