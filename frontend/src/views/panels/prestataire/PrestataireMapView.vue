@@ -7,11 +7,11 @@ Page de gestion de la carte interactive presta
 <template>
   <PrestataireDashboardTemplate current-page="map" class="h-full w-2/3">
     <div
-        class="flex flex-row items-center content-center justify-start gap-5 h-[90%] mt-[2.5%] w-full overflow-y-hidden overflow-x-auto">
+        class="flex flex-row items-center content-center justify-start gap-5 h-[100%] w-full overflow-y-hidden overflow-x-auto">
 
       <!--    Carte Interactive vue admin-->
       <div
-          class="relative w-full justify-start gap-4 m-5 mr-0 h-full bg-blue-400 bg-opacity-5 border border-gray-700 rounded-2xl m-0 p-2">
+          class="relative w-full justify-start gap-4 m-2 mr-0 h-full bg-white dark:bg-gray-800 shadow-md rounded-lg m-0 p-2">
         <CarteInteractivePresta
             ref="mapComponent"
             width="100%"
@@ -36,7 +36,7 @@ Page de gestion de la carte interactive presta
 
       <!--    Formulaire de modification d'une zone spécifique-->
       <div
-          class="min-w-[400px] w-96 p-4 m-5 ml-0 bg-blue-400 bg-opacity-5 border border-gray-700 gap-4 h-full rounded-2xl">
+          class="min-w-[400px] w-96 p-4 m-2 ml-0 bg-white dark:bg-gray-800 shadow-md rounded-lg gap-4 h-full">
 
         <div class="mt-3">
           <label for="name" class="text-xl font-bold">{{ $t('dashboards.presta_admin.map_editing.place_name') }}</label>

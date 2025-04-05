@@ -205,7 +205,7 @@
         "commands": "commandes",
         "turnover": "Chiffre d'affaire",
         "gains_graph": "Argent gagnée en €",
-        "sells_by_ctg": "Répartition des ventes par catégorie de produit",
+        "sells_by_ctg": "Répartition des ventes par catégorie",
         "sells_by_article": "Répartition des ventes par article"
       }
     }
