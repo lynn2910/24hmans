@@ -19,6 +19,8 @@
 				</router-link>
 				<router-link class="hover:underline" :to="{ name: 'karting_list' }"><p>{{ $t("navbar.karting") }}</p>
 				</router-link>
+				<router-link class="hover:underline" :to="{ name: 'montgolfiere_list' }"><p>{{ $t("navbar.montgolfieres") }}</p>
+				</router-link>
 				<router-link class="hover:underline" :to="{ name: 'Carte' }"><p>{{ $t("navbar.map") }}</p></router-link>
 				<router-link class="hover:underline" :to="`/${$route.params.locale}/#services`">
 					{{ $t('navbar.prestataires') }}
