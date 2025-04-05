@@ -76,7 +76,10 @@
     "ecu_empty": "No team available at the moment...",
     "boutiques": "List of shops",
     "bo_click": "Click to access the shop",
-    "bo_empty": "No service provider has a shop at the moment."
+    "bo_empty": "No service provider has a shop at the moment.",
+    "montgolfiere": "Hot Air Balloons",
+    "montgolfiere_click": "Click to see the available flights",
+    "montgolfiere_empty": "No hot air balloon available at the moment."
   },
   "navbar": {
     "billetteries": "Ticket offices",
