@@ -116,7 +116,7 @@ export default {
               Écurie
             </h3>
             <p class="text-gray-300 text-lg leading-relaxed">
-              Gestion professionnelle de votre écurie avec hébergement haut de gamme et soins équins sur mesure.
+              Visitez notre écurie par le biais d'un tirage sort entièrement gratuit.
             </p>
             <div class="mt-6 flex items-center text-amber-300 transition-all group-hover:text-amber-400">
               <span class="mr-2 font-semibold">Découvrir</span>
