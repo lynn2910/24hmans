@@ -1,11 +1,48 @@
 const {Router} = require("express");
 const EcurieService = require("../services/ecurie.service");
-
+const prisma = require("../db")
 const routerEcurie = new Router();
 const {registerWinners} = require("../services/ecurie.service");
 const {authenticateToken} = require("../middlewares/auth.middleware");
 const {checkAccess} = require("../utils");
 
+/**
+ * @swagger
+ * /ecurie/{presta_id}:
+ *   get:
+ *     summary: Récupère les infos d'une écurie à partir de l'ID du prestataire
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Ecurie
+ *     parameters:
+ *       - name: presta_id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID du prestataire
+ *     responses:
+ *       200:
+ *         description: Informations de l'écurie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 prestataire_id:
+ *                   type: string
+ *       404:
+ *         description: Aucune écurie trouvée pour ce prestataire
+ *       500:
+ *         description: Erreur serveur
+ */
+
+routerEcurie.get('/:presta_id', EcurieService.getEcurieByPrestaId);
 
 /**
  * @swagger
@@ -373,7 +410,5 @@ routerEcurie.post('/participants/inscriptions', async (req, res) => {
         res.status(500).json({ message: "Erreur serveur, impossible d'ajouter le participant." });
     }
 });
-
-
 
 module.exports = routerEcurie;

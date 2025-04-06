@@ -31,10 +31,17 @@ async function addParticipant(newParticipant) {
         .body(newParticipant)
         .send()
 }
+
+async function EcurieInfo(presta_id){
+    return Request.get('/ecurie/:presta_id')
+        .args({ presta_id })
+        .send()
+}
 export default {
     getAllEcurieParticipants,
     tirageAuSort,
     YearsRecup,
     deleteWinner,
     addParticipant,
+    EcurieInfo
 }

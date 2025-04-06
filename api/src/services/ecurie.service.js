@@ -215,6 +215,29 @@ async function addParticipants(data) {
     }
 }
 
+const getEcurieByPrestaId = async (req, res) => {
+    const { presta_id } = req.params;
+
+    try {
+        const ecurie = await prisma.ecurie.findUnique({
+            where: { prestataire_id: presta_id },
+            select: {
+                id: true,
+                name: true,
+                prestataire_id: true,
+            }
+        });
+
+        if (!ecurie) {
+            return res.status(404).json({ message: "Écurie non trouvée pour ce prestataire." });
+        }
+
+        res.status(200).json(ecurie);
+    } catch (error) {
+        console.error("Erreur lors de la récupération de l'écurie :", error);
+        res.status(500).json({ message: "Erreur serveur, impossible de récupérer l'écurie." });
+    }
+};
 
 
 
@@ -224,5 +247,6 @@ module.exports = {
     getRandomParticipants,
     registerWinners,
     getAllYears,
-    addParticipants
+    addParticipants,
+    getEcurieByPrestaId
 }
