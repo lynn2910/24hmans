@@ -1,10 +1,10 @@
-const { PrismaClient } = require('@prisma/client');
+const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function getBilletterie(prestataire_id) {
     try {
         const billetterie = await prisma.billetteries.findFirst({
-            where: { prestataire_id: prestataire_id },
+            where: {prestataire_id: prestataire_id},
             include: {
                 BilletterieCategories: true,
                 BilletterieForfaits: true,
@@ -21,8 +21,12 @@ async function getBilletterie(prestataire_id) {
 
 async function createNewOrder(userId, orderData) {
     try {
+
+        const id = (await prisma.tickets.findMany()).length + 1
+        console.log(JSON.stringify(orderData, null, 2))
         const ticket = await prisma.tickets.create({
             data: {
+                ticket_id: id,
                 User: {
                     connect: {
                         id: userId,
@@ -38,14 +42,9 @@ async function createNewOrder(userId, orderData) {
                         category_id: orderData.category.category_id,
                     },
                 },
-                forfait: {
-                    create: orderData.date.map(forfait => ({
-                        forfait_id: forfait.forfait_id,
-                    })),
-                },
                 personnes: {
                     create: orderData.nbPersonnes.map(personne => ({
-                        personne_type_id: personne.personne_type_id,
+                        personne_type_id: personne.id,
                         quantity: personne.quantity !== null ? personne.quantity : 0,
                     })),
                 },
@@ -56,6 +55,26 @@ async function createNewOrder(userId, orderData) {
             },
         });
 
+        const asyncActions = orderData.date
+            .map(async (forfait) => {
+                await prisma.ticketBilletterieForfaits.create({
+                    data: {
+                        forfait: {
+                            connect: {
+                                forfait_id: forfait.forfait_id,
+                            }
+                        },
+                        ticket: {
+                            connect: {
+                                ticket_id: id
+                            }
+                        }
+                    }
+                })
+            });
+
+        await Promise.all(asyncActions);
+
         return ticket;
     } catch (error) {
         console.error("Error creating ticket:", error);
@@ -63,4 +82,4 @@ async function createNewOrder(userId, orderData) {
     }
 }
 
-module.exports = { getBilletterie, createNewOrder }
+module.exports = {getBilletterie, createNewOrder}

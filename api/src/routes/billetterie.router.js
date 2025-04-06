@@ -14,7 +14,7 @@ const {checkAccess} = require("../utils");
  *        BilletteriePersonnes:
  *          type: Object
  *          properties:
- *           personnet_label:
+ *           personne_label:
  *               type: string
  *           personne_id:
  *               type: integer
@@ -92,8 +92,8 @@ const {checkAccess} = require("../utils");
  *                   type: string
  *                   example: billetterie not found*/
 routerBilletterie.get("/:prestataire_name", async (req, res) => {
-    let billetterie = await getBilletterie(req.params.prestataire_id);
-    if (!billetterie) billetterie = await getBilletterie(req.params.prestataire_id);
+    let billetterie = await getBilletterie(req.params.billetterie_id);
+    if (!billetterie) billetterie = await getBilletterie(req.params.billetterie_id);
 
     if (billetterie) {
         res.status(200).json(billetterie);
@@ -251,7 +251,7 @@ routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (
 
     try {
         raw_order.billetterie_id = billetterieId;
-        const order = await createNewOrder(req.user.id, raw_order);
+        const order = await createNewOrder(req.user.id, {...raw_order, billetterie_id: billetterieId});
         res.status(200).json(order);
     } catch (err) {
         res.status(err.status || 500).json({message: err.message || "Internal Server Error"});

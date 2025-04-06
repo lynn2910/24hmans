@@ -7,7 +7,7 @@
 										class="text-white text-lg font-bold cursor-pointer hover:underline"
 										:class="{ 'underline': selectedPersonne.includes(personne) }"
 										@click="togglePersonne(personne)">{{ personne.personne_label }}</span>
-				<input v-model="personneInputs[index]" class="text-black ml-3 p-1 border border-gray-300 rounded"
+				<input v-model="personneInputs[index].quantity" type="number" class="text-black ml-3 p-1 border border-gray-300 rounded"
 							 placeholder="Entrez une valeur">
 			</div>
 		</div>
@@ -30,7 +30,7 @@ export default {
 		};
 	},
 	mounted() {
-		this.personneInputs = Array(this.personnes.length).fill('');
+		this.personneInputs = this.personnes.map(p => ({id: p.personne_id, quantity: 0}))
 	},
 	methods: {
 		togglePersonne(personne) {
@@ -43,7 +43,7 @@ export default {
 		},
 
 		submitSelection() {
-			this.$emit('submit', this.personneInputs);
+			this.$emit('submit', this.personneInputs.map(p => ({...p, quantity: Number.parseInt(p.quantity)})).filter(p => p.quantity > 0));
 		}
 	}
 };
