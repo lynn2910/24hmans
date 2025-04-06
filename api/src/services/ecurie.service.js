@@ -1,6 +1,4 @@
-const uuid = require("uuid").v4;
 const prisma = require("../db")
-const e = require("express");
 const {addMailRequest} = require("./mail/mail.service");
 
 async function getParticipants(presta_id, year) {
@@ -176,6 +174,38 @@ async function getAllYears() {
         throw new Error("Impossible de récupérer les années.");
     }
 }
+async function addParticipants(data) {
+    try {
+        const {
+            ecurie_id,
+            prenom,
+            nom,
+            year,
+            email,
+            tel,
+            num_billet
+        } = data;
+
+        const newParticipant = await prisma.formulaireEcurie.create({
+            data: {
+                ecurie_id,
+                prenom,
+                nom,
+                year,
+                email,
+                tel,
+                num_billet,
+                // submitted_at et is_winner sont supposés avoir des @default dans Prisma
+            }
+        });
+        console.log(newParticipant)
+        return newParticipant;
+    } catch (error) {
+        console.error("Erreur lors de l'ajout d'un participant (service) :", error);
+        throw error;
+    }
+}
+
 
 
 
@@ -184,5 +214,6 @@ module.exports = {
     deleteParticipants,
     getRandomParticipants,
     registerWinners,
-    getAllYears
+    getAllYears,
+    addParticipants
 }

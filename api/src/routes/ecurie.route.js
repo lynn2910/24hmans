@@ -241,5 +241,139 @@ routerEcurie.get('/participants/years', authenticateToken, async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /ecurie/participants/inscriptions:
+ *   post:
+ *     summary: Inscrit un nouveau participant à une écurie
+ *     tags:
+ *       - Ecurie
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - ecurie_id
+ *               - prenom
+ *               - nom
+ *               - year
+ *               - email
+ *               - tel
+ *               - num_billet
+ *             properties:
+ *               ecurie_id:
+ *                 type: string
+ *                 format: uuid
+ *                 example: "123e4567-e89b-12d3-a456-426614174000"
+ *               prenom:
+ *                 type: string
+ *                 example: "Jean"
+ *               nom:
+ *                 type: string
+ *                 example: "Dupont"
+ *               year:
+ *                 type: integer
+ *                 example: 2025
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "jean.dupont@example.com"
+ *               tel:
+ *                 type: string
+ *                 example: "0601020304"
+ *               num_billet:
+ *                 type: string
+ *                 format: uuid
+ *                 example: "a1b2c3d4-5678-90ef-gh12-ijklmnopqrst"
+ *     responses:
+ *       200:
+ *         description: Participant ajouté avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 ecurie_id:
+ *                   type: string
+ *                   format: uuid
+ *                 prenom:
+ *                   type: string
+ *                 nom:
+ *                   type: string
+ *                 year:
+ *                   type: integer
+ *                 email:
+ *                   type: string
+ *                 tel:
+ *                   type: string
+ *                 num_billet:
+ *                   type: string
+ *                 submitted_at:
+ *                   type: string
+ *                   format: date-time
+ *                 is_winner:
+ *                   type: boolean
+ *       400:
+ *         description: Requête invalide (champs manquants)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Tous les champs sont requis.
+ *       500:
+ *         description: Erreur serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Erreur serveur, impossible d'ajouter le participant.
+ */
+
+routerEcurie.post('/participants/inscriptions', async (req, res) => {
+    try {
+        const {
+            ecurie_id,
+            prenom,
+            nom,
+            year,
+            email,
+            tel,
+            num_billet
+        } = req.body;
+
+        // Vérification simple des champs obligatoires
+        if (!ecurie_id || !prenom || !nom || !year || !email || !tel || !num_billet) {
+            return res.status(400).json({ message: "Tous les champs sont requis." });
+        }
+
+        const newParticipant = await EcurieService.addParticipants({
+            ecurie_id,
+            prenom,
+            nom,
+            year,
+            email,
+            tel,
+            num_billet
+        });
+
+        res.status(200).json(newParticipant);
+    } catch (error) {
+        console.error("Erreur lors de l'ajout du participant :", error);
+        res.status(500).json({ message: "Erreur serveur, impossible d'ajouter le participant." });
+    }
+});
+
+
 
 module.exports = routerEcurie;
