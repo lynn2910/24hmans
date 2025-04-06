@@ -107,6 +107,42 @@ routerBilletterie.get("/:prestataire_name", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /billetterie/{prestataire_name}/categories:
+ *   get:
+ *     tags:
+ *       - Billetterie
+ *     summary: Récupère les catégories d'une billetterie par nom de prestataire.
+ *     description: Retourne la liste des catégories associées à une billetterie en fonction du nom du prestataire.
+ *     parameters:
+ *       - in: path
+ *         name: prestataire_name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Le nom du prestataire dont on veut récupérer les catégories.
+ *     responses:
+ *       200:
+ *         description: Liste des catégories récupérée avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/BilletterieCategory'
+ *       500:
+ *         description: Erreur serveur lors de la récupération des catégories.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Internal server error
+ */
+
 routerBilletterie.get("/:prestataire_name/categories", async (req, res) => {
     try {
         const categories = await getBilletterieCategories(req.params.prestataire_id);
@@ -116,7 +152,42 @@ routerBilletterie.get("/:prestataire_name/categories", async (req, res) => {
     }
 });
 
-// Récupérer seulement les forfaits
+/**
+ * @swagger
+ * /billetterie/{prestataire_name}/forfaits:
+ *   get:
+ *     tags:
+ *       - Billetterie
+ *     summary: Récupère les forfaits d'une billetterie par nom de prestataire.
+ *     description: Retourne la liste des forfaits associés à une billetterie en fonction du nom du prestataire.
+ *     parameters:
+ *       - in: path
+ *         name: prestataire_name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Le nom du prestataire dont on veut récupérer les forfaits.
+ *     responses:
+ *       200:
+ *         description: Liste des forfaits récupérée avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/BilletterieForfait'
+ *       500:
+ *         description: Erreur serveur lors de la récupération des forfaits.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Internal server error
+ */
+
 routerBilletterie.get("/:prestataire_name/forfaits", async (req, res) => {
     try {
         const forfaits = await getBilletterieForfaits(req.params.prestataire_id);
@@ -126,7 +197,42 @@ routerBilletterie.get("/:prestataire_name/forfaits", async (req, res) => {
     }
 });
 
-// Récupérer seulement les types de personnes
+/**
+ * @swagger
+ * /billetterie/{prestataire_name}/personnes:
+ *   get:
+ *     tags:
+ *       - Billetterie
+ *     summary: Récupère les types de personnes d'une billetterie par nom de prestataire.
+ *     description: Retourne la liste des types de personnes associés à une billetterie en fonction du nom du prestataire.
+ *     parameters:
+ *       - in: path
+ *         name: prestataire_name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Le nom du prestataire dont on veut récupérer les types de personnes.
+ *     responses:
+ *       200:
+ *         description: Liste des types de personnes récupérée avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/BilletteriePersonne'
+ *       500:
+ *         description: Erreur serveur lors de la récupération des types de personnes.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Internal server error
+ */
+
 routerBilletterie.get("/:prestataire_name/personnes", async (req, res) => {
     try {
         const personnes = await getBilletteriePersonnes(req.params.prestataire_id);
@@ -292,6 +398,65 @@ routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (
         res.status(err.status || 500).json({message: err.message || "Internal Server Error"});
     }
 });
+
+/**
+ * @swagger
+ * /billetterie/users/{userId}/tickets:
+ *   get:
+ *     tags:
+ *       - Billetterie
+ *     summary: Récupère les tickets d'un utilisateur.
+ *     description: Retourne la liste des tickets associés à un utilisateur donné par son ID.
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: L'identifiant de l'utilisateur.
+ *     responses:
+ *       200:
+ *         description: Liste des tickets de l'utilisateur récupérée avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   ticket_id:
+ *                     type: integer
+ *                     example: 1
+ *                   category:
+ *                     type: string
+ *                     example: "Adulte"
+ *                   days:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     example: ["Samedi", "Dimanche"]
+ *                   persons:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         type:
+ *                           type: string
+ *                           example: "Enfant"
+ *                         quantity:
+ *                           type: integer
+ *                           example: 2
+ *       500:
+ *         description: Erreur serveur lors de la récupération des tickets.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error
+ */
 
 routerBilletterie.get('/users/:userId/tickets', async (req, res) => {
     try {
