@@ -22,6 +22,11 @@ async function newOrder(billetterie_id, order) {
         .send();
 }
 
+async function getTicketsUser(user_id) {
+    return await Request.get(`user/${user_id}/tickets`)
+        .send();
+}
+
 export default {
-    getBilletterieInformations, newOrder
+    getBilletterieInformations, newOrder, getTicketsUser
 }

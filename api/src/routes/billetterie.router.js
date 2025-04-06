@@ -4,6 +4,7 @@ const {
     getBilletterieCategories,
     getBilletterieForfaits,
     getBilletteriePersonnes,
+    getTicketsByUserId
 } = require("../services/billetterie.service");
 
 const routerBilletterie = new Router();
@@ -291,5 +292,16 @@ routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (
         res.status(err.status || 500).json({message: err.message || "Internal Server Error"});
     }
 });
+
+routerBilletterie.get('/users/:userId/tickets', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const tickets = await getTicketsByUserId(userId);
+        res.json(tickets);
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'});
+    }
+});
+
 
 module.exports = routerBilletterie;

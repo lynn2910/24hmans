@@ -12,8 +12,19 @@ export default {
 
         selectedCategory: null,
         selectedDates: [],
-        selectedPersonnes: []
+        selectedPersonnes: [],
+
+        tickets: [],
+        loading: false,
+        error: null,
     },
+
+    getters: {
+        allTickets: (state) => state.tickets,
+        isLoadingTickets: (state) => state.loading,
+        ticketsError: (state) => state.error,
+    },
+
     mutations: {
         setBilletterieId(state, id) {
             state.billetterie_id = id;
@@ -35,7 +46,16 @@ export default {
         },
         setSelectedPersonnes(state, personnes) {
             state.selectedPersonnes = personnes;
-        }
+        },
+        setTickets(state, tickets) {
+            state.tickets = tickets;
+        },
+        setLoading(state, isLoading) {
+            state.loading = isLoading;
+        },
+        setError(state, error) {
+            state.error = error;
+        },
     },
     actions: {
         setBilletterieData({commit}, data) {
@@ -72,7 +92,19 @@ export default {
                 console.error(" Erreur lors de la récupération des données :", error);
                 return false;
             }
-        }
+        },
+        async fetchTicketsByUser({commit}, userId) {
+            commit('setLoading', true);
+            try {
+                const response = await axios.get(`/api/tickets/user/${userId}`);
+                commit('setTickets', response.data);
+            } catch (error) {
+                commit('setError', error);
+            } finally {
+                commit('setLoading', false);
+            }
+        },
+
     }
 
 };
