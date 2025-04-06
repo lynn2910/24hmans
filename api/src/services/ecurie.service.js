@@ -101,7 +101,7 @@ async function registerWinners(winners, presta_id) {
             throw { status: 404, message: `Écurie introuvable pour le prestataire avec l'ID : ${presta_id}` };
         }
 
-        const ecurie_name = ecurie.name; // Nom de l'écurie
+        const ecurie_name = ecurie.name;
         const winnerEntries = [];
 
         for (const winner of winners) {
@@ -136,8 +136,6 @@ async function registerWinners(winners, presta_id) {
                 }
             });
         }
-
-        // Mettre à jour les participants pour les marquer comme gagnants
         for (const entry of winnerEntries) {
             await prisma.formulaireEcurie.update({
                 where: entry.where,
@@ -150,15 +148,6 @@ async function registerWinners(winners, presta_id) {
         console.error(`Cannot register winners: ${error.message}`, error);
         throw { status: 500, message: error.message };
     }
-}
-
-async function getRandomWinners() {
-    const participants = await prisma.formulaireEcurie.findMany({
-        where: { is_winner: false },
-    });
-    const shuffledParticipants = participants.sort(() => 0.5 - Math.random());
-    const winners = shuffledParticipants.slice(0, 10);
-    await registerWinners(winners, 'Nom de l\'écurie');
 }
 async function getAllYears() {
     try {
@@ -195,11 +184,31 @@ async function addParticipants(data) {
                 email,
                 tel,
                 num_billet,
-                // submitted_at et is_winner sont supposés avoir des @default dans Prisma
             }
         });
-        console.log(newParticipant)
+
+        const ecurie = await prisma.ecurie.findUnique({
+            where: { id: ecurie_id },
+            select: { name: true }
+        });
+
+        if (ecurie) {
+            await addMailRequest({
+                subject: `Bienvenue ${prenom} !`,
+                htmlPath: "ecurie/html_inscription.ejs", // Crée ce fichier HTML pour l'email
+                plainPath: "ecurie/ecurie_inscription.ejs", // Et celui-ci pour la version texte
+                sendTo: email,
+                args: {
+                    user: { first_name: prenom, last_name: nom },
+                    ecurie_name: ecurie.name,
+                    host: 'http://localhost:8080/fr/login',
+                }
+            });
+        }
+
+        console.log("Participant ajouté et mail de confirmation envoyé :", newParticipant);
         return newParticipant;
+
     } catch (error) {
         console.error("Erreur lors de l'ajout d'un participant (service) :", error);
         throw error;
