@@ -37,7 +37,7 @@ function accessStringToInt(s) {
 function checkAccess(req, res, accessType) {
     const c = (s) => (req.user.role || req.user.userType) !== accessStringToInt(s)
 
-    if (!req.user || (Array.isArray(accessType) ? accessType.some(s => c(s)) : c(accessType))) {
+    if (!req.user || (Array.isArray(accessType) ? !accessType.some(s => c(s)) : c(accessType))) {
         res.status(403).json({message: 'Forbidden'});
         return false
     }

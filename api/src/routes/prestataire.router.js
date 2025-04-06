@@ -263,6 +263,7 @@ routerPresta.patch(
     "/:prestataire_id",
     authenticateToken,
     async (req, res) => {
+        console.log(req.user)
         if (!checkAccess(req, res, ["prestataire", "admin"])) return;
 
         const {prestataire_id} = req.params;
