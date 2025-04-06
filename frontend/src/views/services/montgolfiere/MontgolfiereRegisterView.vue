@@ -35,7 +35,7 @@
                     'text-indigo-500': index % 3 === 2
                   }"
                 >•</span>
-                                Montgolfière activée : {{ montgolfiere.enabled ? "Oui" : "Non" }}
+                                Montgolfière active : {{ montgolfiere.enabled ? "Oui" : "Non" }}
                             </li>
                             <li class="flex items-center text-gray-400">
                 <span class="mr-2 animate-pulse"
