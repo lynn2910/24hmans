@@ -37,7 +37,8 @@
             </router-link>
             <router-link :to="{ name: 'karting_list' }"><p>{{ $t('footer.karting') }}</p>
             </router-link>
-            <router-link to="/montgolfieres"><p class="text-gray-400">{{ $t('footer.montgol') }}</p></router-link>
+            <router-link :to="{ name: 'montgolfiere_list' }"><p>{{ $t('footer.montgol') }}</p>
+            </router-link>
             <router-link :to="{ name: 'shop_list' }"><p>{{ $t('footer.boutique') }}</p>
             </router-link>
           </div>
