@@ -15,6 +15,36 @@ L'application propose des fonctionnalités interactives, telles
 qu'une carte interactive des emplacements, des statistiques sur l'affluence, et la gestion des services pour chaque
 prestataire.
 
+## Avertissement
+
+N'ouvrez **SURTOUT PAS** le fichier `api/prisma/fullData.sql` sur tout IDE intelligent (notamment les IDE jetbrains) qui
+ont tendance à indexer le code: vous allez faire planter le logiciel.
+
+Si vous souhaitez lire le contenu, utilisez `less` ou un _bloc note_.
+
+<details>
+    <summary><strong>Pourquoi il ne faut pas l'ouvrir?</strong></summary>
+
+Le contenu du fichier `fullData.sql` a été généré **automatiquement** avec le
+script [api/export_db.js](./api/export_db.js).
+Ce script fait deux choses:
+
+- Il génère une arborescence des dépendances de tables (ex. `BoutiqueArticles` dépend de `Boutique` et
+  `BoutiqueCategory`, qui dépendent de `Prestataire`, etc.
+  C'est primordial pour pouvoir générer d'énormes jeux de
+  donnés et pouvoir les exporter simplement, sans devoir se battre à chaque fois pour les insérer dans le bon order).
+- Récupère toutes les données de la base de donnée **MariaDB** et va automatiquement générer les scripts d'insertions.
+
+Le script SQL résultant possède donc toutes les données de la base de donnée, y compris les points de la carte (qui se
+comptent en milliers).
+Aucun éditeur intelligent de JetBrains n'a été capable d'ouvrir le fichier à la fin du projet (chez les cinq étudiants
+de l'équipe projet), y compris sur des machines assez puissantes pour faire tourner deux machines virtuelles Android et
+trois éditeurs JetBrains sans broncher, ce qui relève d'une ironie extrème.
+
+_Vous pouvez l'ouvrir, mais à vos risques et périls de devoir redémarrer votre éditeur de code._
+
+</details>
+
 ## Variables d'environnement
 
 Structure du fichier `api/.env`:
