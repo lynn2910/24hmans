@@ -4,49 +4,51 @@
       {{ $t('dashboards.client.karting') }}
     </h1>
 
-    <div v-if="userSessions.length > 0" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <div
-          v-for="reservation in sortedReservations"
-          :key="reservation.reservation_id"
-          class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
-      >
-        <div class="p-5">
-          <!-- En-tête avec nom du circuit -->
-          <div class="flex justify-between items-start mb-3">
-            <h3 class="text-xl font-bold text-gray-800 dark:text-white">
-              {{ reservation.circuit.circuit_name }}
-            </h3>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold"
-                  :class="reservation.circuit.kart_power < 200 ? 'bg-blue-100 text-blue-800' :
-                         reservation.circuit.kart_power < 300 ? 'bg-purple-100 text-purple-800' :
-                         'bg-red-100 text-red-800'">
-              {{ reservation.circuit.kart_power }} CC
-            </span>
-          </div>
-
-          <!-- Détails de la session -->
-          <div class="space-y-3">
-            <div class="text-gray-600 dark:text-gray-300">
-              <span class="font-medium">Date:</span> {{ formatDate(reservation.session.from_date) }}
-            </div>
-            <div class="text-gray-600 dark:text-gray-300">
-              <span class="font-medium">Horaire:</span> {{ formatTime(reservation.session.from_date) }} -
-              {{ formatTime(reservation.session.to_date) }}
-            </div>
-            <div class="text-gray-600 dark:text-gray-300">
-              <span class="font-medium">Durée:</span>
-              {{ calculateDuration(reservation.session.from_date, reservation.session.to_date) }} min
+    <div v-if="userSessions.length > 0" class="overflow-y-auto max-h-[calc(100vh-200px)]">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 pt-5 pb-4">
+        <div
+            v-for="reservation in sortedReservations"
+            :key="reservation.reservation_id"
+            class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
+        >
+          <div class="p-5">
+            <!-- En-tête avec nom du circuit -->
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold text-gray-800 dark:text-white">
+                {{ reservation.circuit.circuit_name }}
+              </h3>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold"
+                    :class="reservation.circuit.kart_power < 200 ? 'bg-blue-100 text-blue-800' :
+                           reservation.circuit.kart_power < 300 ? 'bg-purple-100 text-purple-800' :
+                           'bg-red-100 text-red-800'">
+                {{ reservation.circuit.kart_power }} CC
+              </span>
             </div>
 
-            <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+            <!-- Détails de la session -->
+            <div class="space-y-3">
               <div class="text-gray-600 dark:text-gray-300">
-                <span class="font-medium">Pseudo:</span> {{ reservation.pseudo || 'Non spécifié' }}
+                <span class="font-medium">Date:</span> {{ formatDate(reservation.session.from_date) }}
               </div>
               <div class="text-gray-600 dark:text-gray-300">
-                <span class="font-medium">Âge minimum:</span> {{ reservation.circuit.minAge }} ans
+                <span class="font-medium">Horaire:</span> {{ formatTime(reservation.session.from_date) }} -
+                {{ formatTime(reservation.session.to_date) }}
               </div>
               <div class="text-gray-600 dark:text-gray-300">
-                <span class="font-medium">Places restantes:</span> {{ reservation.session.maxSize }}
+                <span class="font-medium">Durée:</span>
+                {{ calculateDuration(reservation.session.from_date, reservation.session.to_date) }} min
+              </div>
+
+              <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div class="text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Pseudo:</span> {{ reservation.pseudo || 'Non spécifié' }}
+                </div>
+                <div class="text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Âge minimum:</span> {{ reservation.circuit.minAge }} ans
+                </div>
+                <div class="text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Places restantes:</span> {{ reservation.session.maxSize }}
+                </div>
               </div>
             </div>
           </div>
