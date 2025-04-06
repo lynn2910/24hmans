@@ -68,10 +68,10 @@
               </div>
 
               <div>
-                <label for="billet" class="block text-sm font-medium mb-2">{{
+                <label for="num_billet" class="block text-sm font-medium mb-2">{{
                     $t('services.ecurie.sign.ticket_number')
                   }}</label>
-                <input type="text" id="billet" v-model="form.billet" required
+                <input type="text" id="num_billet" v-model="form.num_billet" required
                        class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-500"/>
               </div>
 
@@ -89,24 +89,47 @@
 </template>
 
 <script>
+
+import { Request } from "@/services/axios.service";
+import EcurieService from "@/services/ecurie.service";
 export default {
   data() {
     return {
       form: {
-        nom: "",
-        prenom: "",
-        tel: "",
-        email: "",
-        billet: "",
+          ecurie_id: "",
+          prenom: "",
+          nom: "",
+          year: "",
+          tel: "",
+          email: "",
+          num_billet: "",
+          submitted_at: '',
+          is_winner: ""
       },
       messageConfirmation: "",
     };
   },
   methods: {
-    inscrire() {
+    async inscrire() {
+
+        const newParticipant = {
+            ecurie_id: 'd8d755cb-9aba-43f5-9546-14db654a1f06',
+            prenom: this.form.prenom,
+            nom: this.form.nom,
+            year: 2025,
+            email: this.form.email,
+            tel: this.form.tel,
+            num_billet: this.form.num_billet,
+            submitted_at: new Date().getDay(),
+            is_winner: false
+        };
+        console.log(this.year, 'lanneéé')
+        console.log(newParticipant, 'BUFVEZOBOFAEB')
+        const response = await EcurieService.addParticipant(newParticipant);
+        console.log(response, 'fbezjbfalae')
       this.messageConfirmation = `Merci, ${this.form.prenom} ${this.form.nom}, pour votre inscription !
       Un e-mail de confirmation a été envoyé à ${this.form.email}.`;
-      this.form = {nom: "", prenom: "", tel: "", email: "", billet: ""};
+      this.form = {nom: "", prenom: "", tel: "", email: "", num_billet: ""};
 
       window.scrollTo({top: 0, behavior: 'smooth'});
     },
