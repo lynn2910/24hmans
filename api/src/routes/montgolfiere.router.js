@@ -4,18 +4,14 @@ const router = express.Router();
 const MontgolfiereService = require("../services/montgolfiere.service");
 const {
     get_montgolfiere,
-    create_montgolfiere,
     get_montgolfiere_sessions,
-    get_montgolfiere_session,
     create_session,
     update_session,
     delete_session,
-    get_user_reservations,
     create_reservation,
-    update_reservation,
-    delete_reservation
 } = require("../services/montgolfiere.service");
 const {authenticateToken} = require("../middlewares/auth.middleware");
+const {checkAccess} = require("../utils");
 
 
 /**
@@ -73,8 +69,15 @@ const {authenticateToken} = require("../middlewares/auth.middleware");
  *   get:
  *     summary: Get Available Montgolfieres
  *     tags:
- *       - Montgolfiere
+ *       - Montgolfière
  *     description: Retrieves a list of available montgolfières.
+ *     parameters:
+ *       - in: query
+ *         name: sessionId
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Include if the user is authenticated and wants to view their own montgolfières.
  *     responses:
  *       200:
  *         description: List of available montgolfières retrieved successfully.
@@ -86,31 +89,35 @@ const {authenticateToken} = require("../middlewares/auth.middleware");
  *                 type: object
  *                 properties:
  *                   montgolfiere_id:
- *                     type: integer
- *                     description: The ID of the montgolfiere.
+ *                     type: string
+ *                     description: The ID of the montgolfière.
  *                   prestataire_id:
  *                     type: string
- *                     description: The ID of the prestataire associated with the montgolfiere.
+ *                     description: The ID of the prestataire associated with the montgolfière.
  */
 router.get("/available", async (req, res) => {
-    if (req.query.sessionId) {
-        await authenticateToken(req, res, async () => {
-            let available_montgolfieres = await MontgolfiereService.get_available_montgolfieres(req.session.userId);
-            res.status(200).json(available_montgolfieres);
-        });
-    } else {
-        let available_montgolfieres = await MontgolfiereService.get_available_montgolfieres();
-        res.status(200).json(available_montgolfieres);
+    try {
+        if (req.query.sessionId) {
+            await authenticateToken(req, res, async () => {
+                const availableMontgolfieres = await MontgolfiereService.get_available_montgolfieres(req.session.userId);
+                return res.status(200).json(availableMontgolfieres);
+            });
+        } else {
+            const availableMontgolfieres = await MontgolfiereService.get_available_montgolfieres();
+            return res.status(200).json(availableMontgolfieres);
+        }
+    } catch (err) {
+        console.error("Erreur lors de la récupération des montgolfières disponibles :", err);
+        return res.status(500).json({ message: "Erreur serveur." });
     }
 })
-
 /**
  * @swagger
  * /montgolfiere/{montgolfiere_id}:
  *   get:
  *     summary: Get Montgolfière Details
  *     tags:
- *       - Montgolfiere
+ *       - Montgolfière
  *     description: Retrieves detailed information about a specific montgolfière.
  *     parameters:
  *       - in: path
@@ -148,20 +155,20 @@ router.get("/available", async (req, res) => {
  *                   type: string
  *                   description: The error message.
  */
-router.get("/:montgolfiere_id/", async (req, res) => {
-    if (req.query.sessionId) {
+router.get("/:montgolfiere_id", async (req, res) => {
+    if (req.headers.authorization) {
         await authenticateToken(req, res, async () => {
             MontgolfiereService.get_montgolfiere(req.params.montgolfiere_id, req.session.userId)
                 .then(
                     (montgolfiere) => res.status(200).json(montgolfiere),
-                    ({status, message}) => res.status(status).json({message})
+                    ({ status, message }) => res.status(status).json({ message })
                 );
-        })
+        });
     } else {
         MontgolfiereService.get_montgolfiere(req.params.montgolfiere_id)
             .then(
                 (montgolfiere) => res.status(200).json(montgolfiere),
-                ({status, message}) => res.status(status).json({message})
+                ({ status, message }) => res.status(status).json({ message })
             );
     }
 })
@@ -171,18 +178,18 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  * @swagger
  * /montgolfiere/{montgolfiere_id}/sessions:
  *   get:
- *     summary: Get Montgolfiere Sessions
+ *     summary: Get Montgolfière Sessions
  *     tags:
- *       - Montgolfiere
- *     description: Retrieves all session slots associated with a specific montgolfiere.
+ *       - Montgolfière
+ *     description: Retrieves all session slots associated with a specific montgolfière.
  *     parameters:
  *       - in: path
  *         name: montgolfiere_id
- *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
  *         required: true
  *         schema:
  *           type: string
- *         description: The ID of the montgolfiere.
+ *         example: "1278aadd-b56a-458b-b8aa-ddb56a258bf8"
+ *         description: The ID of the montgolfière.
  *     responses:
  *       200:
  *         description: Session slots retrieved successfully.
@@ -193,7 +200,7 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  *               items:
  *                 $ref: '#/components/schemas/MontgolfiereSessionSlot'
  *       404:
- *         description: Montgolfiere not found.
+ *         description: Montgolfière not found.
  *         content:
  *           application/json:
  *             schema:
@@ -201,9 +208,8 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  *               properties:
  *                 message:
  *                   type: string
- *                   description: The error message.
  *               example:
- *                 message: "montgolfiere not found"
+ *                 message: "montgolfière not found"
  *       500:
  *         description: An error occurred while fetching session slots.
  *         content:
@@ -213,24 +219,103 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  *               properties:
  *                 message:
  *                   type: string
- *                   description: The error message.
  *               example:
  *                 message: "Error message details"
  *   post:
- *     summary: Create a Montgolfiere Session
+ *     summary: Create a Montgolfière Session
  *     security:
  *       - bearerAuth: []
  *     tags:
- *       - Montgolfiere
- *     description: Creates a new session slot for a specific montgolfiere.
+ *       - Montgolfière
+ *     description: Creates a new session slot for a specific montgolfière.
  *     parameters:
  *       - in: path
  *         name: montgolfiere_id
- *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
  *         required: true
  *         schema:
  *           type: string
- *         description: The ID of the montgolfiere.
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         description: The ID of the montgolfière.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fromDate:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "2024-10-28T14:00:00.000Z"
+ *               toDate:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "2024-10-28T15:00:00.000Z"
+ *               maxSize:
+ *                 type: integer
+ *                 example: 10
+ *             required:
+ *               - fromDate
+ *               - toDate
+ *               - maxSize
+ *     responses:
+ *       200:
+ *         description: Session slot created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MontgolfiereSessionSlot'
+ *       404:
+ *         description: Montgolfière not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       409:
+ *         description: Missing required fields in the request body.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get(
+    "/:montgolfiere_id/sessions",
+    async (req, res) => {
+        try {
+            const sessions = await get_montgolfiere_sessions(req.params.montgolfiere_id);
+            res.status(200).json(sessions);
+        } catch (err) {
+            if (err.code === 'P2025') {
+                return res.status(404).json({message: "montgolfière not found"});
+            }
+            console.error(err);
+            res.status(500).json({message: err.message});
+        }
+    }
+);
+/**
+ * @swagger
+ * /montgolfiere/{montgolfiere_id}/sessions:
+ *   post:
+ *     summary: Create a Montgolfière Session
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Montgolfière
+ *     description: Creates a new session slot for a specific montgolfière.
+ *     parameters:
+ *       - in: path
+ *         name: montgolfiere_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "29e11c0e-ee8f-4ab2-91a0-31486c5aeb19"
+ *         description: The ID of the montgolfière.
  *     requestBody:
  *       content:
  *         application/json:
@@ -250,7 +335,7 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  *               maxSize:
  *                 type: integer
  *                 description: Maximum number of participants for the session.
- *                 example: 12
+ *                 example: 10
  *             required:
  *               - fromDate
  *               - toDate
@@ -262,8 +347,14 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/MontgolfiereSessionSlot'
+ *       401:
+ *         description: Access denied (montgolfière not found or unauthorized).
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
- *         description: Montgolfiere not found.
+ *         description: Montgolfière not found.
  *         content:
  *           application/json:
  *             schema:
@@ -281,36 +372,31 @@ router.get("/:montgolfiere_id/", async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
+router.post(
+    "/:montgolfiere_id/sessions",
+    authenticateToken,
+    async (req, res) => {
+        if (!checkAccess(req, res, "prestataire")) return;
 
-router.get("/:montgolfiere_id/sessions", async (req, res) => {
-    console.log("Requête pour les sessions de la montgolfière :", req.params.montgolfiere_id);
-    try {
-        const sessions = await get_montgolfiere_sessions(req.params.montgolfiere_id);
-        res.status(200).json(sessions);
-    } catch (err) {
-        if (err.code === 'P2025') {
-            return res.status(404).json({message: "montgolfiere not found"});
+        try {
+            const montgolfiere = await get_montgolfiere(req.params.montgolfiere_id, req.session?.userId || null);
+            if (!montgolfiere) {
+                return res.status(404).json({ message: "montgolfière not found" });
+            }
+
+            const { fromDate, toDate, maxSize } = req.body;
+            if (!fromDate || !toDate || !maxSize) {
+                return res.status(409).json({ message: "Missing fields" });
+            }
+
+            const session = await create_montgolfiere_session(req.params.montgolfiere_id, { fromDate, toDate, maxSize });
+            res.status(200).json(session);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: err.message });
         }
-        console.error(err);
-        res.status(500).json({message: err.message});
     }
-});
-
-router.post("/:montgolfiere_id/sessions", authenticateToken, async (req, res) => {
-    let montgolfiere = await get_montgolfiere(req.params.montgolfiere_id, req.session?.userId || null);
-    if (!montgolfiere) {
-        return res.status(404).json({message: "montgolfiere not found"});
-    }
-
-    let fields = ["fromDate", "toDate", "maxSize"];
-    if (!fields.every((f) => f in req.body)) {
-        return res.status(409).json({message: "Missing fields"});
-    }
-
-    const session = await create_session(req.params.montgolfiere_id, montgolfiere.reservation_app_id, req.body);
-    res.status(200).json(session);
-});
-
+);
 /**
  * @swagger
  * /montgolfiere/{montgolfiere_id}/sessions/{session_id}:

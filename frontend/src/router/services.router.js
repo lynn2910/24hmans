@@ -65,6 +65,6 @@ export default [
     {
         path: '/montgolfiere/:prestataire_name',
         name: "montgolfiere_view",
-        component: () => import('../views/services/montgolfiere/MontgolfiereDateView.vue')
+        component: () => import('../views/services/montgolfiere/MontgolfiereRegisterView.vue')
     }
 ]
