@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 py-8 mt-28">
+  <div class="max-w-7xl mx-auto px-4 py-8 mt-16">
     <div v-if="sessionsDate.length > 0">
       <h1 class="font-extrabold text-4xl text-center py-5 mx-auto mt-4 mb-12 text-white">Choisissez votre créneau</h1>
 

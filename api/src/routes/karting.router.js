@@ -719,7 +719,109 @@ router.get(
     }
 )
 
-// TODO: rajouter docu swagger
+/**
+ * @swagger
+ * /karting/{karting_id}/circuit/{circuit_id}/sessions/{session_id}:
+ *   patch:
+ *     summary: Update a Karting Session
+ *     tags:
+ *       - Karting
+ *     description: Updates an existing session slot for a specific karting circuit.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "1278aadd-b56a-458b-b8aa-ddb56a258bf8"
+ *         description: The ID of the karting center
+ *       - in: path
+ *         name: circuit_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "7c9c6893-7402-48df-9c68-937402f8df02"
+ *         description: The ID of the circuit
+ *       - in: path
+ *         name: session_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8"
+ *         description: The ID of the session to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fromDate:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "2025-04-01T14:00:00Z"
+ *                 description: New start date and time of the session
+ *               toDate:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "2025-04-01T15:00:00Z"
+ *                 description: New end date and time of the session
+ *               maxSize:
+ *                 type: integer
+ *                 example: 8
+ *                 description: New maximum number of participants
+ *     responses:
+ *       200:
+ *         description: Session updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/KartingSessionSlot'
+ *       400:
+ *         description: Invalid input data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               message: "Invalid date format"
+ *       401:
+ *         description: Unauthorized - Authentication required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       403:
+ *         description: Forbidden - Insufficient permissions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Karting, circuit or session not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               message: "karting not found"
+ *       409:
+ *         description: Conflict with existing sessions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               message: "Time slot overlaps with existing session"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.patch(
     "/:karting_id/circuit/:circuit_id/sessions/:session_id",
     async (req, res) => {
@@ -737,7 +839,112 @@ router.patch(
     }
 )
 
-// TODO: rajouter docu swagger
+/**
+ * @swagger
+ * /karting/{karting_id}/circuit/{circuit_id}/sessions/{session_id}/user/{user_id}:
+ *   post:
+ *     summary: Add user to a karting session
+ *     tags:
+ *       - Karting
+ *     description: Adds a specific user to an existing karting session with an optional pseudonym
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "1278aadd-b56a-458b-b8aa-ddb56a258bf8"
+ *         description: ID of the karting center
+ *       - in: path
+ *         name: circuit_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "7c9c6893-7402-48df-9c68-937402f8df02"
+ *         description: ID of the circuit
+ *       - in: path
+ *         name: session_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8"
+ *         description: ID of the session to join
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9"
+ *         description: ID of the user to add to the session
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pseudo:
+ *                 type: string
+ *                 example: "SpeedyGonzales"
+ *                 description: Optional pseudonym for the user in this session
+ *                 maxLength: 30
+ *             required:
+ *               - pseudo
+ *     responses:
+ *       200:
+ *         description: User successfully added to session
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/KartingSessionSlot'
+ *       400:
+ *         description: Invalid request (missing pseudo or invalid format)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: Unauthorized - Authentication required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       403:
+ *         description: Forbidden - User not allowed to join this session
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Session, circuit or user not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               message: "Session ou utilisateur not found"
+ *       409:
+ *         description: Conflict (session full, user already registered, etc.)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             examples:
+ *               sessionFull:
+ *                 value:
+ *                   message: "Session is already full"
+ *               alreadyRegistered:
+ *                 value:
+ *                   message: "User already registered in this session"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/:karting_id/circuit/:circuit_id/sessions/:session_id/user/:user_id", async (req, res) => {
         try {
             console.log("API - Ajout utilisateur à session:", req.params, req.body);
@@ -759,7 +966,69 @@ router.post("/:karting_id/circuit/:circuit_id/sessions/:session_id/user/:user_id
     }
 )
 
-// TODO: rajouter docu Swagger
+/**
+ * @swagger
+ * /karting/{karting_id}/circuit/{circuit_id}/sessions/{session_id}/user/{user_id}:
+ *   get:
+ *     summary: Get user sessions information
+ *     tags:
+ *       - Karting
+ *     description: Retrieves all session information for a specific user
+ *     parameters:
+ *       - in: path
+ *         name: karting_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "1278aadd-b56a-458b-b8aa-ddb56a258bf8"
+ *         description: ID of the karting center
+ *       - in: path
+ *         name: circuit_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "7c9c6893-7402-48df-9c68-937402f8df02"
+ *         description: ID of the circuit
+ *       - in: path
+ *         name: session_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8"
+ *         description: ID of the session
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9"
+ *         description: ID of the user to get sessions for
+ *     responses:
+ *       200:
+ *         description: User sessions retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/KartingSessionSlot'
+ *       404:
+ *         description: Karting, circuit, session or user not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               message: "karting not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *               example:
+ *                 message: "Error retrieving user sessions"
+ */
 router.get(
     "/:karting_id/circuit/:circuit_id/sessions/:session_id/user/:user_id",
     async (req, res) => {
