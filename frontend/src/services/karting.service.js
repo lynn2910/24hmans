@@ -52,6 +52,26 @@ async function getKartingSessions(karting_id, circuit_id) {
         .send();
 }
 
+async function putKartingSession(karting_id, session_id, circuit_id) {
+    if (!circuit_id) alert('getKartingSessions with circuit_id == null')
+    return await Request.patch(`/karting/${karting_id}/circuit/${circuit_id}/sessions/${session_id}`)
+        .send();
+}
+
+async function addUserKartingSession(karting_id, session_id, user_id, circuit_id, pseudo) {
+    return await Request.post(`/karting/${karting_id}/circuit/${circuit_id}/sessions/${session_id}/user/${user_id}`)
+        .body({pseudo})
+        .send();
+}
+
+async function getAllKartingSessions(user_id) {
+    let karting_id = "on s'en fou";
+    let circuit_id = "on s'en fou";
+    let session_id = "on s'en fou";
+    return await Request.get(`/karting/${karting_id}/circuit/${circuit_id}/sessions/${session_id}/user/${user_id}`)
+        .send();
+}
+
 async function createKartingSession(karting_id, circuit_id, session_details) {
     if (!circuit_id) alert('getKartingSessions with circuit_id == null')
     return await Request.post('/karting/:karting_id/circuit/:circuit_id/sessions')
@@ -87,11 +107,14 @@ export default {
     getAvailableKartings,
     getKarting,
     getAllCircuits,
+    putKartingSession,
+    getKartingSessions,
+    addUserKartingSession,
+    getAllKartingSessions,
     createKartingCircuit,
     getKartingCircuit,
     updateKartingCircuit,
     deleteCircuit,
-    getKartingSessions,
     createKartingSession,
     updateKartingSessions,
     deleteKartingSession,

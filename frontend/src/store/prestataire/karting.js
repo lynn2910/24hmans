@@ -5,6 +5,7 @@ export default {
     state: {
         circuits: [],
         sessionsDate: [],
+        userSessions: [],
     },
 
     mutations: {
@@ -19,6 +20,10 @@ export default {
 
         sessionsDate(state, sessions) {
             state.sessionsDate = sessions;
+        },
+
+        setUserSessions(state, userSessions) {
+            state.userSessions = userSessions;
         }
     },
 
@@ -37,52 +42,48 @@ export default {
         async getAllSessions({commit}, {kartingId, circuitId}) {
             try {
                 const res = await KartingService.getKartingSessions(kartingId, circuitId);
-                console.log(res.data);
-//                 les données qu'on a a partid 'ici:
-//                 0: Object { session_id: Getter & Setter, circuit_id: Getter & Setter, from_date: Getter & Setter, … }
-// ​​
-// __ob__: Object { shallow: false, mock: false, vmCount: 0, … }
-// ​​
-// circuit_id: "1a945660-cef6-4e73-9456-60cef62e734f"
-// ​​
-// from_date: "2025-04-03T10:00:00.000Z"
-// ​​
-// maxSize: 10
-// ​​
-// session_id: "69d8024b-1f61-4e29-9802-4b1f616e29b3"
-// ​​
-// to_date: "2025-04-03T10:15:00.000Z"
-// ​​
-// <get circuit_id()>: function reactiveGetter()​​
-// <set circuit_id()>: function reactiveSetter(newVal)​​
-// <get from_date()>: function reactiveGetter()​​
-// <set from_date()>: function reactiveSetter(newVal)​​
-// <get maxSize()>: function reactiveGetter()​​
-// <set maxSize()>: function reactiveSetter(newVal)​​
-// <get session_id()>: function reactiveGetter()​​
-// <set session_id()>: function reactiveSetter(newVal)​​
-// <get to_date()>: function reactiveGetter()​​
-// <set to_date()>: function reactiveSetter(newVal)​​
-// <prototype>: Object { … }
-// ​
-// 1: Object { session_id: Getter & Setter, circuit_id: Getter & Setter, from_date: Getter & Setter, … }
-// ​​
-// __ob__: Object { shallow: false, mock: false, vmCount: 0, … }
-// ​​
-// circuit_id: "1a945660-cef6-4e73-9456-60cef62e734f"
-// ​​
-// from_date: "2025-04-03T10:15:00.000Z"
-// ​​
-// maxSize: 10
-// ​​
-// session_id: "c4f6134c-d491-476c-b613-4cd491976c85"
-// ​​
-// to_date: "2025-04-03T10:30:00.000Z"
-// ​​
-// <get circuit_id()>: function reactiv
                 commit('sessionsDate', res.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des sessions:", error);
+            }
+        },
+
+        async getAllReservations({commit}, userId) {
+            try {
+                const res = await KartingService.getAllKartingSessions(userId);
+                commit('setUserSessions', res.data);
+            } catch (error) {
+                console.error("Erreur lors de la récupération des sessions:", error);
+            }
+        },
+
+        async putSession({commit}, {kartingId, sessionId, circuitId}) {
+            try {
+                const res = await KartingService.putKartingSession(
+                    kartingId,
+                    sessionId,
+                    circuitId
+                );
+                commit('sessionsDate', res.data);
+            } catch (error) {
+                console.error("Erreur lors de la modification de la session:", error);
+                throw error;
+            }
+        },
+
+        async addUserSession({commit}, {karting_id, sessionId, userId, circuitId, newSessionUser}) {
+            try {
+                const res = await KartingService.addUserKartingSession(
+                    karting_id,
+                    sessionId,
+                    userId,
+                    circuitId,
+                    newSessionUser,
+                );
+                console.log(res.data);
+                commit('setUserSessions', res.data);
+            } catch (error) {
+                console.error("Erreur avec l'ajout de session user:", error);
             }
         }
     },

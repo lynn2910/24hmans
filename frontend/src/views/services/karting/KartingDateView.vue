@@ -18,13 +18,20 @@
             <div
                 v-for="session in day.sessions"
                 :key="session.session_id"
-                @click="navigateToResume(session.session_id)"
-                class="p-3 bg-dark/50 rounded-md border border-gray-600 hover:border-blue-400 transition-colors cursor-pointer"
+                @click="session.maxSize > 0 ? navigateToResume(session.session_id) : null"
+                :class="{
+                  'p-3 rounded-md border transition-colors cursor-pointer': true,
+                  'bg-dark/50 border-gray-600 hover:border-blue-400': session.maxSize > 0,
+                  'bg-gray-900/30 border-gray-700 text-gray-500': session.maxSize <= 0
+                }"
             >
-              <div class="text-sm font-medium text-gray-200">
+              <div class="text-sm font-medium"
+                   :class="{'text-gray-200': session.maxSize > 0, 'text-gray-500': session.maxSize <= 0}">
                 {{ formatTime(session.from_date) }} - {{ formatTime(session.to_date) }}
+                <span v-if="session.maxSize <= 0" class="text-xs ml-2">(COMPLET)</span>
               </div>
-              <div class="text-xs text-gray-400 mt-1">
+              <div class="text-xs mt-1"
+                   :class="{'text-gray-400': session.maxSize > 0, 'text-gray-500': session.maxSize <= 0}">
                 Places disponibles : {{ session.maxSize }}
               </div>
             </div>

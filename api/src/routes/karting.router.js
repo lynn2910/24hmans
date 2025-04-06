@@ -12,7 +12,10 @@ const {
     get_karting_session,
     update_session,
     delete_session,
-    create_reservation
+    create_reservation,
+    update_karting_session,
+    add_user_session,
+    get_all_sessions_user
 } = require("../services/karting.service");
 const {authenticateToken} = require("../middlewares/auth.middleware");
 const {checkAccess} = require("../utils");
@@ -715,6 +718,66 @@ router.get(
         }
     }
 )
+
+// TODO: rajouter docu swagger
+router.patch(
+    "/:karting_id/circuit/:circuit_id/sessions/:session_id",
+    async (req, res) => {
+        try {
+            const kart = await update_karting_session(req.params.session_id, req.params.circuit_id);
+            res.status(200).json(kart);
+        } catch (err) {
+            if (err.code === 'P2025') {
+                return res.status(404).json({message: "karting not found"});
+            }
+
+            console.error(err);
+            res.status(500).json({message: err.message});
+        }
+    }
+)
+
+// TODO: rajouter docu swagger
+router.post("/:karting_id/circuit/:circuit_id/sessions/:session_id/user/:user_id", async (req, res) => {
+        try {
+            console.log("API - Ajout utilisateur à session:", req.params, req.body);
+            const kart = await add_user_session(
+                req.params.session_id,
+                req.params.circuit_id,
+                req.params.user_id,
+                req.body.pseudo
+            );
+            res.status(200).json(kart);
+        } catch (err) {
+            if (err.code === 'P2025') {
+                return res.status(404).json({message: "Session ou utilisateur not found"});
+            }
+
+            console.error(err);
+            res.status(500).json({message: err.message});
+        }
+    }
+)
+
+// TODO: rajouter docu Swagger
+router.get(
+    "/:karting_id/circuit/:circuit_id/sessions/:session_id/user/:user_id",
+    async (req, res) => {
+        try {
+            console.log("router api ", req.params.user_id);
+            const kart = await get_all_sessions_user(req.params.user_id);
+            res.status(200).json(kart);
+        } catch (err) {
+            if (err.code === 'P2025') {
+                return res.status(404).json({message: "karting not found"});
+            }
+
+            console.error(err);
+            res.status(500).json({message: err.message});
+        }
+    }
+)
+
 
 /**
  * @swagger

@@ -82,6 +82,125 @@ function get_karting(karting_id, prestataire_id = null) {
     })
 }
 
+function update_karting_session(session_id, circuit_id) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log(session_id, circuit_id);
+            // Vérifie d'abord si la session existe et a des places disponibles
+            const session = await prisma.kartingSessionSlot.findUnique({
+                where: {
+                    session_id: session_id,
+                    circuit_id: circuit_id
+                },
+                select: {
+                    maxSize: true
+                }
+            });
+
+            if (!session) {
+                return reject({status: 404, message: "Session non trouvée"});
+            }
+
+            if (session.maxSize <= 0) {
+                return reject({status: 400, message: "Plus de places disponibles"});
+            }
+
+            // Met à jour la session en décrémentant maxSize
+            const updatedSession = await prisma.kartingSessionSlot.update({
+                where: {
+                    session_id: session_id,
+                    circuit_id: circuit_id
+                },
+                data: {
+                    maxSize: {
+                        decrement: 1
+                    }
+                },
+                include: {
+                    circuit: true
+                }
+            });
+
+            return resolve(updatedSession);
+        } catch (err) {
+            console.error(err);
+            return reject({status: 500, message: err.message});
+        }
+    });
+}
+
+async function add_user_session(session_id, circuit_id, user_id, pseudo) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (user_id.length > 36) {
+                return reject({status: 400, message: "L'ID utilisateur est trop long"});
+            }
+            if (session_id.length > 36) {
+                return reject({status: 400, message: "L'ID de session est trop long"});
+            }
+            if (circuit_id.length > 36) {
+                return reject({status: 400, message: "L'ID de circuit est trop long"});
+            }
+
+            console.log("tous les params font 36 !")
+
+            const session = await prisma.kartingSessionSlot.findUnique({
+                where: {session_id},
+                select: {maxSize: true}
+            });
+
+            if (!session) {
+                return reject({status: 404, message: "Session non trouvée"});
+            }
+
+            if (session.maxSize <= 0) {
+                return reject({status: 400, message: "Plus de places disponibles"});
+            }
+
+            const reservation = await prisma.userKartingReservation.create({
+                data: {
+                    pseudo: pseudo || null,
+                    session_id: session_id,
+                    user_id: user_id,
+                    circuit_id: circuit_id,
+                },
+                include: {
+                    session: true,
+                    user: true,
+                    circuit: true
+                }
+            });
+
+            resolve(reservation);
+        } catch (err) {
+            console.error("Erreur création réservation:", err);
+            reject(err);
+        }
+    });
+}
+
+function get_all_sessions_user(user_id) {
+    return new Promise(async (resolve, reject) => {
+
+        try {
+            let userSessions = await prisma.userKartingReservation.findMany({
+                where: {
+                    user_id: user_id,
+                },
+                include: {
+                    session: true,
+                    circuit: true,
+                    user: true
+                }
+            });
+            return resolve(userSessions);
+        } catch (err) {
+            console.error(err)
+            return reject({status: 500, message: err.message});
+        }
+    })
+}
+
 function create_karting(prestataire_id) {
     return new Promise(async (resolve, reject) => {
         const reservation_app = await prisma.reservationApp.create({
@@ -331,6 +450,7 @@ module.exports = {
     delete_circuit,
 
     get_karting_sessions,
+    update_karting_session,
     get_karting_session,
     create_session,
     update_session,
@@ -339,5 +459,7 @@ module.exports = {
     get_user_reservations,
     create_reservation,
     update_reservation,
-    delete_reservation
+    delete_reservation,
+    add_user_session,
+    get_all_sessions_user
 }
