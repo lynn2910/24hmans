@@ -9,7 +9,7 @@
         <div
             v-for="reservation in sortedReservations"
             :key="reservation.reservation_id"
-            class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
+            class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-600 hover:shadow-lg transition-shadow"
         >
           <div class="p-5">
             <!-- En-tête avec nom du circuit -->
