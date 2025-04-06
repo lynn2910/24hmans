@@ -6,7 +6,6 @@ async function getBilletterie(prestataire_id) {
         const billetterie = await prisma.billetteries.findFirst({
             where: {prestataire_id: prestataire_id},
             include: {
-                billetterie_id: true,
                 BilletterieCategories: true,
                 BilletterieForfaits: true,
                 BilletteriePersonnes: true,
@@ -20,27 +19,32 @@ async function getBilletterie(prestataire_id) {
     }
 }
 
-async function getBilletterieId(prestataire_id) {
-    try {
-        const billetterie = await prisma.billetteries.findFirst({
-            where: {prestataire_id: prestataire_id},
-            select: {
-                billetterie_id: true // On sélectionne seulement l'ID ici
-                // Vous pouvez ajouter d'autres champs si nécessaire
-            }
-        });
-        return billetterie?.billetterie_id; // Retourne directement l'ID
-    } catch (error) {
-        console.error("Error fetching billetterie:", error);
-        throw error;
-    }
+// Fonction pour récupérer les catégories
+async function getBilletterieCategories(prestataire_id) {
+    return await prisma.billetterieCategories.findMany({
+        where: {billetterie_id: prestataire_id}
+    });
 }
+
+// Fonction pour récupérer les forfaits
+async function getBilletterieForfaits(prestataire_id) {
+    return await prisma.billetterieForfaits.findMany({
+        where: {billetterie_id: prestataire_id}
+    });
+}
+
+// Fonction pour récupérer les types de personnes
+async function getBilletteriePersonnes(prestataire_id) {
+    return await prisma.billetteriePersonnes.findMany({
+        where: {billetterie_id: prestataire_id}
+    });
+}
+
 
 async function createNewOrder(userId, orderData) {
     try {
 
         const id = (await prisma.tickets.findMany()).length + 1
-        console.log(JSON.stringify(orderData, null, 2))
         const ticket = await prisma.tickets.create({
             data: {
                 ticket_id: id,
@@ -101,6 +105,8 @@ async function createNewOrder(userId, orderData) {
 
 module.exports = {
     getBilletterie,
-    getBilletterieId,
+    getBilletterieCategories,
+    getBilletterieForfaits,
+    getBilletteriePersonnes,
     createNewOrder
 }

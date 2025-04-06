@@ -1,5 +1,10 @@
 const {Router} = require("express");
-const {getBilletterie} = require("../services/billetterie.service");
+const {
+    getBilletterie,
+    getBilletterieCategories,
+    getBilletterieForfaits,
+    getBilletteriePersonnes,
+} = require("../services/billetterie.service");
 
 const routerBilletterie = new Router();
 const {authenticateToken} = require("../middlewares/auth.middleware");
@@ -100,6 +105,36 @@ routerBilletterie.get("/:prestataire_name", async (req, res) => {
         res.status(404).json({message: "billetterie not found"});
     }
 });
+
+routerBilletterie.get("/:prestataire_name/categories", async (req, res) => {
+    try {
+        const categories = await getBilletterieCategories(req.params.prestataire_id);
+        res.status(200).json(categories);
+    } catch (error) {
+        res.status(500).json({message: "Internal server error"});
+    }
+});
+
+// Récupérer seulement les forfaits
+routerBilletterie.get("/:prestataire_name/forfaits", async (req, res) => {
+    try {
+        const forfaits = await getBilletterieForfaits(req.params.prestataire_id);
+        res.status(200).json(forfaits);
+    } catch (error) {
+        res.status(500).json({message: "Internal server error"});
+    }
+});
+
+// Récupérer seulement les types de personnes
+routerBilletterie.get("/:prestataire_name/personnes", async (req, res) => {
+    try {
+        const personnes = await getBilletteriePersonnes(req.params.prestataire_id);
+        res.status(200).json(personnes);
+    } catch (error) {
+        res.status(500).json({message: "Internal server error"});
+    }
+});
+
 
 /**
  * @swagger
@@ -232,13 +267,13 @@ routerBilletterie.post("/:billetterie_id/@me/orders", authenticateToken, async (
     const billetterieId = req.params.billetterie_id;
 
     let is_body_invalid = (
-        typeof billetterieId !== 'string' ||
+        typeof billetterieId !== 'number' ||
         typeof raw_order.category !== 'object' ||
         typeof raw_order.category.category_id !== 'number' ||
         !Array.isArray(raw_order.date) ||
-        raw_order.date.some(d => typeof d.forfait_id !== 'number') ||
+        raw_order.date.some(d => typeof d.forfait_id !== 'object') ||
         !Array.isArray(raw_order.nbPersonnes) ||
-        raw_order.nbPersonnes.some(p => typeof p.personne_type_id !== 'number' || typeof p.quantity !== 'number')
+        raw_order.nbPersonnes.some(p => typeof p.personne_type_id !== 'object' || typeof p.quantity !== 'number')
     );
 
     if (!is_body_invalid) {

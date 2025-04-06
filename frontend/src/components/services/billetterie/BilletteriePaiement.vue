@@ -88,18 +88,7 @@ export default {
                     const errorMsg = response.data?.message || "Erreur lors de la création de commande";
                     throw new Error(errorMsg);
                 }
-
-                // Extraction robuste de l'ID de commande
-                const orderId = response.data?.order_id || response.data?.id;
-                if (!orderId) {
-                    console.error("Structure de réponse inattendue:", response);
-                    throw new Error("La commande a été créée mais aucun ID n'a été retourné");
-                }
-
-                await this.$router.push({
-                    name: "client_panel_orders",
-                    query: {order_id: orderId}
-                });
+                
 
             } catch (error) {
                 console.error("Erreur lors de la création de commande:", {

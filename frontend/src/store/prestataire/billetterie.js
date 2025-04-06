@@ -51,7 +51,6 @@ export default {
             commit('setSelectedPersonnes', personnes);
         },
         async getBilletterie({commit}, prestataire_name) {
-            console.log(" Récupération des informations pour :", prestataire_name);
 
             try {
                 const data = await BilletterieService.getBilletterieInformations(prestataire_name);

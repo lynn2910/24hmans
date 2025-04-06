@@ -12,7 +12,7 @@
     "@turf/turf": "^7.2.0",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "apexcharts": "^4.3.0",
-    "axios": "^1.7.7",
+    "axios": "^1.8.4",
     "bcryptjs": "^2.4.3",
     "core-js": "^3.8.3",
     "imask": "^7.6.1",
