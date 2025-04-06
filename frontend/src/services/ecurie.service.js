@@ -21,8 +21,20 @@ async function tirageAuSort(presta_id, year, count = 10) {
         .send();
 }
 
+async function deleteWinner(){
+    return Request.delete()
+}
+
+
+async function addParticipant(newParticipant) {
+    return Request.post('/ecurie/participants/inscriptions')
+        .body(newParticipant)
+        .send()
+}
 export default {
     getAllEcurieParticipants,
     tirageAuSort,
-    YearsRecup
+    YearsRecup,
+    deleteWinner,
+    addParticipant,
 }
