@@ -44,9 +44,8 @@ export default {
     methods: {
         ...mapActions('billetterie', ['getBilletterie']),
         showErrorNotification(message) {
-            // Implémentez votre système de notification ici
             console.error("Notification:", message);
-            alert(message); // Solution temporaire
+            alert(message);
         },
 
         async buildNewOrder() {
@@ -78,7 +77,7 @@ export default {
             try {
                 console.log("Données envoyées au serveur:", JSON.stringify(preparation, null, 2));
 
-                const response = await BilletterieService.newOrder(prestataire, preparation);
+                const response = await BilletterieService.newOrder(this.prestataire, preparation);
                 console.log("Réponse du serveur:", response);
 
                 if (!response) {
