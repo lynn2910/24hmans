@@ -28,7 +28,7 @@ export default {
 
     computed: {
         ...mapState("login", ["loggedInUser"]),
-        ...mapState('billetterie', ["selectedDates", "selectedCategory", "selectedPersonnes", "prestataire"]),
+        ...mapState('billetterie', ["selectedDates", "selectedCategory", "selectedPersonnes", "billetterie_id"]),
     },
 
     data() {
@@ -39,6 +39,7 @@ export default {
 
     beforeMount() {
         this.getBilletterie()
+
     },
 
     methods: {
@@ -55,13 +56,11 @@ export default {
             }
 
 
-            console.log("les info : ", this.selectedCategory, this.selectedDates, this.selectedPersonnes)
-
-
             if (!this.selectedCategory || this.selectedDates.length === 0 || this.selectedPersonnes.length === 0) {
                 this.showErrorNotification("Veuillez compléter toutes les étapes de réservation");
                 return;
             }
+
 
             const preparation = {
                 user_id: this.loggedInUser.id,
@@ -77,7 +76,7 @@ export default {
             try {
                 console.log("Données envoyées au serveur:", JSON.stringify(preparation, null, 2));
 
-                const response = await BilletterieService.newOrder(this.prestataire, preparation);
+                const response = await BilletterieService.newOrder(this.billetterie_id, preparation);
                 console.log("Réponse du serveur:", response);
 
                 if (!response) {
@@ -103,7 +102,7 @@ export default {
                 });
 
             } catch (error) {
-                console.error("Erreur lors de la création de commande:", {// Problème à ce niveau
+                console.error("Erreur lors de la création de commande:", {
                     error: error.message,
                     stack: error.stack,
                     response: error.response?.data

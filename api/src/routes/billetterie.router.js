@@ -92,9 +92,8 @@ const {checkAccess} = require("../utils");
  *                   type: string
  *                   example: billetterie not found*/
 routerBilletterie.get("/:prestataire_name", async (req, res) => {
-    let billetterie = await getBilletterie(req.params.billetterie_id);
-    if (!billetterie) billetterie = await getBilletterie(req.params.billetterie_id);
-
+    let billetterie = await getBilletterie(req.params.prestataire_id);
+    if (!billetterie) billetterie = await getBilletterie(req.params.prestataire_id);
     if (billetterie) {
         res.status(200).json(billetterie);
     } else {

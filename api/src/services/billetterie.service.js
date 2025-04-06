@@ -6,6 +6,7 @@ async function getBilletterie(prestataire_id) {
         const billetterie = await prisma.billetteries.findFirst({
             where: {prestataire_id: prestataire_id},
             include: {
+                billetterie_id: true,
                 BilletterieCategories: true,
                 BilletterieForfaits: true,
                 BilletteriePersonnes: true,
@@ -13,6 +14,22 @@ async function getBilletterie(prestataire_id) {
             },
         });
         return billetterie;
+    } catch (error) {
+        console.error("Error fetching billetterie:", error);
+        throw error;
+    }
+}
+
+async function getBilletterieId(prestataire_id) {
+    try {
+        const billetterie = await prisma.billetteries.findFirst({
+            where: {prestataire_id: prestataire_id},
+            select: {
+                billetterie_id: true // On sélectionne seulement l'ID ici
+                // Vous pouvez ajouter d'autres champs si nécessaire
+            }
+        });
+        return billetterie?.billetterie_id; // Retourne directement l'ID
     } catch (error) {
         console.error("Error fetching billetterie:", error);
         throw error;
@@ -82,4 +99,8 @@ async function createNewOrder(userId, orderData) {
     }
 }
 
-module.exports = {getBilletterie, createNewOrder}
+module.exports = {
+    getBilletterie,
+    getBilletterieId,
+    createNewOrder
+}
