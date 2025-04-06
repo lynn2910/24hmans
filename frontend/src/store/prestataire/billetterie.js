@@ -15,14 +15,12 @@ export default {
         selectedPersonnes: [],
 
         tickets: [],
-        loading: false,
-        error: null,
+
     },
 
     getters: {
         allTickets: (state) => state.tickets,
-        isLoadingTickets: (state) => state.loading,
-        ticketsError: (state) => state.error,
+
     },
 
     mutations: {
@@ -50,12 +48,7 @@ export default {
         setTickets(state, tickets) {
             state.tickets = tickets;
         },
-        setLoading(state, isLoading) {
-            state.loading = isLoading;
-        },
-        setError(state, error) {
-            state.error = error;
-        },
+
     },
     actions: {
         setBilletterieData({commit}, data) {
@@ -94,16 +87,13 @@ export default {
             }
         },
         async fetchTicketsByUser({commit}, userId) {
-            commit('setLoading', true);
             try {
-                const response = await axios.get(`/api/tickets/user/${userId}`);
+                const response = await BilletterieService.getTicketsUser(userId);
                 commit('setTickets', response.data);
             } catch (error) {
-                commit('setError', error);
-            } finally {
-                commit('setLoading', false);
+                console.error("Impossible de trouvé les tickets", error);
             }
-        },
+        }
 
     }
 

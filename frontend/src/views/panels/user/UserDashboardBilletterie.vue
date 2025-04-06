@@ -3,9 +3,8 @@
         <div class="tickets">
             <h2>Mes Tickets</h2>
 
-            <div v-if="isLoadingTickets">Chargement des tickets...</div>
-            <div v-else-if="ticketsError">Erreur : {{ ticketsError.message }}</div>
-            <div v-else-if="allTickets.length === 0">Aucun ticket trouvé.</div>
+
+            <div v-if="allTickets.length === 0">Aucun ticket trouvé.</div>
 
             <div v-else class="ticket-list">
                 <div
@@ -51,7 +50,7 @@ export default {
 
     computed: {
         ...mapState('login', ['loggedInUser']),
-        ...mapGetters('billetterie', ['allTickets', 'isLoadingTickets', 'ticketsError']),
+        ...mapGetters('billetterie', ['allTickets']),
     },
 
     methods: {

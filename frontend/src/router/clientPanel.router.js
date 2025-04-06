@@ -18,7 +18,7 @@ export default [
         meta: {hideNavbar: true}
     },
     {
-        path: "client/panel/ticket",
+        path: "/client/panel/ticket",
         name: "client_panel_billetterie",
         component: () => import('../views/panels/user/UserDashboardBilletterie.vue'),
         meta: {hideNavbar: true}
