@@ -23,7 +23,7 @@ async function newOrder(billetterie_id, order) {
 }
 
 async function getTicketsUser(user_id) {
-    return await Request.get(`user/${user_id}/tickets`)
+    return await Request.get(`/billetterie/users/${user_id}/tickets`)
         .send();
 }
 
