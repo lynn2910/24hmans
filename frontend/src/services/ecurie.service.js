@@ -21,8 +21,10 @@ async function tirageAuSort(presta_id, year, count = 10) {
         .send();
 }
 
-async function deleteWinner(){
-    return Request.delete()
+async function deleteWinner(ecuri_id){
+    return Request.delete('/:ecurie_id/participants')
+        .args(ecuri_id)
+        .send()
 }
 
 

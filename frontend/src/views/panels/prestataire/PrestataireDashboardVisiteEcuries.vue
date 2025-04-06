@@ -159,11 +159,6 @@ export default {
 				<h3 v-if="selectedParticipants.length > 0"
 						class="text-2xl font-semibold text-gray-800 mb-6 flex items-center justify-between">
 					Participants sélectionnés
-					<button @click="deleteSelection()"
-									v-if="selectedParticipants.length > 0"
-									class="bg-red-500 text-white py-2 px-4 rounded-full font-semibold text-sm transition-all hover:bg-red-600 transform hover:scale-105 shadow-md ml-4">
-						Effacer la sélection
-					</button>
 				</h3>
 				<ul v-if="selectedParticipants.length > 0" class="space-y-3">
 					<li v-for="(participant, index) in selectedParticipants" :key="index"
