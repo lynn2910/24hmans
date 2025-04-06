@@ -4,7 +4,7 @@ import {Request} from "./axios.service"
 async function getBilletterieInformations(prestataire_name) {
     console.log(prestataire_name)
     try {
-        const res = await Request.get(`/billetterie/${prestataire_name}`);
+        const res = await Request.get(`/billetterie/${prestataire_name}`).send();
 
         if (res && res.data) {
             return res.data;
@@ -23,5 +23,5 @@ async function newOrder(billetterie_id, order) {
 }
 
 export default {
-    getBilletterieInformations,newOrder
+    getBilletterieInformations, newOrder
 }

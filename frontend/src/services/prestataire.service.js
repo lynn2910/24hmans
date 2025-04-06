@@ -1,4 +1,3 @@
-import LocalSource from "@/datasource/controller"
 import {Request} from "@/services/axios.service";
 import {Selected} from "@/utils";
 
@@ -112,19 +111,23 @@ async function addPrestataireLink(presta_id, name, url) {
         .send()
 }
 
-
-async function getAllCategoryTicket(prestataire_id) {
-    return LocalSource.getAllCategoryTicket(prestataire_id);
+async function getAllCategoryTicket(prestataire_name) {
+    return Request.get("/billetterie/:prestataire_name/categories")
+        .args({prestataire_name})
+        .send();
 }
 
-async function getAllForfaitTicket(prestataire_id) {
-    return LocalSource.getAllForfaitTicket(prestataire_id);
+async function getAllForfaitTicket(prestataire_name) {
+    return Request.get("/billetterie/:prestataire_name/forfaits")
+        .args({prestataire_name})
+        .send();
 }
 
-async function getAllPersonneTicket(prestataire_id) {
-    return LocalSource.getAllPersonneTicket(prestataire_id);
+async function getAllPersonneTicket(prestataire_name) {
+    return Request.get("/billetterie/:prestataire_name/personnes")
+        .args({prestataire_name})
+        .send();
 }
-
 
 export default {
     getPrestataire,

@@ -19,11 +19,32 @@ async function getBilletterie(prestataire_id) {
     }
 }
 
+// Fonction pour récupérer les catégories
+async function getBilletterieCategories(prestataire_id) {
+    return await prisma.billetterieCategories.findMany({
+        where: {billetterie_id: prestataire_id}
+    });
+}
+
+// Fonction pour récupérer les forfaits
+async function getBilletterieForfaits(prestataire_id) {
+    return await prisma.billetterieForfaits.findMany({
+        where: {billetterie_id: prestataire_id}
+    });
+}
+
+// Fonction pour récupérer les types de personnes
+async function getBilletteriePersonnes(prestataire_id) {
+    return await prisma.billetteriePersonnes.findMany({
+        where: {billetterie_id: prestataire_id}
+    });
+}
+
+
 async function createNewOrder(userId, orderData) {
     try {
 
         const id = (await prisma.tickets.findMany()).length + 1
-        console.log(JSON.stringify(orderData, null, 2))
         const ticket = await prisma.tickets.create({
             data: {
                 ticket_id: id,
@@ -82,4 +103,10 @@ async function createNewOrder(userId, orderData) {
     }
 }
 
-module.exports = {getBilletterie, createNewOrder}
+module.exports = {
+    getBilletterie,
+    getBilletterieCategories,
+    getBilletterieForfaits,
+    getBilletteriePersonnes,
+    createNewOrder
+}

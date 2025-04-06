@@ -4,6 +4,7 @@ import BilletterieService from "@/services/billetterie.service";
 export default {
     namespaced: true,
     state: {
+        billetterie_id: null,
         category: [],
         date: [],
         nbPersonnes: [],
@@ -14,6 +15,9 @@ export default {
         selectedPersonnes: []
     },
     mutations: {
+        setBilletterieId(state, id) {
+            state.billetterie_id = id;
+        },
         getPrestataire(state, prestataire) {
             state.prestataire = prestataire
         },
@@ -47,18 +51,18 @@ export default {
             commit('setSelectedPersonnes', personnes);
         },
         async getBilletterie({commit}, prestataire_name) {
-            console.log(" Récupération des informations pour :", prestataire_name);
 
             try {
                 const data = await BilletterieService.getBilletterieInformations(prestataire_name);
                 console.log(JSON.stringify(data, null, 2))
 
                 if (data) {
-                    console.log("Données récupérées :", data);
                     commit("set_category", data.category);
                     commit("set_date", data.date);
                     commit("set_nbPersonnes", data.nbPersonnes);
                     commit("set_prestataire", data.prestataire);
+                    commit("setBilletterieId", data.billetterie_id);
+
                     return true;
                 } else {
                     console.error(" Aucune donnée reçue de l'API.");
