@@ -1,220 +1,148 @@
 const prisma = require("../db");
-const uuid = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 
+// 🔹 GET toutes les montgolfières disponibles (enabled ou appartenant au prestataire)
 function get_available_montgolfieres(prestataire_id = null) {
-    if (prestataire_id) {
-        return prisma.montgolfiere.findMany({
-            select: {
-                montgolfiere_id: true,
-                prestataire_id: true,
-            },
-            where: {
-                OR: [
-                    {
-                        enabled: {
-                            equals: true
-                        }
-                    },
-                    {
-                        prestataire_id: {
-                            equals: prestataire_id
-                        }
-                    }
-                ]
+    const where = prestataire_id
+        ? {
+            OR: [
+                { enabled: true },
+                { prestataire_id: prestataire_id }
+            ]
+        }
+        : { enabled: true };
+
+    return prisma.montgolfiere.findMany({
+        select: {
+            montgolfiere_id: true,
+            prestataire_id: true,
+        },
+        where,
+    });
+}
+
+// 🔹 GET une montgolfière (avec sessions)
+async function get_montgolfiere(montgolfiere_id, prestataire_id = null) {
+    try {
+        const montgolfiere = await prisma.montgolfiere.findUnique({
+            where: { montgolfiere_id },
+            include: {
+                sessions: true, // sessions directes
             }
-        })
-    } else {
-        return prisma.montgolfiere.findMany({
-            select: {
-                montgolfiere_id: true,
-                prestataire_id: true,
-            },
-            where: {
-                enabled: {
-                    equals: true
-                }
-            }
-        })
+        });
+
+        if (
+            !montgolfiere ||
+            (!montgolfiere.enabled && montgolfiere.prestataire_id !== prestataire_id)
+        ) {
+            throw { status: 401, message: "You don't have access to this montgolfiere" };
+        }
+
+        return montgolfiere;
+    } catch (err) {
+        console.error(err);
+        throw { status: 500, message: err.message };
     }
 }
 
-function get_montgolfiere(montgolfiere_id, prestataire_id = null) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let montgolfiere = await prisma.montgolfiere.findUnique({
-                where: {
-                    montgolfiere_id,
-                },
-                include: {
-                    reservations: {
-                        include: {
-                            reservation_slots: true,
-                        }
-                    }
-                }
-            });
-
-            if (
-                !montgolfiere
-                || (!montgolfiere.enabled && montgolfiere.prestataire_id !== prestataire_id)
-            ) {
-                return reject({status: 401, message: "You don't have access to this montgolfiere"});
-            }
-
-            return resolve(montgolfiere);
-        } catch (err) {
-            console.error(err)
-            return reject({status: 500, message: err.message});
-        }
-    })
-}
-
+// 🔹 CREATE montgolfière
 function create_montgolfiere(prestataire_id) {
-    return new Promise(async (resolve, reject) => {
-        const reservation_app = await prisma.montgolfiereReservationApp.create({
-            data: {
-                app_id: uuid.v4(),
-            }
-        });
-
-        const montgolfiere = await prisma.montgolfiere.create({
-            data: {
-                montgolfiere_id: uuid.v4(),
-                prestataire: {
-                    connect: { id: prestataire_id },
-                },
-                reservations: {
-                    connect: { app_id: reservation_app.app_id },
-                }
-            }
-        });
-
-        return resolve(montgolfiere);
-    })
+    return prisma.montgolfiere.create({
+        data: {
+            montgolfiere_id: uuidv4(),
+            prestataire: {
+                connect: { id: prestataire_id },
+            },
+        }
+    });
 }
 
+// 🔹 GET toutes les sessions d'une montgolfière
 function get_montgolfiere_sessions(montgolfiere_id) {
     return prisma.montgolfiereSessionSlot.findMany({
-        where: {
-            montgolfiere_id
-        },
-        include: {
-            session_slot: true,
-        },
-    })
+        where: { montgolfiere_id },
+    });
 }
 
-function create_session(montgolfiere_id, reservation_app_id, body) {
+// 🔹 CREATE session pour une montgolfière
+function create_session(montgolfiere_id, body) {
     return prisma.montgolfiereSessionSlot.create({
         data: {
-            session_id: uuid.v4(),
+            session_id: uuidv4(),
             montgolfiere: {
                 connect: { montgolfiere_id },
             },
-            session_slot: {
-                create: {
-                    reservation_id: uuid.v4(),
-                    app: {
-                        connect: {
-                            app_id: reservation_app_id
-                        }
-                    },
-                    from: body.fromDate,
-                    to: body.toDate,
-                    maxSize: body.maxSize,
-                }
-            }
+            from_date: body.fromDate,
+            to_date: body.toDate,
+            maxSize: body.maxSize,
         }
-    })
+    });
 }
 
-function get_montgolfiere_session(montgolfiere_id, session_id) {
+// 🔹 GET une session spécifique
+function get_montgolfiere_session(session_id) {
     return prisma.montgolfiereSessionSlot.findUnique({
-        where: {
-            session_id, montgolfiere_id
-        }
-    })
+        where: { session_id },
+    });
 }
 
-function update_session(montgolfiere_id, session_id, data) {
+// 🔹 UPDATE une session
+function update_session(session_id, data) {
     return prisma.montgolfiereSessionSlot.update({
+        where: { session_id },
         data: {
-            session_slot: {
-                update: {
-                    from: data.fromDate,
-                    to: data.toDate,
-                    maxSize: data.maxSize,
-                }
-            }
-        },
-        where: {
-            session_id,
-            montgolfiere_id
+            from_date: data.fromDate,
+            to_date: data.toDate,
+            maxSize: data.maxSize,
         }
-    })
+    });
 }
 
-function delete_session(montgolfiere_id, session_id) {
+// 🔹 DELETE une session
+function delete_session(session_id) {
     return prisma.montgolfiereSessionSlot.delete({
-        where: {
-            montgolfiere_id, session_id,
-        }
-    })
+        where: { session_id }
+    });
 }
 
+// 🔹 GET réservations d’un utilisateur
 function get_user_reservations(user_id) {
-    return prisma.userMontgolfiereSession.findMany({
-        where: {
-            user_id
-        },
+    return prisma.userMontgolfiereReservation.findMany({
+        where: { user_id },
         include: {
-            reservation_slot: true,
+            session: true,
         }
-    })
+    });
 }
 
-function create_reservation(reservation_id, user_id, pseudo) {
-    return prisma.userMontgolfiereSession.upsert({
-        create: {
+// 🔹 CREATE réservation
+function create_reservation(session_id, user_id, pseudo) {
+    return prisma.userMontgolfiereReservation.create({
+        data: {
             pseudo,
-            reservation_slot: {
-                connect: {session_id: reservation_id}
+            session: {
+                connect: { session_id }
             },
             user: {
-                connect: {user_id}
-            }
-        },
-        update: {
-            pseudo
-        },
-        where: {
-            user_id,
-            reservation_slot: {
-                session_id: reservation_id,
+                connect: { id: user_id }
             }
         }
-    })
+    });
 }
 
-function update_reservation(reservation_id, user_id, pseudo) {
-    return prisma.userMontgolfiereSession.update({
-        data: {
-            pseudo
-        },
-        where: {
-            user_id,
-            session_id: reservation_id,
-        }
-    })
+// 🔹 UPDATE réservation
+function update_reservation(reservation_id, pseudo) {
+    return prisma.userMontgolfiereReservation.update({
+        where: { reservation_id },
+        data: { pseudo }
+    });
 }
 
-function delete_reservation(user_id, user_reservation_id) {
-    return prisma.userMontgolfiereSession.delete({
-        where: {
-            user_id,
-            session_id: user_reservation_id,
-        }
-    })
+// 🔹 DELETE réservation
+function delete_reservation(reservation_id) {
+    return prisma.userMontgolfiereReservation.delete({
+        where: { reservation_id }
+    });
 }
 
 module.exports = {
@@ -230,4 +158,4 @@ module.exports = {
     create_reservation,
     update_reservation,
     delete_reservation
-}
+};

@@ -103,10 +103,50 @@ async function createNewOrder(userId, orderData) {
     }
 }
 
+async function getTicketsByUserId(userId) {
+    try {
+        const tickets = await prisma.tickets.findMany({
+            where: {
+                user_id: userId,
+            },
+            include: {
+                category: true, // Inclut les informations de la catégorie
+                forfait: {
+                    include: {
+                        forfait: true, // Inclut les informations du forfait (jour)
+                    },
+                },
+                personnes: {
+                    include: {
+                        personne: true, // Inclut les informations du type de personne
+                    },
+                },
+            },
+        });
+
+        // Formatte les données pour inclure les jours, le nombre de personnes et la catégorie
+        const formattedTickets = tickets.map((ticket) => ({
+            ticket_id: ticket.ticket_id,
+            category: ticket.category.category_label,
+            days: ticket.forfait.map((forfait) => forfait.forfait.forfait_label),
+            persons: ticket.personnes.map((personne) => ({
+                type: personne.personne.personne_label,
+                quantity: personne.quantity,
+            })),
+        }));
+
+        return formattedTickets;
+    } catch (error) {
+        console.error('Error fetching tickets:', error);
+        throw error;
+    }
+}
+
 module.exports = {
     getBilletterie,
     getBilletterieCategories,
     getBilletterieForfaits,
     getBilletteriePersonnes,
-    createNewOrder
+    createNewOrder,
+    getTicketsByUserId
 }

@@ -16,5 +16,11 @@ export default [
         name: "client_panel_karting",
         component: () => import( '../views/panels/user/UserDashboardKarting.vue'),
         meta: {hideNavbar: true}
+    },
+    {
+        path: "/client/panel/ticket",
+        name: "client_panel_billetterie",
+        component: () => import('../views/panels/user/UserDashboardBilletterie.vue'),
+        meta: {hideNavbar: true}
     }
 ]

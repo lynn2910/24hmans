@@ -12,8 +12,17 @@ export default {
 
         selectedCategory: null,
         selectedDates: [],
-        selectedPersonnes: []
+        selectedPersonnes: [],
+
+        tickets: [],
+
     },
+
+    getters: {
+        allTickets: (state) => state.tickets,
+
+    },
+
     mutations: {
         setBilletterieId(state, id) {
             state.billetterie_id = id;
@@ -35,7 +44,11 @@ export default {
         },
         setSelectedPersonnes(state, personnes) {
             state.selectedPersonnes = personnes;
-        }
+        },
+        setTickets(state, tickets) {
+            state.tickets = tickets;
+        },
+
     },
     actions: {
         setBilletterieData({commit}, data) {
@@ -72,7 +85,16 @@ export default {
                 console.error(" Erreur lors de la récupération des données :", error);
                 return false;
             }
+        },
+        async fetchTicketsByUser({commit}, userId) {
+            try {
+                const response = await BilletterieService.getTicketsUser(userId);
+                commit('setTickets', response.data);
+            } catch (error) {
+                console.error("Impossible de trouvé les tickets", error);
+            }
         }
+
     }
 
 };

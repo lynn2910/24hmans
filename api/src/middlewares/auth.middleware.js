@@ -16,6 +16,7 @@ function authenticateToken(req, res, next) {
         req.user.role = decoded.role.role;
         next();
     } catch (error) {
+        console.log(error)
         return res.sendStatus(403);
     }
 }

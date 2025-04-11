@@ -178,7 +178,7 @@ router.get(
     '/@me/orders',
     authenticateToken,
     async (req, res) => {
-        if (!checkAccess(req, res, ["user"])) return;
+        if (!checkAccess(req, res, "user")) return;
 
         let user = req.session?.user_id;
 
